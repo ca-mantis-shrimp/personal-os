@@ -613,13 +613,36 @@ mocked: NO real init/apply, Fedora account/SELinux/systemd/console/image/VM or
 update/rollback pass occurred. Disposable fixture data was removed. No publication,
 production changes, submodule advance or readiness marker creation occurred.
 
-Next complete the ROOT-side boot/maintenance controller: derive the enrolled user,
-revoke readiness and actually stop/wait for system and user dependents, execute the
-child as that user, handle failure/stop/retry without weakening management access,
-and reload/check runtime inputs before granting readiness. The child currently
-only REFUSES active workloads; it does not stop them or grant readiness. Keep
-automatic application disabled until complete fail-closed runtime handling and
-workload-specific private-listener/binary/secret guards exist. Then review inherited
+The owner subsequently authorized publishing both local prototypes; account
+commit `da3be00` and lifecycle commit `fa74ae0` were pushed to `origin/personal-os`.
+The existing dotfiles pin was already published and did not advance. This is source
+publication only, not an image release, signing or installation approval.
+
+Root-controller follow-up now stages `/usr/libexec/personal-os-configuration` and
+`personal-os-configuration.service`, explicitly DISABLED by preset. The controller
+revokes readiness, validates trusted runtime context/NSS identity, stops and verifies
+known system/user workloads (timer before service), then executes the existing
+child as the enrolled user using runuser and a clean environment. It never forwards
+manager enrollment credentials/tokens or runs home/source code as root. Active user
+managers are reloaded; stopping/verification is repeated after success and failure.
+Stop/query/reload errors block apply while other stops are still attempted. SSH,
+Tailscale and the user manager are not stopped; inactive user managers are not
+started for cleanup. Identity/bus failures require operator review and cannot
+prove all workloads stopped. The service uses control-group cancellation and
+ExecStopPost cleanup for failure, partial startup and stop; real cancellation and
+ordering still need a VM. Success NEVER grants readiness or starts workloads.
+
+Eighty-two offline tests pass, including controller ordering, child failure/retry,
+stop/verification/reload/enrollment failure, cleanup-only execution, missing/bad
+identity, symlink/lock protection, sanitized child invocation and mocked timeout
+process-group killing. Systemd/runuser/workload operations are fake; unit verification
+uses adapted temporary local paths. No real stop/start, init/apply, credential
+provision, image/VM, SELinux or rollback test occurred. This controller chunk remains
+local/unpublished and does not complete the lifecycle action.
+
+Next implement workload-specific private-listener/binary/runtime-secret gates,
+then readiness/health checks and reviewed controller activation. Keep automatic
+application disabled; do not create the marker manually. Then review inherited
 signing/encryption/recovery defaults before a fresh isolated image/VM pass. Test
 actual native CLI first boot, exact-directory deletion conflicts, partial apply,
 retry after power-loss windows, SELinux labels, updates/rollback, schema

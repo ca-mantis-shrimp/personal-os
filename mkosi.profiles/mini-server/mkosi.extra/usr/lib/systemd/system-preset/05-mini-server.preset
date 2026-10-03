@@ -2,6 +2,8 @@
 disable systemd-homed.service
 disable systemd-homed-firstboot.service
 enable personal-os-account.service
+# Deliberately manual VM/target testing only until workload input gates exist.
+disable personal-os-configuration.service
 # Use the conventional Fedora daemon, avoiding an early socket/enrollment cycle.
 disable sshd.socket
 disable ssh.socket

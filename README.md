@@ -169,8 +169,8 @@ No real SSH/console/sudo, SELinux, update or rollback pass is claimed.
 
 ## Target configuration lifecycle prototype
 
-The profile stages `/usr/libexec/personal-os-chezmoi`, but **no automatic unit
-invokes it yet**. Its CLI refuses root/builders, other users/profiles, incomplete
+The profile stages `/usr/libexec/personal-os-chezmoi` and a root-side
+`personal-os-configuration.service`, but **its preset explicitly disables startup**. Its CLI refuses root/builders, other users/profiles, incomplete
 account enrollment and non-enforcing SELinux. Actual target NSS/home, hostname
 and OS context drive chezmoi; no builder identity or template-data override is used.
 
@@ -201,11 +201,23 @@ allowlist is **not** application-schema compatibility evidence.
 
 The CLI requires readiness revoked and known system/user workloads already
 stopped before mutation. It does not stop them itself or create readiness after
-success. Root-side automatic startup/stop/retry control, runtime-secret and binary
-gates, service reload/health checks, adoption/recovery procedures and booted
-Fedora/SELinux/update/rollback testing remain outstanding. Keep automatic
-application disabled and never create the ready marker manually. The 62-test
-pass is offline synthetic/mocked evidence only, not an actual target apply.
+success. The root controller now revokes readiness, validates the runtime/NSS
+identity, synchronously stops/verifies known system/user workloads (timers first),
+and invokes the child through runuser with a clean target-user environment.
+It reloads active user managers and repeats stopping after both success and
+failure. Stop/query failures block apply; remaining stops are still attempted.
+It never stops SSH, Tailscale or the user manager, and does not start an inactive
+manager merely to stop jobs. Control-plane/identity failures need operator review;
+without a working bus it cannot prove all jobs actually stopped.
+
+The disabled oneshot unit supplies control-group cancellation and ExecStopPost
+cleanup, including partial startup failure. Its successful result means only
+configuration applied with workloads blocked, not service health or readiness.
+Runtime-secret/binary/private-listener gates, readiness/health checks,
+adoption/recovery procedures and booted Fedora/SELinux/update/rollback testing
+remain outstanding. Keep automatic application disabled and never create the
+ready marker manually. All 82 tests are offline synthetic/mocked evidence,
+not an actual target apply, runtime systemd stop or cancellation pass.
 
 ## Source and release boundaries
 
@@ -221,6 +233,9 @@ The dotfiles guard changes are published on
 With explicit owner approval, the agent pushed that branch first, then the OS
 `personal-os` branch at `7245209`, so another checkout can retrieve the exact
 gitlink. The dotfiles changes have not been merged into its other branches.
+The owner subsequently approved publication of the account/source-lifecycle
+prototypes; `da3be00` and `fa74ae0` were pushed to `origin/personal-os` without
+advancing the dotfiles pin. The controller follow-up is local work only.
 Future publication still requires approval; this source push does not authorize
 image releases, production signing or deployment.
 
