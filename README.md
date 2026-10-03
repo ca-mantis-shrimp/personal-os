@@ -7,8 +7,9 @@ implementation written from scratch.
 
 **Status: initial fork and handoff scaffold. Not ready to install.** The new
 server profile exports committed dotfiles into the factory image and has a
-target-only conventional-account prototype. First-boot chezmoi application and
-the trimmed storage/security policy are not implemented or validated yet.
+target-only conventional-account and chezmoi lifecycle prototypes. Automatic
+first-boot integration, workload readiness and the trimmed storage/security policy
+are not implemented or validated yet.
 
 ## The design
 
@@ -79,13 +80,17 @@ python3 -m unittest discover -s tests -v
 ```
 
 These checks cover configuration selection, synthetic source staging/rendering
-and account logic with a fake command/NSS backend, plus isolated sudoers syntax
-and unit verification. They do not establish package availability, actual account
+and account/source-lifecycle logic with fake command/NSS/chezmoi backends, plus
+isolated sudoers syntax and unit verification. Lifecycle tests never run real
+chezmoi init/apply. They do not establish package availability, actual account
 commands on Fedora, a booted SELinux pass or a working first-boot lifecycle.
 
 The profile finalize hook calls `scripts/stage-dotfiles.py` to export the gitlink
 recorded in OS `HEAD` into `/usr/share/personal-os/dotfiles/source`, with a revision
-file and per-entry SHA-256 manifest. Working-tree changes and an advanced submodule
+file, per-entry SHA-256 manifest and forward-transition policy. The policy contains
+only previous OS-recorded dotfiles pins proved ancestors of the new pin (bounded
+to 256 pin-changing OS commits); no Git history objects are exported. Missing
+shallow-clone ancestry is not guessed or fetched. Working-tree changes and an advanced submodule
 HEAD are not exported. Historical plans, archived/build trees and the committed
 rclone runtime environment file are excluded; internal source symlinks must point
 to included regular files. No chezmoi command runs during staging. The 115-entry
@@ -96,8 +101,7 @@ or a booted target pass. The package hook is now restricted to mutable Arch,
 with immutable environment/branding/marker guards. Retired rclone targets are
 ignored on immutable systems. Account provisioning and fail-closed workload
 ordering still need booted validation and completion before automatic target-side
-application. Changes
-to the gitlink must be committed in the OS repo to change the exported pin.
+application. Changes to the gitlink must be committed in the OS repo to change the exported pin.
 
 The server overlay **still inherits** upstream Secure Boot signing, TPM-encrypted
 Btrfs root and Btrfs home. Homed/homed-firstboot are now masked for this profile,
@@ -151,6 +155,9 @@ and subsequent boots without the original credentials; completed enrollment
 preserves edited authorized keys and passwords. Identity, hostname, protected
 path or sudo-policy changes require operator review rather than implicit repair.
 Do not delete the journal to force adoption or reset an established account.
+After success, enrollment publishes only username/UID/GID/hostname and schema
+version to root-owned `/run/personal-os/account-context.json`; no key/hash or
+workload-ready marker is published.
 
 Workload drop-ins currently require `/run/personal-os/chezmoi-ready`. Account
 success **does not** create that marker, so account readiness alone cannot start
@@ -159,6 +166,46 @@ guards only, not runtime stop/recovery handling. The future chezmoi lifecycle mu
 validate its pinned revision and runtime inputs, stop dependents on failed apply,
 and manage readiness deliberately; do not touch the marker to bypass that work.
 No real SSH/console/sudo, SELinux, update or rollback pass is claimed.
+
+## Target configuration lifecycle prototype
+
+The profile stages `/usr/libexec/personal-os-chezmoi`, but **no automatic unit
+invokes it yet**. Its CLI refuses root/builders, other users/profiles, incomplete
+account enrollment and non-enforcing SELinux. Actual target NSS/home, hostname
+and OS context drive chezmoi; no builder identity or template-data override is used.
+
+The helper verifies factory contents against the manifest, then maintains the
+user's writable `~/.local/share/chezmoi` and private
+`~/.local/state/personal-os/chezmoi.json`. Three-way comparison against the prior
+factory baseline promotes unedited paths, preserves unrelated edits/deletions,
+untracked files and Git metadata, and rejects conflicting edits before promotion.
+It never resets a checkout, recursively deletes directories or adopts an existing
+untracked source. Interrupted per-file promotion can retry; a private lock prevents
+parallel helper invocations. Coordinate manual editing during apply: this is not
+a whole-home transaction or a substitute for backups.
+
+Chezmoi generates configuration on the target into a private candidate. Divergent
+local config edits block replacement and retain the candidate for review. Apply
+uses `--less-interactive --error-on-conflict --force=false` and a dry-run preflight;
+pre-existing/edited targets must not be silently overwritten, including unmanaged
+files in exact directories. Command output is captured, not logged. Immutable and
+legacy container package-hook guards are set; other target template identity is
+real. No secrets are skipped to manufacture success.
+
+The applied revision/context is recorded only after full apply succeeds. Same
+pin/context boots do not blindly reapply. A target-context change requests another
+conflict-checked apply. Different pins require a forward ancestry allowlist entry;
+older/unrelated pins, unknown state schemas and changed payloads under the same
+pin fail for recovery/review, not automatic mutable-state downgrade. An ancestry
+allowlist is **not** application-schema compatibility evidence.
+
+The CLI requires readiness revoked and known system/user workloads already
+stopped before mutation. It does not stop them itself or create readiness after
+success. Root-side automatic startup/stop/retry control, runtime-secret and binary
+gates, service reload/health checks, adoption/recovery procedures and booted
+Fedora/SELinux/update/rollback testing remain outstanding. Keep automatic
+application disabled and never create the ready marker manually. The 62-test
+pass is offline synthetic/mocked evidence only, not an actual target apply.
 
 ## Source and release boundaries
 

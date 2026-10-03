@@ -558,8 +558,8 @@ identity/hostname/sudo changes fail for operator review, not silent repair. The
 SSH daemon and user manager require account success. Workloads have startup-only
 `ConditionPathExists=/run/personal-os/chezmoi-ready` guards; enrollment does not
 create that marker, so source autostarts stay gated. Do not bypass it manually.
-Runtime dependent-service stopping, secret readiness and chezmoi application are
-still unimplemented, not satisfied by account enrollment.
+Runtime dependent-service stopping, secret readiness and automatic chezmoi
+application are still incomplete, not satisfied by account enrollment.
 
 Thirty-two offline tests pass. Account/NSS/hostname/password/relabel operations use a
 fake backend and disposable synthetic files only; sudoers syntax was checked with
@@ -576,8 +576,54 @@ or console login, or a VM/update/rollback pass. The installer-to-credential-stor
 handoff also remains to be validated; do not manually create the user and expect
 implicit adoption. No host/server accounts, passwords, services, disks, credentials,
 platform source or submodule revision changed. All synthetic artifacts were removed.
-Next implement the safe target-side chezmoi lifecycle on top of this account
-foundation, then resolve inherited policy before a fresh isolated image/VM pass.
+Follow-up source lifecycle prototype now stages `/usr/libexec/personal-os-chezmoi`
+without an automatic startup unit. Enrollment publishes a root-owned, runtime-only
+account context (username/UID/GID/hostname/version, no keys/hash); the child CLI
+requires this identity, successful active enrollment and enforcing SELinux. Factory
+staging adds a policy containing only OS-recorded ancestor pin IDs, capped at 256
+pin-changing OS commits; missing shallow ancestry is not guessed or fetched. No
+Git history objects, live checkout state or credentials are exported.
+
+The user helper verifies the factory manifest and journals source promotion plus
+applied revision/context privately under `~/.local/state/personal-os`. Conservative
+file-level three-way source comparison preserves unrelated edits/deletions,
+untracked files and target Git metadata; conflicting edits fail before promotion.
+Atomic per-file writes and a helper lock support interrupted retries without a
+force reset. Chezmoi alone generates config/templates; local generated-config
+conflicts retain a private candidate for review. Native apply uses BOTH
+`--less-interactive` and `--error-on-conflict` with force/interactive disabled and
+a dry-run preflight: error-on-conflict alone does not protect previously unmanaged
+files. Output is captured/suppressed rather than exposing secret-bearing errors.
+The immutable and compatibility container package-hook guards are set, while
+actual target machine/distro/home template identity is retained.
+
+Successful apply records the revision only afterward; same pin/context boots do
+not reapply over edits. Context changes request another conflict-checked apply.
+Forward transitions require an OS-recorded ancestor allowlist entry; older or
+unrelated pins (including never-before-seen ones), unknown state schemas and
+changed exports under the same pin fail rather than downgrade mutable state.
+Ancestry is not application-schema compatibility proof. Coordinate editing during
+apply; this is not a whole-home transaction, application-state backup or restore.
+
+Sixty-two offline tests now pass, including source conflicts, untracked/source/home
+edit preservation, Git metadata preservation, pre-existing targets, template/config
+conflicts, first-boot failures, interrupted promotion/retries, unknown schemas and
+older/unrelated pins. All lifecycle chezmoi calls and workload-state checks are
+mocked: NO real init/apply, Fedora account/SELinux/systemd/console/image/VM or
+update/rollback pass occurred. Disposable fixture data was removed. No publication,
+production changes, submodule advance or readiness marker creation occurred.
+
+Next complete the ROOT-side boot/maintenance controller: derive the enrolled user,
+revoke readiness and actually stop/wait for system and user dependents, execute the
+child as that user, handle failure/stop/retry without weakening management access,
+and reload/check runtime inputs before granting readiness. The child currently
+only REFUSES active workloads; it does not stop them or grant readiness. Keep
+automatic application disabled until complete fail-closed runtime handling and
+workload-specific private-listener/binary/secret guards exist. Then review inherited
+signing/encryption/recovery defaults before a fresh isolated image/VM pass. Test
+actual native CLI first boot, exact-directory deletion conflicts, partial apply,
+retry after power-loss windows, SELinux labels, updates/rollback, schema
+compatibility and independent state recovery; offline mocks are not that evidence.
 
 Start by inspecting `mkosi summary` (the default is the `mini-server` profile)
 and the effective configuration, then run the offline smoke tests with

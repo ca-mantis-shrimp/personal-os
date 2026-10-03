@@ -346,6 +346,21 @@ def provision(root, config_data, password_data, backend, privileged_uid=0, privi
     return config
 
 
+def publish_context(root, config, privileged_uid=0, privileged_gid=0):
+    """Non-secret, runtime-only identity for the unprivileged lifecycle helper."""
+    files = Files(root, config, privileged_uid, privileged_gid)
+    path = "run/personal-os/account-context.json"
+    with files.directory("run/personal-os", create=True):
+        pass
+    context = {"version": 1, **{key: config[key] for key in ("username", "uid", "gid", "hostname")}}
+    data = (json.dumps(context, sort_keys=True) + "\n").encode()
+    existing = files.read(path, private=False)
+    if existing is not None and existing != data:
+        raise ProvisionError("Runtime account context differs; operator review required")
+    if existing is None:
+        files.write(path, data, mode=0o644)
+
+
 def main():
     try:
         if os.geteuid() != 0 or not Path("/usr/lib/personal-os/account-provisioning").is_file():
@@ -357,7 +372,8 @@ def main():
             credentials = Files(Path(directory), {"username": "", "uid": 0, "gid": 0})
             config_data = credentials.read("personal-os.account.json")
             password_data = credentials.read("personal-os.console-password.hash")
-        provision(Path("/"), config_data, password_data, Backend())
+        config = provision(Path("/"), config_data, password_data, Backend())
+        publish_context(Path("/"), config)
     except ProvisionError as error:
         # These messages contain only controlled field/reason/command names,
         # never input values, subprocess stderr or secret-bearing exception reprs.

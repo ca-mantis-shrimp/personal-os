@@ -18,6 +18,30 @@ def git(repo, *args):
     return subprocess.check_output(["git", "-C", str(repo), *args])
 
 
+def approved_predecessors(repository, source, revision):
+    """Export only reviewed forward-transition IDs, never Git histories.
+
+    A predecessor must be an OS-recorded gitlink and a Git ancestor of the new
+    dotfiles pin. Missing shallow-clone objects are not guessed or fetched.
+    """
+    predecessors = set()
+    commits = git(repository, "rev-list", "--max-count=256", "HEAD", "--", "dotfiles").decode().splitlines()
+    for commit in commits:
+        entry = git(repository, "ls-tree", commit, "--", "dotfiles").decode().split()
+        if len(entry) != 4 or entry[:2] != ["160000", "commit"]:
+            continue
+        candidate = entry[2]
+        if candidate == revision:
+            continue
+        result = subprocess.run(
+            ["git", "-C", str(source), "merge-base", "--is-ancestor", candidate, revision],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        if result.returncode == 0:
+            predecessors.add(candidate)
+    return sorted(predecessors)
+
+
 def stage(repository, buildroot):
     entry = git(repository, "ls-tree", "HEAD", "--", "dotfiles").decode().split()
     if len(entry) != 4 or entry[:2] != ["160000", "commit"] or entry[3] != "dotfiles":
@@ -50,6 +74,8 @@ def stage(repository, buildroot):
             if link.startswith("/") or target not in regular_paths:
                 raise ValueError(f"Source symlink must refer to an included regular file: {name}")
 
+    policy = {"version": 1, "revision": revision,
+              "approved_predecessors": approved_predecessors(repository, source, revision)}
     destination = buildroot / "usr/share/personal-os/dotfiles"
     if destination.exists():
         raise ValueError("Refusing to overwrite an existing factory payload")
@@ -67,6 +93,7 @@ def stage(repository, buildroot):
                          "sha256": hashlib.sha256(content).hexdigest()})
     (destination / "revision").write_text(revision + "\n")
     (destination / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    (destination / "policy.json").write_text(json.dumps(policy, indent=2) + "\n")
     return destination
 
 

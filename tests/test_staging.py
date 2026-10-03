@@ -61,6 +61,26 @@ class StagingTests(unittest.TestCase):
                          {"dot_bashrc", ".chezmoi.toml.tmpl"})
         self.assertFalse((destination / "source/.git").exists())
 
+    def test_policy_approves_only_recorded_ancestor_pins(self):
+        (self.source / "dot_bashrc").write_text("intermediate, never OS-pinned\n")
+        self.git(self.source, "commit", "-qam", "Intermediate source")
+        intermediate = self.git(self.source, "rev-parse", "HEAD").strip()
+        (self.source / "dot_bashrc").write_text("new source\n")
+        self.git(self.source, "commit", "-qam", "New source")
+        new = self.git(self.source, "rev-parse", "HEAD").strip()
+        self.git(self.repo, "update-index", "--cacheinfo", "160000", new, "dotfiles")
+        self.git(self.repo, "commit", "-qm", "Record new pin")
+        destination = staging.stage(self.repo, self.buildroot)
+        policy = json.loads((destination / "policy.json").read_text())
+        self.assertEqual(policy["revision"], new)
+        self.assertEqual(policy["approved_predecessors"], [self.revision])
+        self.assertNotIn(intermediate, policy["approved_predecessors"])
+        # Even an OS-recorded newer pin cannot become an old pin's predecessor.
+        self.git(self.repo, "update-index", "--cacheinfo", "160000", self.revision, "dotfiles")
+        self.git(self.repo, "commit", "-qm", "Record synthetic downgrade")
+        old = staging.stage(self.repo, Path(self.temp.name) / "old-buildroot")
+        self.assertEqual(json.loads((old / "policy.json").read_text())["approved_predecessors"], [])
+
     def test_refuses_existing_destination(self):
         staging.stage(self.repo, self.buildroot)
         with self.assertRaises(ValueError):

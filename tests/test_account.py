@@ -129,6 +129,22 @@ class AccountTests(unittest.TestCase):
         self.assertIn("operator-changed", (self.root / "etc/shadow").read_text())
         self.assertEqual(personal.read_text(), "mutable data\n")
 
+    def test_runtime_context_contains_only_identity_and_is_retry_safe(self):
+        self.provision()
+        account.publish_context(self.root, self.config, os.getuid(), os.getgid())
+        path = self.root / "run/personal-os/account-context.json"
+        context = json.loads(path.read_text())
+        self.assertEqual(set(context), {"version", "username", "uid", "gid", "hostname"})
+        self.assertNotIn(self.password, path.read_bytes())
+        self.assertNotIn("ssh_public_keys", context)
+        self.assertEqual(path.stat().st_mode & 0o777, 0o644)
+        account.publish_context(self.root, self.config, os.getuid(), os.getgid())
+        context["hostname"] = "divergent-runtime-context"
+        path.write_text(json.dumps(context))
+        with self.assertRaisesRegex(account.ProvisionError, "Runtime account context differs"):
+            account.publish_context(self.root, self.config, os.getuid(), os.getgid())
+        self.assertEqual(json.loads(path.read_text())["hostname"], "divergent-runtime-context")
+
     def test_retry_after_useradd_failure(self):
         self.backend.fail_on = "useradd"
         with self.assertRaises(account.ProvisionError):
