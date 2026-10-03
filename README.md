@@ -258,11 +258,20 @@ Authentication, OAuth refresh, sessions, workspaces and tool caches are private
 mutable target data, never image inputs. The existing dotfiles pi configuration
 contains unpinned extensions (including `@latest`); review/pin those executable
 resources before unattended use rather than silently rewriting the submodule.
-**Agent privilege policy is still open:** `dab` currently has scoped passwordless
-sudo. A dedicated non-sudo agent user with limited repository/credential access is
-recommended, but not provisioned or assumed approved. Pi tool/prompt permissions
-are not an OS boundary. Preserve enforcing SELinux and prefer explicit isolation
-for untrusted projects/extensions; do not grant containers privileged host access.
+**Agent isolation follows the owner's existing sandbox setup:** agents run as root
+INSIDE their own sandbox environments, not as root on this OS host. No dedicated
+host agent account or host user per concurrent agent is required; the existing
+operator account manages multiple sandboxes. Reuse that setup rather than creating
+a competing sandbox launcher. Keep each sandbox's writable state, credentials and
+explicitly shared workspace access scoped deliberately; sandbox root must not
+imply host root, privileged host devices or access to the host's management socket.
+Preserve enforcing SELinux. The existing sandbox definition/runtime and its Fedora
+integration still need inspection and validation; this decision is not a sandbox
+security pass. Also review shpool's disabled prototype NoNewPrivileges setting
+against the launcher: it can block setuid newuidmap/newgidmap used by rootless
+container runtimes. Do not mistake host-session hardening for sandbox isolation.
+Host CLI provisioning alone does not put those tools inside a sandbox image; reuse
+the existing sandbox's tool composition and validate version/update compatibility.
 
 ## Source and release boundaries
 

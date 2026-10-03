@@ -644,10 +644,20 @@ The owner adds frequent Claude Code/pi agent operation as an important server us
 case, including shpool persistent sessions, and authorizes local implementation.
 Agent tooling is OS-owned; authentication, workspaces, settings and session state
 are target-user mutable data. This does not authorize production agent execution,
-new root access, credential import or public artifact release. Agent identity and
-privilege boundaries need an explicit decision: existing dab has NOPASSWD sudo;
-recommend a separate non-sudo agent account with scoped data/credentials, without
-changing the enrolled account policy or silently provisioning another user.
+host root access, credential import or public artifact release. The owner clarifies
+that their existing sandbox setup runs agents as root INSIDE their own sandbox
+environments. The sandbox, not a separate host agent user, is the isolation boundary.
+No dedicated host agent account or per-agent host user is wanted: multiple concurrent
+sandboxes are managed through the existing operator account. This supersedes the
+previous separate non-sudo agent-user recommendation; keep dab's enrollment policy
+unchanged. Reuse and inspect the existing sandbox setup rather than introduce a
+competing launcher or assume a particular runtime. Sandbox root must not imply host
+root: validate namespace/identity boundaries, mounts/devices, management-socket
+access, per-sandbox credential/writable-state scoping and explicit workspace sharing
+with enforcing SELinux. Exact runtime integration and concurrency tests remain
+unvalidated; this owner architecture clarification is not a containment pass.
+Host CLI packaging does not automatically provide CLI tools in sandbox images;
+review existing sandbox tool composition and version/update compatibility.
 
 Agent packaging prototype now selects image RPMs Node.js/npm/Git/ripgrep/fd/tmux/
 Starship and a mini-server mkosi.build.chroot hook with explicit build networking.
@@ -662,8 +672,12 @@ Artifact checksums are publisher HTTPS assertions, not independent signing trust
 Fedora/toolchain snapshots and reproducible build provenance remain release work.
 
 Shpool's private per-user socket/service are disabled; control-group cleanup and
-NoNewPrivileges do not make it a sandbox. It is interactive agent/management state,
-not in the configuration controller's server-workload stop list. Review lingering,
+NoNewPrivileges do not make it a sandbox. Review that disabled prototype setting
+against the existing sandbox launcher: inherited NoNewPrivileges can prevent
+setuid newuidmap/newgidmap required by rootless container namespace setup. Do not
+change a live service or weaken sandbox confinement blindly to fix it. Shpool is
+interactive host management state, not the agent containment boundary or an entry
+in the configuration controller's server-workload stop list. Review lingering,
 logout/SSH-loss reconnect, TUI modifier keys, daemon-loss/reboot session recovery,
 resource limits and maintenance quiescing in a fresh VM before enabling it. No
 session survives daemon/OS restart merely because shpool is installed. Agent
@@ -672,7 +686,8 @@ never stage desktop auth or trust files. Core wrappers discourage self-updates;
 OS image updates own core versions, user configuration owns extensions/deps.
 Existing dotfiles pi packages include floating names and @latest, and Neovim has
 an explicitly permission-skipping Claude adapter. Review/pin executable extension
-resources and decide agent isolation before unattended operation; do not edit the
+resources and validate the existing sandbox isolation before unattended operation;
+do not edit the
 separate live checkout or silently advance the submodule. No agent user, linger,
 production service or credential changes occurred. 93 offline tests now pass (including fake npm/Cargo/staging, update wrappers,
 checksum failures, effective mkosi summary and adapted-path user-unit verify).
