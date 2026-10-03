@@ -6,8 +6,9 @@ headless `mini-travel-server`. This is a local fork of
 implementation written from scratch.
 
 **Status: initial fork and handoff scaffold. Not ready to install.** The new
-server profile is a starting overlay; first-boot chezmoi integration and the
-trimmed storage/account/security policy are not implemented or validated yet.
+server profile now exports committed dotfiles into the factory image; first-boot
+chezmoi integration and the trimmed storage/account/security policy are not
+implemented or validated yet.
 
 ## The design
 
@@ -77,8 +78,19 @@ mkosi summary
 python3 -m unittest discover -s tests -v
 ```
 
-These checks establish configuration selection/prerequisites only, not package
-availability, a booted SELinux pass or a working first-boot lifecycle.
+These checks establish configuration selection/prerequisites and synthetic source
+staging only, not package availability, a booted SELinux pass or a working
+first-boot lifecycle.
+
+The profile finalize hook calls `scripts/stage-dotfiles.py` to export the gitlink
+recorded in OS `HEAD` into `/usr/share/personal-os/dotfiles/source`, with a revision
+file and per-entry SHA-256 manifest. Working-tree changes and an advanced submodule
+HEAD are not exported. Historical plans, archived/build trees and the committed
+rclone runtime environment file are excluded; internal source symlinks must point
+to included regular files. No chezmoi command runs during staging. The 115-entry
+current payload has passed a disposable local export, not a complete secret/content
+or target-rendering audit; that review remains required before building. Changes
+to the gitlink must be committed in the OS repo to change the exported pin.
 
 The server overlay **still inherits** upstream Secure Boot signing, TPM-encrypted
 Btrfs root, Btrfs home and homed-firstboot behavior. These must be explicitly

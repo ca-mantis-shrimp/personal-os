@@ -39,6 +39,11 @@ class ServerConfigTests(unittest.TestCase):
         scripts = self.main["PostInstallationScripts"]
         self.assertFalse(any("mkosi.conf.d/arch/" in script for script in scripts))
 
+    def test_staging_is_a_profile_finalize_hook(self):
+        scripts = self.main["FinalizeScripts"]
+        self.assertIn(str(ROOT / "mkosi.finalize"), scripts)
+        self.assertIn(str(ROOT / "mkosi.profiles/mini-server/mkosi.finalize"), scripts)
+
     def test_server_and_selinux_prerequisites_present(self):
         expected = {
             "chezmoi", "openssh-server", "sudo", "restic", "mdadm",

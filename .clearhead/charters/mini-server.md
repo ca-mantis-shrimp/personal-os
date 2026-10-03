@@ -497,6 +497,21 @@ and [the inventory](../../reference/bootc/INVENTORY.md). These are evidence and
 reference, not another live plan. Preserve this `.md`, `.actions`,
 `.completed.actions` and tool-managed `.mini-server.json` together.
 
+Initial staging implementation (uncommitted working-tree work): the mini-server
+finalize hook calls `scripts/stage-dotfiles.py`, exporting the OS HEAD gitlink's
+committed blobs into `/usr/share/personal-os/dotfiles/source` with revision and
+SHA-256 manifest. It excludes historical ClearHead/development/archive/OS-build
+trees and the committed rclone runtime environment file, ignores dirty/untracked
+source and unpinned submodule HEAD changes, and validates internal source symlinks.
+A disposable local export of the current pin produced 115 entries and was removed.
+Eight offline configuration/staging tests pass. This is not a full payload secret
+or rendering audit, mkosi build, target apply, or VM pass. No submodule changes,
+keys, services, production state or platform changes were made. Next review the
+remaining committed payload and chezmoi hooks, then implement the conventional
+account and retry/edit-preserving target lifecycle. Staging itself executes no
+chezmoi commands; the broad paru hook remains unchanged and unsafe for target
+application. Do not mark the lifecycle action complete.
+
 Start by inspecting `mkosi summary` (the default is the `mini-server` profile)
 and the effective configuration, then run the offline smoke tests with
 `python3 -m unittest discover -s tests -v`. Implement the profile's account/mutable-state/SELinux policy and
