@@ -88,8 +88,13 @@ file and per-entry SHA-256 manifest. Working-tree changes and an advanced submod
 HEAD are not exported. Historical plans, archived/build trees and the committed
 rclone runtime environment file are excluded; internal source symlinks must point
 to included regular files. No chezmoi command runs during staging. The 115-entry
-current payload has passed a disposable local export, not a complete secret/content
-or target-rendering audit; that review remains required before building. Changes
+current payload has passed a disposable local export and synthetic Fedora target
+rendering (archive only, never apply). A limited secret-indicator review found no
+private-key blocks in the exported payload; this is not a credential-free proof
+or a booted target pass. The package hook is now restricted to mutable Arch,
+with immutable environment/branding/marker guards. Retired rclone targets are
+ignored on immutable systems. Account provisioning and fail-closed workload
+ordering are still required before automatic target-side application. Changes
 to the gitlink must be committed in the OS repo to change the exported pin.
 
 The server overlay **still inherits** upstream Secure Boot signing, TPM-encrypted
@@ -100,10 +105,19 @@ profile. Never use upstream VM demo passwords/autologin for production.
 
 ## Source and release boundaries
 
-The clone has a public `upstream` fetch remote (push disabled locally) and a
-local `personal-os` branch.
-There is deliberately no personal `origin`, remote fork, push or public release
-yet. Select the owner's destination before creating/pushing a GitHub fork.
+The clone has an `upstream` fetch remote (push disabled locally), a
+`personal-os` branch and owner-created `origin` at
+`https://github.com/ca-mantis-shrimp/personal-os.git`. The owner reports pushing
+the fork; local remote-tracking state records the initial staging commit.
+This is source publication, not a deployable image release. Production signing,
+artifact distribution and release custody remain undecided.
+
+The dotfiles guard changes were committed locally on
+`personal-os-immutable-hooks` at `1338e50103645df922e1411a523edeaf709336d7`.
+They have not been pushed by the agent. Publish the reviewed submodule commits
+to an approved dotfiles remote before publishing an OS revision that pins them,
+so another checkout can retrieve the exact gitlink. No agent push is authorized
+merely by creating the OS remote.
 
 The initial dotfiles gitlink is the committed source revision, not the unrelated
 live working tree in `~/.local/share/chezmoi`. Planning and bootc-reference files

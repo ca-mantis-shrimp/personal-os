@@ -304,8 +304,9 @@ migration changes. The `mini-server` profile is a stable-Fedora starting overlay
 not yet a trimmed/bootstrapping/deployable implementation. Root/home/homed/signing
 choices remain inherited and must be resolved deliberately. The USB mdadm/ext4
 design is independent of ParticleOS's internal root/home filesystem defaults.
-No personal remote fork/origin, push, publishing, production signing-key
-generation or switch/install has been performed.
+At scaffold creation no personal remote fork/origin or publication existed.
+The owner subsequently created `origin` and pushed the OS source (see handoff).
+No production signing-key generation or switch/install has been performed.
 
 Bootc remains a retained working fallback, not an irrevocable choice. Pause
 bootc-specific implementation and fresh test builds while designing the
@@ -497,29 +498,50 @@ and [the inventory](../../reference/bootc/INVENTORY.md). These are evidence and
 reference, not another live plan. Preserve this `.md`, `.actions`,
 `.completed.actions` and tool-managed `.mini-server.json` together.
 
-Initial staging implementation (uncommitted working-tree work): the mini-server
+Initial staging implementation (owner committed/pushed at `6a4c73e`): the mini-server
 finalize hook calls `scripts/stage-dotfiles.py`, exporting the OS HEAD gitlink's
 committed blobs into `/usr/share/personal-os/dotfiles/source` with revision and
 SHA-256 manifest. It excludes historical ClearHead/development/archive/OS-build
 trees and the committed rclone runtime environment file, ignores dirty/untracked
 source and unpinned submodule HEAD changes, and validates internal source symlinks.
 A disposable local export of the current pin produced 115 entries and was removed.
-Eight offline configuration/staging tests pass. This is not a full payload secret
-or rendering audit, mkosi build, target apply, or VM pass. No submodule changes,
-keys, services, production state or platform changes were made. Next review the
-remaining committed payload and chezmoi hooks, then implement the conventional
-account and retry/edit-preserving target lifecycle. Staging itself executes no
-chezmoi commands; the broad paru hook remains unchanged and unsafe for target
-application. Do not mark the lifecycle action complete.
+The owner created/pushed `origin` at
+`https://github.com/ca-mantis-shrimp/personal-os.git`; production release custody
+is still open. Follow-up work committed two local dotfiles changes on branch
+`personal-os-immutable-hooks`, now at `1338e50103645df922e1411a523edeaf709336d7`:
+the paru hook is mutable-Arch-only with container/immutable environment, branding
+and filesystem marker guards, and immutable targets ignore the retired rclone
+configuration/scripts/units. The OS supplies `/usr/lib/personal-os/immutable`.
+No agent push occurred; the dotfiles commits need owner-approved publication
+before publishing any new OS gitlink to them. The separate live chezmoi checkout
+was not edited or reset.
+
+Eleven offline tests pass, including isolated hook-template cases and a complete
+synthetic Fedora/mini-travel-server target archive rendered to disposable storage,
+without init/apply or writing the synthetic destination home. Exported source
+inspection found no private-key blocks; credential/package/template indicators
+were reviewed without printing secret values. This is a limited indicator review,
+not proof of absence of all credentials, a real-target apply, image build or VM
+pass. All scratch rendering/export data was removed.
+
+Target rendering confirms that Collector and vdirsyncer are auto-enabled by
+source symlinks; vdirsyncer still references an old runtime credential/account
+mapping, Collector binary provisioning is missing, and Neovim's user unit still
+listens on all interfaces. Keep automatic application disabled until the account,
+retry/edit-preserving lifecycle and fail-closed workload gating are implemented;
+port the private listener/runtime guards from the bootc reference deliberately.
+Re-review vdirsyncer mapping and fresh runtime credentials before enabling its
+timer. No production secrets, keys, services, disks or platform source changed.
+Do not mark the lifecycle action complete.
 
 Start by inspecting `mkosi summary` (the default is the `mini-server` profile)
 and the effective configuration, then run the offline smoke tests with
 `python3 -m unittest discover -s tests -v`. Implement the profile's account/mutable-state/SELinux policy and
 chezmoi staging/first-boot lifecycle before claiming the image can just run.
 Reuse upstream UKI/verity/sysupdate machinery, not an unrelated custom updater.
-The existing broad Linux `paru` hook needs Arch-specific scoping in the dotfiles
-submodule; make/commit user-config changes there and record the new gitlink in
-this OS repo. Do not reset or automatically advance either source checkout.
+The dotfiles package hook has been narrowed locally as described above; preserve
+its immutable guards and record/test future user-config changes as committed
+submodule pins. Do not reset or automatically advance either source checkout.
 
 Then test a fresh isolated VM: intended UID/GID 1000 account, scoped passwordless
 sudo, console passphrase and key-only SSH; real-target chezmoi conditions,
@@ -541,8 +563,8 @@ repository and Collector binary provisioning remain explicit image dependencies.
 Do not enable calendar syncing without the ClearHead binary, fresh credential
 and verified collection mapping.
 
-The initial fork scaffold and migrated history are recorded in a local commit,
-not a public release. Review `git status` and `git submodule status` before making any
+The owner has published the initial fork/staging source; no image release or
+deployability is claimed. Review `git status` and `git submodule status` before making any
 new changes. The live `~/.local/share/chezmoi` checkout has migration-file
 removals and a forwarding README awaiting its own review/commit; do not silently
 commit or reset unrelated dotfiles work. The pinned `dotfiles/.clearhead` content
