@@ -1,249 +1,114 @@
-# ⸭ ParticleOS
+# Personal OS
 
-ParticleOS is a fully customizable immutable distribution implementing the
-concepts described in
-[Fitting Everything Together](https://0pointer.net/blog/fitting-everything-together.html).
+A purpose-built, repository-defined OS for personal machines, starting with the
+headless `mini-travel-server`. This is a local fork of
+[systemd/particleos](https://github.com/systemd/particleos), not a new image/update
+implementation written from scratch.
 
-Note that ParticleOS is still in development, and we don't provide any backwards
-compatibility guarantees at all.
+**Status: initial fork and handoff scaffold. Not ready to install.** The new
+server profile is a starting overlay; first-boot chezmoi integration and the
+trimmed storage/account/security policy are not implemented or validated yet.
 
-The crucial difference that makes ParticleOS unique compared to other immutable
-distributions is that users build the ParticleOS image themselves and sign it
-with their own keys instead of installing vendor signed images. This allows
-configuring the image to your liking by having full control over which
-distribution is used as the base and which packages are installed into the
-image.
+## The design
 
-The ParticleOS image is built using [mkosi](https://github.com/systemd/mkosi).
-You will need to install the current main branch of mkosi to build current
-ParticleOS images.
+- Retain ParticleOS's mkosi/DDI, partition, UKI and systemd-sysupdate machinery.
+- Use a small, stable Fedora headless profile, rather than rawhide/desktop defaults.
+- Pin this OS repository and the `dotfiles/` chezmoi submodule together.
+- Build stages the committed dotfiles source and chezmoi executable. It does
+  **not** initialize/apply chezmoi or run its hooks on the build machine.
+- On the installed target, provision the account, hostname and mutable home;
+  then initialize/apply chezmoi automatically as that user. Its normal machine,
+  distro and profile conditions evaluate on the real target.
+- Enable dependent workloads only after their configuration and runtime inputs
+  are ready. Define deliberate behavior when the pinned dotfiles revision changes;
+  do not force-reset edits or blindly overwrite user files on every boot.
+- Keep secrets, credentials, signing private keys and device identities out of
+  committed source and OS images. Target-side application must not copy local
+  development histories, build outputs or credential state into the image.
 
-First, configure the variant you'd like to build in `mkosi.local.conf`. For a
-desktop system, you'll want the `desktop` and one of `gnome`, `kde`, or
-`sway` profiles.
+The intended result is one reproducible source composition that boots into the
+owner's configured environment, without a manual dotfiles setup phase. The image
+owns OS package installation; target-side chezmoi hooks must not try to mutate
+immutable `/usr`. Automatic dotfile application does not eliminate the initial
+runtime credential/enrollment step.
 
-```conf
-[Distribution]
-Distribution=arch
+OS rollback restores the OS/factory-source version, **not** mutable home files or
+application data. Configuration/schema compatibility and separate state restores
+must be tested; do not treat image rollback as a backup.
 
-[Config]
-Profiles=desktop,kde
-```
+Pinning Git inputs alone does not pin moving package repositories or the builder;
+those also need a recorded, reviewed build/release policy.
 
-It is also strongly recommended to write a hashed root password prefixed with
-`hashed:` to `mkosi.rootpw` to allow debugging the system if something breaks.
+## Repository map
 
-To build the image, run `mkosi -B -f` from the ParticleOS repository. Currently
-`arch`, `fedora` and `debian` are supported distributions. Implementing support for a
-new distribution (that's already supported in mkosi) is as simple as writing the
-necessary config files to install the required packages for that distribution.
+| Path | Purpose |
+| --- | --- |
+| `mkosi.*`, `mkosi.extra/` | Inherited ParticleOS build/update machinery; still needs trimming |
+| `mkosi.profiles/mini-server/` | Initial stable-Fedora server overlay |
+| `dotfiles/` | Pinned chezmoi source submodule, not a place for OS build logic |
+| `.clearhead/charters/mini-server.md` | Canonical intent, decisions, approvals and next-agent handoff |
+| `.clearhead/charters/mini-server.actions` | Active execution tracking (`+human` identifies owner tasks) |
+| `reference/bootc/` | Retained alternative prototype, inventory and test evidence—not the chosen build path |
+| `docs/PARTICLEOS-UPSTREAM.md` | Original upstream README, preserved for reference |
+| `AGENTS.md` | Start here before editing or testing |
 
-To update the system after installation, you clone the ParticleOS repository
-or your fork of it, make sure `mkosi.local.conf` is configured to your liking and
-run `mkosi -B -ff sysupdate -- update --reboot` which will update the system using
-`systemd-sysupdate` and then reboot.
-
-## Using the OBS profile to fetch a newer systemd
-
-Sometimes ParticleOS adopts systemd features as soon as they get merged into
-systemd without waiting for an official release. That's why we recommend
-enabling the `obs-repos` profile to enable the systemd repositories on OBS
-(https://software.opensuse.org//download.html?project=system%3Asystemd&package=systemd)
-containing systemd packages which are built every day from systemd's git main
-branch.
-
-To enable the `obs-repos` profile, add the following to `mkosi.local.conf`:
-
-```conf
-[Config]
-Profiles=obs-repos
-```
-
-We also provide the `obs-repos-stable` profile, that will use the latest stable
-branch of systemd, instead of main, providing more stability and less risk, as
-it is what distributions typically use. To enable this profile, add the
-following to `mkosi.local.conf`:
-
-```conf
-[Config]
-Profiles=obs-repos-stable
-```
-
-## Building systemd from source
-
-As an alternative to using the `obs-repos` profile, you can build systemd from source:
+## Start the next session here
 
 ```sh
-git clone https://github.com/systemd/systemd
-cd systemd
-mkosi -f sandbox -- meson setup build
-mkosi -f sandbox -- meson compile -C build
-mkosi -t none -f
+cd ~/Products/personal-os
+# Read AGENTS.md, then the mini-server charter and its paired actions.
+clearhead show charter mini-server
+clearhead read actions --charter mini-server --open-only --format ids
+git status --short
+git submodule status
 ```
 
-Then write the following to `mkosi.local.conf` in the ParticleOS repository to
-use the artifacts from the systemd repository built by mkosi in ParticleOS:
+For another checkout, initialize submodules at the revisions recorded by the OS
+repo with `git submodule update --init --recursive`. Never use `--remote` as an
+implicit upgrade. The authoritative plan/handoff is the charter; do not add a
+second PLAN or NEXT-STEPS file.
 
-```conf
-[Content]
-VolatilePackageDirectories=../systemd/build/mkosi.builddir/<distribution>~<release>~<arch>
-
-[Build]
-ExtraSearchPaths=../systemd/build
-```
-
-Make sure the distribution and release in `mkosi.local.conf` are identical in the
-systemd checkout and the particleos checkout.
-
-To build a newer systemd, run `git pull` in the systemd repository followed by
- `mkosi -f sandbox -- meson compile -C build` and `mkosi -t none`.
-
-## Signing keys
-
-ParticleOS images are signed for Secure Boot with the user's keys. To generate a new key,
-run `mkosi genkey`. The key must be stored safely, it will be required to sign updates.
-
-The key can be stored in a smartcard. Then you have to set the key in `mkosi.local.conf`:
-
-```
-[Validation]
-SecureBootKey=pkcs11:object=Private key 1;type=private
-SecureBootKeySource=provider:pkcs11
-SignExpectedPcrKey=pkcs11:object=Private key 1;type=private
-SignExpectedPcrKeySource=provider:pkcs11
-VerityKey=pkcs11:object=Private key 1;type=private
-VerityKeySource=provider:pkcs11
-```
-
-With a YubiKey you can generate a key and certificate in PIV:
+The default configuration selects the `mini-server` profile and Fedora early,
+so conditional distro fragments do not accidentally follow the Arch builder.
+Configuration inspection and offline smoke tests (not builds/installations):
 
 ```sh
-ykman piv keys generate --algorithm RSA2048 9c pubkey.pem
-ykman piv certificates generate --subject "CN=mkosi" 9c pubkey.pem
-rm pubkey.pem
-pkcs11-tool --module /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so --list-objects --type cert
-# Should print something like:
-Using slot 0 with a present token (0x0)
-Certificate Object; type = X.509 cert
-  label:      Certificate for Digital Signature
-  subject:    DN: CN=mkosi
-  serial:     ...
-  ID:         02
-  uri:        pkcs11:model=PKCS%2315%20emulated;manufacturer=piv_II;serial=...;token=mkosi;id=%02;object=Certificate%20for%20Digital%20Signature;type=cert
+mkosi summary
+python3 -m unittest discover -s tests -v
 ```
 
-Then you have to set the key with the right token and key ID in `mkosi.local.conf`:
+These checks establish configuration selection/prerequisites only, not package
+availability, a booted SELinux pass or a working first-boot lifecycle.
 
-```
-[Validation]
-SecureBootKey=pkcs11:token=mkosi;id=%%02;type=private
-SecureBootKeySource=provider:pkcs11
-SecureBootCertificate=pkcs11:token=mkosi;id=%%02;type=cert
-SecureBootCertificateSource=provider:pkcs11
-SignExpectedPcrKey=pkcs11:token=mkosi;id=%%02;type=private
-SignExpectedPcrKeySource=provider:pkcs11
-SignExpectedPcrCertificate=pkcs11:token=mkosi;id=%%02;type=cert
-SignExpectedPcrCertificateSource=provider:pkcs11
-VerityKey=pkcs11:token=mkosi;id=%%02;type=private
-VerityKeySource=provider:pkcs11
-VerityCertificate=pkcs11:token=mkosi;id=%%02;type=cert
-VerityCertificateSource=provider:pkcs11
-```
+The server overlay **still inherits** upstream Secure Boot signing, TPM-encrypted
+Btrfs root, Btrfs home and homed-firstboot behavior. These must be explicitly
+reviewed/changed and VM-tested before any installation. The README's desired
+conventional account/recovery policy is not implemented merely by naming a
+profile. Never use upstream VM demo passwords/autologin for production.
 
-## Prebuilt images
+## Source and release boundaries
 
-ParticleOS images are built on the [Open Build Service](https://download.opensuse.org/repositories/system:/systemd/)
-and can be downloaded and installed. Currently x86-64 GNOME flavours of Fedora and
-Debian are provided and can be found in the respective "images" directory at the
-aforementioned link.
+The clone has a public `upstream` fetch remote (push disabled locally) and a
+local `personal-os` branch.
+There is deliberately no personal `origin`, remote fork, push or public release
+yet. Select the owner's destination before creating/pushing a GitHub fork.
 
-The sources can be found in the `obs` branch of this repository, and the build
-configuration can be found in the [system:systemd project](https://build.opensuse.org/project/show/system:systemd)
-on OBS. These images will contain systemd built from latest git main, rather
-than what the respective distributions provide.
+The initial dotfiles gitlink is the committed source revision, not the unrelated
+live working tree in `~/.local/share/chezmoi`. Planning and bootc-reference files
+were migrated from that checkout into this repository; its deletions/forwarding
+README remain uncommitted for owner review. The submodule may therefore contain
+an older historical charter snapshot: it is not this project's live plan.
 
-Images built using the latest systemd stable branch, instead of main, are also
-provided, in the [system:systemd:stable project](https://build.opensuse.org/project/show/system:systemd:stable)
-project on OBS. The ParticleOS configuration is the same, the only difference is
-the systemd packages, which should be safer and more stable to use.
+ClearHead CLI/LSP release work belongs in `~/Products/platform` and is being
+handled separately by the owner. Consume a tested release/pinned artifact here
+when available; do not edit platform code or invent a released binary.
 
-The trust model of these images is as follows: any private key material used
-to sign the images is handled automatically and securely by OBS, and is not
-available to the project maintainers. The [OBS signing certificate](https://build.opensuse.org/projects/system:systemd/signing_keys)
-for the `system:systemd` project and the MSFT 3rd party 2011 and 2023 CAs
-are set up to be self-enrolled for UEFI secure boot if the system is booted
-in setup mode. The OBS PGP public key is enrolled in the `systemd-sysupdate`
-preinstalled keyring, and `sysupdate.d` configuration is preinstalled to
-automatically pull updates from OBS. The UKI is signed (both the image itself
-and the PCR policies contained within) with the OBS `system:systemd` project
-certificate as well. The dm-verity partitions are signed with the same key
-as well.
+## Safety
 
-## Installation
+Local profile work, builds and isolated synthetic VM tests are approved.
+Production formatting/RAID creation, backups, installation, flashing, publishing
+and reboots need separate approval. The old OS is still live. Use only file-backed
+virtual test disks, fresh identities and disposable credentials. See the charter
+for the exact disk identities, accepted data-loss decisions and recovery gates.
 
-Before installing ParticleOS, make sure that Secure Boot is in *setup*
-*mode* on the target system. The Secure Boot mode can be configured in
-the UEFI firmware interface of the target system. If there's an
-existing Linux installation on the target system already, run
-`systemctl reboot --firmware-setup` to reboot into the UEFI firmware
-interface. At the same time, make sure the UEFI firmware interface is
-password protected so an attacker cannot just disable Secure Boot
-again.
-
-To install ParticleOS with a USB drive, first build the image on an
-existing Linux system as described above. Then, write it to the USB
-drive with `mkosi burn /dev/<usb>`. Once written to the USB drive, plug
-the USB drive into the system onto which you'd like to install
-ParticleOS and boot into the USB drive via the firmware menu. Then,
-boot into the "Installer" UKI profile, which runs
-`systemd-sysinstall`. It will prompt for the target drive and any
-other details required, then partition the disk, copy ParticleOS onto
-it, set up the ESP via `bootctl install` and finally install a kernel
-via `bootctl link`. Once it completes, reboot into the target drive
-(i.e not the USB drive) and the default profile (i.e. not the
-installer one) to complete the installation.
-
-If you prefer to drive the install manually, boot into the "Live
-System" UKI profile instead. When you end up in the root shell, run
-`systemd-sysinstall` to install ParticleOS to the system's drive,
-then reboot as above. If you invoke `systemd-sysinstall` without
-arguments it will interactively query you for configuration
-parameters, as necessary. You may alternatively configure the new
-installation with command line parameters of the tool, see the
-systemd-sysinstall(8) man page for details.
-
-## LUKS recovery key
-
-systemd doesn't support adding a recovery key to a partition enrolled with a token
-only (tpm/fido2). It is possible to use cryptenroll to add a recovery password
-to the root partition: `cryptsetup luksAddKey --token-type systemd-tpm2 /dev/<id>`
-
-## Firmwares
-
-Only firmwares that are dependencies of a kernel module are included, but some
-modules don't declare their dependencies properly. Dependencies of a module can be
-found with `modinfo`. If you experience missing firmwares, you should report
-this to the module maintainer. `FirmwareInclude=` can be added in `mkosi.local.conf`
-to include the firmware regardless of whether a module depends on it.
-
-## Configuring systemd-homed after installation
-
-After installing ParticleOS and logging into your systemd-homed managed user,
-run the following to configure systemd-homed for the best experience:
-
-```sh
-homectl update \
-    --auto-resize-mode=off \
-    --disk-size=max \
-    --luks-discard=on"
-```
-
-Disabling the auto resize mode avoids slow system boot and shutdown. Enabling
-LUKS discard makes sure the home directory doesn't become inaccessible because
-systemd-homed is unable to resize the home directory.
-
-## Default root password and user when booting in a virtual machine
-
-If you boot ParticleOS in a virtual machine using `mkosi vm`, the root password
-is automatically set to `particleos` and a default user `particleos` with password
-`particleos` is created as well.
+Keep upstream licensing/provenance intact; `LICENSE` remains the upstream license.

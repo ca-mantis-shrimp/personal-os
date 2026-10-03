@@ -10,3 +10,16 @@ mkosi.crt
 mkosi.version
 mkosi.rootpw
 .mkosi-private
+
+# Local builds, test state and runtime inputs must not enter source history.
+.cache/
+.artifacts/
+.secrets/
+mkosi.builddir/
+*.key
+*.pem
+*.p12
+*.pfx
+.clearhead/.clearhead.lock
+__pycache__/
+*.py[cod]

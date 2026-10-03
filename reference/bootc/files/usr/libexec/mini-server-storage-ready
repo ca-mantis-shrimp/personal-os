@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+# Startup guard only. Call as root; units also need mount-loss dependencies.
+# UUIDs come from approved array creation, not device names or image defaults.
+set -euo pipefail
+fail() { printf 'Storage unavailable: %s\n' "$*" >&2; exit 1; }
+[[ $# == 2 && -n $1 && -n $2 ]] || fail 'expected filesystem UUID and mdadm array UUID'
+expected_fs=$1
+expected_md=$2
+mount=/srv/storage
+actual_fs=$(findmnt --noheadings --raw --output UUID --mountpoint "$mount") || fail 'not mounted'
+[[ $actual_fs == "$expected_fs" ]] || fail 'wrong filesystem UUID'
+[[ $(findmnt --noheadings --raw --output FSTYPE --mountpoint "$mount") == ext4 ]] || fail 'not ext4'
+options=$(findmnt --noheadings --raw --output OPTIONS --mountpoint "$mount")
+[[ ,$options, == *,rw,* ]] || fail 'not mounted read/write'
+source=$(findmnt --noheadings --raw --output SOURCE --mountpoint "$mount")
+[[ -b $source ]] || fail 'not a block device'
+major_minor=$(findmnt --noheadings --raw --output MAJ:MIN --mountpoint "$mount")
+md=/sys/dev/block/$major_minor/md
+[[ -d $md && $(<"$md/level") == raid1 ]] || fail 'not an md RAID1 array'
+[[ $(<"$md/degraded") == 0 ]] || fail 'array degraded; operator intervention required'
+[[ $(<"$md/sync_action") == idle ]] || fail 'array syncing or recovering'
+[[ $(<"$md/array_state") =~ ^(clean|active|active-idle)$ ]] || fail 'array is not active'
+actual_md=$(mdadm --detail --export "$source" | awk -F= '$1 == "MD_UUID" {print $2}')
+[[ $actual_md == "$expected_md" ]] || fail 'wrong md array UUID'

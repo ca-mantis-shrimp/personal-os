@@ -1,0 +1,2 @@
+# Host account is supplied at installation, not baked into the image.
+dab ALL=(ALL:ALL) NOPASSWD: ALL

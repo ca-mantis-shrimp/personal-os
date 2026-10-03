@@ -1,0 +1,69 @@
+# Fedora 44 multi-architecture index, resolved 2026-10-01.
+# Refresh deliberately; see README.md. Do not replace this with :latest.
+FROM quay.io/fedora/fedora-bootc:44@sha256:62e0fe047be7b9c00abab3911fc84f8a22b2b2e097a6ca76119ebe395a6da3bf
+
+# This context must contain only public, non-secret OS configuration.
+COPY files/etc/yum.repos.d/ /etc/yum.repos.d/
+
+RUN dnf -y --setopt=install_weak_deps=False install \
+        NetworkManager \
+        firewalld \
+        openssh-server \
+        podman \
+        sudo \
+        syncthing \
+        tailscale \
+        chezmoi \
+        fish \
+        neovim \
+        radicale3 \
+        radicale3-selinux \
+        python3-bcrypt \
+        vdirsyncer \
+        httpd-tools \
+        restic \
+        mdadm \
+        smartmontools \
+        e2fsprogs \
+        gdisk \
+    && dnf clean all \
+    && systemctl enable \
+        NetworkManager.service \
+        firewalld.service \
+        sshd.service \
+        tailscaled.service \
+    && rm -rf \
+        /run/* \
+        /tmp/* \
+        /var/cache/* \
+        /var/lib/dnf \
+        /var/lib/rpm-state \
+        /var/log/*
+
+# Upstream Collector contrib is needed for chezmoi's file exporters. Pin both
+# architecture-specific archives; changing the version requires checksum review.
+RUN set -eu; \
+    version=0.162.0; \
+    case "$(uname -m)" in \
+      x86_64) arch=amd64; checksum=fcc063749f730f8c21fe29f2d340ff174f5f1c5885bd3156fb6c985a3036fcc3 ;; \
+      aarch64) arch=arm64; checksum=ecf6a917e2b53beb1703b19a84bc4e112a2fcaba549639cf6b0ba58446bfd7d2 ;; \
+      *) echo 'Unsupported Collector architecture' >&2; exit 1 ;; \
+    esac; \
+    curl --fail --location --retry 3 \
+      "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v${version}/otelcol-contrib_${version}_linux_${arch}.tar.gz" \
+      --output /tmp/otelcol.tar.gz; \
+    printf '%s  /tmp/otelcol.tar.gz\n' "$checksum" | sha256sum --check --strict; \
+    tar -xzf /tmp/otelcol.tar.gz -C /usr/bin otelcol-contrib; \
+    mv /usr/bin/otelcol-contrib /usr/bin/otelcol; \
+    chmod 0755 /usr/bin/otelcol; \
+    rm /tmp/otelcol.tar.gz
+
+COPY files/ /
+
+# Accounts, SSH authorized keys, Tailscale enrollment, application secrets, and
+# mutable application state are provisioned at install/runtime, never here.
+# Radicale/Syncthing/user services and restic jobs deliberately stay opt-in.
+RUN chmod 0755 /usr/libexec/mini-server-storage-ready \
+    && chmod 0440 /etc/sudoers.d/90-mini-server-dab \
+    && visudo --check \
+    && bootc container lint --fatal-warnings
