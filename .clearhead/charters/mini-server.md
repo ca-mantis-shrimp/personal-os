@@ -640,6 +640,47 @@ uses adapted temporary local paths. No real stop/start, init/apply, credential
 provision, image/VM, SELinux or rollback test occurred. This controller chunk remains
 local/unpublished and does not complete the lifecycle action.
 
+The owner adds frequent Claude Code/pi agent operation as an important server use
+case, including shpool persistent sessions, and authorizes local implementation.
+Agent tooling is OS-owned; authentication, workspaces, settings and session state
+are target-user mutable data. This does not authorize production agent execution,
+new root access, credential import or public artifact release. Agent identity and
+privilege boundaries need an explicit decision: existing dab has NOPASSWD sudo;
+recommend a separate non-sudo agent account with scoped data/credentials, without
+changing the enrolled account policy or silently provisioning another user.
+
+Agent packaging prototype now selects image RPMs Node.js/npm/Git/ripgrep/fd/tmux/
+Starship and a mini-server mkosi.build.chroot hook with explicit build networking.
+Exact candidate pins: pi @earendil-works/pi-coding-agent 0.85.1 (public npm metadata
+matches installed documentation; 161-entry transitive integrity lock), native
+Claude Code 2.1.288 (official manifest checksum/size, not deprecated npm installer),
+and shpool 0.11.5 (crates.io checksum, published Cargo.lock, locked source build).
+Only runtime payload/provenance enters DESTDIR; Cargo/Rust/compiler packages,
+caches and NPM config remain in the disposable build context. No installer,
+agent process, credentials or live user configuration runs/imports during build.
+Artifact checksums are publisher HTTPS assertions, not independent signing trust;
+Fedora/toolchain snapshots and reproducible build provenance remain release work.
+
+Shpool's private per-user socket/service are disabled; control-group cleanup and
+NoNewPrivileges do not make it a sandbox. It is interactive agent/management state,
+not in the configuration controller's server-workload stop list. Review lingering,
+logout/SSH-loss reconnect, TUI modifier keys, daemon-loss/reboot session recovery,
+resource limits and maintenance quiescing in a fresh VM before enabling it. No
+session survives daemon/OS restart merely because shpool is installed. Agent
+provider login/OAuth/token/session data stays private under target user control;
+never stage desktop auth or trust files. Core wrappers discourage self-updates;
+OS image updates own core versions, user configuration owns extensions/deps.
+Existing dotfiles pi packages include floating names and @latest, and Neovim has
+an explicitly permission-skipping Claude adapter. Review/pin executable extension
+resources and decide agent isolation before unattended operation; do not edit the
+separate live checkout or silently advance the submodule. No agent user, linger,
+production service or credential changes occurred. 93 offline tests now pass (including fake npm/Cargo/staging, update wrappers,
+checksum failures, effective mkosi summary and adapted-path user-unit verify).
+Real checksum-verified shpool source review confirms its 191-package Cargo.lock
+and Rust >=1.85 declaration; that disposable archive was removed uncompiled.
+These checks and source metadata inspection are not an actual Fedora build,
+CLI startup, authentication, session, SELinux or booted VM pass.
+
 Next implement workload-specific private-listener/binary/runtime-secret gates,
 then readiness/health checks and reviewed controller activation. Keep automatic
 application disabled; do not create the marker manually. Then review inherited

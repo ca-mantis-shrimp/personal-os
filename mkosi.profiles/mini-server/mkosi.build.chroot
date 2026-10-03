@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+# Runs in mkosi's disposable target build overlay, NOT on the desktop or target.
+[[ "${WITH_NETWORK:-0}" == 1 ]] || { echo 'Agent build requires reviewed public artifact network access' >&2; exit 1; }
+exec python3 "$SRCDIR/scripts/build-agent-tools.py"

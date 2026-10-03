@@ -1,0 +1,18 @@
+[Unit]
+Description=Private persistent shell sessions (agent workspace)
+Requires=shpool.socket
+After=shpool.socket
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/shpool daemon
+UMask=0077
+KillMode=control-group
+TimeoutStopSec=10s
+SendSIGHUP=yes
+# Prevent ordinary sudo escalation inside sessions; this is NOT a sandbox.
+NoNewPrivileges=yes
+LimitCORE=0
+
+[Install]
+WantedBy=default.target

@@ -219,6 +219,51 @@ remain outstanding. Keep automatic application disabled and never create the
 ready marker manually. All 82 tests are offline synthetic/mocked evidence,
 not an actual target apply, runtime systemd stop or cancellation pass.
 
+## Agent workspace tooling prototype
+
+Running Claude Code and pi is a first-class mini-server use case; shpool supplies
+persistent sessions across SSH disconnects. The profile now has a **not-yet-built**
+agent packaging path, separate from target chezmoi/account initialization:
+
+- Node.js, npm, Git, ripgrep, fd, tmux and Starship are image RPMs.
+- Pi `@earendil-works/pi-coding-agent@0.85.1` uses the committed
+  `packages/agent-tools/package-lock.json`. Build-only `npm ci --ignore-scripts`
+  checks integrity and Node >=22.19 engines; optional clipboard support is omitted.
+- Native Claude Code `2.1.288` uses an exact official download URL, size and SHA-256
+  from its release manifest. No curl installer or agent binary runs during build.
+  These HTTPS-publisher checksums are not independent signature verification.
+- shpool `0.11.5` builds from checksum-verified crates.io source using its published
+  Cargo.lock and `cargo install --locked`. Rust/Cargo/compiler packages stay in the
+  disposable build overlay, not the runtime image.
+
+`mkosi.build.chroot` runs `scripts/build-agent-tools.py` in the target build overlay;
+only runtime files under `/usr/lib/personal-os/agent-tools` enter DESTDIR. Build
+networking is explicitly enabled for public dependency/artifact retrieval. Caches,
+NPM configuration, Cargo build output and homes remain disposable; no desktop
+CLI is replaced. Runtime wrappers expose `/usr/bin/{pi,claude,shpool}` and discourage
+core self-updates; image changes own core versions. This is update policy, not a
+security sandbox. Pi extensions and project dependencies remain user configuration.
+No actual Fedora build, binary ABI/startup, agent authentication or VM pass is claimed.
+
+Shpool's vendor user socket is private (0600, directory 0700); socket/service are
+DISABLED by user preset. Its service uses NoNewPrivileges and control-group cleanup,
+but neither constitutes agent isolation. Interactive shpool is deliberately not a
+server-workload dependency to be killed by configuration retries. Target-side
+lingering, logout/reconnect, TUI key handling, resource limits and maintenance
+quiescing still need a reviewed policy and VM test. Session persistence survives a
+connection loss, NOT daemon restart or OS reboot; pi/Claude session files must be
+retained separately. No agent starts automatically.
+
+Authentication, OAuth refresh, sessions, workspaces and tool caches are private
+mutable target data, never image inputs. The existing dotfiles pi configuration
+contains unpinned extensions (including `@latest`); review/pin those executable
+resources before unattended use rather than silently rewriting the submodule.
+**Agent privilege policy is still open:** `dab` currently has scoped passwordless
+sudo. A dedicated non-sudo agent user with limited repository/credential access is
+recommended, but not provisioned or assumed approved. Pi tool/prompt permissions
+are not an OS boundary. Preserve enforcing SELinux and prefer explicit isolation
+for untrusted projects/extensions; do not grant containers privileged host access.
+
 ## Source and release boundaries
 
 The clone has an `upstream` fetch remote (push disabled locally), a

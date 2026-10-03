@@ -1,0 +1,10 @@
+[Unit]
+Description=Private per-user shpool socket
+
+[Socket]
+ListenStream=%t/shpool/shpool.socket
+SocketMode=0600
+DirectoryMode=0700
+
+[Install]
+WantedBy=sockets.target

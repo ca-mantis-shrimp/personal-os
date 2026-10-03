@@ -1,0 +1,4 @@
+# Persistent agent sessions require explicit target-side review/enabling.
+# User lingering and reconnect/session-loss behavior are not validated yet.
+disable shpool.service
+disable shpool.socket

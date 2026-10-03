@@ -1,0 +1,13 @@
+#!/bin/sh
+# Core CLI updates belong to the OS image; extensions/models remain user-owned.
+if [ "${1:-}" = update ]; then
+    case "${2:-}" in
+        --extensions|--models) ;;
+        *) echo 'pi CLI is image-owned; update the OS image, not this installation' >&2; exit 1 ;;
+    esac
+    for arg in "$@"; do
+        case "$arg" in --all|--self|--force) echo 'pi core update disabled for this image-owned installation' >&2; exit 1 ;; esac
+    done
+fi
+export PI_SKIP_VERSION_CHECK=1
+exec /usr/bin/node /usr/lib/personal-os/agent-tools/node_modules/@earendil-works/pi-coding-agent/dist/bundle/cli.js "$@"

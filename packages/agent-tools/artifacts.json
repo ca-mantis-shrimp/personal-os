@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "architecture": "x86-64",
+  "claude": {
+    "version": "2.1.288",
+    "url": "https://downloads.claude.ai/claude-code-releases/2.1.288/linux-x64/claude",
+    "sha256": "0298068b686e7fdbaf9402a7a587bb7f49c0b0e084de09f69145a0719207640c",
+    "size": 245734584
+  },
+  "shpool": {
+    "version": "0.11.5",
+    "url": "https://static.crates.io/crates/shpool/shpool-0.11.5.crate",
+    "sha256": "55290738681927f6b37da16567c05e31d8e27e2a8290ad0326bdeef815ff6527"
+  }
+}

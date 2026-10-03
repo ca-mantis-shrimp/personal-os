@@ -1,0 +1,9 @@
+{
+  "name": "personal-os-agent-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Image-owned pi CLI; no runtime credentials or user configuration",
+  "dependencies": {
+    "@earendil-works/pi-coding-agent": "0.85.1"
+  }
+}
