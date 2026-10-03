@@ -107,17 +107,18 @@ profile. Never use upstream VM demo passwords/autologin for production.
 
 The clone has an `upstream` fetch remote (push disabled locally), a
 `personal-os` branch and owner-created `origin` at
-`https://github.com/ca-mantis-shrimp/personal-os.git`. The owner reports pushing
-the fork; local remote-tracking state records the initial staging commit.
+`https://github.com/ca-mantis-shrimp/personal-os.git`. The owner published the initial fork; the agent subsequently pushed the reviewed
+guard/rendering changes with explicit approval.
 This is source publication, not a deployable image release. Production signing,
 artifact distribution and release custody remain undecided.
 
-The dotfiles guard changes were committed locally on
-`personal-os-immutable-hooks` at `1338e50103645df922e1411a523edeaf709336d7`.
-They have not been pushed by the agent. Publish the reviewed submodule commits
-to an approved dotfiles remote before publishing an OS revision that pins them,
-so another checkout can retrieve the exact gitlink. No agent push is authorized
-merely by creating the OS remote.
+The dotfiles guard changes are published on
+`origin/personal-os-immutable-hooks` at `1338e50103645df922e1411a523edeaf709336d7`.
+With explicit owner approval, the agent pushed that branch first, then the OS
+`personal-os` branch at `7245209`, so another checkout can retrieve the exact
+gitlink. The dotfiles changes have not been merged into its other branches.
+Future publication still requires approval; this source push does not authorize
+image releases, production signing or deployment.
 
 The initial dotfiles gitlink is the committed source revision, not the unrelated
 live working tree in `~/.local/share/chezmoi`. Planning and bootc-reference files

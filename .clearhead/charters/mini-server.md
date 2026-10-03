@@ -512,9 +512,11 @@ is still open. Follow-up work committed two local dotfiles changes on branch
 the paru hook is mutable-Arch-only with container/immutable environment, branding
 and filesystem marker guards, and immutable targets ignore the retired rclone
 configuration/scripts/units. The OS supplies `/usr/lib/personal-os/immutable`.
-No agent push occurred; the dotfiles commits need owner-approved publication
-before publishing any new OS gitlink to them. The separate live chezmoi checkout
-was not edited or reset.
+The owner subsequently explicitly authorized pushing both repositories. The agent
+pushed `origin/personal-os-immutable-hooks` at `1338e50` first, then OS
+`origin/personal-os` at `7245209`, without force pushes. The pin is now retrievable;
+no dotfiles branch merge, image release or deployment was performed. The separate
+live chezmoi checkout was not edited or reset.
 
 Eleven offline tests pass, including isolated hook-template cases and a complete
 synthetic Fedora/mini-travel-server target archive rendered to disposable storage,
