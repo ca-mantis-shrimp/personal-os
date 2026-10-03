@@ -518,7 +518,7 @@ pushed `origin/personal-os-immutable-hooks` at `1338e50` first, then OS
 no dotfiles branch merge, image release or deployment was performed. The separate
 live chezmoi checkout was not edited or reset.
 
-Eleven offline tests pass, including isolated hook-template cases and a complete
+The prior eleven-test guard/rendering pass included isolated hook-template cases and a complete
 synthetic Fedora/mini-travel-server target archive rendered to disposable storage,
 without init/apply or writing the synthetic destination home. Exported source
 inspection found no private-key blocks; credential/package/template indicators
@@ -529,12 +529,55 @@ pass. All scratch rendering/export data was removed.
 Target rendering confirms that Collector and vdirsyncer are auto-enabled by
 source symlinks; vdirsyncer still references an old runtime credential/account
 mapping, Collector binary provisioning is missing, and Neovim's user unit still
-listens on all interfaces. Keep automatic application disabled until the account,
-retry/edit-preserving lifecycle and fail-closed workload gating are implemented;
+listens on all interfaces. Keep automatic application disabled until the
+retry/edit-preserving lifecycle and complete fail-closed workload handling are implemented;
 port the private listener/runtime guards from the bootc reference deliberately.
 Re-review vdirsyncer mapping and fresh runtime credentials before enabling its
 timer. No production secrets, keys, services, disks or platform source changed.
 Do not mark the lifecycle action complete.
+
+Current account prototype: `mini-server` now stages `personal-os-account.service`
+and `/usr/libexec/personal-os-account` as profile-only content. Enrollment consumes
+host-specific runtime systemd credentials (`personal-os.account.json` and
+`personal-os.console-password.hash`) from protected credential storage, not build
+inputs. The README defines schema/version 1; the chosen target values are dab,
+UID/GID 1000, wheel, mini-travel-server, desktop public key, and scoped NOPASSWD.
+No actual key or console hash was read or provisioned. The profile no longer bakes
+its hostname or supplies upstream demo VM credentials; it masks homed/firstboot,
+omits the homed authselect feature and selects daemon SSH with key-only/root-denied
+policy. Other inherited root/home/signing and live/recovery UKI defaults still
+need deliberate review before builds or installation.
+
+The helper rejects pre-existing untracked accounts, numeric identity collisions,
+symlinked/protected-path conflicts and divergent enrollment configuration. It
+preserves home data without recursive chown, installs initial keys/sudo policy,
+and keeps a root-owned pending/complete journal in
+`/var/lib/personal-os/account.json` without password/hash values. Completed boots
+need no original inputs and do not reset passwords or edited authorized keys;
+identity/hostname/sudo changes fail for operator review, not silent repair. The
+SSH daemon and user manager require account success. Workloads have startup-only
+`ConditionPathExists=/run/personal-os/chezmoi-ready` guards; enrollment does not
+create that marker, so source autostarts stay gated. Do not bypass it manually.
+Runtime dependent-service stopping, secret readiness and chezmoi application are
+still unimplemented, not satisfied by account enrollment.
+
+Thirty-two offline tests pass. Account/NSS/hostname/password/relabel operations use a
+fake backend and disposable synthetic files only; sudoers syntax was checked with
+real visudo on a temporary file. Unit syntax/dependencies were checked offline
+with ExecStart adapted to the local helper path; authselect logic ran only as an
+isolated block with a stub. Tests cover retries including the post-password /
+pre-completion window, local edit preservation, conflicts, protected journal/schema
+failures and absence of caches/credential stores from extra trees. Synthetic buildroot
+tests verify homed masks and that inherited factory capture preserves the SSH
+policy. The console-hash setting is parsed with libxcrypt using a non-secret probe,
+not authenticated against a real passphrase. These are NOT
+real Fedora account commands, a package/image build, enforcing SELinux, actual SSH
+or console login, or a VM/update/rollback pass. The installer-to-credential-store
+handoff also remains to be validated; do not manually create the user and expect
+implicit adoption. No host/server accounts, passwords, services, disks, credentials,
+platform source or submodule revision changed. All synthetic artifacts were removed.
+Next implement the safe target-side chezmoi lifecycle on top of this account
+foundation, then resolve inherited policy before a fresh isolated image/VM pass.
 
 Start by inspecting `mkosi summary` (the default is the `mini-server` profile)
 and the effective configuration, then run the offline smoke tests with

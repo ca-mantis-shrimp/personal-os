@@ -20,10 +20,10 @@ NEXT-STEPS or parallel migration handoff. Preserve the charter `.md`, `.actions`
 - Stage committed dotfiles during image creation; run chezmoi initialization/apply
   only on the actual target, as the intended user, after account/home/hostname
   provision. Reuse chezmoi's existing conditional mechanisms.
-- The current dotfiles Linux source hook calls `bootstrap-paru.sh` unless
-  `CHEZMOI_CONTAINER=1`; narrow it to Arch before target-side Fedora application.
-  Do not execute it on the builder, run `chezmoi apply` against this desktop,
-  or add a competing bootstrap system. OS package installation belongs to the
+- The dotfiles package hook is mutable-Arch-only with container/immutable guards.
+  Preserve those guards before target-side application. Do not execute it on the
+  builder, run `chezmoi apply` against this desktop, or add a competing bootstrap
+  system. OS package installation belongs to the
   image build; machine/distro guards must also suppress package-installing hooks
   on immutable targets, including any future Arch image profile.
 - First-boot/update handling must preserve edits and existing mutable data, allow
@@ -56,8 +56,9 @@ private signing keys, B2 keys, 1Password service tokens and device identities ou
 of Git, images, shared command output and logs. The approved console passphrase
 and runtime secrets come from 1Password, not image source.
 
-The profile currently inherits upstream encrypted Btrfs/homed/signing defaults;
-it is not deployable yet. Do not burn an upstream-default image while treating
+The profile currently inherits upstream encrypted Btrfs/signing defaults.
+Homed is masked in the server overlay, with a conventional-account prototype;
+that implementation has not passed a booted VM and is not deployable yet. Do not burn an upstream-default image while treating
 it as the trimmed server design. Before builds, understand what mkosi will do;
 use profile summary/config inspection. Production signing-key generation and
 Secure Boot enrollment need a separately agreed custody/recovery policy.

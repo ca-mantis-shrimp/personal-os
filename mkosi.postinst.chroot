@@ -4,7 +4,11 @@ set -e
 
 if command -v authselect >/dev/null; then
     authselect select local
-    authselect enable-feature with-systemd-homed
+    # The server provisions a conventional account from runtime credentials.
+    # Preserve homed behavior for other upstream-derived profiles.
+    if [[ ",${PROFILES:-}," != *,mini-server,* ]]; then
+        authselect enable-feature with-systemd-homed
+    fi
 fi
 
 if [[ -d /etc/pam.d ]]; then

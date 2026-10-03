@@ -1,0 +1,33 @@
+[Unit]
+Description=Provision the host-specific conventional Personal OS account
+After=local-fs.target systemd-sysusers.service systemd-tmpfiles-setup.service dbus.socket
+Wants=dbus.socket
+Before=sshd.service
+RequiresMountsFor=/home
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+RemainAfterExit=yes
+ExecStart=/usr/libexec/personal-os-account
+# Identifier-only lookup permits removal of input credentials after successful
+# enrollment. The helper fails closed if no credentials or trusted journal exist.
+LoadCredential=personal-os.account.json
+LoadCredential=personal-os.console-password.hash
+StateDirectory=personal-os
+StateDirectoryMode=0700
+Environment=PATH=/usr/sbin:/usr/bin
+UMask=0077
+LimitCORE=0
+TimeoutStartSec=90
+PrivateTmp=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/etc /home /var/lib/personal-os
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+
+[Install]
+WantedBy=multi-user.target

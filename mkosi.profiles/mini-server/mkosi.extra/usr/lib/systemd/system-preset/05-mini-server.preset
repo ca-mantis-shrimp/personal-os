@@ -1,0 +1,8 @@
+# Precede the inherited homed preset; the actual user is a runtime input.
+disable systemd-homed.service
+disable systemd-homed-firstboot.service
+enable personal-os-account.service
+# Use the conventional Fedora daemon, avoiding an early socket/enrollment cycle.
+disable sshd.socket
+disable ssh.socket
+enable sshd.service

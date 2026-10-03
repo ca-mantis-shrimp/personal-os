@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+
+# /etc is mutable and not shipped as a partition. Put masks in /usr so they
+# survive image creation. No target user, password or home is created here.
+for unit in systemd-homed.service systemd-homed-firstboot.service; do
+    ln -sfn /dev/null "$BUILDROOT/usr/lib/systemd/system/$unit"
+done

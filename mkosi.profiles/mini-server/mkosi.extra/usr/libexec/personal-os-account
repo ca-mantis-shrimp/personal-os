@@ -1,0 +1,373 @@
+#!/usr/bin/python3
+"""Target-only conventional account enrollment from systemd credentials.
+
+No chezmoi operations. Credentials and command stderr are never logged. The
+root-owned journal permits retries, but not silent adoption of existing users.
+"""
+from contextlib import contextmanager
+import base64
+import ctypes
+import grp
+import json
+import os
+from pathlib import Path
+import pwd
+import re
+import secrets
+import socket
+import stat
+import struct
+import subprocess
+import sys
+
+
+class ProvisionError(Exception):
+    pass
+
+
+def config_from_json(data):
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ProvisionError("Duplicate configuration field")
+            result[key] = value
+        return result
+    try:
+        config = json.loads(data, object_pairs_hook=unique)
+    except (ValueError, UnicodeError):
+        raise ProvisionError("Invalid account configuration") from None
+    fields = {"version", "username", "uid", "gid", "hostname", "shell",
+              "ssh_public_keys", "passwordless_sudo"}
+    if not isinstance(config, dict) or set(config) != fields or type(config["version"]) is not int or config["version"] != 1:
+        raise ProvisionError("Unsupported account configuration schema")
+    if not isinstance(config["username"], str) or not re.fullmatch(r"[a-z][a-z0-9_-]{0,31}", config["username"]):
+        raise ProvisionError("Invalid account name")
+    for key in ("uid", "gid"):
+        if type(config[key]) is not int or not 1000 <= config[key] <= 60000:
+            raise ProvisionError("Account IDs must be in the regular-user range")
+    if not isinstance(config["hostname"], str) or not re.fullmatch(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?", config["hostname"]):
+        raise ProvisionError("Hostname must be a single DNS label")
+    if config["shell"] not in ("/usr/bin/bash", "/usr/bin/fish") or type(config["passwordless_sudo"]) is not bool:
+        raise ProvisionError("Invalid shell or sudo policy")
+    keys = config["ssh_public_keys"]
+    if not isinstance(keys, list) or not 1 <= len(keys) <= 16:
+        raise ProvisionError("At least one SSH public key is required")
+    for key in keys:
+        validate_key(key)
+    return config
+
+
+def validate_key(key):
+    # Only plain public keys, not authorized_keys options, private keys or certs.
+    if not isinstance(key, str) or len(key) > 16384 or any(ord(c) < 32 for c in key):
+        raise ProvisionError("Invalid SSH public key")
+    parts = key.split(" ", 2)
+    if len(parts) < 2:
+        raise ProvisionError("Invalid SSH public key")
+    try:
+        blob = base64.b64decode(parts[1], validate=True)
+        fields = []
+        while blob:
+            size = struct.unpack(">I", blob[:4])[0]
+            if size > len(blob) - 4:
+                raise ValueError()
+            fields.append(blob[4:4 + size])
+            blob = blob[4 + size:]
+        algorithm = parts[0]
+        valid = fields and fields[0] == algorithm.encode()
+        if algorithm == "ssh-ed25519":
+            valid = valid and len(fields) == 2 and len(fields[1]) == 32
+        elif algorithm == "ssh-rsa":
+            valid = valid and len(fields) == 3 and 1 <= len(fields[1]) <= 16 and 256 <= len(fields[2]) <= 1025
+        elif algorithm in {"ecdsa-sha2-nistp256", "ecdsa-sha2-nistp384", "ecdsa-sha2-nistp521"}:
+            lengths = {"nistp256": 65, "nistp384": 97, "nistp521": 133}
+            curve = algorithm.removeprefix("ecdsa-sha2-")
+            valid = valid and len(fields) == 3 and fields[1] == curve.encode() and len(fields[2]) == lengths[curve] and fields[2][:1] == b"\x04"
+        else:
+            valid = False
+        if not valid:
+            raise ValueError()
+    except (ValueError, struct.error):
+        raise ProvisionError("Invalid or unsupported SSH public key") from None
+
+
+def password_from_bytes(data):
+    try:
+        value = data.decode("ascii").removesuffix("\n")
+    except UnicodeError:
+        raise ProvisionError("Invalid console password credential") from None
+    # Fedora supports yescrypt and SHA-512 crypt. Never accept empty/locked or
+    # plaintext credentials. No password is passed through argv or the journal.
+    sha512 = r"\$6\$(?:rounds=[0-9]{4,9}\$)?[./A-Za-z0-9]{1,16}\$[./A-Za-z0-9]{86}"
+    yescrypt = r"\$y\$[./A-Za-z0-9]{1,16}\$[./A-Za-z0-9]{1,86}\$[./A-Za-z0-9]{43}"
+    if not re.fullmatch(f"(?:{sha512}|{yescrypt})", value):
+        raise ProvisionError("Console credential must be a supported nonempty password hash")
+    if value.startswith("$6$rounds=") and not 1000 <= int(value.split("$", 3)[2].split("=", 1)[1]) <= 1000000:
+        raise ProvisionError("Unsupported console password work factor")
+    # Ask the target's libxcrypt to parse the setting using a non-secret probe.
+    # This neither knows nor checks the actual passphrase, but rejects settings
+    # that would otherwise be stored successfully and leave console login broken.
+    library = None
+    for name in ("libcrypt.so.2", "libcrypt.so.1"):
+        try:
+            library = ctypes.CDLL(name)
+            break
+        except OSError:
+            pass
+    if library is None:
+        raise ProvisionError("System password hash validation is unavailable")
+    library.crypt.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+    library.crypt.restype = ctypes.c_char_p
+    probe = library.crypt(b"personal-os-format-check", value.encode())
+    if not probe or probe.startswith(b"*"):
+        raise ProvisionError("System does not support the console password hash setting")
+    return value
+
+
+class Backend:
+    @staticmethod
+    def lookup(kind, value):
+        functions = {"user": pwd.getpwnam, "uid": pwd.getpwuid,
+                     "group": grp.getgrnam, "gid": grp.getgrgid}
+        try:
+            return functions[kind](value)
+        except KeyError:
+            return None
+
+    @staticmethod
+    def hostname():
+        return socket.gethostname()
+
+    @staticmethod
+    def run(args, input=None):
+        result = subprocess.run(args, input=input, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, timeout=30)
+        if result.returncode:
+            raise ProvisionError("Account provisioning command failed: " + args[0])
+
+
+def rename_exclusive(parent, source, destination):
+    # Linux renameat2 avoids both overwrite races and the transient second hard
+    # link that could make a power-loss retry ambiguous.
+    rename = ctypes.CDLL(None, use_errno=True).renameat2
+    rename.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_uint]
+    rename.restype = ctypes.c_int
+    if rename(parent, os.fsencode(source), parent, os.fsencode(destination), 1):
+        raise OSError(ctypes.get_errno(), "Atomic provisioning file installation failed")
+
+
+class Files:
+    """Descriptor-relative access: no symlink parents, recursive chown or resets."""
+    def __init__(self, root, config, privileged_uid=0, privileged_gid=0):
+        self.root = root
+        self.config = config
+        self.privileged = (privileged_uid, privileged_gid)
+
+    def owner(self, path):
+        parts = Path(path).parts
+        if len(parts) >= 2 and parts[:2] == ("home", self.config["username"]):
+            return self.config["uid"], self.config["gid"]
+        return self.privileged
+
+    @contextmanager
+    def directory(self, path, create=False):
+        fd = os.open(self.root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        current = Path()
+        try:
+            info = os.fstat(fd)
+            if (info.st_uid, info.st_gid) != self.privileged or info.st_mode & 0o022:
+                raise ProvisionError("Unsafe provisioning root directory")
+            for part in Path(path).parts:
+                if part in ("..", "/"):
+                    raise ProvisionError("Unsafe provisioning path")
+                current /= part
+                owner = self.owner(current)
+                try:
+                    child = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
+                except FileNotFoundError:
+                    if not create:
+                        raise
+                    os.mkdir(part, 0o700, dir_fd=fd)
+                    child = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
+                    os.fchown(child, *owner)
+                os.close(fd)
+                fd = child
+                info = os.fstat(fd)
+                if (info.st_uid, info.st_gid) != owner or info.st_mode & 0o022:
+                    raise ProvisionError("Unsafe directory ownership or permissions")
+            yield fd
+        finally:
+            os.close(fd)
+
+    def read(self, path, private=True):
+        with self.directory(Path(path).parent) as parent:
+            try:
+                fd = os.open(Path(path).name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
+            except FileNotFoundError:
+                return None
+            with os.fdopen(fd, "rb") as stream:
+                info = os.fstat(stream.fileno())
+                if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1 or (info.st_uid, info.st_gid) != self.owner(path) or info.st_mode & (0o077 if private else 0o022):
+                    raise ProvisionError("Unsafe provisioning file")
+                data = stream.read(65537)
+                if len(data) > 65536:
+                    raise ProvisionError("Provisioning file too large")
+                return data
+
+    def write(self, path, data, mode=0o600, replace=False):
+        with self.directory(Path(path).parent, create=True) as parent:
+            name = Path(path).name
+            temporary = ".personal-os-" + secrets.token_hex(12)
+            fd = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, mode, dir_fd=parent)
+            try:
+                with os.fdopen(fd, "wb") as stream:
+                    os.fchown(stream.fileno(), *self.owner(path))
+                    os.fchmod(stream.fileno(), mode)
+                    stream.write(data)
+                    stream.flush()
+                    os.fsync(stream.fileno())
+                if replace:
+                    os.rename(temporary, name, src_dir_fd=parent, dst_dir_fd=parent)
+                else:
+                    rename_exclusive(parent, temporary, name)
+                os.fsync(parent)
+            finally:
+                try:
+                    os.unlink(temporary, dir_fd=parent)
+                except FileNotFoundError:
+                    pass
+
+
+def provision(root, config_data, password_data, backend, privileged_uid=0, privileged_gid=0):
+    state_path = "var/lib/personal-os/account.json"
+    # Read trusted state with a temporary config that cannot select a home path.
+    files = Files(root, {"username": "", "uid": 0, "gid": 0}, privileged_uid, privileged_gid)
+    with files.directory("var/lib/personal-os", create=True):
+        pass
+    state_data = files.read(state_path)
+    state = None
+    if state_data:
+        try:
+            state = json.loads(state_data)
+            if set(state) != {"version", "phase", "config"} or type(state["version"]) is not int or state["version"] != 1 or state["phase"] not in ("pending", "complete"):
+                raise ValueError()
+            recorded = config_from_json(json.dumps(state["config"]))
+        except (ValueError, TypeError):
+            raise ProvisionError("Invalid account enrollment journal") from None
+    if config_data is None:
+        if state is None:
+            raise ProvisionError("Missing account configuration credential")
+        config = recorded
+    else:
+        config = config_from_json(config_data)
+        if state and config != recorded:
+            raise ProvisionError("Account configuration changed; operator review required")
+    files = Files(root, config, privileged_uid, privileged_gid)
+    name, uid, gid = config["username"], config["uid"], config["gid"]
+    home = "home/" + name
+    user = backend.lookup("user", name)
+    uid_user = backend.lookup("uid", uid)
+    group = backend.lookup("group", name)
+    gid_group = backend.lookup("gid", gid)
+    if uid_user and uid_user.pw_name != name or gid_group and gid_group.gr_name != name:
+        raise ProvisionError("Account numeric identity is already in use")
+    if user and (user.pw_uid, user.pw_gid, user.pw_dir, user.pw_shell) != (uid, gid, "/" + home, config["shell"]):
+        raise ProvisionError("Existing account identity conflicts with enrollment")
+    if group and group.gr_gid != gid:
+        raise ProvisionError("Existing primary group conflicts with enrollment")
+    if state is None and (user or group):
+        raise ProvisionError("Refusing to adopt an existing account or group")
+    wheel = backend.lookup("group", "wheel")
+    if wheel is None:
+        raise ProvisionError("Required wheel group is missing")
+    sudo_path = "etc/sudoers.d/90-personal-os-account"
+    sudo = (f"{name} ALL=(ALL:ALL) NOPASSWD: ALL\n" if config["passwordless_sudo"] else "").encode()
+    keys_path = home + "/.ssh/authorized_keys"
+    keys = ("\n".join(config["ssh_public_keys"]) + "\n").encode()
+
+    if state and state["phase"] == "complete":
+        if user is None or group is None or name not in wheel.gr_mem:
+            raise ProvisionError("Enrolled account is incomplete; operator review required")
+        with files.directory(home + "/.ssh"):
+            pass
+        if files.read(keys_path) is None or files.read(sudo_path, private=False) != sudo or backend.hostname() != config["hostname"]:
+            raise ProvisionError("Enrolled access policy or hostname needs operator review")
+        # Deliberately do not reset the password, keys, shell, groups or home.
+        return config
+
+    password = password_from_bytes(password_data or b"")
+    # All existing mutable files must agree before account commands run. Missing
+    # files are created atomically; divergent data is never overwritten.
+    for path, expected in ((keys_path, keys), (sudo_path, sudo)):
+        try:
+            existing = files.read(path, private=path != sudo_path)
+        except FileNotFoundError:
+            existing = None
+        if existing is not None and existing != expected:
+            raise ProvisionError("Existing access-policy file conflicts with enrollment")
+    if state is None:
+        state = {"version": 1, "phase": "pending", "config": config}
+        files.write(state_path, (json.dumps(state) + "\n").encode())
+    if group is None:
+        backend.run(["groupadd", "--gid", str(gid), name])
+    if user is None:
+        backend.run(["useradd", "--no-create-home", "--no-user-group", "--no-log-init",
+                     "--key", "CREATE_MAIL_SPOOL=no", "--uid", str(uid), "--gid", str(gid), "--home-dir", "/" + home,
+                     "--shell", config["shell"], name])
+    if name not in wheel.gr_mem:
+        backend.run(["usermod", "--append", "--groups", "wheel", name])
+    with files.directory(home + "/.ssh", create=True):
+        pass
+    if files.read(keys_path) is None:
+        files.write(keys_path, keys)
+    with files.directory("etc/sudoers.d", create=True):
+        pass
+    if files.read(sudo_path, private=False) is None:
+        files.write(sudo_path, sudo, mode=0o440)
+    backend.run(["visudo", "--check", "--file", str(root / sudo_path)])
+    backend.run(["hostnamectl", "set-hostname", config["hostname"]])
+    backend.run(["restorecon", str(root / home), str(root / (home + "/.ssh")),
+                 str(root / keys_path), str(root / sudo_path), str(root / state_path)])
+    shadow = files.read("etc/shadow")
+    hashes = [line.split(b":")[1] for line in (shadow or b"").splitlines()
+              if line.split(b":", 1)[0] == name.encode() and b":" in line]
+    if len(hashes) != 1:
+        raise ProvisionError("Account shadow entry is missing or ambiguous")
+    current = hashes[0].decode("ascii")
+    if current != password:
+        if current not in ("!", "!!", "*"):
+            raise ProvisionError("Existing console password differs; operator review required")
+        backend.run(["chpasswd", "--encrypted"], input=(name + ":" + password + "\n").encode())
+    # The final journal carries no password/hash; successful boots require no
+    # original credentials and never replay secret enrollment.
+    state["phase"] = "complete"
+    files.write(state_path, (json.dumps(state) + "\n").encode(), replace=True)
+    return config
+
+
+def main():
+    try:
+        if os.geteuid() != 0 or not Path("/usr/lib/personal-os/account-provisioning").is_file():
+            raise ProvisionError("Account provisioning is restricted to the target profile")
+        os.environ["PATH"] = "/usr/sbin:/usr/bin"
+        directory = os.environ.get("CREDENTIALS_DIRECTORY")
+        config_data = password_data = None
+        if directory and Path(directory).exists():
+            credentials = Files(Path(directory), {"username": "", "uid": 0, "gid": 0})
+            config_data = credentials.read("personal-os.account.json")
+            password_data = credentials.read("personal-os.console-password.hash")
+        provision(Path("/"), config_data, password_data, Backend())
+    except ProvisionError as error:
+        # These messages contain only controlled field/reason/command names,
+        # never input values, subprocess stderr or secret-bearing exception reprs.
+        print("personal-os account enrollment failed: " + str(error), file=sys.stderr)
+        return 1
+    except (OSError, subprocess.SubprocessError, UnicodeError):
+        print("personal-os account enrollment failed: protected filesystem or command execution error", file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

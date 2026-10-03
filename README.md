@@ -6,9 +6,9 @@ headless `mini-travel-server`. This is a local fork of
 implementation written from scratch.
 
 **Status: initial fork and handoff scaffold. Not ready to install.** The new
-server profile now exports committed dotfiles into the factory image; first-boot
-chezmoi integration and the trimmed storage/account/security policy are not
-implemented or validated yet.
+server profile exports committed dotfiles into the factory image and has a
+target-only conventional-account prototype. First-boot chezmoi application and
+the trimmed storage/security policy are not implemented or validated yet.
 
 ## The design
 
@@ -78,9 +78,10 @@ mkosi summary
 python3 -m unittest discover -s tests -v
 ```
 
-These checks establish configuration selection/prerequisites and synthetic source
-staging only, not package availability, a booted SELinux pass or a working
-first-boot lifecycle.
+These checks cover configuration selection, synthetic source staging/rendering
+and account logic with a fake command/NSS backend, plus isolated sudoers syntax
+and unit verification. They do not establish package availability, actual account
+commands on Fedora, a booted SELinux pass or a working first-boot lifecycle.
 
 The profile finalize hook calls `scripts/stage-dotfiles.py` to export the gitlink
 recorded in OS `HEAD` into `/usr/share/personal-os/dotfiles/source`, with a revision
@@ -94,14 +95,70 @@ private-key blocks in the exported payload; this is not a credential-free proof
 or a booted target pass. The package hook is now restricted to mutable Arch,
 with immutable environment/branding/marker guards. Retired rclone targets are
 ignored on immutable systems. Account provisioning and fail-closed workload
-ordering are still required before automatic target-side application. Changes
+ordering still need booted validation and completion before automatic target-side
+application. Changes
 to the gitlink must be committed in the OS repo to change the exported pin.
 
 The server overlay **still inherits** upstream Secure Boot signing, TPM-encrypted
-Btrfs root, Btrfs home and homed-firstboot behavior. These must be explicitly
-reviewed/changed and VM-tested before any installation. The README's desired
-conventional account/recovery policy is not implemented merely by naming a
-profile. Never use upstream VM demo passwords/autologin for production.
+Btrfs root and Btrfs home. Homed/homed-firstboot are now masked for this profile,
+and the homed PAM feature and demo VM credentials are omitted. The inherited
+live/installer/recovery UKI profiles still contain upstream demo access settings.
+Storage, signing, recovery access and those UKI profiles must be deliberately
+reviewed and VM-tested before any installation.
+
+## Target account enrollment prototype
+
+`mini-server` supplies `personal-os-account.service` and a target-only helper.
+Neither builds nor tests create a real user. The enrollment layer embeds no
+selected username, access key or console hash: it reads systemd credentials named
+`personal-os.account.json` and `personal-os.console-password.hash` from the runtime
+manager/credential stores. For an approved installed-target or isolated VM setup,
+keep input files outside Git/images, in root-owned protected credential storage
+(e.g. `/etc/credstore`, mode 0700; files mode 0600). The installer-to-credential-store
+integration still needs validation; do not manually pre-create the user, which
+would be rejected as an untracked existing identity.
+
+The account JSON must contain exactly these fields (public-key placeholder must
+be replaced in the protected runtime input, not in this README):
+
+```json
+{
+  "version": 1,
+  "username": "dab",
+  "uid": 1000,
+  "gid": 1000,
+  "hostname": "mini-travel-server",
+  "shell": "/usr/bin/bash",
+  "ssh_public_keys": ["<desktop SSH public key>"],
+  "passwordless_sudo": true
+}
+```
+
+The separate console credential contains a nonempty yescrypt or SHA-512 crypt
+hash provisioned securely from the approved 1Password passphrase. Do not put its
+value in shell arguments, chat, logs, this repository or image build inputs.
+The helper passes it to `chpasswd --encrypted` through stdin only.
+
+Enrollment creates a conventional primary group/account, wheel membership,
+`/home/<username>`, `.ssh/authorized_keys` and a user-specific sudoers rule. It sets
+the actual hostname before allowing the SSH daemon or user manager to start.
+Remote SSH is key-only; the passphrase is for console recovery. Existing home
+contents are not recursively chowned or removed. Identity collisions, symlinked
+paths and divergent initial access-policy files fail rather than being adopted
+or overwritten. A root-owned journal at `/var/lib/personal-os/account.json`
+records pending/completed enrollment without the password/hash. It allows retries
+and subsequent boots without the original credentials; completed enrollment
+preserves edited authorized keys and passwords. Identity, hostname, protected
+path or sudo-policy changes require operator review rather than implicit repair.
+Do not delete the journal to force adoption or reset an established account.
+
+Workload drop-ins currently require `/run/personal-os/chezmoi-ready`. Account
+success **does not** create that marker, so account readiness alone cannot start
+the Collector, Neovim, Syncthing, Radicale or calendar jobs. These are startup
+guards only, not runtime stop/recovery handling. The future chezmoi lifecycle must
+validate its pinned revision and runtime inputs, stop dependents on failed apply,
+and manage readiness deliberately; do not touch the marker to bypass that work.
+No real SSH/console/sudo, SELinux, update or rollback pass is claimed.
 
 ## Source and release boundaries
 
