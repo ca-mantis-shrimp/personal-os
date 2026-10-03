@@ -5,11 +5,11 @@ headless `mini-travel-server`. This is a local fork of
 [systemd/particleos](https://github.com/systemd/particleos), not a new image/update
 implementation written from scratch.
 
-**Status: initial fork and handoff scaffold. Not ready to install.** The new
-server profile exports committed dotfiles into the factory image and has a
+**Status: trimmed Fedora server fork with unbooted prototypes. Not ready to install.**
+The server profile exports committed dotfiles into the factory image and has
 target-only conventional-account and chezmoi lifecycle prototypes. Automatic
-first-boot integration, workload readiness and the trimmed storage/security policy
-are not implemented or validated yet.
+first-boot integration, workload readiness and production storage/signing/recovery
+policy are not complete or boot-validated yet.
 
 ## The design
 
@@ -41,16 +41,52 @@ must be tested; do not treat image rollback as a backup.
 Pinning Git inputs alone does not pin moving package repositories or the builder;
 those also need a recorded, reviewed build/release policy.
 
+## Minimal fork boundary
+
+The active recipe is Fedora 44 plus `mini-server`, with a Fedora 44 tools tree
+and no graphical VM tools profile. Personal OS owns package selection, visible
+branding and boot policy; ParticleOS remains the provenance of the integrated
+partition/UKI/verity/sysupdate design. This is purpose-minimal, not an empty OS:
+requested server workloads, recovery tools and image-pinned agent CLIs remain.
+Explicit target RPM selections are now 98 (originally 124), including the core
+Podman/rootless stack. Starship is a pinned source-built tool because Fedora 44
+has no matching RPM. A first pre-Podman candidate built successfully; the latest
+rootless/account changes still require a fresh build and boot test.
+
+Unused desktop, other-distro, OBS repository/update and network-boot examples,
+all eight inherited extra UKI profiles, the demo homed credential and upstream
+OBS workflow/TODO now live under `reference/particleos/`, outside mkosi discovery.
+They are not staged or supported install instructions. The normal signed UKI is
+currently the only boot profile: no demo password/autologin, public storage-target
+mode, factory-reset/TPM-clear mode or secret-bearing debug-console logging.
+**Removing those examples does not provide replacement installer/rescue media.**
+A reviewed credential handoff and boot-tested independent rescue path remain gates.
+
+Artifact identity is `PersonalOS`; partition labels, discovery filters and
+sysupdate patterns remain coupled through that identity. No deployed image exists
+to migrate from the former `ParticleOS` labels. Versioned builds must set an image
+version; an unversioned summary can emit `%v` warnings. Visible branding changes
+while Fedora `ID`/version and the `particleos-fedora` ancestry token stay intact
+for the pinned chezmoi immutable guards; no submodule update is needed.
+
+Auditing and enforcing SELinux are explicit, relabel errors fail the build, weak
+RPM dependencies are disabled, and Secure Boot auto-enrollment is disabled.
+Signing/PCR signatures remain required; production key custody is not settled.
+Mutable root/home/swap partitions are no longer factory-reset candidates. The
+inherited TPM-encrypted Btrfs root/swap and unencrypted Btrfs home layout is retained
+pending recovery review, not claimed as the final validated storage design.
+
 ## Repository map
 
 | Path | Purpose |
 | --- | --- |
-| `mkosi.*`, `mkosi.extra/` | Inherited ParticleOS build/update machinery; still needs trimming |
-| `mkosi.profiles/mini-server/` | Initial stable-Fedora server overlay |
+| `mkosi.*`, `mkosi.extra/` | Fork-owned minimal Fedora base and retained coupled build/update machinery |
+| `mkosi.profiles/mini-server/` | Server account/configuration/workload and agent-tool overlay |
 | `dotfiles/` | Pinned chezmoi source submodule, not a place for OS build logic |
 | `.clearhead/charters/mini-server.md` | Canonical intent, decisions, approvals and next-agent handoff |
 | `.clearhead/charters/mini-server.actions` | Active execution tracking (`+human` identifies owner tasks) |
 | `reference/bootc/` | Retained alternative prototype, inventory and test evidence—not the chosen build path |
+| `reference/particleos/` | Inactive upstream examples removed from build discovery, not a second plan |
 | `docs/PARTICLEOS-UPSTREAM.md` | Original upstream README, preserved for reference |
 | `AGENTS.md` | Start here before editing or testing |
 
@@ -70,8 +106,8 @@ repo with `git submodule update --init --recursive`. Never use `--remote` as an
 implicit upgrade. The authoritative plan/handoff is the charter; do not add a
 second PLAN or NEXT-STEPS file.
 
-The default configuration selects the `mini-server` profile and Fedora early,
-so conditional distro fragments do not accidentally follow the Arch builder.
+The default configuration selects `mini-server` and Fedora 44 for both target
+and tools tree. Other distro/profile examples are inactive reference material.
 Configuration inspection and offline smoke tests (not builds/installations):
 
 ```sh
@@ -103,17 +139,23 @@ ignored on immutable systems. Account provisioning and fail-closed workload
 ordering still need booted validation and completion before automatic target-side
 application. Changes to the gitlink must be committed in the OS repo to change the exported pin.
 
-The server overlay **still inherits** upstream Secure Boot signing, TPM-encrypted
-Btrfs root and Btrfs home. Homed/homed-firstboot are now masked for this profile,
-and the homed PAM feature and demo VM credentials are omitted. The inherited
-live/installer/recovery UKI profiles still contain upstream demo access settings.
-Storage, signing, recovery access and those UKI profiles must be deliberately
-reviewed and VM-tested before any installation.
+The server **still retains** upstream Secure Boot/PCR signing, TPM-encrypted
+Btrfs root/swap and unencrypted Btrfs home. Homed/homed-firstboot are masked;
+PAM uses conventional accounts and no demo credentials or extra UKI profiles are
+loaded. Storage, production signing/enrollment and replacement installer/rescue
+access must still be deliberately reviewed and VM-tested before installation.
+All 119 unit tests are offline evidence, including effective configuration,
+fork branding, retained immutable guards and synthetic target archive rendering.
+Separately, a pre-Podman candidate built in an enforcing Fedora VM: 310 runtime
+RPMs, no Rust/Cargo/GCC, a verified signed UKI and strict relabel pass; raw disk
+2,189,987,840 bytes logical / about 732.7 MiB allocated. See the charter for
+provenance and limits. This is not a target boot/recovery/update/SELinux pass;
+latest rootless changes are not included in that artifact.
 
 ## Target account enrollment prototype
 
 `mini-server` supplies `personal-os-account.service` and a target-only helper.
-Neither builds nor tests create a real user. The enrollment layer embeds no
+Image builds and offline unit tests never create a host/target user. The enrollment layer embeds no
 selected username, access key or console hash: it reads systemd credentials named
 `personal-os.account.json` and `personal-os.console-password.hash` from the runtime
 manager/credential stores. For an approved installed-target or isolated VM setup,
@@ -219,35 +261,85 @@ remain outstanding. Keep automatic application disabled and never create the
 ready marker manually. All 82 tests are offline synthetic/mocked evidence,
 not an actual target apply, runtime systemd stop or cancellation pass.
 
+## Rootless containers and persistent user sessions
+
+Podman is core host infrastructure, not a chezmoi installer or a new sandbox
+launcher. The image explicitly selects `podman`, `container-selinux`, `crun`,
+`netavark`, `passt` (pasta), `fuse-overlayfs` and `shadow-utils-subid`, alongside
+`shadow-utils`' setuid `newuidmap`/`newgidmap`. Weak dependencies remain disabled.
+Factory `/etc/containers` is copied only if absent; existing site policy and
+rootful Quadlet definitions remain mutable and are not replaced during updates.
+No Podman API socket, auto-update timer or restart service is enabled by presets.
+Rootless Quadlets/workloads remain deliberate operator configuration.
+
+Account enrollment allocates one free 65,536-ID block in each of `/etc/subuid`
+and `/etc/subgid`, starting at 100,000 when free and skipping existing ranges and
+NSS identities. Mappings belong to the operator account, not each agent. Other
+users' entries are preserved, including numeric-UID owners. A separate protected
+`/var/lib/personal-os/rootless.json` records the allocation and pending/complete
+phase; the original version-1 account journal is unchanged. Partial writes retry
+with the same IDs. Changed/missing/composite/overlapping recorded mappings fail
+for review, never implicit remapping or recursive container-storage chown. A
+trusted previously completed account may retain its existing valid single ranges
+rather than receive replacements. Local `files` subid delegation is required.
+Shared Shadow PID locks serialize registry writes; ambiguous/live locks fail,
+validated dead-PID locks can be recovered. Do not manually edit ranges while
+containers or enrollment are running; coordinate storage migration separately.
+
+**Lingering is enabled once for the enrolled operator account.** This supports
+user managers/Quadlets and sessions after logout. Later deliberate
+`loginctl disable-linger` is preserved, not reverted on every boot. Enabling
+linger does not enable shpool, an API socket, agents or guarded server workloads.
+The account unit creates its runtime context directory before sandbox setup;
+mail-spool suppression uses the supported factory `useradd` default, not an
+invalid `useradd -K CREATE_MAIL_SPOOL` override.
+
+Shpool explicitly has `NoNewPrivileges=no`, allowing the mapping helpers and
+ordinary operator sudo inside host sessions. It is **not** an agent isolation
+boundary; run untrusted agents inside the separately owned sandbox. Its private
+socket, disabled preset, umask and control-group cleanup remain unchanged.
+Root enrollment/configuration units retain their `NoNewPrivileges=yes` setting.
+
+`python3 tests/check_rootless_native.py` is an opt-in, networkless disposable
+Fedora bridge: native useradd/getsubids and shared Shadow locking pass, with
+logind mocked and a protected synthetic state hierarchy. It is NOT a Podman
+namespace, SELinux, lingering/logout, shpool or booted target pass. Next prove
+those, cgroup delegation, pasta, scoped SELinux mounts and stable mappings across
+update/rollback in a fresh isolated VM. The latest integration remains unbuilt;
+no live account, subids, linger or services were changed.
+
 ## Agent workspace tooling prototype
 
 Running Claude Code and pi is a first-class mini-server use case; shpool supplies
-persistent sessions across SSH disconnects. The profile now has a **not-yet-built**
-agent packaging path, separate from target chezmoi/account initialization:
+persistent sessions across SSH disconnects. Its packaging passed the first
+pre-Podman image build, separate from target chezmoi/account initialization:
 
-- Node.js, npm, Git, ripgrep, fd, tmux and Starship are image RPMs.
+- Node.js, npm, Git, ripgrep, fd and tmux are image RPMs.
 - Pi `@earendil-works/pi-coding-agent@0.85.1` uses the committed
   `packages/agent-tools/package-lock.json`. Build-only `npm ci --ignore-scripts`
   checks integrity and Node >=22.19 engines; optional clipboard support is omitted.
 - Native Claude Code `2.1.288` uses an exact official download URL, size and SHA-256
   from its release manifest. No curl installer or agent binary runs during build.
   These HTTPS-publisher checksums are not independent signature verification.
-- shpool `0.11.5` builds from checksum-verified crates.io source using its published
-  Cargo.lock and `cargo install --locked`. Rust/Cargo/compiler packages stay in the
-  disposable build overlay, not the runtime image.
+- shpool `0.11.5` and Starship `1.24.2` build from checksum-verified crates.io sources
+  using their published Cargo.lock and `cargo install --locked`, with two Cargo
+  jobs. Starship's 428-package lock and Rust >=1.90 requirement were inspected;
+  Fedora 44 package resolution proved its previously assumed RPM unavailable.
+  Rust/Cargo/compiler packages stay in the disposable overlay, not the runtime image.
 
 `mkosi.build.chroot` runs `scripts/build-agent-tools.py` in the target build overlay;
 only runtime files under `/usr/lib/personal-os/agent-tools` enter DESTDIR. Build
 networking is explicitly enabled for public dependency/artifact retrieval. Caches,
 NPM configuration, Cargo build output and homes remain disposable; no desktop
-CLI is replaced. Runtime wrappers expose `/usr/bin/{pi,claude,shpool}` and discourage
+CLI is replaced. Runtime wrappers expose `/usr/bin/{pi,claude,shpool,starship}` and discourage
 core self-updates; image changes own core versions. This is update policy, not a
 security sandbox. Pi extensions and project dependencies remain user configuration.
-No actual Fedora build, binary ABI/startup, agent authentication or VM pass is claimed.
+Packaging passed in the first Fedora build; binary ABI/startup, authentication,
+actual target boot and agent session behavior remain unvalidated.
 
 Shpool's vendor user socket is private (0600, directory 0700); socket/service are
-DISABLED by user preset. Its service uses NoNewPrivileges and control-group cleanup,
-but neither constitutes agent isolation. Interactive shpool is deliberately not a
+DISABLED by user preset. Its service permits mapping helpers and uses control-group
+cleanup; neither constitutes agent isolation. Interactive shpool is deliberately not a
 server-workload dependency to be killed by configuration retries. Target-side
 lingering, logout/reconnect, TUI key handling, resource limits and maintenance
 quiescing still need a reviewed policy and VM test. Session persistence survives a
@@ -267,9 +359,9 @@ explicitly shared workspace access scoped deliberately; sandbox root must not
 imply host root, privileged host devices or access to the host's management socket.
 Preserve enforcing SELinux. The existing sandbox definition/runtime and its Fedora
 integration still need inspection and validation; this decision is not a sandbox
-security pass. Also review shpool's disabled prototype NoNewPrivileges setting
-against the launcher: it can block setuid newuidmap/newgidmap used by rootless
-container runtimes. Do not mistake host-session hardening for sandbox isolation.
+security pass. The prototype's shpool NoNewPrivileges restriction is now explicitly
+removed for rootless mapping helpers. Validate inherited session/user-manager
+settings too; do not mistake host-session hardening for sandbox isolation.
 Host CLI provisioning alone does not put those tools inside a sandbox image; reuse
 the existing sandbox's tool composition and validate version/update compatibility.
 

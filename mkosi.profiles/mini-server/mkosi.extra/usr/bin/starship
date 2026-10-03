@@ -1,0 +1,3 @@
+#!/bin/sh
+# Prompt tooling is image-owned, not installed by target chezmoi hooks.
+exec /usr/lib/personal-os/agent-tools/starship "$@"

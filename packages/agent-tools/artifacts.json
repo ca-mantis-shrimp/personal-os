@@ -11,5 +11,11 @@
     "version": "0.11.5",
     "url": "https://static.crates.io/crates/shpool/shpool-0.11.5.crate",
     "sha256": "55290738681927f6b37da16567c05e31d8e27e2a8290ad0326bdeef815ff6527"
+  },
+  "starship": {
+    "version": "1.24.2",
+    "url": "https://static.crates.io/crates/starship/starship-1.24.2.crate",
+    "sha256": "690c239869dcb004b3be0caf658338f90996f66d857ac72762867367ccb2a760",
+    "size": 379095
   }
 }

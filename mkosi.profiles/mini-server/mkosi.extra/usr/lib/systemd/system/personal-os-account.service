@@ -17,6 +17,9 @@ LoadCredential=personal-os.account.json
 LoadCredential=personal-os.console-password.hash
 StateDirectory=personal-os
 StateDirectoryMode=0700
+# Create the namespace exception before ExecStart; context contains no secrets.
+RuntimeDirectory=personal-os
+RuntimeDirectoryMode=0755
 Environment=PATH=/usr/sbin:/usr/bin
 UMask=0077
 LimitCORE=0
@@ -25,6 +28,7 @@ PrivateTmp=yes
 NoNewPrivileges=yes
 ProtectSystem=strict
 ReadWritePaths=/etc /home /var/lib/personal-os /run/personal-os
+# loginctl's logind peer creates the persistent linger marker independently.
 ProtectKernelTunables=yes
 ProtectKernelModules=yes
 ProtectControlGroups=yes

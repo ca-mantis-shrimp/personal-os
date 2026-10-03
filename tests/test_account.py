@@ -60,6 +60,10 @@ class FakeBackend:
     def hostname(self):
         return self.host
 
+    def ids(self, kind):
+        return ([u.pw_uid for u in self.users.values()] if kind == "subuid"
+                else [g.gr_gid for g in self.groups.values()])
+
     def run(self, args, input=None):
         # Only command names/flags are retained. Secret stdin is not recorded.
         self.calls.append(args)
@@ -78,6 +82,11 @@ class FakeBackend:
             (self.root / "etc/shadow").write_bytes(name.encode() + b":!!:1:0:99999:7:::\n")
         elif args[0] == "usermod":
             self.groups["wheel"].gr_mem.append(name)
+        elif args[0] == "loginctl":
+            marker = self.root / "var/lib/systemd/linger" / name
+            marker.parent.mkdir(parents=True, exist_ok=True)
+            marker.write_bytes(b"")
+            marker.chmod(0o644)
         elif args[0] == "hostnamectl":
             self.host = name
         elif args[0] == "chpasswd":
@@ -312,7 +321,7 @@ class ValidationTests(unittest.TestCase):
             subprocess.run(["systemd-analyze", "verify", "--man=no", str(unit)],
                            capture_output=True, check=True, timeout=10)
 
-    def test_authselect_homed_feature_is_skipped_only_for_server_profile(self):
+    def test_fork_authselect_always_uses_conventional_accounts(self):
         # Execute only the isolated authselect block with a stub. Never run the
         # rest of the chroot script, which moves the target's PAM files.
         block = (ROOT / "mkosi.postinst.chroot").read_text().split("if [[ -d /etc/pam.d ]]", 1)[0]
@@ -321,13 +330,35 @@ class ValidationTests(unittest.TestCase):
             calls = Path(temp) / "calls"
             stub.write_text('#!/bin/sh\nprintf "%s\\n" "$*" >> "$CALLS"\n')
             stub.chmod(0o755)
-            for profile, expected in [("mini-server", ["select local"]),
-                ("gnome", ["select local", "enable-feature with-systemd-homed"])]:
+            for profile in ("mini-server", "gnome", ""):
+                expected = ["select local"]
                 calls.write_text("")
                 subprocess.run(["/bin/bash", "-c", block],
                     env={"PATH": temp, "PROFILES": profile, "CALLS": str(calls)},
                     capture_output=True, check=True, timeout=10)
                 self.assertEqual(calls.read_text().splitlines(), expected)
+
+    def test_fork_branding_preserves_fedora_and_immutable_guard_ancestry(self):
+        # Execute only branding against disposable files, never the chroot/PAM
+        # operations against this desktop. mkosi adds IMAGE_ID afterward.
+        block = (ROOT / "mkosi.postinst.chroot").read_text().split("\n(\n", 1)[1]
+        with tempfile.TemporaryDirectory(prefix="personal-os-branding-") as temp:
+            root = Path(temp)
+            release = root / "os-release"
+            issue = root / "issue"
+            release.write_text('NAME="Fedora Linux"\nID=fedora\nVERSION="44"\nVERSION_ID=44\n')
+            block = "(\n" + block.replace("/usr/lib/os-release", str(release)).replace(
+                "/usr/lib/issue", str(issue))
+            subprocess.run(["/bin/bash", "-eu", "-c", block],
+                capture_output=True, check=True, timeout=10)
+            values = dict(line.split("=", 1) for line in release.read_text().splitlines())
+            self.assertEqual(values["ID"], '"fedora"')
+            self.assertEqual(values["VERSION_ID"], '"44"')
+            self.assertEqual(values["ID_LIKE"], '"personal-os particleos-fedora fedora"')
+            self.assertIn("Personal OS", values["PRETTY_NAME"])
+            self.assertNotIn("DEFAULT_HOSTNAME", values)
+            self.assertIn("Personal OS / Fedora Linux 44", issue.read_text())
+            self.assertNotIn("ParticleOS/", issue.read_text())
 
     def test_direct_execution_is_blocked_outside_target_profile(self):
         result = subprocess.run([str(HELPER)], capture_output=True, timeout=10)

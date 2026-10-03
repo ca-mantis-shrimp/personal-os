@@ -22,7 +22,9 @@ class ServerConfigTests(unittest.TestCase):
             check=True,
             timeout=30,
         )
-        cls.images = json.loads(result.stdout)["Images"]
+        summary = json.loads(result.stdout)
+        cls.images = summary["Images"]
+        cls.tools = summary["Tools"]
         cls.main = next(image for image in cls.images if image["Image"] == "main")
 
     def test_target_and_initrd_use_stable_fedora(self):
@@ -33,6 +35,126 @@ class ServerConfigTests(unittest.TestCase):
         self.assertEqual(self.main["Profiles"], ["mini-server"])
         self.assertIsNone(self.main["Hostname"])
         self.assertEqual(self.main["Credentials"], [])
+
+    def test_builder_is_fedora_without_graphical_vm_stack(self):
+        self.assertEqual(self.tools["Distribution"], "fedora")
+        self.assertEqual(self.tools["Release"], "44")
+        self.assertEqual(self.tools["Profiles"], ["misc", "runtime"])
+        self.assertTrue(set(self.tools["Packages"]).isdisjoint({
+            "pipewire", "pipewire-audio", "qemu-ui-sdl", "qemu-ui-opengl",
+        }))
+
+    def test_only_server_recipe_is_active_and_reference_is_not_staged(self):
+        self.assertEqual({p.name for p in (ROOT / "mkosi.profiles").iterdir()}, {"mini-server"})
+        self.assertEqual({p.name for p in (ROOT / "mkosi.conf.d").iterdir()}, {"fedora"})
+        for path in ("mkosi.images", "mkosi.uki-profiles", "mkosi.credentials", ".obs"):
+            self.assertFalse((ROOT / path).exists())
+            self.assertTrue((ROOT / "reference/particleos" / path).exists())
+        for image in self.images:
+            self.assertFalse(image["UnifiedKernelImageProfiles"])
+            for tree in image["ExtraTrees"]:
+                self.assertNotIn("reference", Path(tree["Source"]).parts)
+            for script in image["PostInstallationScripts"] + image["FinalizeScripts"]:
+                self.assertNotIn("reference", Path(script).parts)
+
+    def test_signed_audited_enforcing_boot_has_no_demo_or_reset_modes(self):
+        self.assertTrue(self.main["SecureBoot"])
+        self.assertFalse(self.main["SecureBootAutoEnroll"])
+        self.assertEqual(self.main["SignExpectedPcr"], "enabled")
+        self.assertEqual(self.main["SELinuxRelabel"], "enabled")
+        self.assertFalse(self.main["WithRecommends"])
+        cmdline = self.main["KernelCommandLine"]
+        self.assertTrue({"root=dissect", "mount.usr=dissect", "audit=1",
+                         "selinux=1", "enforcing=1"}.issubset(cmdline))
+        self.assertTrue(any("usr=signed" in arg for arg in cmdline))
+        for arg in cmdline:
+            self.assertFalse(any(token in arg for token in (
+                "audit=0", "selinux=0", "enforcing=0", "ipe.enforce=0",
+                "set-credential", "autologin", "noauth", "factory_reset",
+                "storage-target-mode", "image_policy=-",
+            )))
+
+    def test_fork_artifact_identity_stays_coupled_to_partition_filters(self):
+        image_id = self.main["ImageId"]
+        self.assertEqual(image_id, "PersonalOS")
+        version = self.main["ImageVersion"]
+        # %v is blank during unversioned inspection; actual releases must set it.
+        self.assertEqual(self.main["Output"],
+                         f"{image_id}_{version or ''}_{self.main['Architecture']}")
+        filters = next(arg for arg in self.main["KernelCommandLine"]
+                       if arg.startswith("systemd.image_filter="))
+        for name in ("usr", "usr-verity", "usr-verity-sig"):
+            self.assertIn(f"{name}={image_id}_*", filters)
+        for name in ("root", "swap", "home"):
+            self.assertIn(f"{name}={image_id}-*", filters)
+        # Timestamp-versioned labels still fit GPT's 36-character label limit.
+        self.assertLessEqual(len(f"{image_id}_20261003000000_verity_sig"), 36)
+        for name in ("10-usr-verity-sig", "11-usr-verity", "12-usr"):
+            build = (ROOT / "mkosi.repart" / (name + ".conf")).read_text()
+            target = (ROOT / "mkosi.extra/usr/lib/repart.d" / (name + ".conf")).read_text()
+            self.assertIn("Label=%M_%A", build)
+            self.assertIn("Label=%M_%A", target)
+            transfer = (ROOT / "mkosi.sysupdate" / (name + ".transfer")).read_text()
+            self.assertIn("ProtectVersion=%A", transfer)
+            self.assertIn("MatchPattern=%M_@v", transfer)
+        uki = (ROOT / "mkosi.sysupdate/20-uki.transfer").read_text()
+        self.assertIn("MatchPattern=%M_@v_%a.efi", uki)
+        self.assertIn("InstancesMax=2", uki)
+        self.assertIn("TriesLeft=3", uki)
+
+    def test_headless_package_selection_retains_use_cases_not_upstream_extras(self):
+        packages = set(self.main["Packages"])
+        self.assertEqual(len(packages), len(self.main["Packages"]))
+        self.assertTrue(packages.isdisjoint({
+            "gdb", "fwupd", "exfatprogs", "kexec-tools", "opensc", "pcsc-lite",
+            "pcsc-lite-ccid", "pkcs11-provider", "yubikey-manager", "perf", "bpftool",
+            "fido2-tools", "dnf5", "wget2", "gdm", "sddm", "pipewire", "NetworkManager",
+        }))
+        self.assertTrue({"nodejs", "npm", "git-core", "neovim", "fish", "tmux",
+                         "cryptsetup", "tpm2-tools", "btrfs-progs", "veritysetup"}.issubset(packages))
+        for filename in ("30-swap.conf", "40-root.conf", "50-home.conf"):
+            contents = (ROOT / "mkosi.extra/usr/lib/repart.d" / filename).read_text()
+            self.assertIn("FactoryReset=no", contents)
+            self.assertNotIn("FactoryReset=yes", contents)
+        root = (ROOT / "mkosi.extra/usr/lib/repart.d/40-root.conf").read_text()
+        self.assertIn("Encrypt=tpm2", root)
+        self.assertIn("Format=btrfs", root)
+
+    def test_presets_enable_management_not_desktop_or_workloads(self):
+        preset = (ROOT / "mkosi.extra/usr/lib/systemd/system-preset/10-personal-os.preset").read_text()
+        for unit in ("systemd-networkd.service", "systemd-resolved.service", "sshd.service"):
+            self.assertIn(f"enable {unit}", preset)
+        for unit in ("pcscd.*", "NetworkManager.service", "debug-shell.service",
+                     "systemd-homed.service", "radicale.service", "syncthing@.service"):
+            self.assertIn(f"disable {unit}", preset)
+        for line in preset.splitlines():
+            if line.startswith("enable "):
+                self.assertNotIn(line.split()[1], {"pcscd.service", "NetworkManager.service",
+                    "power-profiles-daemon.service", "systemd-homed-firstboot.service"})
+        tmpfiles = (ROOT / "mkosi.extra/usr/lib/tmpfiles.d/etc.conf").read_text()
+        for path in ("/etc/gdm", "/etc/cups", "/etc/PackageKit", "/etc/pacman.conf"):
+            self.assertNotIn(path, tmpfiles)
+
+    def test_core_rootless_podman_is_image_owned_not_an_enabled_api(self):
+        self.assertTrue({"podman", "container-selinux", "shadow-utils", "shadow-utils-subid",
+                         "crun", "netavark", "passt", "fuse-overlayfs"}.issubset(set(self.main["Packages"])))
+        for kind in ("system", "user"):
+            preset = (ROOT / f"mkosi.extra/usr/lib/systemd/{kind}-preset/10-personal-os.preset").read_text()
+            for unit in ("podman.socket", "podman.service", "podman-auto-update.timer", "podman-restart.service"):
+                self.assertIn(f"disable {unit}", preset)
+                self.assertNotIn(f"enable {unit}", preset)
+        factory = (ROOT / "mkosi.extra/usr/lib/tmpfiles.d/etc.conf").read_text()
+        self.assertIn("C /etc/containers", factory)
+        self.assertIn("L /etc/default/useradd", factory)
+        default = (ROOT / "mkosi.profiles/mini-server/mkosi.extra/usr/share/factory/etc/default/useradd").read_text()
+        self.assertIn("CREATE_MAIL_SPOOL=no", default)
+        helper = (ROOT / "mkosi.profiles/mini-server/mkosi.extra/usr/libexec/personal-os-account").read_text()
+        self.assertNotIn('"CREATE_MAIL_SPOOL=no"', helper)  # Not a valid useradd -K override.
+        self.assertNotIn("L /etc/subuid", factory)
+        self.assertNotIn("L /etc/subgid", factory)
+        unit = (ROOT / "mkosi.profiles/mini-server/mkosi.extra/usr/lib/systemd/system/personal-os-account.service").read_text()
+        self.assertIn("RuntimeDirectory=personal-os", unit)
+        self.assertIn("NoNewPrivileges=yes", unit)  # Root enrollment needs no new setuid privilege.
 
     def test_host_arch_fragments_do_not_leak_into_target(self):
         packages = set(self.main["Packages"])

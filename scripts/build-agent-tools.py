@@ -27,7 +27,8 @@ def read_inputs(source):
         raise ValueError("Unsupported agent artifact policy")
     for name, base, suffix in (
             ("claude", "https://downloads.claude.ai/claude-code-releases/", "/linux-x64/claude"),
-            ("shpool", "https://static.crates.io/crates/shpool/shpool-", ".crate")):
+            ("shpool", "https://static.crates.io/crates/shpool/shpool-", ".crate"),
+            ("starship", "https://static.crates.io/crates/starship/starship-", ".crate")):
         artifact = artifacts[name]
         if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", artifact["version"]):
             raise ValueError("Artifact requires an exact release")
@@ -93,7 +94,7 @@ def build(source, destination, architecture, fetch=download, execute=run):
                "npm_config_cache": str(work / "npm-cache"), "npm_config_userconfig": str(work / "user.npmrc"),
                "npm_config_globalconfig": str(work / "global.npmrc"), "npm_config_registry": "https://registry.npmjs.org",
                "npm_config_ignore_scripts": "true", "CARGO_HOME": str(work / "cargo-home"),
-               "CARGO_TARGET_DIR": str(work / "cargo-target")}
+               "CARGO_TARGET_DIR": str(work / "cargo-target"), "CARGO_BUILD_JOBS": "2"}
         execute(["npm", "ci", "--ignore-scripts", "--omit=dev", "--omit=optional", "--engine-strict",
                  "--audit=false", "--fund=false"], cwd=npm, env=env)
         pi_entry = npm / "node_modules" / PI / "dist/bundle/cli.js"
@@ -103,29 +104,38 @@ def build(source, destination, architecture, fetch=download, execute=run):
         if installed["version"] != pi_version:
             raise ValueError("Installed Pi version mismatch")
         fetch(artifacts["claude"], work / "claude")
-        fetch(artifacts["shpool"], work / "shpool.crate")
-        crate = work / "source"
-        crate.mkdir()
-        with tarfile.open(work / "shpool.crate") as archive:
-            # Python's data filter rejects device nodes, traversal and escaping links.
-            archive.extractall(crate, filter="data")
-        project = crate / ("shpool-" + artifacts["shpool"]["version"])
-        if not (project / "Cargo.lock").is_file():
-            raise ValueError("shpool source lacks its locked dependency graph")
-        execute(["cargo", "install", "--locked", "--path", str(project), "--root", str(work / "shpool-install")],
-                cwd=project, env=env)
-        shpool = work / "shpool-install/bin/shpool"
-        if not shpool.is_file() or shpool.is_symlink():
-            raise ValueError("shpool runtime binary missing/unsafe")
+        binaries = {"claude": work / "claude"}
+        cargo_locks = {}
+        for name in ("shpool", "starship"):
+            archive_path = work / (name + ".crate")
+            fetch(artifacts[name], archive_path)
+            crate = work / (name + "-source")
+            crate.mkdir()
+            with tarfile.open(archive_path) as archive:
+                # Python's data filter rejects devices, traversal and escaping links.
+                archive.extractall(crate, filter="data")
+            project = crate / (name + "-" + artifacts[name]["version"])
+            lock = project / "Cargo.lock"
+            if not lock.is_file() or lock.is_symlink():
+                raise ValueError(f"{name} source lacks a safe locked dependency graph")
+            prefix = work / (name + "-install")
+            execute(["cargo", "install", "--locked", "--path", str(project), "--root", str(prefix)],
+                    cwd=project, env=env)
+            binary = prefix / "bin" / name
+            if not binary.is_file() or binary.is_symlink():
+                raise ValueError(f"{name} runtime binary missing/unsafe")
+            binaries[name] = binary
+            cargo_locks[name] = hashlib.sha256(lock.read_bytes()).hexdigest()
         # Publish only after ALL dependency/artifact/build checks succeed.
         root.mkdir(parents=True)
         shutil.copytree(npm / "node_modules", root / "node_modules", symlinks=True)
-        for name, binary in (("claude", work / "claude"), ("shpool", shpool)):
+        for name, binary in binaries.items():
             shutil.copyfile(binary, root / name)
             (root / name).chmod(0o755)
         provenance = {"version": 1, "pi": pi_version, "artifacts": artifacts,
                       "npm_lock_sha256": hashlib.sha256((inputs / "package-lock.json").read_bytes()).hexdigest(),
-                      "cargo_lock_sha256": hashlib.sha256((project / "Cargo.lock").read_bytes()).hexdigest()}
+                      "cargo_lock_sha256": cargo_locks["shpool"],
+                      "starship_cargo_lock_sha256": cargo_locks["starship"]}
         (root / "provenance.json").write_text(json.dumps(provenance, indent=2) + "\n")
 
 

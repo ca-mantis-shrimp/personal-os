@@ -46,6 +46,7 @@ class HookTemplateTests(unittest.TestCase):
             {"distro": "fedora"},
             {"distro": "debian"},
             {"id_like": "particleos-arch"},
+            {"id_like": "personal-os particleos-arch arch"},
             {"CHEZMOI_IMMUTABLE": "1"},
             {"CHEZMOI_CONTAINER": "1"},
             {"os_name": "windows"},
@@ -80,11 +81,13 @@ class TargetRenderTests(unittest.TestCase):
             config = t / "config.toml"
             config.write_text("")
             env = os.environ.copy()
-            env.update(HOME=str(home), CHEZMOI_IMMUTABLE="1",
+            # Fork branding alone must retain the pinned source's ignore rules;
+            # the real lifecycle additionally sets CHEZMOI_IMMUTABLE=1.
+            env.update(HOME=str(home), CHEZMOI_IMMUTABLE="",
                        XDG_CONFIG_HOME=str(t / "config"), XDG_CACHE_HOME=str(t / "cache"),
                        XDG_DATA_HOME=str(t / "data"))
             data = {"chezmoi": {"os": "linux", "osRelease": {
-                "id": "fedora", "idLike": "particleos-fedora", "versionID": "44"},
+                "id": "fedora", "idLike": "personal-os particleos-fedora fedora", "versionID": "44"},
                 "hostname": "mini-travel-server", "username": "dab",
                 "homeDir": str(home), "sourceDir": str(source)}}
             cmd = ["chezmoi", "--config", str(config), "--source", str(source),

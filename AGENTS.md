@@ -56,20 +56,29 @@ private signing keys, B2 keys, 1Password service tokens and device identities ou
 of Git, images, shared command output and logs. The approved console passphrase
 and runtime secrets come from 1Password, not image source.
 
-The profile currently inherits upstream encrypted Btrfs/signing defaults.
-Homed is masked in the server overlay, with a conventional-account prototype;
-that implementation has not passed a booted VM and is not deployable yet. Do not burn an upstream-default image while treating
-it as the trimmed server design. Before builds, understand what mkosi will do;
-use profile summary/config inspection. Production signing-key generation and
-Secure Boot enrollment need a separately agreed custody/recovery policy.
+The active fork is Fedora 44 plus mini-server with a Fedora 44 headless tools
+tree. Inactive upstream desktop/distro/OBS/demo/UKI examples are preserved in
+`reference/particleos/`; do not re-enable them implicitly. Only the normal signed
+UKI is currently built: replacement installer/rescue access is still a gate.
+TPM-encrypted Btrfs root/swap, unencrypted Btrfs home and signing/PCR requirements
+remain; mutable partitions are not factory-reset candidates and Secure Boot
+keys are not auto-enrolled. Homed is masked; conventional-account/configuration
+prototypes remain unbooted and automatic configuration stays disabled. Before
+builds, understand what mkosi will do; use profile summary/config inspection.
+Production signing-key generation and Secure Boot enrollment need a separately
+agreed custody/recovery policy.
 Disposable isolated VM test keys are permitted as part of approved synthetic
 testing; keep them outside Git, remove them afterward and never reuse them for
 production.
 
 ## Tool and workspace care
 
-Read source before changing it; prefer small profile overlays over destructive
-upstream deletions. Keep update/rollback coupling between `/usr`, verity and UKIs.
+Read source before changing it; prefer small owned configuration changes and
+preserve useful upstream examples outside active discovery rather than deleting
+them blindly. Keep update/rollback coupling between `/usr`, verity and UKIs.
+`ImageId=PersonalOS` matches discovery filters and `%M` artifact/partition patterns.
+Preserve Fedora programmatic identity and the ParticleOS ancestry token used by
+the pinned dotfiles' immutable guards, plus the immutable marker/environment guards.
 Avoid wholesale filesystem archaeology: owner accepts small reconstruction gaps
 and wants generic reprovisioning, with only significant unique state retained.
 
@@ -79,6 +88,11 @@ unrelated identities. Inspect diffs after CLI writes. Keep actual new completion
 dates, and leave historical I001 notices informational. Do not hand-edit UUIDs or
 tool-managed sidecar identity/provenance.
 
-No test VM or registry is currently running; all previous disposable test
-credentials/artifacts were removed. Use fresh isolated artifacts. The desktop
-was owner-rebooted and kernel/modules now match; do not reboot it automatically.
+The 2026-10-03 disposable Personal OS builder and software TPM were stopped;
+all their credentials/signing keys, VM state and build scratch were removed.
+The first pre-Podman candidate built, but latest rootless/account changes are
+unbuilt and no candidate boot pass exists. Use fresh isolated artifacts; load
+matching stock target policy modules in an enforcing builder before relabeling.
+Sandbox extraction is delegated to another agent; do not interfere with its
+workspace/processes or invent another launcher. The desktop was owner-rebooted
+and kernel/modules now match; do not reboot it automatically.

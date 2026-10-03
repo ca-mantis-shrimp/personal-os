@@ -89,7 +89,39 @@ smoke tests pass and ClearHead doctor reports no findings. This validates config
 selection/prerequisites only, not image package availability or target behavior.
 No new guest boot/SELinux/recovery, RAID presence/degradation, update/rollback or
 real workload restore pass is claimed. Bootc evidence stays in `reference/bootc`.
-No ParticleOS-derived image has been built or installed.
+At initial scaffold validation no ParticleOS-derived image had been built or
+installed. A first pre-Podman candidate has since built successfully (evidence
+below); the current rootless/account follow-up is unbuilt and no candidate has
+booted or been installed.
+
+The owner subsequently authorized making this a minimal, explicitly owned fork.
+The active recipe is now Fedora 44 plus mini-server, with a Fedora 44 tools tree
+and no GUI tools profile. Explicit target package selections fell from 124 to 92;
+requested workloads and agent tools remain. Unused desktop/distro/OBS/netboot,
+demo credentials, all eight extra UKI profiles and upstream publishing examples
+are preserved in `reference/particleos/`, outside active discovery and image
+payloads. Personal OS branding and `ImageId=PersonalOS` replace upstream identity;
+Fedora ID/version plus the ParticleOS ancestry token retain pinned immutable guards.
+Only the normal signed UKI is currently built. Auditing/enforcing SELinux and
+fail-on-error relabeling are explicit; weak dependencies and Secure Boot automatic
+enrollment are disabled, and mutable root/home/swap are not factory-reset candidates.
+The TPM-encrypted Btrfs root/swap and unencrypted Btrfs home layout is retained,
+not newly boot-validated. 100 offline tests pass, including synthetic fork branding
+and archive rendering without apply. No image-size/transitive-package, booted
+SELinux/update/rollback, installer or recovery pass is claimed. No production,
+credential, submodule or publication changes occurred.
+
+Latest owner request makes Podman core host infrastructure. The mini-server now
+selects Podman, container-selinux, crun/netavark, passt/pasta, fuse-overlayfs and
+shadow-utils-subid explicitly. Enrollment supplies stable subordinate UID/GID
+ranges and enables operator lingering once; later explicit disabling is preserved.
+Shpool now permits mapping helpers (`NoNewPrivileges=no`) but remains disabled
+and is not the sandbox boundary. This local follow-up has 119 offline tests plus
+a narrow native Fedora Shadow/libsubid bridge, not a rootless namespace/shpool/
+logind/SELinux or booted-target pass. Package selections are now 98; the first
+build predates these changes. No host/server account, subids, linger or services
+were changed. Sandbox extraction was delegated to another agent; do not work in
+platform or introduce a second runner here.
 
 USB identities and topology are recorded. Operator-provided SMART reports show
 clean sector/error counters on both CMR drives. The owner has chosen to skip
@@ -696,10 +728,126 @@ and Rust >=1.85 declaration; that disposable archive was removed uncompiled.
 These checks and source metadata inspection are not an actual Fedora build,
 CLI startup, authentication, session, SELinux or booted VM pass.
 
-Next implement workload-specific private-listener/binary/runtime-secret gates,
-then readiness/health checks and reviewed controller activation. Keep automatic
-application disabled; do not create the marker manually. Then review inherited
-signing/encryption/recovery defaults before a fresh isolated image/VM pass. Test
+The owner has now approved slimming the inherited scaffold into OUR fork.
+Inactive upstream examples were relocated byte/link-identically (128 tracked
+files) under `reference/particleos/`; this is reference material, not a second
+plan or selectable production recipe. Remaining active configuration is Fedora
+44 plus mini-server, with fork-owned packages, presets, factory links and branding.
+The normal signed UKI is the only boot profile. Demo/live/installer, public-storage,
+reset/TPM-clear and debug profiles are no longer loaded, and no replacement rescue
+or installer credential handoff has been proven. Do not re-enable demo access to
+make a build/VM pass. The `PersonalOS` identity remains coupled through discovery
+filters, `%M` partition/artifact patterns and timestamp-version GPT label limits;
+no deployed image exists to migrate from the previous `ParticleOS` labels.
+Fedora ID/version and `particleos-fedora` ancestry are preserved for pinned
+chezmoi guards, along with immutable environment and filesystem markers.
+
+100 offline tests pass after trimming, with mkosi 27.1 configuration inspection,
+Fedora headless tools-tree selection, signing/enforcing/auditing settings, reset
+exclusion, source staging and synthetic fork-branding/archive rendering. Removed
+package selections are not proof those packages have no transitive dependencies;
+image size/package closure requires a real build. Byte/link archive verification,
+shell syntax and diff whitespace checks also pass. ClearHead doctor reports
+zero violations and two charter-without-objective warnings; unrelated charter
+metadata was not repaired, and the completed action history was unchanged by the
+CLI description update. No build/guest/actual apply,
+SELinux/recovery/update pass, key generation, production change or publication
+occurred. The dotfiles pin is unchanged and configuration/shpool remain disabled.
+
+### First candidate build and rootless follow-up (2026-10-03)
+
+An uncommitted trimmed candidate based on OS HEAD
+`608105bccdd75330a8ca8ae54cd79763a9d42776`, unchanged dotfiles pin
+`1338e50103645df922e1411a523edeaf709336d7`, mkosi 27.1 and image version
+`20261003000100` built in an isolated Fedora Cloud Generic 44 KVM VM. The public
+cloud image checksum/signature was checked against Fedora 44 key
+`36F612DCF27F7D1A48A835E4DBFCF71C6D9F90A6` from the pinned Fedora reference image.
+The initial restricted Docker builder failed pivot_root with EPERM; unrestricted
+privilege/security disabling was not used to make it work. The VM stayed enforcing,
+with 4 CPUs/8 GiB RAM; build unit capped at 3 CPUs, 6 GiB and 20 minutes, no swap.
+All disks were files, not host devices. Disposable two-day signing material stayed
+outside Git/build source and was used only for this isolated test.
+
+Real package resolution rejected the assumed Starship RPM. The source hook now
+builds Starship 1.24.2 from its checksum-pinned crates.io archive (379,095 bytes),
+published 428-package Cargo.lock and Rust >=1.90, alongside shpool with two Cargo
+jobs. No floating installer, target package hook or agent process was executed.
+Strict relabel initially rejected target-only policy types; updating the builder's
+stock targeted policy to 44.11 and loading matching packaged Radicale and smartmon
+modules fixed it without permissive mode or custom policy. A future Podman build
+also needs matching container-selinux types loaded in its enforcing builder.
+
+Successful build: 310 runtime RPMs; Rust/Cargo/GCC absent from the final manifest;
+strict target relabel and dotfiles finalize passed. Signed UKI plus usr/verity/
+verity-signature partitions were generated, and `sbverify --cert` passed. Raw
+image: 2,189,987,840 logical bytes, about 732.7 MiB allocated; UKI 64,262,128 bytes.
+Retained artifact identities (public integrity digests, NOT password hashes):
+- raw SHA-256 `2802a9afd472b0ed292edcf0252376284dad8cbd79abb6f3f153a47a63dad941`;
+- UKI SHA-256 `b58759950baca16d68605bd4a20ca1bb9bfeca3d00cfcf9f0e2f4b2811ac2fd5`;
+- manifest SHA-256 `b876d383d6a4640c6882fa8da9412609030369ff37b1e0bd495b0668c27ad9c0`;
+- initial tracked-diff digest `f66a72b1c2c85d7d2044c9715d4f4601d536d4f0f41dedf1f0001d4ec5fc3485`;
+- Starship/config source-update archive digest
+  `9471db16698d9b711e1f5a54ffa71530d013d822abaf35d185bd59fae1eaf488`.
+These identify a dirty test candidate, not a reproducible published release.
+All associated signing/SSH keys, synthetic runtime credentials, VM/TPM state,
+images/caches and source scratch were removed after the builder/TPM stopped;
+only these public integrity/provenance facts remain. Fresh testing needs new keys.
+
+The builder was powered off. Target preparation stopped before QEMU launch
+because host qemu-img is absent; no target boot/ABI, Secure Boot firmware, TPM,
+SSH/console, SELinux runtime, update or recovery pass occurred. A future test may
+use a sparse raw file/copy and file-backed growth rather than installing host
+packages. New Podman/account changes are NOT in this first artifact.
+
+Owner-requested current integration:
+- Explicit core Podman/rootless RPMs (98 total selections), no package-installing
+  user hook or extra launcher. Factory container config copies only when absent;
+  mutable site policy/rootful Quadlets are preserved. System/user API sockets,
+  auto-update timers and restart services are disabled by preset.
+- Account bootstrap allocates free 65,536-ID subuid/subgid blocks from 100,000,
+  avoiding both existing mappings and NSS IDs. A separate protected pending/
+  complete `rootless.json` ledger preserves the original account-journal schema.
+  Partial writes retry the same allocation. Recorded mappings never silently
+  change, disappear, overlap or shrink; container state is never recursively
+  chowned/reset. Valid pre-existing single ranges for an already trusted completed
+  account may be retained; untracked/composite/ambiguous mappings require review.
+  Native Shadow PID locks serialize writes; dead, validated PID locks recover;
+  live/ambiguous locks fail. Local files subid delegation is required, including
+  validated Fedora authselect/factory link chains; no unreviewed NSS plugin.
+- Enable linger once for the operator after mappings succeed, before account
+  readiness. Preserve subsequent explicit disable-linger instead of forcing it
+  back on every boot. This starts no shpool/API/agent or guarded server workload.
+- Shpool explicitly sets NoNewPrivileges=no for setuid mapping helpers (also
+  permits operator sudo); retain private socket, umask, control-group cleanup and
+  disabled preset. Host management sessions are not agent confinement. Root
+  enrollment/configuration retain NoNewPrivileges=yes; inspect inherited user-
+  manager/session settings in the real VM too.
+- RuntimeDirectory now provides the account service's /run namespace exception.
+  Native checks found the previous CREATE_MAIL_SPOOL -K override invalid in
+  shadow 4.19; suppression is now a factory useradd default instead.
+
+119 offline tests pass, including allocation/conflicts, shared-lock/dead-PID
+recovery, partial-table retries, lingering failure/once-only behavior, immutable
+mapping preservation, authselect/hardlink config and preset policy. Opt-in
+`python3 tests/check_rootless_native.py` passes native Fedora useradd, getsubids
+and Shadow lock interoperability (with positive unlocked control) in a networkless
+container with only CHOWN/DAC_OVERRIDE and NNP. Logind is mocked and the state
+hierarchy synthetic/protected; bootc's existing /var/lib was group-writable, so
+actual target parent permissions still need validation. This is NOT a rootless
+Podman namespace, real lingering, shpool or enforcing-console VM pass.
+
+Next build the current candidate with matching stock builder policies, then prove
+minimal boot/account, stable subids, real linger/logout, Podman unshare/storage/
+pasta/cgroup v2 and scoped SELinux mounts from SSH AND shpool in a fresh isolated
+VM. Check actual policy loading/factory availability and namespace paths, not
+just an enforcing flag. Update/rollback must retain subordinate ownership and
+container/home state without remapping. Sandbox extraction remains the other
+agent's work; this repo consumes it, not a competing runner. Production signing-key custody/enrollment and independent rescue
+access still need owner decisions; disposable isolated VM keys are allowed, not
+production enrollment. Retain the existing UKI/verity/sysupdate coupling. Then
+implement workload-specific private-listener/binary/runtime-secret gates,
+readiness/health checks and reviewed controller activation. Keep automatic
+application disabled and never create the marker manually. Test
 actual native CLI first boot, exact-directory deletion conflicts, partial apply,
 retry after power-loss windows, SELinux labels, updates/rollback, schema
 compatibility and independent state recovery; offline mocks are not that evidence.

@@ -140,6 +140,11 @@ class Backend:
         return socket.gethostname()
 
     @staticmethod
+    def ids(kind):
+        return ([entry.pw_uid for entry in pwd.getpwall()] if kind == "subuid"
+                else [entry.gr_gid for entry in grp.getgrall()])
+
+    @staticmethod
     def run(args, input=None):
         result = subprocess.run(args, input=input, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE, timeout=30)
@@ -200,7 +205,7 @@ class Files:
         finally:
             os.close(fd)
 
-    def read(self, path, private=True):
+    def read(self, path, private=True, allow_hardlinks=False):
         with self.directory(Path(path).parent) as parent:
             try:
                 fd = os.open(Path(path).name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
@@ -208,7 +213,7 @@ class Files:
                 return None
             with os.fdopen(fd, "rb") as stream:
                 info = os.fstat(stream.fileno())
-                if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1 or (info.st_uid, info.st_gid) != self.owner(path) or info.st_mode & (0o077 if private else 0o022):
+                if not stat.S_ISREG(info.st_mode) or (info.st_nlink != 1 and not allow_hardlinks) or (info.st_uid, info.st_gid) != self.owner(path) or info.st_mode & (0o077 if private else 0o022):
                     raise ProvisionError("Unsafe provisioning file")
                 data = stream.read(65537)
                 if len(data) > 65536:
@@ -237,6 +242,212 @@ class Files:
                     os.unlink(temporary, dir_fd=parent)
                 except FileNotFoundError:
                     pass
+
+
+SUBID_MIN = 100000
+SUBID_COUNT = 65536
+SUBID_MAX = 2**32 - 2  # uid_t's all-ones value is reserved.
+
+
+def subid_entries(data):
+    entries = []
+    for line in (data or b"").decode("ascii").splitlines():
+        if not line.strip() or line.startswith("#"):
+            continue
+        parts = line.split(":")
+        if (len(parts) != 3 or not re.fullmatch(r"[A-Za-z0-9_.-]+\$?", parts[0])
+                or any(not re.fullmatch(r"[0-9]{1,10}", p) for p in parts[1:])):
+            raise ProvisionError("Invalid subordinate ID database")
+        owner, start, count = parts[0], int(parts[1]), int(parts[2])
+        if owner.isdecimal():
+            if int(owner) > SUBID_MAX:
+                raise ProvisionError("Invalid subordinate ID owner")
+            owner = str(int(owner))
+        if count < 1 or start + count - 1 > SUBID_MAX:
+            raise ProvisionError("Invalid subordinate ID range")
+        entries.append((owner, start, count))
+    return entries
+
+
+def require_local_subids(files):
+    # Fedora authselect plus tmpfiles' factory links form a small known chain.
+    # Validate every link/parent; do not follow arbitrary NSS links or plugins.
+    path = "etc/nsswitch.conf"
+    for _ in range(6):
+        parent = str(Path(path).parent)
+        if parent == "etc/authselect" and (files.root / parent).is_symlink():
+            with files.directory("etc"):
+                info = (files.root / parent).lstat()
+                link = os.readlink(files.root / parent)
+            if (info.st_uid, info.st_gid) != files.privileged or link not in (
+                    "/usr/share/factory/etc/authselect", "../usr/share/factory/etc/authselect"):
+                raise ProvisionError("Unrecognized NSS directory link")
+            path = "usr/share/factory/etc/authselect/nsswitch.conf"
+            continue
+        with files.directory(parent):
+            candidate = files.root / path
+            if not candidate.is_symlink():
+                break
+            info = candidate.lstat()
+            link = os.readlink(candidate)
+        if (info.st_uid, info.st_gid) != files.privileged:
+            raise ProvisionError("Untrusted NSS configuration link")
+        if path == "etc/nsswitch.conf" and link in (
+                "/usr/share/factory/etc/nsswitch.conf", "../usr/share/factory/etc/nsswitch.conf"):
+            path = "usr/share/factory/etc/nsswitch.conf"
+        elif path in ("etc/nsswitch.conf", "usr/share/factory/etc/nsswitch.conf") and link in (
+                "/etc/authselect/nsswitch.conf", "authselect/nsswitch.conf"):
+            path = ("usr/share/factory/etc/authselect/nsswitch.conf" if path.startswith("usr/")
+                    else "etc/authselect/nsswitch.conf")
+        else:
+            raise ProvisionError("Unrecognized NSS configuration link")
+    else:
+        raise ProvisionError("NSS configuration link loop")
+    # Read-only distro config can be hardlink-deduplicated; mutable databases,
+    # journals and secret inputs retain the stricter single-link requirement.
+    data = files.read(path, private=False, allow_hardlinks=True)
+    sources = [line.split(":", 1)[1].split("#", 1)[0].strip()
+               for line in (data or b"").decode("ascii").splitlines()
+               if re.match(r"^\s*subid\s*:", line)]
+    if sources not in ([], ["files"]):
+        raise ProvisionError("Rootless enrollment requires local files subid delegation")
+
+
+@contextmanager
+def subid_locks(files):
+    # Shadow's commonio uses exclusive <database>.lock files containing a PID.
+    # Cooperate with native writers, not merely another private flock. Never
+    # steal a live/ambiguous lock; only well-formed, root-owned dead-PID locks
+    # can be recovered after a crash. Enrollment runs in the host PID namespace.
+    with files.directory("etc") as parent:
+        held = []
+        try:
+            for name in ("subuid.lock", "subgid.lock"):
+                try:
+                    fd = os.open(name, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                                 0o600, dir_fd=parent)
+                except FileExistsError:
+                    data = files.read("etc/" + name, private=False)
+                    if data is None or not re.fullmatch(rb"[1-9][0-9]{0,9}[\n\x00]?", data):
+                        raise ProvisionError("Ambiguous subordinate ID database lock") from None
+                    pid = int(data.rstrip(b"\n\x00"))
+                    if pid > 2147483647:
+                        raise ProvisionError("Invalid subordinate ID database lock PID")
+                    try:
+                        os.kill(pid, 0)
+                    except ProcessLookupError:
+                        os.unlink(name, dir_fd=parent)
+                    except PermissionError:
+                        raise ProvisionError("Subordinate ID database locked; retry") from None
+                    else:
+                        raise ProvisionError("Subordinate ID database locked; retry")
+                    fd = os.open(name, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                                 0o600, dir_fd=parent)
+                with os.fdopen(fd, "wb") as stream:
+                    os.fchown(stream.fileno(), *files.privileged)
+                    held.append((name, os.fstat(stream.fileno()).st_ino))
+                    stream.write(f"{os.getpid()}\n".encode())
+                    stream.flush()
+                    os.fsync(stream.fileno())
+            yield
+        finally:
+            for name, inode in reversed(held):
+                if os.stat(name, dir_fd=parent, follow_symlinks=False).st_ino == inode:
+                    os.unlink(name, dir_fd=parent)
+            os.fsync(parent)
+
+
+def subid_plan(files, backend, allow_existing, recorded=None):
+    tables, own, blocked = {}, {}, []
+    owners = {files.config["username"], str(files.config["uid"])}
+    for kind in ("subuid", "subgid"):
+        data = files.read("etc/" + kind, private=False)
+        entries = subid_entries(data)
+        tables[kind] = (data, entries)
+        own[kind] = [(start, count) for owner, start, count in entries if owner in owners]
+        if own[kind] and (not allow_existing or len(own[kind]) != 1
+                          or own[kind][0][0] < SUBID_MIN or own[kind][0][1] < SUBID_COUNT):
+            raise ProvisionError("Existing subordinate IDs require operator review")
+        blocked.extend((start, start + count) for _, start, count in entries)
+        blocked.extend((value, value + 1) for value in backend.ids(kind))
+    start = SUBID_MIN
+    if recorded is None and any(not entries for entries in own.values()):
+        for first, end in sorted(blocked):
+            if first >= start + SUBID_COUNT:
+                break
+            if end > start:
+                start = end
+        if start + SUBID_COUNT - 1 > SUBID_MAX:
+            raise ProvisionError("No free subordinate ID block")
+    ranges = (recorded if recorded is not None else
+              {kind: list(own[kind][0]) if own[kind] else [start, SUBID_COUNT]
+               for kind in tables})
+    return tables, own, ranges
+
+
+def rootless_enrollment(files, backend, allow_existing=False):
+    path = "var/lib/personal-os/rootless.json"
+    require_local_subids(files)
+    with subid_locks(files):
+        data = files.read(path)
+        try:
+            state = json.loads(data) if data else None
+        except ValueError:
+            raise ProvisionError("Invalid rootless enrollment journal") from None
+        identity = {key: files.config[key] for key in ("username", "uid", "gid")}
+        recorded = None
+        if state is not None:
+            if (not isinstance(state, dict) or set(state) != {"version", "phase", "subuid", "subgid", "linger_on_enrollment", *identity}
+                    or type(state["version"]) is not int or state["version"] != 1
+                    or state["phase"] not in ("pending", "complete")
+                    or any(type(state[key]) is not type(value) or state[key] != value for key, value in identity.items())
+                    or state["linger_on_enrollment"] is not True):
+                raise ProvisionError("Invalid rootless enrollment journal")
+            recorded = {kind: state[kind] for kind in ("subuid", "subgid")}
+        tables, own, ranges = subid_plan(files, backend, allow_existing or state is not None, recorded)
+        for kind, expected in ranges.items():
+            if (not isinstance(expected, list) or len(expected) != 2
+                    or any(type(n) is not int for n in expected)
+                    or expected[0] < SUBID_MIN or expected[1] < SUBID_COUNT
+                    or sum(expected) - 1 > SUBID_MAX):
+                raise ProvisionError("Invalid recorded subordinate IDs")
+            if own[kind] and list(own[kind][0]) != expected:
+                raise ProvisionError("Subordinate IDs changed; never remap container state")
+            first, count = expected
+            foreign = [(s, s + c) for owner, s, c in tables[kind][1]
+                       if owner not in {identity["username"], str(identity["uid"])}]
+            foreign.extend((value, value + 1) for value in backend.ids(kind))
+            if any(first < end and other < first + count for other, end in foreign):
+                raise ProvisionError("Subordinate IDs overlap an existing identity/range")
+            if state and state["phase"] == "complete" and not own[kind]:
+                raise ProvisionError("Recorded subordinate IDs missing; operator review required")
+        if state and state["phase"] == "complete":
+            # Lingering is initialized once. Preserve later loginctl disable-linger.
+            return
+        if state is None:
+            state = {"version": 1, "phase": "pending", **identity, **ranges,
+                     "linger_on_enrollment": True}
+            files.write(path, (json.dumps(state) + "\n").encode())
+        for kind, (first, count) in ranges.items():
+            if not own[kind]:
+                original = tables[kind][0]
+                prefix = (original or b"") + (b"\n" if original and not original.endswith(b"\n") else b"")
+                files.write("etc/" + kind, prefix + f"{identity['username']}:{first}:{count}\n".encode(),
+                            mode=0o644, replace=original is not None)
+        backend.run(["restorecon", str(files.root / "etc/subuid"), str(files.root / "etc/subgid"),
+                     str(files.root / path)])
+        marker = "var/lib/systemd/linger/" + identity["username"]
+        try:
+            existing = files.read(marker, private=False)
+        except FileNotFoundError:
+            existing = None
+        if existing is None:
+            backend.run(["loginctl", "enable-linger", identity["username"]])
+            existing = files.read(marker, private=False)
+        if existing != b"":
+            raise ProvisionError("Lingering initialization failed or marker is unsafe")
+        state["phase"] = "complete"
+        files.write(path, (json.dumps(state) + "\n").encode(), replace=True)
 
 
 def provision(root, config_data, password_data, backend, privileged_uid=0, privileged_gid=0):
@@ -294,6 +505,7 @@ def provision(root, config_data, password_data, backend, privileged_uid=0, privi
         if files.read(keys_path) is None or files.read(sudo_path, private=False) != sudo or backend.hostname() != config["hostname"]:
             raise ProvisionError("Enrolled access policy or hostname needs operator review")
         # Deliberately do not reset the password, keys, shell, groups or home.
+        rootless_enrollment(files, backend, allow_existing=True)
         return config
 
     password = password_from_bytes(password_data or b"")
@@ -307,13 +519,17 @@ def provision(root, config_data, password_data, backend, privileged_uid=0, privi
         if existing is not None and existing != expected:
             raise ProvisionError("Existing access-policy file conflicts with enrollment")
     if state is None:
+        require_local_subids(files)
+        with subid_locks(files):
+            subid_plan(files, backend, allow_existing=False)
         state = {"version": 1, "phase": "pending", "config": config}
         files.write(state_path, (json.dumps(state) + "\n").encode())
     if group is None:
         backend.run(["groupadd", "--gid", str(gid), name])
     if user is None:
         backend.run(["useradd", "--no-create-home", "--no-user-group", "--no-log-init",
-                     "--key", "CREATE_MAIL_SPOOL=no", "--uid", str(uid), "--gid", str(gid), "--home-dir", "/" + home,
+                     "--key", "SUB_UID_COUNT=0", "--key", "SUB_GID_COUNT=0",
+                     "--uid", str(uid), "--gid", str(gid), "--home-dir", "/" + home,
                      "--shell", config["shell"], name])
     if name not in wheel.gr_mem:
         backend.run(["usermod", "--append", "--groups", "wheel", name])
@@ -339,6 +555,9 @@ def provision(root, config_data, password_data, backend, privileged_uid=0, privi
         if current not in ("!", "!!", "*"):
             raise ProvisionError("Existing console password differs; operator review required")
         backend.run(["chpasswd", "--encrypted"], input=(name + ":" + password + "\n").encode())
+    # Rootless mappings/linger must succeed before publishing account readiness.
+    # A separate ledger preserves the original account journal's rollback schema.
+    rootless_enrollment(files, backend)
     # The final journal carries no password/hash; successful boots require no
     # original credentials and never replay secret enrollment.
     state["phase"] = "complete"
@@ -379,7 +598,7 @@ def main():
         # never input values, subprocess stderr or secret-bearing exception reprs.
         print("personal-os account enrollment failed: " + str(error), file=sys.stderr)
         return 1
-    except (OSError, subprocess.SubprocessError, UnicodeError):
+    except (OSError, subprocess.SubprocessError, UnicodeError, ValueError):
         print("personal-os account enrollment failed: protected filesystem or command execution error", file=sys.stderr)
         return 1
     return 0

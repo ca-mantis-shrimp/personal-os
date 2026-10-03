@@ -1,0 +1,4 @@
+# Image-owned conventional-account default. Other identity fields are explicit
+# useradd arguments; --no-create-home also avoids copying a vendor skeleton.
+# This is a useradd default, NOT a valid login.defs/-K setting in shadow 4.19.
+CREATE_MAIL_SPOOL=no

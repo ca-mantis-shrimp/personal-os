@@ -10,8 +10,9 @@ UMask=0077
 KillMode=control-group
 TimeoutStopSec=10s
 SendSIGHUP=yes
-# Prevent ordinary sudo escalation inside sessions; this is NOT a sandbox.
-NoNewPrivileges=yes
+# Host sessions must permit setuid newuidmap/newgidmap for rootless Podman.
+# shpool is NOT an isolation boundary; agent confinement belongs to the sandbox.
+NoNewPrivileges=no
 LimitCORE=0
 
 [Install]

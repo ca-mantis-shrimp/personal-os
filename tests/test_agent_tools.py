@@ -35,7 +35,9 @@ class AgentToolsTests(unittest.TestCase):
         else:
             with tarfile.open(path, "w:gz") as archive:
                 payload = b"# synthetic lock\n"
-                entry = tarfile.TarInfo("shpool-0.11.5/Cargo.lock")
+                name = path.stem
+                version = agents.read_inputs(self.source)[1][name]["version"]
+                entry = tarfile.TarInfo(f"{name}-{version}/Cargo.lock")
                 entry.size = len(payload)
                 archive.addfile(entry, io.BytesIO(payload))
 
@@ -56,7 +58,9 @@ class AgentToolsTests(unittest.TestCase):
         elif args[:2] == ["cargo", "install"]:
             self.assertIn("--locked", args)
             self.assertTrue((cwd / "Cargo.lock").is_file())
-            output = Path(args[args.index("--root") + 1]) / "bin/shpool"
+            self.assertEqual(env["CARGO_BUILD_JOBS"], "2")
+            name = cwd.name.rsplit("-", 1)[0]
+            output = Path(args[args.index("--root") + 1]) / "bin" / name
             output.parent.mkdir(parents=True)
             output.write_bytes(b"synthetic shpool, not run")
         else:
@@ -70,17 +74,21 @@ class AgentToolsTests(unittest.TestCase):
         self.assertEqual(version, "0.85.1")
         self.assertEqual(artifacts["claude"]["version"], "2.1.288")
         self.assertEqual(artifacts["shpool"]["version"], "0.11.5")
+        self.assertEqual(artifacts["starship"]["version"], "1.24.2")
+        self.assertEqual(artifacts["starship"]["size"], 379095)
         lock = json.loads((ROOT / "packages/agent-tools/package-lock.json").read_bytes())
         self.assertGreater(len(lock["packages"]), 100)
 
     def test_stages_only_runtime_payload_not_homes_caches_or_build_inputs(self):
         self.build()
         runtime = self.dest / "usr/lib/personal-os/agent-tools"
-        self.assertEqual({path.name for path in runtime.iterdir()}, {"claude", "shpool", "node_modules", "provenance.json"})
+        self.assertEqual({path.name for path in runtime.iterdir()}, {"claude", "shpool", "starship", "node_modules", "provenance.json"})
         self.assertEqual((runtime / "claude").stat().st_mode & 0o777, 0o755)
         provenance = json.loads((runtime / "provenance.json").read_bytes())
         self.assertEqual(provenance["pi"], "0.85.1")
         self.assertEqual(provenance["npm_lock_sha256"], hashlib.sha256((self.source / "packages/agent-tools/package-lock.json").read_bytes()).hexdigest())
+        self.assertEqual(len(provenance["starship_cargo_lock_sha256"]), 64)
+        self.assertEqual((runtime / "starship").stat().st_mode & 0o777, 0o755)
         self.assertFalse((self.dest / "home").exists())
 
     def test_unsupported_architecture_fails_before_commands(self):
@@ -104,6 +112,27 @@ class AgentToolsTests(unittest.TestCase):
             agents.build(self.source, self.dest, "x86-64", self.fetch, fail)
         self.assertFalse(self.dest.exists())
 
+    def test_starship_failure_does_not_publish_other_completed_tools(self):
+        def execute(args, **kwargs):
+            if args[:2] == ["cargo", "install"] and kwargs["cwd"].name.startswith("starship-"):
+                raise RuntimeError("Synthetic prompt-tool build failure")
+            self.execute(args, **kwargs)
+        with self.assertRaises(RuntimeError):
+            agents.build(self.source, self.dest, "x86-64", self.fetch, execute)
+        self.assertFalse((self.dest / "usr/lib/personal-os/agent-tools").exists())
+
+    def test_starship_pin_or_source_drift_is_refused(self):
+        path = self.source / "packages/agent-tools/artifacts.json"
+        original = json.loads(path.read_bytes())
+        for key, value in (("version", "latest"), ("url", "https://unreviewed.invalid/starship.crate"),
+                           ("sha256", "not-a-checksum")):
+            data = json.loads(json.dumps(original))
+            data["starship"][key] = value
+            path.write_text(json.dumps(data))
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                self.build()
+            self.assertEqual(self.calls, [])
+
     def test_download_verifies_checksum_and_size_without_executing(self):
         data = b"synthetic reviewed artifact"
         artifact = {"url": "https://downloads.claude.ai/synthetic", "size": len(data), "sha256": hashlib.sha256(data).hexdigest()}
@@ -122,6 +151,9 @@ class AgentToolsTests(unittest.TestCase):
         self.assertTrue({"nodejs", "npm", "git-core", "ripgrep", "fd-find", "tmux"}.issubset(set(main["Packages"])))
         self.assertTrue({"cargo", "rust", "gcc"}.issubset(set(main["BuildPackages"])))
         self.assertNotIn("cargo", main["Packages"])
+        self.assertNotIn("starship", main["Packages"])
+        wrapper = (OVERLAY / "usr/bin/starship").read_text()
+        self.assertIn("exec /usr/lib/personal-os/agent-tools/starship", wrapper)
         self.assertIn(str(ROOT / "mkosi.profiles/mini-server/mkosi.build.chroot"), main["BuildScripts"])
         self.assertTrue(main["WithNetwork"])
 
@@ -144,7 +176,8 @@ class AgentToolsTests(unittest.TestCase):
         self.assertIn("SocketMode=0600", socket)
         self.assertIn("DirectoryMode=0700", socket)
         self.assertIn("KillMode=control-group", service)
-        self.assertIn("NoNewPrivileges=yes", service)
+        self.assertIn("NoNewPrivileges=no", service)
+        self.assertNotIn("NoNewPrivileges=yes", service)
         self.assertIn("disable shpool.socket", preset)
         self.assertIn("disable shpool.service", preset)
 
