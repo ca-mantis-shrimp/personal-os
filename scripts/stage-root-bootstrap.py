@@ -86,9 +86,12 @@ def stage(buildroot: Path, *, distribution: str = "fedora") -> Path:
             (template / "etc/selinux").symlink_to(POLICY_LINK)
         for name in (".", "etc"):
             os.chmod(template / name, 0o755)
-        for name in references:
+        for name, source in references.items():
             path = template / name
-            os.chown(path, 0, 0, follow_symlinks=False)
+            # Match the image's own ownership rather than assuming uid 0 is
+            # mapped: an unprivileged build's finalize namespace may not map it.
+            owner = os.lstat(source)
+            os.chown(path, owner.st_uid, owner.st_gid, follow_symlinks=False)
             if distribution == "fedora":
                 # Copy stock labels only. Any write/verification failure aborts.
                 os.setxattr(path, "security.selinux", labels[name], follow_symlinks=False)

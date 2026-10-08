@@ -65,6 +65,16 @@ class RootBootstrapTests(unittest.TestCase):
         self.assertEqual((template / "etc").stat().st_mode & 0o777, 0o755)
         self.assertTrue(all(path.is_relative_to(template) for path in self.set_calls))
 
+    def test_copies_reference_ownership_without_assuming_uid_zero(self):
+        # Unprivileged builds may not map uid 0; the template takes whatever
+        # owner the image's own paths have.
+        owner = os.lstat(self.root)
+        template = bootstrap.stage(self.root)
+        calls = {Path(c.args[0]): c.args[1:] for c in bootstrap.os.chown.call_args_list}
+        self.assertEqual(calls[template], (owner.st_uid, owner.st_gid))
+        self.assertEqual(calls[template / "etc"], (owner.st_uid, owner.st_gid))
+        self.assertTrue(all(path.is_relative_to(template) for path in calls))
+
     def test_rejects_restricted_payload_modes_before_writes(self):
         (self.root / "usr").chmod(0o700)
         with self.assertRaisesRegex(ValueError, "readable/searchable"):
