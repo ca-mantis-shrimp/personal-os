@@ -12,6 +12,8 @@ mkosi.rootpw
 .mkosi-private
 
 # Local builds, test state and runtime inputs must not enter source history.
+.pi/tasks/
+.pi/remote-pi/
 .cache/
 .artifacts/
 .secrets/

@@ -2,97 +2,132 @@
 
 ## Read first
 
-1. `README.md` — repository purpose and current scaffold limitations.
-2. `.clearhead/charters/mini-server.md` — canonical decisions, permission scope,
-   retained test evidence and **Next-agent handoff**.
-3. `.clearhead/charters/mini-server.actions` and the paired completed file.
-4. `docs/PARTICLEOS-UPSTREAM.md`, then the relevant mkosi configuration and
-   upstream documentation before implementing changes.
+1. `README.md` — current scope and entry points.
+2. `.clearhead/charters/mini-server.md` — canonical decisions, approvals, evidence
+   and **Next-agent handoff**. Read the latest direction before historical notes.
+3. `.clearhead/charters/mini-server.actions` and `.completed.actions`.
+4. `docs/PARTICLEOS-UPSTREAM.md`, relevant mkosi configuration and upstream docs
+   before implementation changes.
 
-Use ClearHead from this repository root. Do not introduce another PLAN,
-NEXT-STEPS or parallel migration handoff. Preserve the charter `.md`, `.actions`,
-`.completed.actions` and tool-managed `.mini-server.json` together.
+Use ClearHead from this repository root. Preserve the charter, paired actions
+and tool-managed `.mini-server.json` together. No additional PLAN/NEXT-STEPS or
+parallel handoff. Do not hand-edit UUIDs/provenance or invent completion dates.
+Inspect diffs after CLI mutations; historical I001 notices are informational.
 
-## Ownership and source composition
+## Current direction
 
-- This fork owns OS packages, partitions, update/boot/recovery policy and target
-  bootstrap integration. `dotfiles/` owns user configuration as a pinned submodule.
-- Stage committed dotfiles during image creation; run chezmoi initialization/apply
-  only on the actual target, as the intended user, after account/home/hostname
-  provision. Reuse chezmoi's existing conditional mechanisms.
-- The dotfiles package hook is mutable-Arch-only with container/immutable guards.
-  Preserve those guards before target-side application. Do not execute it on the
-  builder, run `chezmoi apply` against this desktop, or add a competing bootstrap
-  system. OS package installation belongs to the
-  image build; machine/distro guards must also suppress package-installing hooks
-  on immutable targets, including any future Arch image profile.
-- First-boot/update handling must preserve edits and existing mutable data, allow
-  safe retries, record the applied source revision, and keep dependent services
-  stopped after failed/incomplete configuration. Do not force-reset a writable
-  chezmoi source checkout on every boot. OS rollback does not restore mutable
-  home/application state; test configuration/schema compatibility and independent
-  state recovery, including what an older pinned dotfiles source may safely do.
-- Do not import `.git` histories, ClearHead plans, caches, builds or credentials
-  into the staged user configuration by copying an entire live checkout blindly.
-  Review the committed build payload and test target-side rendering.
-- `dotfiles/.clearhead/` is a pinned historical snapshot, **not** this repo's plan.
-  Do not normalize it, register it as an additional workspace or silently advance
-  submodules. Do not edit the separate live dotfiles checkout accidentally.
-- ClearHead release work is separate in `~/Products/platform`. Read its own
-  AGENTS before any work there; migration does not authorize source/branch changes
-  or replacing the desktop's installed CLI.
+This is an experimental homelab for **agents to do useful work**, not a production
+certification project. Prioritize **SIMPLICITY, FLEXIBILITY and RESILIENCY**.
+The owner explicitly requested less code/edge-case machinery and iterative use.
+Keep safeguards proportional; explain scope/cost before expanding validation.
+Prefer existing distro tools over new orchestration. The owner now separates
+services and product development onto independent machines/profiles (architectural
+decision in `~/Products/meta-analysis/DECISIONS.md`). Services owns operational data
+and deliberate service configuration. The disposable dev pod has no operational
+services, personal data or durable secrets; agents may run as root on that machine
+and create sandboxes only when useful. Neither role requires personal dotfiles.
+Focus next on useful root-agent work in a bounded dev VM, not service readiness,
+a sandbox-integration prerequisite or another recovery/refactoring project.
+Existing sandbox extraction remains separately owned.
 
-## Permission scope
+The frozen Arch candidate passed isolated first boot, credential-free persisted
+reboot, key-only SSH/sudo, rootless Podman/unshare, encrypted-root TPM re-unlock,
+identity/home-edit preservation and native operator console-password login/logout.
+Both successful baselines and failed receipts remain private and separate; exact
+identities/hashes are in the charter. The bounded arch-play-7oit0hm4 session also
+passed native service lifecycle and real rootless container data/nginx HTTP.
+It has ended with clean native shutdown and independently verified owned cleanup;
+no VM is active and its temporary SSH command is no longer usable. Later artifact
+and synthetic Radicale experiments also passed and ended cleanly; see the charter.
+The new profile split has only offline checks, not a build/booted root-access pass.
+These passes do **not** prove
+TPM-loss recovery, updates/rollback/rescue, backup restores or schema compatibility.
+Services/shpool remain disabled or gated; Arch agent payloads are still deferred.
+The never-enabled automatic chezmoi lifecycle/controller has been removed.
+Do not claim the image is installed or installation-ready.
 
-Local fork/profile implementation, builds and isolated synthetic VM tests are
-approved. No production storage formatting, RAID creation, backup execution,
-installation/flashing, public publishing, production service change or reboot is
-approved. Exact physical disks require explicit confirmation. Never pass a real
-host disk/USB caddy to a test VM or run cloned production identities.
+The unfinished `arch-tpmloss-tgw231na` private draft is **parked**. Its final local
+suite passed 108 tests with one explicit remote-only TPM skip (109 collected).
+It has not been frozen/staged/booted for recovery. Its former freeze/stage/launch
+entry points now refuse execution; originals are preserved privately under
+`deferred-wrapper-sources/`. Retain it as evidence, not production OS code.
 
-Keep SELinux enforcing; a container test is not a booted SELinux/console/rollback
-pass. Do not disable security to make a test work. Keep credentials, hashes,
-private signing keys, B2 keys, 1Password service tokens and device identities out
-of Git, images, shared command output and logs. The approved console passphrase
-and runtime secrets come from 1Password, not image source.
+## Permission and security boundaries
 
-The active fork is Fedora 44 plus mini-server with a Fedora 44 headless tools
-tree. Inactive upstream desktop/distro/OBS/demo/UKI examples are preserved in
-`reference/particleos/`; do not re-enable them implicitly. Only the normal signed
-UKI is currently built: replacement installer/rescue access is still a gate.
-TPM-encrypted Btrfs root/swap, unencrypted Btrfs home and signing/PCR requirements
-remain; mutable partitions are not factory-reset candidates and Secure Boot
-keys are not auto-enrolled. Homed is masked; conventional-account/configuration
-prototypes remain unbooted and automatic configuration stays disabled. Before
-builds, understand what mkosi will do; use profile summary/config inspection.
-Production signing-key generation and Secure Boot enrollment need a separately
-agreed custody/recovery policy.
-Disposable isolated VM test keys are permitted as part of approved synthetic
-testing; keep them outside Git, remove them afterward and never reuse them for
-production.
+- Local fork/profile changes, builds and isolated synthetic VM tests are approved,
+  subject to the owner's latest pause/priorities. No production formatting, RAID
+  creation, backup execution, installation/flashing, publishing, service changes,
+  host package installation or reboot without separate approval. Exact physical
+  disks require explicit confirmation.
+- Never pass a host disk/USB caddy to a VM or clone production identities. Keep the
+  external homed drive excluded. Use disposable file-backed disks, firmware, TPM
+  state and credentials; bound resources and independently verify owned cleanup.
+- Preserve failures and working baselines. No unchanged cold retries, competing
+  VMs, resource polling, shrinking limits or stopping unrelated work to fit a test.
+- Keep passwords/hashes/private keys/B2 keys/1Password service tokens and device
+  identities out of Git, images, arguments and shared logs. Production passphrases
+  and runtime secrets come from 1Password, not image source. Disposable VM keys
+  stay outside Git, are removed afterward and never become production keys.
+- Signing/PCR policy, coupled `/usr`/verity/UKI updates, TPM-encrypted root/swap,
+  unencrypted Btrfs home and no-reset mutable partitions remain. Secure Boot keys
+  are not auto-enrolled. Production key custody and installer/rescue access are
+  unresolved. Deferring tests does not remove these requirements.
+- Keep Fedora SELinux-enforcing. Explicit Arch intentionally has no SELinux;
+  this is an architectural choice, not a Fedora bypass. Do not mask failing
+  services, disable encryption/security or manufacture readiness to pass a test.
+- Agents may run as root on the **disposable dev pod**, not on this desktop or
+  services machine. Sandboxes are optional tools there, not a mandatory wrapper.
+  Root inside a dev VM must not imply desktop sudo, devices or management sockets.
+  Keep provider authentication/private keys on the controller; harvest/push locally.
+  No dedicated/per-agent host user or new launcher is required. Do not interfere
+  with separately owned sandbox extraction. Shpool is not an isolation boundary.
 
-## Tool and workspace care
+## Ownership and bootstrap
 
-Read source before changing it; prefer small owned configuration changes and
-preserve useful upstream examples outside active discovery rather than deleting
-them blindly. Keep update/rollback coupling between `/usr`, verity and UKIs.
-`ImageId=PersonalOS` matches discovery filters and `%M` artifact/partition patterns.
-Preserve Fedora programmatic identity and the ParticleOS ancestry token used by
-the pinned dotfiles' immutable guards, plus the immutable marker/environment guards.
-Avoid wholesale filesystem archaeology: owner accepts small reconstruction gaps
-and wants generic reprovisioning, with only significant unique state retained.
+- This fork owns OS packages, partitions, boot/update/recovery policy and target
+  integration. `dotfiles/` is pinned user configuration. Never silently advance
+  it or edit the separate live chezmoi checkout.
+- Dotfiles are opt-in, not OS bootstrap. `chezmoi` installs only the optional tool;
+  `personal-dotfiles` stages the committed gitlink without histories/plans/caches/
+  builds/credentials. Never run init/apply/hooks on the builder or this desktop.
+  Review source/hooks and apply only on the target as its intended user; dev sources
+  must not introduce personal secrets/data or operational services.
+- OS packages belong in the image. Preserve mutable-Arch-only package hooks and
+  their container/immutable guards, including on immutable Arch targets.
+- Services-role accounts use `personal-os-account.service`, not manual users or
+  ready markers. Preserve password/key edits, stable subids/linger choices and
+  existing mutable data; allow safe retries without resetting established state.
+  Dev root access uses stock systemd runtime public-key provisioning.
+- Optional configuration is an explicit target operation: record its revision,
+  preserve edits and keep dependent services stopped on incomplete/failed apply.
+  No boot-time apply/reset or custom lifecycle controller remains. Services still
+  require `/run/personal-os/configuration-ready`; no implementation grants it.
+  Do not manufacture readiness. OS rollback does not restore home/app state.
+- `dotfiles/.clearhead/` is historical, not another active workspace. ClearHead
+  release work belongs in `~/Products/platform`; read its AGENTS before work
+  there. This task does not authorize source/branch changes or replacing the
+  desktop's installed CLI.
 
-The installed ClearHead CLI has emitted identity warnings and has auto-stamped
-historical completed rows on mutation. Do not invent completion dates or repair
-unrelated identities. Inspect diffs after CLI writes. Keep actual new completion
-dates, and leave historical I001 notices informational. Do not hand-edit UUIDs or
-tool-managed sidecar identity/provenance.
+## Build and workspace care
 
-The 2026-10-03 disposable Personal OS builder and software TPM were stopped;
-all their credentials/signing keys, VM state and build scratch were removed.
-The first pre-Podman candidate built, but latest rootless/account changes are
-unbuilt and no candidate boot pass exists. Use fresh isolated artifacts; load
-matching stock target policy modules in an enforcing builder before relabeling.
-Sandbox extraction is delegated to another agent; do not interfere with its
-workspace/processes or invent another launcher. The desktop was owner-rebooted
-and kernel/modules now match; do not reboot it automatically.
+Plain mkosi selects retained Fedora 44 + mini-server with Fedora tools. Use
+`scripts/mkosi-arch` for Arch services or `scripts/mkosi-arch dev-pod` for the
+independent root-agent role. Both use shared Arch distro fragments and dated
+2026/10/04 target/initrd/tools, with separate dev caches/outputs and no npm/Cargo
+hook. Services enrollment passed in the old image; dev access is not boot-tested.
+Chezmoi and personal snapshots are optional profiles, never build prerequisites.
+Fedora candidates and inactive examples in `reference/particleos/` stay intact, outside active discovery.
+Only the normal signed UKI is built; do not implicitly enable installer/debug/
+factory-reset/demo profiles. Do not boot retained Fedora as the default next step.
+
+Inspect profile summary/configuration before builds. Preserve `ImageId=PersonalOS`,
+partition/discovery patterns, distro identities/ParticleOS ancestry and immutable
+marker/environment guards. Keep public image-tree permissions separate from
+private builder/key/state protections. Use matching stock policy in enforcing
+builders; never relax relabeling to pass.
+
+Read source before edits; prefer small owned changes. Preserve pre-existing dirty
+work and upstream provenance. Avoid exhaustive filesystem archaeology: retain
+significant unique state and favor generic reprovisioning. LSP silence is not a
+confirmed-clean result. Await background terminal notifications rather than poll.
+The desktop was owner-rebooted and kernel/modules match; do not reboot it yourself.
