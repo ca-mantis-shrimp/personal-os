@@ -39,7 +39,8 @@ passed native service lifecycle and real rootless container data/nginx HTTP.
 It has ended with clean native shutdown and independently verified owned cleanup;
 no VM is active and its temporary SSH command is no longer usable. Later artifact
 and synthetic Radicale experiments also passed and ended cleanly; see the charter.
-The new profile split has only offline checks, not a build/booted root-access pass.
+The dev-pod profile passed one build and booted root-access pass (2026-10-08, see README);
+the services profile split has only offline checks.
 These passes do **not** prove
 TPM-loss recovery, updates/rollback/rescue, backup restores or schema compatibility.
 Services/shpool remain disabled or gated; Arch agent payloads are still deferred.

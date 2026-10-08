@@ -62,6 +62,13 @@ class DevProfileTests(unittest.TestCase):
         self.assertEqual(self.dev["CacheDirectory"], str(ROOT / "mkosi.cache/dev-pod"))
         self.assertEqual(self.dev["OutputDirectory"], str(ROOT / "mkosi.output/dev-pod"))
 
+    def test_dev_boots_headless_without_interactive_recovery_enrollment(self):
+        # systemd 262's initrd prompts for recovery enrollment on first boot and
+        # waits forever on a headless pod; services keeps the stock behavior.
+        self.assertIn("rd.systemd.mask=systemd-cryptenroll-firstboot.service",
+                      self.dev["KernelCommandLine"])
+        self.assertIn("systemd.firstboot=no", self.dev["KernelCommandLine"])
+
     def test_chezmoi_and_personal_snapshot_are_separate_opt_ins(self):
         tool = main(summary("dev-pod", "--profile=chezmoi"))
         personal = main(summary("dev-pod", "--profile=personal-dotfiles"))

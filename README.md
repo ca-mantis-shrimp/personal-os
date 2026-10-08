@@ -24,6 +24,19 @@ mkosi summary                                      # Retained Fedora 44 recipe
 python3 -m unittest discover -s tests -v             # Offline tests, no target apply
 ```
 
+Boot the dev pod (disposable keys in a private 0700 directory, removed afterwards). Pass all three
+signing key pairs to the build (`--secure-boot-*`, `--sign-expected-pcr-*`, `--verity-*`), then:
+
+```sh
+scripts/mkosi-arch dev-pod --ephemeral=yes --ram=4G --cpus=4 --tpm=yes --vsock=no --firmware=uefi \
+  --register=no --console=read-only --runtime-network=none vm -- \
+  -nic user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:42222-:22 \
+  -smbios "type=11,value=io.systemd.credential.binary:ssh.authorized_keys.root=$(base64 -w0 < key.pub)"
+```
+
+The SMBIOS form is deliberate: mkosi's `--credential` splits a public key on whitespace. Vsock needs the
+host's `vhost_vsock` module, which is not loaded on the desktop.
+
 Inspect configuration before builds. The wrapper selects Arch before distro
 fragment discovery; target/initrd/tools use the `2026/10/04` archive. Services
 selects 65 direct packages; dev selects 61. Dev caches/outputs are separate from
@@ -37,7 +50,9 @@ rootless Podman, TPM root re-unlock, preserved identity/home edits, native servi
 and real container HTTP. Later temporary workloads produced Arch Island and a
 synthetic Radicale calendar/contact bundle. All sessions ended with verified
 owned cleanup; no VM is active. These passes belong to the old image, **not** the
-new profile split. Dev root access is configured but has not been built/booted.
+new profile split. Dev-pod (2026-10-08): built unprivileged on the desktop with disposable keys and booted
+in an ephemeral QEMU VM with a TPM: root SSH by key credential, password refused, `running` with no failed
+units, encrypted btrfs root, verity `/usr`, network, clean poweroff. Keys removed afterwards.
 Neither image is installed or installation-ready. Recovery/update/rollback/rescue,
 real-data restore and application/schema compatibility remain unproven.
 
