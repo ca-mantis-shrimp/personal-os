@@ -281,7 +281,7 @@ class AgentToolsTests(unittest.TestCase):
         self.assertEqual(list(self.root.glob("personal-os-download-*")), [])
 
     def test_effective_config_selects_build_only_compilers_and_runtime_tools(self):
-        result = subprocess.run(["mkosi", "--json", "summary"], cwd=ROOT, capture_output=True, check=True, timeout=30)
+        result = subprocess.run(["mkosi", "-f", "--json", "summary"], cwd=ROOT, capture_output=True, check=True, timeout=30)
         main = next(x for x in json.loads(result.stdout)["Images"] if x["Image"] == "main")
         self.assertTrue({"nodejs", "npm", "git-core", "ripgrep", "fd-find", "tmux"}.issubset(set(main["Packages"])))
         self.assertTrue({"cargo", "rust", "gcc"}.issubset(set(main["BuildPackages"])))

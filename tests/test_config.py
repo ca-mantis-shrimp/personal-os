@@ -19,7 +19,7 @@ class ServerConfigTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         result = subprocess.run(
-            ["mkosi", "--json", "summary"],
+            ["mkosi", "-f", "--json", "summary"],
             cwd=ROOT,
             text=True,
             capture_output=True,

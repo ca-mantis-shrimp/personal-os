@@ -13,7 +13,7 @@ class ArchConfigTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         result = subprocess.run(
-            ["bash", str(ROOT / "scripts/mkosi-arch"), "--json", "summary"],
+            ["bash", str(ROOT / "scripts/mkosi-arch"), "-f", "--json", "summary"],
             cwd=ROOT, text=True, capture_output=True, check=True, timeout=30)
         summary = json.loads(result.stdout)
         cls.images = summary["Images"]

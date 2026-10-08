@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def summary(*arguments, cwd=ROOT):
     result = subprocess.run(
-        ["bash", str(cwd / "scripts/mkosi-arch"), *arguments, "--json", "summary"],
+        ["bash", str(cwd / "scripts/mkosi-arch"), *arguments, "-f", "--json", "summary"],
         cwd=cwd, text=True, capture_output=True, check=True, timeout=30)
     return json.loads(result.stdout)
 
@@ -82,7 +82,7 @@ class DevProfileTests(unittest.TestCase):
             with self.subTest(extra=extra):
                 result = subprocess.run(
                     ["bash", str(ROOT / "scripts/mkosi-arch"), "dev-pod",
-                     "--profile=" + extra, "--json", "summary"],
+                     "--profile=" + extra, "-f", "--json", "summary"],
                     cwd=ROOT, text=True, capture_output=True, timeout=30)
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn("[assert]", result.stderr.lower())
