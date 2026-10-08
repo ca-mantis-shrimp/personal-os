@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Offline configuration smoke tests; these do not build or boot an image."""
 
+import configparser
+import hashlib
 import json
-from pathlib import Path
+import os
 import shutil
 import subprocess
+import tempfile
 import unittest
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -45,8 +49,9 @@ class ServerConfigTests(unittest.TestCase):
         }))
 
     def test_only_server_recipe_is_active_and_reference_is_not_staged(self):
-        self.assertEqual({p.name for p in (ROOT / "mkosi.profiles").iterdir()}, {"mini-server"})
-        self.assertEqual({p.name for p in (ROOT / "mkosi.conf.d").iterdir()}, {"fedora"})
+        self.assertEqual({p.name for p in (ROOT / "mkosi.profiles").iterdir()},
+                         {"mini-server", "mini-server-arch", "dev-pod", "chezmoi", "personal-dotfiles"})
+        self.assertEqual({p.name for p in (ROOT / "mkosi.conf.d").iterdir()}, {"fedora", "arch"})
         for path in ("mkosi.images", "mkosi.uki-profiles", "mkosi.credentials", ".obs"):
             self.assertFalse((ROOT / path).exists())
             self.assertTrue((ROOT / "reference/particleos" / path).exists())
@@ -164,7 +169,7 @@ class ServerConfigTests(unittest.TestCase):
 
     def test_account_enrollment_is_target_only_profile_content(self):
         overlay = ROOT / "mkosi.profiles/mini-server/mkosi.extra"
-        self.assertIn(str(ROOT / "mkosi.profiles/mini-server/mkosi.postinst"),
+        self.assertIn(str(ROOT / "mkosi.postinst"),
                       self.main["PostInstallationScripts"])
         self.assertIn(str(overlay), {tree["Source"] for tree in self.main["ExtraTrees"]})
         self.assertIn("shadow-utils", self.main["Packages"])
@@ -172,7 +177,7 @@ class ServerConfigTests(unittest.TestCase):
             for path in Path(tree["Source"]).rglob("*"):
                 self.assertNotIn("__pycache__", path.parts)
                 self.assertFalse(any(part.startswith("credstore") for part in path.parts))
-        script = (ROOT / "mkosi.profiles/mini-server/mkosi.postinst").read_text()
+        script = (ROOT / "mkosi.postinst").read_text()
         self.assertIn("systemd-homed-firstboot.service", script)
         self.assertNotIn("useradd", script)
         policy = (overlay / "usr/share/factory/etc/ssh/sshd_config.d/00-mini-server.conf").read_text()
@@ -185,18 +190,87 @@ class ServerConfigTests(unittest.TestCase):
                      "user/vdirsyncer.service", "user/vdirsyncer.timer", "user/syncthing.service",
                      "system/radicale.service", "system/syncthing@.service"):
             dropin = overlay / (unit + ".d/10-configuration-gate.conf")
-            self.assertIn("ConditionPathExists=/run/personal-os/chezmoi-ready", dropin.read_text())
+            self.assertIn("ConditionPathExists=/run/personal-os/configuration-ready", dropin.read_text())
         helper = ROOT / "mkosi.profiles/mini-server/mkosi.extra/usr/libexec/personal-os-account"
-        self.assertNotIn("chezmoi-ready", helper.read_text())
+        self.assertNotIn("configuration-ready", helper.read_text())
 
-    def test_staging_is_a_profile_finalize_hook(self):
-        scripts = self.main["FinalizeScripts"]
-        self.assertIn(str(ROOT / "mkosi.finalize"), scripts)
-        self.assertIn(str(ROOT / "mkosi.profiles/mini-server/mkosi.finalize"), scripts)
+    def test_dotfiles_are_not_a_default_build_dependency(self):
+        self.assertEqual(self.main["FinalizeScripts"], [str(ROOT / "mkosi.finalize")])
+        self.assertNotIn("chezmoi", self.main["Packages"])
+        self.assertNotIn("stage-dotfiles.py", (ROOT / "mkosi.finalize").read_text())
+
+    def test_selinux_policy_is_linked_during_new_root_creation(self):
+        parser = configparser.ConfigParser(interpolation=None)
+        parser.read(ROOT / "mkosi.extra/usr/lib/repart.d/40-root.conf")
+        partition = parser["Partition"]
+        self.assertEqual(partition["CopyFiles"], "/usr/share/factory/root:/")
+        self.assertEqual(partition["MakeDirectories"], "/var/log/journal")
+        self.assertNotIn("MakeSymlinks", partition)
+        self.assertIn("stage-root-bootstrap.py", (ROOT / "mkosi.finalize").read_text())
+        # Copy a metadata-only skeleton, never the packaged policy or mutable /etc.
+        # The real encrypted, non-resettable Btrfs root recipe stays intact.
+        self.assertEqual(partition["Type"], "root")
+        self.assertEqual(partition["Format"], "btrfs")
+        self.assertEqual(partition["Encrypt"], "tpm2")
+        self.assertEqual(partition["FactoryReset"], "no")
+
+    @unittest.skipUnless(all(shutil.which(tool) for tool in
+                            ("systemd-repart", "mke2fs", "debugfs")),
+                         "native offline repart/ext4 tools are required")
+    def test_native_repart_symlink_is_first_creation_only(self):
+        # A generic ext4 fixture tests CopyFiles metadata/links and no-reset,
+        # not target encrypted Btrfs, TPM, SELinux enforcement or target boot.
+        # Synthetic user xattrs test preservation without changing host MAC policy.
+        # Explicit offline mode, random IDs and regular-file operands mean no
+        # host block/TPM device is discovered, opened or formatted.
+        parser = configparser.ConfigParser(interpolation=None)
+        parser.read(ROOT / "mkosi.extra/usr/lib/repart.d/40-root.conf")
+        partition = parser["Partition"]
+        with tempfile.TemporaryDirectory(prefix="personal-os-repart-link-") as temporary:
+            directory = Path(temporary)
+            definitions = directory / "definitions"
+            definitions.mkdir()
+            definition = definitions / "00-fixture.conf"
+            source = directory / "source"
+            (source / "etc").mkdir(parents=True)
+            (source / "etc/selinux").symlink_to("/usr/share/factory/etc/selinux")
+            (source / "lib64").symlink_to("usr/lib64")
+            os.setxattr(source, "user.bootstrap", b"synthetic-root")
+            os.setxattr(source / "etc", "user.bootstrap", b"synthetic-etc")
+            content = ("[Partition]\nType=linux-generic\nFormat=ext4\n"
+                       "SizeMinBytes=32M\nLabel=link-fixture\nSplitName=fs\n"
+                       f"MakeDirectories={partition['MakeDirectories']}\n"
+                       f"CopyFiles={source}:/\n")
+            definition.write_text(content)
+            image = directory / "fixture.raw"
+            command = ["systemd-repart", "--offline=yes", "--dry-run=no",
+                       "--seed=random", f"--definitions={definitions}", str(image)]
+            subprocess.run(command + ["--empty=create", "--size=64M", "--split=yes"],
+                           capture_output=True, check=True, timeout=30)
+            filesystem = directory / "fixture.fs.raw"
+            inspected = subprocess.run(
+                ["debugfs", "-R", "stat /etc/selinux", str(filesystem)],
+                capture_output=True, text=True, check=True, timeout=10,
+            )
+            self.assertIn("Type: symlink", inspected.stdout)
+            self.assertIn("/usr/share/factory/etc/selinux", inspected.stdout)
+            for path, marker in (("/", "synthetic-root"), ("/etc", "synthetic-etc")):
+                attrs = subprocess.run(
+                    ["debugfs", "-R", "ea_list " + path, str(filesystem)],
+                    capture_output=True, text=True, check=True, timeout=10,
+                )
+                self.assertIn(marker, attrs.stdout)
+            before = hashlib.sha256(image.read_bytes()).digest()
+            # Updated source metadata/links must not reinitialize an existing FS.
+            (source / "etc/selinux").unlink()
+            (source / "etc/selinux").symlink_to("/operator/override")
+            os.setxattr(source / "etc", "user.bootstrap", b"changed")
+            subprocess.run(command, capture_output=True, check=True, timeout=30)
+            self.assertEqual(hashlib.sha256(image.read_bytes()).digest(), before)
 
     def test_server_and_selinux_prerequisites_present(self):
         expected = {
-            "chezmoi", "openssh-server", "sudo", "restic", "mdadm",
+            "openssh-server", "sudo", "restic", "mdadm",
             "smartmontools", "syncthing", "radicale3", "radicale3-selinux",
             "selinux-policy-targeted", "policycoreutils",
         }

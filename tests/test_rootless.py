@@ -19,6 +19,8 @@ class RootlessEnrollmentTests(unittest.TestCase):
         (self.root / "etc").mkdir()
         (self.root / "etc/shadow").write_bytes(b"")
         (self.root / "etc/shadow").chmod(0o600)
+        (self.root / "usr/lib").mkdir(parents=True)
+        (self.root / "usr/lib/os-release").write_text("ID=fedora\n")
         self.config = {"version": 1, "username": "synthetic", "uid": os.getuid(),
                        "gid": os.getgid(), "hostname": "synthetic-server", "shell": "/usr/bin/bash",
                        "ssh_public_keys": [key()], "passwordless_sudo": True}
@@ -54,6 +56,18 @@ class RootlessEnrollmentTests(unittest.TestCase):
         self.provision(first=False)
         self.assertEqual(self.backend.calls, [])
         self.assertFalse(marker.exists())
+
+    def test_arch_rootless_mapping_and_linger_remain_stable_without_mac_tools(self):
+        (self.root / "usr/lib/os-release").write_text("ID=arch\n")
+        self.backend.fail_on = "restorecon"
+        self.provision()
+        self.assertEqual(self.ledger()["phase"], "complete")
+        self.assertEqual(self.ledger()["subuid"], [100000, 65536])
+        self.assertEqual(self.ledger()["subgid"], [100000, 65536])
+        self.assertNotIn("restorecon", [call[0] for call in self.backend.calls])
+        self.backend.calls.clear()
+        self.provision(first=False)
+        self.assertEqual(self.backend.calls, [])
 
     def test_other_users_and_comments_preserved_and_joint_block_skips_both_tables(self):
         original = {"subuid": b"# retain\nother:100000:65536", "subgid": b"else:165536:65536\n"}

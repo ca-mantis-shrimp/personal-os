@@ -1,0 +1,14 @@
+#!/bin/bash
+# Select the target BEFORE mkosi evaluates distro fragments; never touch mkosi.local.
+set -euo pipefail
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
+# Keep normal source/image modes. Keys/credentials must live in private parents
+# with their own 0700/0600 modes; this wrapper never generates or chmods keys.
+umask 022
+# Pick one role; later --profile options can add optional tooling/dotfiles.
+profile=mini-server-arch
+case "${1:-}" in
+    mini-server-arch|dev-pod) profile=$1; shift ;;
+esac
+exec mkosi --distribution=arch --release=rolling --profile="$profile" \
+    --tools-tree-distribution=arch --tools-tree-release=rolling "$@"

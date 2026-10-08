@@ -8,4 +8,8 @@ mkdir -p "$BUILDROOT/usr/share/factory/"
 cp --archive --no-target-directory --update=none "$BUILDROOT/etc" "$BUILDROOT/usr/share/factory/etc"
 ln -sr "$BUILDROOT/usr" "$BUILDROOT/usr/share/factory/usr"
 
+# mkosi 27.1 runs finalize after strict target relabeling. Preserve only stock
+# labels/modes and usr-merge links for a newly created mutable root, not its data.
+python3 "$SRCDIR/scripts/stage-root-bootstrap.py" --distribution="${DISTRIBUTION:?}" --buildroot "$BUILDROOT"
+
 # Fedora's RPM database already lives in /usr; no mutable package manager runs.

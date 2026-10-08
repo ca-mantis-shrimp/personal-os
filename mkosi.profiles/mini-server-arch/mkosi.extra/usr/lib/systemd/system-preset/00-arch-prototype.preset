@@ -1,0 +1,5 @@
+# Conventional operator enrollment passed in the retained Arch VM baseline.
+# Enroll only through runtime credentials, never a manually pre-created account.
+enable personal-os-account.service
+disable shpool.service
+disable shpool.socket

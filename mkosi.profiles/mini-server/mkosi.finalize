@@ -1,6 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-
-# No init/apply or hooks on the builder. Export only committed git objects.
-python3 "$SRCDIR/scripts/stage-dotfiles.py" \
-    --repository "$SRCDIR" --buildroot "$BUILDROOT"

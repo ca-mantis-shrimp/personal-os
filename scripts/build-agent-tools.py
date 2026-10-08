@@ -7,22 +7,28 @@ curl installer is executed. Only generated runtime payload goes into DESTDIR.
 import hashlib
 import json
 import os
-from pathlib import Path
 import re
 import shutil
 import subprocess
 import tarfile
 import tempfile
+import time
+import urllib.error
+import urllib.parse
 import urllib.request
+from pathlib import Path
 
 PI = "@earendil-works/pi-coding-agent"
 
 
 def read_inputs(source):
     directory = source / "packages/agent-tools"
-    artifacts = json.loads((directory / "artifacts.json").read_bytes())
-    package = json.loads((directory / "package.json").read_bytes())
-    lock = json.loads((directory / "package-lock.json").read_bytes())
+    try:
+        artifacts = json.loads((directory / "artifacts.json").read_bytes())
+        package = json.loads((directory / "package.json").read_bytes())
+        lock = json.loads((directory / "package-lock.json").read_bytes())
+    except (OSError, ValueError):
+        raise ValueError("Agent packaging metadata is missing or invalid; raw content suppressed") from None
     if artifacts["version"] != 1 or artifacts["architecture"] != "x86-64":
         raise ValueError("Unsupported agent artifact policy")
     for name, base, suffix in (
@@ -50,27 +56,52 @@ def read_inputs(source):
 
 
 def download(artifact, path):
+    url = urllib.parse.urlsplit(artifact["url"])
+    if url.scheme != "https" or url.netloc not in {"downloads.claude.ai", "static.crates.io"}:
+        raise ValueError("Artifact URL must use an approved HTTPS publisher")
+    if path.exists() or path.is_symlink():
+        raise ValueError("Refusing an existing artifact destination")
     maximum = artifact.get("size", 16 * 1024 * 1024)
-    actual = hashlib.sha256()
-    size = 0
-    with urllib.request.urlopen(artifact["url"], timeout=60) as response, path.open("xb") as output:
-        # Do not accept a redirect to an unreviewed artifact host.
-        if response.geturl() != artifact["url"]:
-            raise ValueError("Unexpected artifact redirect")
-        while block := response.read(1024 * 1024):
-            size += len(block)
-            if size > maximum:
-                raise ValueError("Artifact exceeds its size bound")
-            actual.update(block)
-            output.write(block)
-    if actual.hexdigest() != artifact["sha256"] or "size" in artifact and size != artifact["size"]:
-        raise ValueError("Artifact integrity/size mismatch")
+    for attempt in range(3):
+        try:
+            # Retry from zero in private storage; publish only verified bytes.
+            with tempfile.TemporaryDirectory(prefix="personal-os-download-", dir=path.parent) as scratch:
+                partial = Path(scratch) / "artifact"
+                actual = hashlib.sha256()
+                size = 0
+                with urllib.request.urlopen(artifact["url"], timeout=60) as response, partial.open("xb") as output:
+                    if response.geturl() != artifact["url"]:
+                        raise ValueError("Unexpected artifact redirect")
+                    while block := response.read(1024 * 1024):
+                        size += len(block)
+                        if size > maximum:
+                            raise ValueError("Artifact exceeds its size bound")
+                        actual.update(block)
+                        output.write(block)
+                if actual.hexdigest() != artifact["sha256"] or "size" in artifact and size != artifact["size"]:
+                    raise ValueError("Artifact integrity/size mismatch")
+                # Unlike replace/rename, link fails if a destination appeared.
+                os.link(partial, path)
+            return
+        except urllib.error.HTTPError as error:
+            error.close()
+            if error.code not in {429, 500, 502, 503, 504}:
+                raise RuntimeError("Artifact HTTP request failed; raw error suppressed") from None
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            pass
+        if attempt == 2:
+            raise RuntimeError("Artifact download exhausted bounded retries; raw error suppressed") from None
+        time.sleep(attempt + 1)
 
 
 def run(args, *, cwd, env):
     # Build command output can contain URLs/environment-derived data. Don't echo it.
-    result = subprocess.run(args, cwd=cwd, env=env, stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE, timeout=1200)
+    # Locked native release builds can exceed 20 minutes on bounded VM CPUs.
+    timeout = 2400 if args[:2] == ["cargo", "install"] else 1200
+    try:
+        result = subprocess.run(args, cwd=cwd, env=env, capture_output=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        raise RuntimeError("Agent-tool build command timed out; raw output suppressed") from None
     if result.returncode:
         raise RuntimeError("Agent-tool build command failed; raw output suppressed")
 
@@ -100,8 +131,11 @@ def build(source, destination, architecture, fetch=download, execute=run):
         pi_entry = npm / "node_modules" / PI / "dist/bundle/cli.js"
         if not pi_entry.is_file() or pi_entry.is_symlink():
             raise ValueError("Pi bundle entry is missing/unsafe")
-        installed = json.loads((npm / "node_modules" / PI / "package.json").read_bytes())
-        if installed["version"] != pi_version:
+        try:
+            installed = json.loads((npm / "node_modules" / PI / "package.json").read_bytes())
+        except (OSError, ValueError):
+            raise ValueError("Installed Pi metadata is missing or invalid; raw content suppressed") from None
+        if not isinstance(installed, dict) or installed.get("version") != pi_version:
             raise ValueError("Installed Pi version mismatch")
         fetch(artifacts["claude"], work / "claude")
         binaries = {"claude": work / "claude"}

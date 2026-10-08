@@ -14,6 +14,7 @@ from pathlib import Path
 import pwd
 import re
 import secrets
+import shlex
 import socket
 import stat
 import struct
@@ -244,6 +245,28 @@ class Files:
                     pass
 
 
+def target_distribution(files):
+    # Only signed vendor identity selects the adapter; never mutable /etc,
+    # environment, a credential flag or an absent restorecon executable.
+    data = files.read("usr/lib/os-release", private=False, allow_hardlinks=True)
+    if data is None:
+        raise ProvisionError("Missing vendor platform identity")
+    ids = [shlex.split(line.partition("=")[2])
+           for line in data.decode("utf-8").splitlines()
+           if line.partition("=")[0] == "ID"]
+    if len(ids) != 1 or ids[0] not in (["fedora"], ["arch"]):
+        raise ProvisionError("Unsupported vendor platform identity")
+    distribution = ids[0][0]
+    if distribution == "arch" and (files.root / "sys/fs/selinux/enforce").exists():
+        raise ProvisionError("Arch Unix adapter cannot skip an active SELinux filesystem")
+    return distribution
+
+
+def relabel(files, backend, paths):
+    if target_distribution(files) == "fedora":
+        backend.run(["restorecon", *(str(files.root / path) for path in paths)])
+
+
 SUBID_MIN = 100000
 SUBID_COUNT = 65536
 SUBID_MAX = 2**32 - 2  # uid_t's all-ones value is reserved.
@@ -434,8 +457,7 @@ def rootless_enrollment(files, backend, allow_existing=False):
                 prefix = (original or b"") + (b"\n" if original and not original.endswith(b"\n") else b"")
                 files.write("etc/" + kind, prefix + f"{identity['username']}:{first}:{count}\n".encode(),
                             mode=0o644, replace=original is not None)
-        backend.run(["restorecon", str(files.root / "etc/subuid"), str(files.root / "etc/subgid"),
-                     str(files.root / path)])
+        relabel(files, backend, ("etc/subuid", "etc/subgid", path))
         marker = "var/lib/systemd/linger/" + identity["username"]
         try:
             existing = files.read(marker, private=False)
@@ -454,6 +476,7 @@ def provision(root, config_data, password_data, backend, privileged_uid=0, privi
     state_path = "var/lib/personal-os/account.json"
     # Read trusted state with a temporary config that cannot select a home path.
     files = Files(root, {"username": "", "uid": 0, "gid": 0}, privileged_uid, privileged_gid)
+    target_distribution(files)  # Reject unsupported/unsafe platforms before any mutation.
     with files.directory("var/lib/personal-os", create=True):
         pass
     state_data = files.read(state_path)
@@ -543,8 +566,7 @@ def provision(root, config_data, password_data, backend, privileged_uid=0, privi
         files.write(sudo_path, sudo, mode=0o440)
     backend.run(["visudo", "--check", "--file", str(root / sudo_path)])
     backend.run(["hostnamectl", "set-hostname", config["hostname"]])
-    backend.run(["restorecon", str(root / home), str(root / (home + "/.ssh")),
-                 str(root / keys_path), str(root / sudo_path), str(root / state_path)])
+    relabel(files, backend, (home, home + "/.ssh", keys_path, sudo_path, state_path))
     shadow = files.read("etc/shadow")
     hashes = [line.split(b":")[1] for line in (shadow or b"").splitlines()
               if line.split(b":", 1)[0] == name.encode() and b":" in line]

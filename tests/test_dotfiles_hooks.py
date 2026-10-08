@@ -13,7 +13,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 
 
-@unittest.skipUnless(shutil.which("chezmoi"), "chezmoi is required")
+@unittest.skipUnless(shutil.which("chezmoi") and (ROOT / "dotfiles/.chezmoi.toml.tmpl").exists(),
+                     "optional dotfiles checkout and chezmoi are required")
 class HookTemplateTests(unittest.TestCase):
     def render(self, os_name="linux", distro="arch", id_like="", **env_overrides):
         with tempfile.TemporaryDirectory(prefix="personal-os-template-") as temp:
@@ -55,7 +56,8 @@ class HookTemplateTests(unittest.TestCase):
                 self.assertNotIn("hooks", self.render(**kwargs))
 
 
-@unittest.skipUnless(shutil.which("chezmoi"), "chezmoi is required")
+@unittest.skipUnless(shutil.which("chezmoi") and (ROOT / "dotfiles/.chezmoi.toml.tmpl").exists(),
+                     "optional dotfiles checkout and chezmoi are required")
 class TargetRenderTests(unittest.TestCase):
     def test_committed_source_renders_for_synthetic_fedora_without_apply(self):
         spec = importlib.util.spec_from_file_location("stage", ROOT / "scripts/stage-dotfiles.py")
@@ -82,7 +84,7 @@ class TargetRenderTests(unittest.TestCase):
             config.write_text("")
             env = os.environ.copy()
             # Fork branding alone must retain the pinned source's ignore rules;
-            # the real lifecycle additionally sets CHEZMOI_IMMUTABLE=1.
+            # the target's immutable environment guard also remains in the OS.
             env.update(HOME=str(home), CHEZMOI_IMMUTABLE="",
                        XDG_CONFIG_HOME=str(t / "config"), XDG_CACHE_HOME=str(t / "cache"),
                        XDG_DATA_HOME=str(t / "data"))
@@ -109,6 +111,8 @@ class TargetRenderTests(unittest.TestCase):
             self.assertEqual(list(home.iterdir()), [])
 
 
+@unittest.skipUnless((ROOT / "dotfiles/bootstrap-paru.sh").exists(),
+                     "optional dotfiles checkout is required")
 class PackageScriptTests(unittest.TestCase):
     def test_direct_invocation_exits_before_commands_on_immutable_target(self):
         with tempfile.TemporaryDirectory(prefix="personal-os-hook-") as temp:

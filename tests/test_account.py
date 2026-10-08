@@ -8,23 +8,31 @@ import importlib.machinery
 import importlib.util
 import json
 import os
-from pathlib import Path
 import secrets
 import shutil
 import struct
 import subprocess
 import tempfile
-from types import SimpleNamespace
 import unittest
+from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 HELPER = ROOT / "mkosi.profiles/mini-server/mkosi.extra/usr/libexec/personal-os-account"
-loader = importlib.machinery.SourceFileLoader("account", str(HELPER))
+class SourceOnlyLoader(importlib.machinery.SourceFileLoader):
+    """Load trusted repository source, never read/write ExtraTrees bytecode."""
+
+    def get_code(self, fullname):
+        return self.source_to_code(self.get_data(self.path), self.path)
+
+
+loader = SourceOnlyLoader("account", str(HELPER))
 spec = importlib.util.spec_from_loader(loader.name, loader)
+if spec is None:
+    raise RuntimeError("Unable to load the account test module")
 account = importlib.util.module_from_spec(spec)
-# Compile from source without caching bytecode inside the mkosi ExtraTrees.
-exec(compile(HELPER.read_text(), str(HELPER), "exec"), account.__dict__)
+loader.exec_module(account)
 
 
 def key():
@@ -46,7 +54,7 @@ class FakeBackend:
         self.groups = {"wheel": SimpleNamespace(gr_name="wheel", gr_gid=10, gr_mem=[])}
         self.calls = []
         self.host = "unconfigured"
-        self.fail_on = None
+        self.fail_on: str | None = None
 
     def lookup(self, kind, value):
         if kind == "user":
@@ -64,7 +72,7 @@ class FakeBackend:
         return ([u.pw_uid for u in self.users.values()] if kind == "subuid"
                 else [g.gr_gid for g in self.groups.values()])
 
-    def run(self, args, input=None):
+    def run(self, args, input: bytes | None = None):
         # Only command names/flags are retained. Secret stdin is not recorded.
         self.calls.append(args)
         if self.fail_on == args[0]:
@@ -90,6 +98,8 @@ class FakeBackend:
         elif args[0] == "hostnamectl":
             self.host = name
         elif args[0] == "chpasswd":
+            if input is None:
+                raise AssertionError("Synthetic chpasswd requires stdin")
             user, hashed = input.strip().split(b":", 1)
             (self.root / "etc/shadow").write_bytes(user + b":" + hashed + b":1:0:99999:7:::\n")
         elif args[0] not in ("restorecon", "visudo"):
@@ -105,10 +115,12 @@ class AccountTests(unittest.TestCase):
         (self.root / "etc").mkdir()
         (self.root / "etc/shadow").write_bytes(b"")
         (self.root / "etc/shadow").chmod(0o600)
+        (self.root / "usr/lib").mkdir(parents=True)
+        (self.root / "usr/lib/os-release").write_text("ID=fedora\n")
         self.config = {"version": 1, "username": "synthetic", "uid": os.getuid(),
             "gid": os.getgid(), "hostname": "synthetic-server", "shell": "/usr/bin/bash",
             "ssh_public_keys": [key()], "passwordless_sudo": True}
-        self.password = password()
+        self.password: bytes | None = password()
         self.backend = FakeBackend(self.root)
 
     def provision(self, config=True, password=True):
@@ -128,7 +140,8 @@ class AccountTests(unittest.TestCase):
         self.assertEqual(policy.read_text(), "synthetic ALL=(ALL:ALL) NOPASSWD: ALL\n")
         state = self.root / "var/lib/personal-os/account.json"
         self.assertEqual(json.loads(state.read_text())["phase"], "complete")
-        self.assertFalse(self.password in state.read_bytes())
+        assert self.password is not None
+        self.assertNotIn(self.password, state.read_bytes())
         self.assertEqual(personal.read_text(), "mutable data\n")
         keys.write_text(key() + "\n")
         (self.root / "etc/shadow").write_text("synthetic:operator-changed:1:0:99999:7:::\n")
@@ -137,6 +150,65 @@ class AccountTests(unittest.TestCase):
         self.assertEqual(self.backend.calls, [])
         self.assertIn("operator-changed", (self.root / "etc/shadow").read_text())
         self.assertEqual(personal.read_text(), "mutable data\n")
+
+    def test_arch_enrollment_without_restorecon_preserves_retry_policy(self):
+        (self.root / "usr/lib/os-release").write_text('ID="arch"\n')
+        # Arch's regular local NSS file, not a Fedora authselect chain.
+        (self.root / "etc/nsswitch.conf").write_text("passwd: files systemd\nsubid: files\n")
+        self.backend.fail_on = "restorecon"
+        self.provision()
+        self.assertNotIn("restorecon", [call[0] for call in self.backend.calls])
+        state = self.root / "var/lib/personal-os/account.json"
+        self.assertEqual(json.loads(state.read_text())["phase"], "complete")
+        self.assertIn("synthetic:", (self.root / "etc/subuid").read_text())
+        self.assertEqual((self.root / "home/synthetic/.ssh/authorized_keys").stat().st_mode & 0o777,
+                         0o600)
+        self.backend.calls.clear()
+        self.provision(config=False, password=False)
+        self.assertEqual(self.backend.calls, [])
+
+    def test_fedora_restorecon_failure_is_not_skipped(self):
+        self.backend.fail_on = "restorecon"
+        with self.assertRaises(account.ProvisionError):
+            self.provision()
+        self.assertIn("restorecon", [call[0] for call in self.backend.calls])
+        state = self.root / "var/lib/personal-os/account.json"
+        self.assertEqual(json.loads(state.read_text())["phase"], "pending")
+        self.provision()
+        self.assertEqual(json.loads(state.read_text())["phase"], "complete")
+
+    def test_platform_identity_is_not_taken_from_mutable_etc(self):
+        (self.root / "etc/os-release").write_text("ID=arch\n")
+        self.provision()
+        self.assertIn("restorecon", [call[0] for call in self.backend.calls])
+
+    def test_platform_identity_missing_unknown_duplicate_or_symlink_fails_early(self):
+        release = self.root / "usr/lib/os-release"
+        for content in ("ID=debian\n", "ID=arch\nID=fedora\n", "NAME=Arch\n"):
+            with self.subTest(content=content):
+                release.write_text(content)
+                with self.assertRaises(account.ProvisionError):
+                    self.provision()
+                self.assertEqual(self.backend.calls, [])
+                self.assertFalse((self.root / "var/lib/personal-os").exists())
+        release.unlink()
+        with self.assertRaises(account.ProvisionError):
+            self.provision()
+        release.symlink_to(self.root / "etc/os-release")
+        (self.root / "etc/os-release").write_text("ID=arch\n")
+        with self.assertRaises(OSError):
+            self.provision()
+        self.assertEqual(self.backend.calls, [])
+        self.assertFalse((self.root / "var/lib/personal-os").exists())
+
+    def test_arch_rejects_active_selinux_filesystem_before_mutation(self):
+        (self.root / "usr/lib/os-release").write_text("ID=arch\n")
+        (self.root / "sys/fs/selinux").mkdir(parents=True)
+        (self.root / "sys/fs/selinux/enforce").write_text("1\n")
+        with self.assertRaisesRegex(account.ProvisionError, "active SELinux"):
+            self.provision()
+        self.assertEqual(self.backend.calls, [])
+        self.assertFalse((self.root / "var/lib/personal-os").exists())
 
     def test_runtime_context_contains_only_identity_and_is_retry_safe(self):
         self.provision()
@@ -170,9 +242,9 @@ class AccountTests(unittest.TestCase):
             if path.endswith("account.json") and b'"phase": "complete"' in data:
                 raise OSError("Synthetic journal write failure")
             return original(files, path, data, **kwargs)
-        with patch.object(account.Files, "write", fail_complete):
-            with self.assertRaises(OSError):
-                self.provision()
+        with (patch.object(account.Files, "write", fail_complete),
+              self.assertRaises(OSError)):
+            self.provision()
         self.provision()
         self.assertEqual(sum(c[0] == "chpasswd" for c in self.backend.calls), 1)
 
@@ -285,7 +357,7 @@ class ValidationTests(unittest.TestCase):
             units.mkdir(parents=True)
             for name in ("systemd-homed.service", "systemd-homed-firstboot.service"):
                 (units / name).write_text("synthetic vendor unit\n")
-            subprocess.run(["/bin/bash", str(ROOT / "mkosi.profiles/mini-server/mkosi.postinst")],
+            subprocess.run(["/bin/bash", str(ROOT / "mkosi.postinst")],
                 env={"PATH": "/usr/bin:/bin", "BUILDROOT": temp},
                 capture_output=True, check=True, timeout=10)
             for name in ("systemd-homed.service", "systemd-homed-firstboot.service"):
@@ -304,9 +376,22 @@ class ValidationTests(unittest.TestCase):
             source.mkdir(parents=True)
             (root / "etc/ssh/sshd_config").write_text("Include /etc/ssh/sshd_config.d/*.conf\n")
             (source / "50-vendor.conf").write_text("# synthetic vendor default\n")
+            # This fixture covers factory merge/hook wiring, not privileged
+            # SELinux staging. The real helper's metadata/failure cases live in
+            # test_root_bootstrap; never add a production skip-labels switch.
+            srcdir = root / "fixture-source"
+            (srcdir / "scripts").mkdir(parents=True)
+            (srcdir / "scripts/stage-root-bootstrap.py").write_text(
+                "import json, os, pathlib, sys\n"
+                "assert sys.argv[1:] == ['--distribution=fedora', '--buildroot', os.environ['BUILDROOT']]\n"
+                "(pathlib.Path(os.environ['BUILDROOT']) / 'hook-invocation.json')"
+                ".write_text(json.dumps(sys.argv[1:]))\n"
+            )
             subprocess.run(["/bin/bash", str(ROOT / "mkosi.finalize")],
-                env={"PATH": "/usr/bin:/bin", "BUILDROOT": temp},
+                env={"PATH": "/usr/bin:/bin", "BUILDROOT": temp, "SRCDIR": str(srcdir), "DISTRIBUTION": "fedora"},
                 capture_output=True, check=True, timeout=10)
+            self.assertEqual(json.loads((root / "hook-invocation.json").read_text()),
+                             ["--distribution=fedora", "--buildroot", temp])
             self.assertEqual((factory / policy.name).read_bytes(), policy.read_bytes())
             self.assertTrue((factory / "50-vendor.conf").exists())
 
@@ -324,7 +409,7 @@ class ValidationTests(unittest.TestCase):
     def test_fork_authselect_always_uses_conventional_accounts(self):
         # Execute only the isolated authselect block with a stub. Never run the
         # rest of the chroot script, which moves the target's PAM files.
-        block = (ROOT / "mkosi.postinst.chroot").read_text().split("if [[ -d /etc/pam.d ]]", 1)[0]
+        block = (ROOT / "mkosi.postinst.chroot").read_text().split("# Arch's PAM", 1)[0]
         with tempfile.TemporaryDirectory(prefix="personal-os-authselect-") as temp:
             stub = Path(temp) / "authselect"
             calls = Path(temp) / "calls"
@@ -337,6 +422,48 @@ class ValidationTests(unittest.TestCase):
                     env={"PATH": temp, "PROFILES": profile, "CALLS": str(calls)},
                     capture_output=True, check=True, timeout=10)
                 self.assertEqual(calls.read_text().splitlines(), expected)
+
+    def test_pam_layout_keeps_arch_native_directory_and_fedora_vendor_fallback(self):
+        script = (ROOT / "mkosi.postinst.chroot").read_text()
+        block = "# Arch's PAM" + script.split("# Arch's PAM", 1)[1].split("# Preserve the distro", 1)[0]
+        for distro in ("arch", "fedora"):
+            with self.subTest(distro=distro), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                native, vendor = root / "etc/pam.d", root / "usr/lib/pam.d"
+                native.mkdir(parents=True)
+                vendor.mkdir(parents=True)
+                policy = "auth required pam_shells.so\nauth required pam_unix.so\n"
+                (native / "login").write_text(policy)
+                adapted = block.replace("/etc/pam.d", str(native)).replace(
+                    "/usr/lib/pam.d", str(vendor))
+                subprocess.run(["bash", "-eu", "-c", adapted], check=True,
+                               capture_output=True, timeout=10,
+                               env={"PATH": "/usr/bin:/bin", "DISTRIBUTION": distro})
+                if distro == "arch":
+                    self.assertEqual((native / "login").read_text(), policy)
+                    self.assertFalse((vendor / "login").exists())
+                else:
+                    self.assertFalse(native.exists())
+                    self.assertEqual((vendor / "login").read_text(),
+                                     "auth required pam_unix.so\n")
+
+    def test_arch_rolling_branding_does_not_need_fedora_version_fields(self):
+        block = (ROOT / "mkosi.postinst.chroot").read_text().split("\n(\n", 1)[1]
+        with tempfile.TemporaryDirectory(prefix="personal-os-arch-branding-") as temp:
+            root = Path(temp)
+            release = root / "os-release"
+            issue = root / "issue"
+            release.write_text('NAME="Arch Linux"\nID=arch\n')
+            block = "(\n" + block.replace("/usr/lib/os-release", str(release)).replace(
+                "/usr/lib/issue", str(issue))
+            subprocess.run(["/bin/bash", "-eu", "-c", block],
+                           capture_output=True, check=True, timeout=10)
+            values = dict(line.split("=", 1) for line in release.read_text().splitlines()
+                          if line)
+            self.assertEqual(values["ID"], '"arch"')
+            self.assertEqual(values["ID_LIKE"], '"personal-os particleos-arch arch"')
+            self.assertNotIn("VERSION_ID", values)
+            self.assertIn("Personal OS / Arch Linux rolling", issue.read_text())
 
     def test_fork_branding_preserves_fedora_and_immutable_guard_ancestry(self):
         # Execute only branding against disposable files, never the chroot/PAM

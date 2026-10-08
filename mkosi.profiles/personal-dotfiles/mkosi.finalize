@@ -1,0 +1,4 @@
+#!/bin/bash
+set -euo pipefail
+# Never render, apply or execute source hooks on the builder.
+python3 "$SRCDIR/scripts/stage-dotfiles.py" --repository "$SRCDIR" --buildroot "$BUILDROOT"

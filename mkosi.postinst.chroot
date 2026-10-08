@@ -7,32 +7,44 @@ if command -v authselect >/dev/null; then
     authselect select local
 fi
 
-# Keep PAM defaults in the immutable vendor tree. Mutable /etc overrides remain
-# possible; no conventional account or access credential is created here.
-if [[ -d /etc/pam.d ]]; then
-    find /etc/pam.d -mindepth 1 -exec mv {} /usr/lib/pam.d \;
-    rmdir /etc/pam.d
+# Arch's PAM is built without a vendor-directory fallback. Preserve its native
+# /etc/pam.d for factory capture and first-boot linking; Fedora uses /usr/lib.
+# Neither path creates an account or access credential on the builder.
+if [[ ${DISTRIBUTION:?} == arch ]]; then
+    test -d /etc/pam.d
+else
+    if [[ -d /etc/pam.d ]]; then
+        find /etc/pam.d -mindepth 1 -exec mv {} /usr/lib/pam.d \;
+        rmdir /etc/pam.d
+    fi
+    find /usr/lib/pam.d/ -mindepth 1 -exec sed --in-place '/pam_shells.so/d' {} \;
+    find /usr/lib/pam.d/ -mindepth 1 -exec sed --in-place '/pam_securetty.so/d' {} \;
 fi
-find /usr/lib/pam.d/ -mindepth 1 -exec sed --in-place '/pam_shells.so/d' {} \;
-find /usr/lib/pam.d/ -mindepth 1 -exec sed --in-place '/pam_securetty.so/d' {} \;
 
-# Preserve Fedora's programmatic identity/version and ParticleOS ancestry for
+# Preserve the distro's programmatic identity/version and ParticleOS ancestry for
 # the pinned dotfiles' immutable guards. Personal OS owns the visible branding;
 # /usr/lib/personal-os/immutable and lifecycle environment guards also remain.
 (
     . /usr/lib/os-release
+    # Arch is rolling and does not ship VERSION or VERSION_ID. Keep that identity
+    # rather than inventing a release number; use rolling only in visible text.
+    display_version=${VERSION:-rolling}
+    version_id_line=
+    if [[ -n ${VERSION_ID:-} ]]; then
+        version_id_line="VERSION_ID=\"$VERSION_ID\""
+    fi
     cat >/usr/lib/os-release <<EOF
 NAME="Personal OS ($NAME)"
 ID="$ID"
 ID_LIKE="personal-os particleos-$ID $ID"
-PRETTY_NAME="Personal OS / $NAME $VERSION"
-VERSION="$VERSION"
-VERSION_ID="$VERSION_ID"
+PRETTY_NAME="Personal OS / $NAME $display_version"
+VERSION="$display_version"
+$version_id_line
 HOME_URL="https://github.com/ca-mantis-shrimp/personal-os"
 EOF
 
     cat >/usr/lib/issue <<EOF
-Personal OS / $NAME $VERSION
+Personal OS / $NAME $display_version
 Kernel \r on an \m (\l)
 
 EOF
