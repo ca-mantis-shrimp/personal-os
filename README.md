@@ -38,7 +38,10 @@ Run an agent there as root: install the harness under `/root`, allowing only its
 (`npm install -g --prefix /root/.local --allow-scripts=@anthropic-ai/claude-code @anthropic-ai/claude-code`), and
 stream the token from 1Password into tmpfs, never onto argv or disk:
 `op read op://Back-End/claude_code_pro/credential | ssh pod 'umask 077; mkdir -p /run/agent; cat > /run/agent/claude.token'`.
-Work arrives by `git push` from the desktop and leaves by `git fetch`; the pod holds no git credentials.
+Work arrives by `git push` from the desktop and leaves by `git fetch`. The one exception is the facilitator's
+memory repo (`assistant`): a GitHub deploy key with write on that repo only (`gh repo deploy-key add --allow-write`),
+its private half kept on the desktop and streamed into `/run/agent` after each boot, with GitHub's host key pinned
+against `gh api /meta`'s fingerprint. Other repos refuse it.
 Persistent sessions use shpool, installed at run time from its release after checking GitHub's published digest
 (`gh api repos/shell-pool/shpool/releases/tags/<tag> --jq '.assets[].digest'`), then
 `shpool attach -b -d <dir> -c "bash -c '. /root/.agent-env; claude; exec bash'" facilitator`. Attach from the
