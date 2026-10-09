@@ -56,9 +56,7 @@ host's `vhost_vsock` module, which is not loaded on the desktop.
 Agent sandboxes get their base from here too: `scripts/mkosi-arch sandbox-worker build` writes a non-bootable OCI
 image (no kernel, boot chain or OS policy; same Arch snapshot) to `mkosi.output/sandbox-worker/`. Load it with
 `podman pull oci:mkosi.output/sandbox-worker/PersonalOS__x86-64`; projects extend it with `FROM ${BASE}`, as
-agent-sandbox already builds them, and add packages with `RUN pacman -S`: the image's mirror is its own snapshot, so
-a layer needs no pin of its own. With pacman (2026-10-09): 887 MB unpacked; platform's Containerfile builds on it
-unchanged except for `FROM` and its dropped mirror pin.
+agent-sandbox already builds them. First build (2026-10-09): 25 packages, 772 MB unpacked, runs in podman and extends.
 
 Inspect configuration before builds. The wrapper selects Arch before distro
 fragment discovery; target/initrd/tools use the `2026/10/04` archive. Services

@@ -28,13 +28,7 @@ class SandboxWorkerTests(unittest.TestCase):
         self.assertTrue(packages.isdisjoint({"linux", "systemd", "openssh", "podman", "sudo", "cryptsetup"}))
         self.assertEqual(self.worker["ExtraTrees"], [])
         self.assertEqual(self.worker["FinalizeScripts"], [])
-
-    def test_projects_can_add_a_layer_with_pacman(self):
-        # A project's Containerfile extends this image with `RUN pacman -S ...`;
-        # the one script makes pacman work there, as Arch's container image does.
-        self.assertTrue({"pacman", "archlinux-keyring"}.issubset(set(self.worker["Packages"])))
-        self.assertEqual(self.worker["PostInstallationScripts"],
-                         [str(ROOT / "mkosi.profiles/sandbox-worker/pacman-in-containers.chroot")])
+        self.assertEqual(self.worker["PostInstallationScripts"], [])
 
     def test_shares_the_os_snapshot_with_separate_outputs(self):
         self.assertEqual(self.worker["Snapshot"], "2026/10/04")
