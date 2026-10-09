@@ -39,6 +39,10 @@ Run an agent there as root: install the harness under `/root`, allowing only its
 stream the token from 1Password into tmpfs, never onto argv or disk:
 `op read op://Back-End/claude_code_pro/credential | ssh pod 'umask 077; mkdir -p /run/agent; cat > /run/agent/claude.token'`.
 Work arrives by `git push` from the desktop and leaves by `git fetch`; the pod holds no git credentials.
+Persistent sessions use shpool, installed at run time from its release after checking GitHub's published digest
+(`gh api repos/shell-pool/shpool/releases/tags/<tag> --jq '.assets[].digest'`), then
+`shpool attach -b -d <dir> -c "bash -c '. /root/.agent-env; claude; exec bash'" facilitator`. Attach from the
+desktop with `ssh -p 42222 root@127.0.0.1 -t /root/.local/bin/shpool attach -f facilitator`.
 
 The SMBIOS form is deliberate: mkosi's `--credential` splits a public key on whitespace. Vsock needs the
 host's `vhost_vsock` module, which is not loaded on the desktop.

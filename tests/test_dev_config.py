@@ -38,11 +38,11 @@ class DevProfileTests(unittest.TestCase):
             self.assertFalse(list(tree.rglob("10-configuration-gate.conf")))
         self.assertTrue(set(self.dev["Packages"]).isdisjoint({
             "chezmoi", "sudo", "syncthing", "radicale", "vdirsyncer", "restic",
-            "fish", "neovim", "starship"}))
+            "fish", "starship"}))
         # The agent harness's runtime only; harnesses themselves install at run
         # time under /root, so no build hook or agent CLI enters the image.
         self.assertTrue({"openssh", "git", "python", "podman", "tmux",
-                         "nodejs", "npm", "github-cli"}.issubset(self.dev["Packages"]))
+                         "nodejs", "npm", "github-cli", "neovim"}.issubset(self.dev["Packages"]))
         self.assertEqual(self.dev["FinalizeScripts"], [str(ROOT / "mkosi.finalize")])
         self.assertEqual(self.dev["BuildScripts"], [])
         self.assertEqual(self.dev["BuildPackages"], [])
