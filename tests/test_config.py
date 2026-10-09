@@ -50,7 +50,7 @@ class ServerConfigTests(unittest.TestCase):
 
     def test_only_server_recipe_is_active_and_reference_is_not_staged(self):
         self.assertEqual({p.name for p in (ROOT / "mkosi.profiles").iterdir()},
-                         {"mini-server", "mini-server-arch", "dev-pod", "chezmoi", "personal-dotfiles"})
+                         {"mini-server", "mini-server-arch", "dev-pod", "sandbox-worker", "chezmoi", "personal-dotfiles"})
         self.assertEqual({p.name for p in (ROOT / "mkosi.conf.d").iterdir()}, {"fedora", "arch"})
         for path in ("mkosi.images", "mkosi.uki-profiles", "mkosi.credentials", ".obs"):
             self.assertFalse((ROOT / path).exists())
