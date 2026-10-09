@@ -1,4 +1,4 @@
-"""Sandbox worker composition: a non-bootable OCI base for agent sandboxes."""
+"""Sandbox worker composition: a non-bootable base tree for agent sandboxes."""
 import shutil
 import subprocess
 import unittest
@@ -13,8 +13,8 @@ class SandboxWorkerTests(unittest.TestCase):
         cls.configuration = summary("sandbox-worker")
         cls.worker = main(cls.configuration)
 
-    def test_is_an_oci_image_without_a_boot_chain(self):
-        self.assertEqual(self.worker["Format"], "oci")
+    def test_is_a_directory_tree_without_a_boot_chain(self):
+        self.assertEqual(self.worker["Format"], "directory")
         self.assertEqual(self.worker["Bootable"], "disabled")
         self.assertFalse(self.worker["SecureBoot"])
         self.assertEqual(self.worker["SignExpectedPcr"], "disabled")
@@ -29,6 +29,10 @@ class SandboxWorkerTests(unittest.TestCase):
         self.assertEqual(self.worker["ExtraTrees"], [])
         self.assertEqual(self.worker["FinalizeScripts"], [])
         self.assertEqual(self.worker["PostInstallationScripts"], [])
+
+    def test_keeps_package_metadata_for_layers(self):
+        # Layers install packages against this tree's pacman database.
+        self.assertEqual(self.worker["CleanPackageMetadata"], "disabled")
 
     def test_shares_the_os_snapshot_with_separate_outputs(self):
         self.assertEqual(self.worker["Snapshot"], "2026/10/04")

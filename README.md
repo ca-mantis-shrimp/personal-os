@@ -53,10 +53,10 @@ desktop with `ssh -p 42222 root@127.0.0.1 -t /root/.local/bin/shpool attach -f f
 The SMBIOS form is deliberate: mkosi's `--credential` splits a public key on whitespace. Vsock needs the
 host's `vhost_vsock` module, which is not loaded on the desktop.
 
-Agent sandboxes get their base from here too: `scripts/mkosi-arch sandbox-worker build` writes a non-bootable OCI
-image (no kernel, boot chain or OS policy; same Arch snapshot) to `mkosi.output/sandbox-worker/`. Load it with
-`podman pull oci:mkosi.output/sandbox-worker/PersonalOS__x86-64`; projects extend it with `FROM ${BASE}`, as
-agent-sandbox already builds them. First build (2026-10-09): 25 packages, 772 MB unpacked, runs in podman and extends.
+Agent sandboxes get their base from here too: `scripts/mkosi-arch sandbox-worker build` writes a non-bootable
+directory tree (no kernel, boot chain or OS policy; same Arch snapshot) to `mkosi.output/sandbox-worker/`. Sessions
+run on it as a systemd unit's root, and layers extend it with mkosi (`BaseTrees=` and `Overlay=`), installing
+packages against the pacman database it keeps. This repository knows none of the projects that use it.
 
 Inspect configuration before builds. The wrapper selects Arch before distro
 fragment discovery; target/initrd/tools use the `2026/10/04` archive. Services
