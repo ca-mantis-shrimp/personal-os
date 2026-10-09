@@ -1,0 +1,23 @@
+#!/bin/bash
+# SPDX-License-Identifier: LGPL-2.1-or-later
+# Make pacman usable from a project's Containerfile layer, as Arch's official
+# container image does: no landlock in container builds, a trusted keyring and
+# no docs or locales. The mirror is this image's own Arch snapshot, so a layer
+# installs from the same package versions without pinning one itself.
+set -euo pipefail
+
+sed --in-place 's/^#DisableSandboxFilesystem/DisableSandboxFilesystem/' /etc/pacman.conf
+grep -q '^DisableSandboxFilesystem' /etc/pacman.conf
+cat >>/etc/pacman.conf <<'EOF'
+
+[options]
+NoExtract = usr/share/doc/* usr/share/gtk-doc/* usr/share/help/* usr/share/info/* usr/share/man/*
+NoExtract = usr/share/locale/* !usr/share/locale/en* usr/share/i18n/locales/* !usr/share/i18n/locales/en_* !usr/share/i18n/locales/C
+EOF
+
+snapshot=$(jq --raw-output .Snapshot "$MKOSI_CONFIG")
+[[ $snapshot =~ ^[0-9]{4}/[0-9]{2}/[0-9]{2}$ ]]
+echo "Server = https://archive.archlinux.org/repos/$snapshot/\$repo/os/\$arch" >/etc/pacman.d/mirrorlist
+
+pacman-key --init
+pacman-key --populate archlinux
