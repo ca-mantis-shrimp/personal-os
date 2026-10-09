@@ -122,8 +122,8 @@ image. Keep private keys and provider authentication on the controlling machine;
 harvest results locally and push from there. No agent starts automatically.
 
 Root privileges are inside the disposable dev machine, never this desktop.
-Sandboxes are optional experiment tools; do not interfere with the separately
-owned sandbox extraction or invent a competing launcher. Shpool is session
+Sandboxes are optional experiment tools; sandbox images are built here as
+profiles, while agent-sandbox runs the sessions; do not invent a competing launcher. Shpool is session
 tooling, not an isolation boundary. The shared signed `/usr` remains immutable;
 root does not make pacman installation there supported. Use image packages or
 containers for extra tools, and do not silently remove the immutable guards.

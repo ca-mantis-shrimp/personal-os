@@ -28,7 +28,8 @@ services, personal data or durable secrets; agents may run as root on that machi
 and create sandboxes only when useful. Neither role requires personal dotfiles.
 Focus next on useful root-agent work in a bounded dev VM, not service readiness,
 a sandbox-integration prerequisite or another recovery/refactoring project.
-Existing sandbox extraction remains separately owned.
+Images are this repo's job, sandbox images included (mkosi profiles; meta-analysis
+DECISIONS, 2026-10-09). Running sandbox sessions stays with agent-sandbox.
 
 The frozen Arch candidate passed isolated first boot, credential-free persisted
 reboot, key-only SSH/sudo, rootless Podman/unshare, encrypted-root TPM re-unlock,
@@ -80,8 +81,8 @@ entry points now refuse execution; originals are preserved privately under
   services machine. Sandboxes are optional tools there, not a mandatory wrapper.
   Root inside a dev VM must not imply desktop sudo, devices or management sockets.
   Keep provider authentication/private keys on the controller; harvest/push locally.
-  No dedicated/per-agent host user or new launcher is required. Do not interfere
-  with separately owned sandbox extraction. Shpool is not an isolation boundary.
+  No dedicated/per-agent host user or new launcher is required. Build sandbox
+  images here as profiles; leave session running to agent-sandbox. Shpool is not an isolation boundary.
 
 ## Ownership and bootstrap
 
