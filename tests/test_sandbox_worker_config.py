@@ -28,7 +28,9 @@ class SandboxWorkerTests(unittest.TestCase):
         self.assertTrue(packages.isdisjoint({"linux", "systemd", "openssh", "podman", "sudo", "cryptsetup"}))
         self.assertEqual(self.worker["ExtraTrees"], [])
         self.assertEqual(self.worker["FinalizeScripts"], [])
-        self.assertEqual(self.worker["PostInstallationScripts"], [])
+        # One script, which records the snapshot as the extension level.
+        self.assertEqual(self.worker["PostInstallationScripts"],
+                         [str(ROOT / "mkosi.profiles/sandbox-worker/extension-level.chroot")])
 
     def test_keeps_package_metadata_for_layers(self):
         # Layers install packages against this tree's pacman database.

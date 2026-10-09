@@ -56,7 +56,9 @@ host's `vhost_vsock` module, which is not loaded on the desktop.
 Agent sandboxes get their base from here too: `scripts/mkosi-arch sandbox-worker build` writes a non-bootable
 directory tree (no kernel, boot chain or OS policy; same Arch snapshot) to `mkosi.output/sandbox-worker/`. Sessions
 run on it as a systemd unit's root, and layers extend it with mkosi (`BaseTrees=` and `Overlay=`), installing
-packages against the pacman database it keeps. This repository knows none of the projects that use it.
+packages against the pacman database it keeps. Its os-release records its Arch snapshot as `SYSEXT_LEVEL` and
+`CONFEXT_LEVEL`, so a layer that declares the same level stacks and one built for another is refused. This
+repository knows none of the projects that use it.
 
 Inspect configuration before builds. The wrapper selects Arch before distro
 fragment discovery; target/initrd/tools use the `2026/10/04` archive. Services

@@ -1,0 +1,8 @@
+#!/bin/sh
+# SPDX-License-Identifier: LGPL-2.1-or-later
+# Layers built on this tree declare the Arch snapshot they were built against;
+# systemd stacks only extensions whose level matches (os-release(5)).
+set -eu
+level=$(jq --raw-output .Snapshot "$MKOSI_CONFIG" | tr / .)
+case $level in [0-9]*.[0-9]*.[0-9]*) ;; *) echo "unexpected snapshot: $level" >&2; exit 1 ;; esac
+printf 'SYSEXT_LEVEL=%s\nCONFEXT_LEVEL=%s\n' "$level" "$level" >>/usr/lib/os-release
