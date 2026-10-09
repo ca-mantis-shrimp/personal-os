@@ -37,7 +37,7 @@ scripts/mkosi-arch dev-pod --ephemeral=yes --ram=4G --cpus=4 --tpm=yes --vsock=n
 Run an agent there as root: install the harness under `/root`, allowing only its own postinstall
 (`npm install -g --prefix /root/.local --allow-scripts=@anthropic-ai/claude-code @anthropic-ai/claude-code`), and
 stream the token from 1Password into tmpfs, never onto argv or disk:
-`op read op://Back-End/claude_code_pro/credential | ssh pod 'umask 077; mkdir -p /run/agent; cat > /run/agent/claude.token'`.
+`op read op://<vault>/<item>/<field> | ssh pod 'umask 077; mkdir -p /run/agent; cat > /run/agent/claude.token'`.
 Work arrives by `git push` from the desktop and leaves by `git fetch`. The one exception is the facilitator's
 memory repo (`assistant`): a GitHub deploy key with write on that repo only (`gh repo deploy-key add --allow-write`),
 its private half kept on the desktop and streamed into `/run/agent` after each boot, with GitHub's host key pinned
