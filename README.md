@@ -34,6 +34,12 @@ scripts/mkosi-arch dev-pod --ephemeral=yes --ram=4G --cpus=4 --tpm=yes --vsock=n
   -smbios "type=11,value=io.systemd.credential.binary:ssh.authorized_keys.root=$(base64 -w0 < key.pub)"
 ```
 
+Run an agent there as root: install the harness under `/root`, allowing only its own postinstall
+(`npm install -g --prefix /root/.local --allow-scripts=@anthropic-ai/claude-code @anthropic-ai/claude-code`), and
+stream the token from 1Password into tmpfs, never onto argv or disk:
+`op read op://Back-End/claude_code_pro/credential | ssh pod 'umask 077; mkdir -p /run/agent; cat > /run/agent/claude.token'`.
+Work arrives by `git push` from the desktop and leaves by `git fetch`; the pod holds no git credentials.
+
 The SMBIOS form is deliberate: mkosi's `--credential` splits a public key on whitespace. Vsock needs the
 host's `vhost_vsock` module, which is not loaded on the desktop.
 
