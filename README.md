@@ -42,6 +42,9 @@ Work arrives by `git push` from the desktop and leaves by `git fetch`. The one e
 memory repo (`assistant`): a GitHub deploy key with write on that repo only (`gh repo deploy-key add --allow-write`),
 its private half kept on the desktop and streamed into `/run/agent` after each boot, with GitHub's host key pinned
 against `gh api /meta`'s fingerprint. Other repos refuse it.
+ClearHead comes from its release, checked against the published digest:
+`gh release download <tag> -R ClearHeadToDo-Devs/clearhead-core -p 'clearhead-x86_64-unknown-linux-gnu.tar.xz'`
+into `/root/.local/bin`; the user-level queries (`~/.config/clearhead/queries`) are copied from the desktop.
 Persistent sessions use shpool, installed at run time from its release after checking GitHub's published digest
 (`gh api repos/shell-pool/shpool/releases/tags/<tag> --jq '.assets[].digest'`), then
 `shpool attach -b -d <dir> -c "bash -c '. /root/.agent-env; claude; exec bash'" facilitator`. Attach from the
