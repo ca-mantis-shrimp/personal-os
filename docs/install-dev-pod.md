@@ -98,4 +98,21 @@ agent-sandbox's host integration and mkosi are not in the image yet, so they liv
   image now blacklists btusb; the NUC has the same line in `/etc/modprobe.d/no-bluetooth.conf`.
 
 - The hostname defaults to `archlinux`; set it with `hostnamectl hostname`.
-- Updates (sysupdate into the spare A/B `/usr` slots) and rollback are not rehearsed yet.
+- Rollback to the previous slot is not rehearsed yet.
+
+## Updating
+
+First done 2026-10-10 (image `20261010161758`: linux-firmware, watchdog, tailscale). On the desktop, the build
+command from the top with `--image-version=$(date -u +%Y%m%d%H%M%S)` (its login shell is fish, so run it under
+bash). Copy the `.efi` and the three `usr*` `.raw` files to a directory on the pod, then as root:
+
+```sh
+/usr/lib/systemd/systemd-sysupdate --definitions=<personal-os>/mkosi.sysupdate --transfer-source=<dir> update
+```
+
+Reboot; the new slot boots first and the old one stays as fallback (`TriesLeft=3`). Gotchas:
+
+- The NUC was installed without a version, which sysupdate can't see as a slot. It was relabelled to `0`
+  (`PersonalOS_0*`, UKI `PersonalOS_0_x86-64.efi`); always build with a version.
+- An update only replaces `/usr`. Presets run on first boot only, so a newly added service needs
+  `systemctl preset <unit>` once, and a package's files in `/etc` never arrive (tailscale's `/etc/default`).
