@@ -1,0 +1,7 @@
+// Dev pod: wheel administers without a password (run0, unit management). The
+// machine is disposable and has no password logins; root stays reachable by key.
+polkit.addRule(function (action, subject) {
+    if (subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
+    }
+});

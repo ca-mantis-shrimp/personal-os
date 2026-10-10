@@ -2,10 +2,11 @@
 
 The dev pod's target is the NUC (meta-analysis DECISIONS, 2026-10-09). Every step below was rehearsed on
 2026-10-09 in QEMU: the production-key image written raw onto a blank 64 GB NVMe, OVMF without and then with
-Secure Boot, swtpm, and no SMBIOS credentials. What the rehearsal could not cover is marked **untested**.
+Secure Boot, swtpm, and no SMBIOS credentials. Re-run after adding polkit and the encrypted `/home`: first boot,
+the facilitator's user, `run0`, unattended reboot. What the rehearsal could not cover is marked **untested**.
 
 No installer runs on the target: the built disk image is written to the NVMe as is, and its first boot creates
-swap, an encrypted root and `/home` with systemd-repart, sized to the disk. Upstream's live/installer UKI profiles
+encrypted swap, root and `/home` (dev pod only; services keeps `/home` plain) with systemd-repart, sized to the disk. Upstream's live/installer UKI profiles
 stay in `reference/` on purpose (fixed root password, autologin, unsigned PCR policy).
 
 ## On the desktop
@@ -41,14 +42,22 @@ systemd-creds encrypt --with-key=null --name=ssh.authorized_keys.root ~/.ssh/id_
    scp ~/.local/share/personal-os/secureboot/auth/*.auth root@nuc:/mnt/loader/keys/personal-os/
    ssh root@nuc 'umount /mnt && systemctl poweroff'
    ```
-4. **First boot:** remove the stick and boot. First boot builds the partitions and seals the root to the TPM.
+4. **First boot:** remove the stick and boot. First boot builds the partitions and seals root and `/home` to the TPM.
    `ssh root@<address>` should work with the desktop key.
 5. **Recovery key:** the TPM is otherwise the only key slot. Store the printed key in 1Password.
    ```sh
    systemd-cryptenroll --unlock-tpm2-device=auto --recovery-key /dev/disk/by-designator/root-luks
    rm /boot/loader/credentials/ssh.authorized_keys.root.cred
    ```
-6. **Secure Boot:** `systemctl reboot --firmware-setup`, clear or reset the Secure Boot keys so the firmware is in
+6. **The facilitator's user:** Claude Code refuses its bypass-permissions mode as root, so the facilitator runs
+   as `agent-facilitator` in `wheel`. Its password stays locked; the image's polkit rule lets `wheel` use `run0`
+   without one. Add it to `agents` once agent-sandbox has created that group.
+   ```sh
+   useradd -m -U -G wheel -s /bin/bash agent-facilitator   # -U: the image has no login.defs
+   install -d -m700 -o agent-facilitator -g agent-facilitator /home/agent-facilitator/.ssh
+   install -m600 -o agent-facilitator -g agent-facilitator /root/.ssh/authorized_keys /home/agent-facilitator/.ssh/
+   ```
+7. **Secure Boot:** `systemctl reboot --firmware-setup`, clear or reset the Secure Boot keys so the firmware is in
    setup mode, enable Secure Boot. In the systemd-boot menu choose "Enroll Secure Boot keys: personal-os"; it
    enrolls and reboots. Then `bootctl status` shows `Secure Boot: enabled (user)` and
    `rm -r /boot/loader/keys/personal-os`. The firmware menu wording is **untested** (rehearsed on OVMF only).
@@ -56,6 +65,5 @@ systemd-creds encrypt --with-key=null --name=ssh.authorized_keys.root ~/.ssh/id_
 
 ## Known gaps
 
-- `/home` is not encrypted (`mkosi.extra/usr/lib/repart.d/50-home.conf`). Accepted (Darrion, 2026-10-09): the dev pod works as root, and root's home is on the encrypted root.
 - The hostname defaults to `archlinux`; set it with `hostnamectl hostname`.
 - Updates (sysupdate into the spare A/B `/usr` slots) and rollback are not rehearsed yet.
