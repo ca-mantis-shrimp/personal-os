@@ -31,6 +31,9 @@ systemd-creds encrypt --with-key=null --name=ssh.authorized_keys.root ~/.ssh/id_
 ## On the NUC
 
 1. **Firmware:** Secure Boot off (the Arch ISO is not signed for it), boot from USB. Set a firmware admin password.
+   If the firmware menu is hard to reach (the NUC, a GMKtec NucBox M6, reboots too fast and doesn't support
+   `systemctl reboot --firmware-setup`), boot the stick once from the old system: `efibootmgr` lists a
+   removable-device entry, then `efibootmgr --bootnext <num> && systemctl reboot`.
 2. **Live system:** boot the Arch ISO stick, `passwd` for root, note `ip -br a`. Find the NVMe with
    `lsblk -o NAME,SIZE,MODEL,SERIAL` and check it's the one you mean: everything on it is destroyed.
 3. **Write the image** from the desktop (`nuc` = the live system's address):
@@ -40,13 +43,17 @@ systemd-creds encrypt --with-key=null --name=ssh.authorized_keys.root ~/.ssh/id_
    ssh root@nuc 'blockdev --rereadpt /dev/nvme0n1 && mount /dev/nvme0n1p1 /mnt && mkdir -p /mnt/loader/credentials /mnt/loader/keys/personal-os'
    scp ssh.authorized_keys.root.cred root@nuc:/mnt/loader/credentials/
    scp ~/.local/share/personal-os/secureboot/auth/*.auth root@nuc:/mnt/loader/keys/personal-os/
+   # Boot the new disk first; drop entries for the old installation.
+   ssh root@nuc 'efibootmgr --create --disk /dev/nvme0n1 --part 1 --loader "\\EFI\\BOOT\\BOOTX64.EFI" --label "Personal OS"'
    ssh root@nuc 'umount /mnt && systemctl poweroff'
    ```
 4. **First boot:** remove the stick and boot. First boot builds the partitions and seals root and `/home` to the TPM.
    `ssh root@<address>` should work with the desktop key.
-5. **Recovery key:** the TPM is otherwise the only key slot. Store the printed key in 1Password.
+5. **Recovery keys:** the TPM is otherwise the only key slot, and an AMD firmware TPM can be reset by a BIOS
+   update. Run this in a terminal of your own (not through an agent, whose output is logged) and store both keys
+   in 1Password. Swap keeps only its TPM slot; it can be recreated.
    ```sh
-   systemd-cryptenroll --unlock-tpm2-device=auto --recovery-key /dev/disk/by-designator/root-luks
+   for v in root home; do echo "== $v"; systemd-cryptenroll --unlock-tpm2-device=auto --recovery-key /dev/disk/by-designator/$v-luks; done
    rm /boot/loader/credentials/ssh.authorized_keys.root.cred
    ```
 6. **The facilitator's user:** Claude Code refuses its bypass-permissions mode as root, so the facilitator runs
@@ -64,6 +71,12 @@ systemd-creds encrypt --with-key=null --name=ssh.authorized_keys.root ~/.ssh/id_
    The root stays unlockable: its TPM token is bound to the signed PCR 11 policy only, not PCR 7.
 
 ## Known gaps
+
+- Done on the NUC 2026-10-10 through step 6. Secure Boot (step 7) waits: its firmware exposes no `SecureBoot` or
+  `SetupMode` variables to the OS, so whether it can enroll custom keys is unknown until someone reaches the menu.
+  The `.auth` files are staged on its ESP.
+- First boot on the NUC showed no login prompt for minutes: Bluetooth firmware retries flooded the console. The
+  image now blacklists btusb; the NUC has the same line in `/etc/modprobe.d/no-bluetooth.conf`.
 
 - The hostname defaults to `archlinux`; set it with `hostnamectl hostname`.
 - Updates (sysupdate into the spare A/B `/usr` slots) and rollback are not rehearsed yet.
