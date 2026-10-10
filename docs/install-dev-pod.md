@@ -70,6 +70,25 @@ systemd-creds encrypt --with-key=null --name=ssh.authorized_keys.root ~/.ssh/id_
    `rm -r /boot/loader/keys/personal-os`. The firmware menu wording is **untested** (rehearsed on OVMF only).
    The root stays unlockable: its TPM token is bound to the signed PCR 11 policy only, not PCR 7.
 
+## Moving in (interim, until the image carries it)
+
+Done on the NUC 2026-10-10 as `agent-facilitator`; the first sandboxed Claude session finished there.
+agent-sandbox's host integration and mkosi are not in the image yet, so they live in mutable `/etc` and `~/.local`:
+
+1. `agent-sandbox/system/usr/lib/...` and `usr/share/polkit-1/rules.d/...` copied to the same paths under `/etc`,
+   then `systemd-sysusers`, `systemd-tmpfiles --create`, `systemctl daemon-reload`, `usermod -aG agents agent-facilitator`,
+   `loginctl enable-linger agent-facilitator`.
+2. mkosi from git at the desktop's version (`git clone --branch v27.1 https://github.com/systemd/mkosi`), linked
+   into `~/.local/bin`. Claude Code with `npm install -g --prefix ~/.local --allow-scripts=@anthropic-ai/claude-code`.
+3. `~/.config/environment.d/50-agent-sandbox.conf`: `PATH`, `AGENT_BASE`, `AGENT_LAYERS`, `XDG_CACHE_HOME` (agent-layer's
+   mkosi otherwise picks `/var/cache`) and `AGENT_REPART_DEFINITIONS` (mkosi isn't an installed module).
+   `~/.bashrc` sources it; `~/.bash_profile` sources `~/.bashrc`.
+4. Base: `scripts/mkosi-arch sandbox-worker build` in a personal-os clone (73 s). Harness layer: `agent-layer`.
+5. Credentials, each by Darrion from their own terminal: the sandbox Claude token sealed with
+   `run0 systemd-creds encrypt --name=agent.claude_token - /etc/credstore.encrypted/agent.claude_token` (TPM and
+   host key, signed PCR 11 policy by default, so updates and Secure Boot keep it readable); `gh auth login
+   --with-token` and `gh auth setup-git`; `claude` then `/login`. The pi login is still to do.
+
 ## Known gaps
 
 - Done on the NUC 2026-10-10 through step 6. Secure Boot (step 7) waits: its firmware exposes no `SecureBoot` or
