@@ -56,6 +56,6 @@ systemd-creds encrypt --with-key=null --name=ssh.authorized_keys.root ~/.ssh/id_
 
 ## Known gaps
 
-- `/home` is not encrypted (`mkosi.extra/usr/lib/repart.d/50-home.conf`). Root's home is on the encrypted root.
+- `/home` is not encrypted (`mkosi.extra/usr/lib/repart.d/50-home.conf`). Accepted (Darrion, 2026-10-09): the dev pod works as root, and root's home is on the encrypted root.
 - The hostname defaults to `archlinux`; set it with `hostnamectl hostname`.
 - Updates (sysupdate into the spare A/B `/usr` slots) and rollback are not rehearsed yet.
