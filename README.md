@@ -76,7 +76,7 @@ owned cleanup; no VM is active. These passes belong to the old image, **not** th
 new profile split. Dev-pod (2026-10-08): built unprivileged on the desktop with disposable keys and booted
 in an ephemeral QEMU VM with a TPM: root SSH by key credential, password refused, `running` with no failed
 units, encrypted btrfs root, verity `/usr`, network, clean poweroff. Keys removed afterwards.
-Neither image is installed or installation-ready. Recovery/update/rollback/rescue,
+The dev pod's hardware install is rehearsed in [docs/install-dev-pod.md](docs/install-dev-pod.md) (2026-10-09); the services image is not installation-ready. Recovery/update/rollback/rescue,
 real-data restore and application/schema compatibility remain unproven.
 
 ## Optional dotfiles

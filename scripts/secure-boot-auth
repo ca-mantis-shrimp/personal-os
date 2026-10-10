@@ -1,0 +1,37 @@
+#!/bin/sh
+# Build signed Secure Boot enrollment files (PK, KEK, db .auth) for systemd-boot's
+# ESP/loader/keys/<name>/. Our certificate in all three; Microsoft's KEK CAs in KEK
+# (signed dbx updates) and UEFI/option-ROM CAs in db (firmware drivers). The
+# private key stays here: only signed public lists go to the target.
+# Usage: scripts/secure-boot-auth <keydir with mkosi.key/mkosi.crt> <microsoft der dir> <outdir>
+set -eu
+keys=$1 ms=$2 out=$3
+microsoft=77fa9abd-0359-4d32-bd60-28f4e78f784b  # Microsoft's signature owner GUID
+mkdir -p "$out"
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+owner=$(cat "$keys/owner.guid" 2>/dev/null || uuidgen | tee "$keys/owner.guid")
+cert-to-efi-sig-list -g "$owner" "$keys/mkosi.crt" "$tmp/ours.esl"
+ms_esl() { # <list name> <der files...>
+    list=$1; shift
+    : >"$tmp/$list.ms.esl"
+    for der in "$@"; do
+        openssl x509 -inform der -in "$der" -out "$tmp/cert.pem"
+        cert-to-efi-sig-list -g "$microsoft" "$tmp/cert.pem" "$tmp/cert.esl"
+        cat "$tmp/cert.esl" >>"$tmp/$list.ms.esl"
+    done
+}
+ms_esl KEK "$ms"/MicCorKEKCA2011_2011-06-24.der "$ms"/microsoft-corporation-kek-2k-ca-2023.der
+ms_esl db "$ms"/MicCorUEFCA2011_2011-06-27.der "$ms"/microsoft-uefi-ca-2023.der \
+    "$ms"/microsoft-option-rom-uefi-ca-2023.der
+
+cp "$tmp/ours.esl" "$tmp/PK.esl"
+cat "$tmp/ours.esl" "$tmp/KEK.ms.esl" >"$tmp/KEK.esl"
+cat "$tmp/ours.esl" "$tmp/db.ms.esl" >"$tmp/db.esl"
+stamp=$(date -u '+%Y-%m-%d %H:%M:%S')
+for var in PK KEK db; do
+    sign-efi-sig-list -t "$stamp" -k "$keys/mkosi.key" -c "$keys/mkosi.crt" \
+        "$var" "$tmp/$var.esl" "$out/$var.auth" >/dev/null
+done
+ls -l "$out"

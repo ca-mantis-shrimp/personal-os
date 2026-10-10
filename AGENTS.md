@@ -46,7 +46,7 @@ These passes do **not** prove
 TPM-loss recovery, updates/rollback/rescue, backup restores or schema compatibility.
 Services/shpool remain disabled or gated; Arch agent payloads are still deferred.
 The never-enabled automatic chezmoi lifecycle/controller has been removed.
-Do not claim the image is installed or installation-ready.
+The dev-pod install is rehearsed, not yet done on hardware (docs/install-dev-pod.md); the services image is not installation-ready.
 
 The unfinished `arch-tpmloss-tgw231na` private draft is **parked**. Its final local
 suite passed 108 tests with one explicit remote-only TPM skip (109 collected).
