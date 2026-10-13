@@ -75,9 +75,11 @@ systemd-creds encrypt --with-key=null --name=ssh.authorized_keys.root ~/.ssh/id_
 Done on the NUC 2026-10-10 as `agent-facilitator`; the first sandboxed Claude session finished there.
 agent-sandbox's host integration and mkosi are not in the image yet, so they live in mutable `/etc` and `~/.local`:
 
-1. `agent-sandbox/system/usr/lib/...` and `usr/share/polkit-1/rules.d/...` copied to the same paths under `/etc`,
-   then `systemd-sysusers`, `systemd-tmpfiles --create`, `systemctl daemon-reload`, `usermod -aG agents agent-facilitator`,
-   `loginctl enable-linger agent-facilitator`.
+1. agent-sandbox's host integration merged as a system extension, not baked into the image: `system/usr` copied to
+   `/var/lib/extensions/agent-sandbox/usr` (owned by root) with `usr/lib/extension-release.d/extension-release.agent-sandbox`
+   holding `ID=_any`, then `systemd-sysext refresh`, `systemd-sysusers`, `systemd-tmpfiles --create`,
+   `usermod -aG agents agent-facilitator`, `loginctl enable-linger agent-facilitator`. Moving agent-sandbox's pin means
+   recopying and refreshing. (Until 2026-10-13 these were copies under `/etc`.)
 2. mkosi from git at the desktop's version (`git clone --branch v27.1 https://github.com/systemd/mkosi`), linked
    into `~/.local/bin`. Claude Code with `npm install -g --prefix ~/.local --allow-scripts=@anthropic-ai/claude-code`.
 3. `~/.config/environment.d/50-agent-sandbox.conf`: `PATH`, `AGENT_BASE`, `AGENT_LAYERS`, `XDG_CACHE_HOME` (agent-layer's
