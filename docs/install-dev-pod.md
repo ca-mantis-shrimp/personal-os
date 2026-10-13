@@ -110,7 +110,12 @@ bash). Copy the `.efi` and the three `usr*` `.raw` files to a directory on the p
 /usr/lib/systemd/systemd-sysupdate --definitions=<personal-os>/mkosi.sysupdate --transfer-source=<dir> update
 ```
 
-Reboot; the new slot boots first and the old one stays as fallback (`TriesLeft=3`). Gotchas:
+Reboot; the new slot boots first and the old one stays as fallback (`TriesLeft=3`).
+
+Second update 2026-10-13 (image `20261013173422`: gcc and rust), done by the assistant end to end from the pod:
+`ssh desktop`, fast-forward its clone (branch `personal-os`; `main` there is upstream ParticleOS), build as a
+transient user unit, `scp` the four files back, sysupdate, reboot. It came up blessed with shpool, srr-demo and
+tailscale serve intact, and clearhead-core's `scripts/gate.sh` now passes on the host. Gotchas:
 
 - The NUC was installed without a version, which sysupdate can't see as a slot. It was relabelled to `0`
   (`PersonalOS_0*`, UKI `PersonalOS_0_x86-64.efi`); always build with a version.
