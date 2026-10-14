@@ -100,7 +100,6 @@ agent-sandbox's host integration and mkosi are not in the image yet, so they liv
   image now blacklists btusb; the NUC has the same line in `/etc/modprobe.d/no-bluetooth.conf`.
 
 - The hostname defaults to `archlinux`; set it with `hostnamectl hostname`.
-- Rollback to the previous slot is not rehearsed yet.
 
 ## Updating
 
@@ -123,3 +122,8 @@ tailscale serve intact, and clearhead-core's `scripts/gate.sh` now passes on the
   (`PersonalOS_0*`, UKI `PersonalOS_0_x86-64.efi`); always build with a version.
 - An update only replaces `/usr`. Presets run on first boot only, so a newly added service needs
   `systemctl preset <unit>` once, and a package's files in `/etc` never arrive (tailscale's `/etc/default`).
+
+Rollback, rehearsed 2026-10-14 from `20261013184421` (mkosi) to `20261013173422` and back: `run0 bootctl
+set-oneshot PersonalOS_<old>_x86-64.efi`, reboot, check `IMAGE_VERSION` in `/etc/os-release`; a plain reboot
+then returns to the default (newest) entry. The old slot lacks anything added since, so don't run tools that
+need it (mkosi, agent-layer) while booted there.
