@@ -2,10 +2,10 @@
   "version": 1,
   "architecture": "x86-64",
   "claude": {
-    "version": "2.1.288",
-    "url": "https://downloads.claude.ai/claude-code-releases/2.1.288/linux-x64/claude",
-    "sha256": "0298068b686e7fdbaf9402a7a587bb7f49c0b0e084de09f69145a0719207640c",
-    "size": 245734584
+    "version": "2.1.302",
+    "url": "https://downloads.claude.ai/claude-code-releases/2.1.302/linux-x64/claude",
+    "sha256": "60d7eb7f12fbb28a52533fe8be5884097403562aa02dc73991a021c7067e29a5",
+    "size": 285793528
   },
   "shpool": {
     "version": "0.11.5",
