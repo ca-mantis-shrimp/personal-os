@@ -81,7 +81,8 @@ agent-sandbox's host integration and mkosi are not in the image yet, so they liv
    `loginctl enable-linger agent-facilitator`. On a pin move, build and install again; `agent-doctor` reports drift.
    (Until 2026-10-13 these files were copies under `/etc`.)
 2. mkosi from git at the desktop's version (`git clone --branch v27.1 https://github.com/systemd/mkosi`), linked
-   into `~/.local/bin`. Claude Code with `npm install -g --prefix ~/.local --allow-scripts=@anthropic-ai/claude-code`.
+   into `~/.local/bin`. Claude Code with its native installer (`claude install latest`), which updates itself in
+   `~/.local/share/claude`; npm's global prefix is the immutable `/usr`, so an npm install never auto-updated.
 3. `~/.config/environment.d/50-agent-sandbox.conf`: `PATH`, `AGENT_BASE`, `AGENT_LAYERS`, `XDG_CACHE_HOME` (agent-layer's
    mkosi otherwise picks `/var/cache`) and `AGENT_REPART_DEFINITIONS` (mkosi isn't an installed module).
    `~/.bashrc` sources it; `~/.bash_profile` sources `~/.bashrc`.
