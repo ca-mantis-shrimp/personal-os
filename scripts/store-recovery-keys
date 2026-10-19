@@ -1,0 +1,26 @@
+#!/bin/sh
+# Enroll a fresh LUKS recovery key on each of the host's volumes and store it straight in
+# 1Password, so the key never reaches a terminal or an agent's log. Run it where `op`
+# reaches the 1Password app (the desktop), with root ssh to the host. The volume's older
+# recovery slots are wiped once the new key is enrolled; the new key is then checked
+# against the volume by reading it back from 1Password.
+# Usage: scripts/store-recovery-keys <host> [volume...]   (volumes default to root home)
+set -eu
+host=${1:?usage: store-recovery-keys <host> [volume...]}; shift
+[ $# -gt 0 ] || set -- root home
+op vault list >/dev/null  # ask for the app's approval before any slot changes
+
+for v in "$@"; do
+    dev=/dev/disk/by-designator/$v-luks
+    key=$(ssh "root@$host" systemd-cryptenroll --unlock-tpm2-device=auto \
+        --recovery-key --wipe-slot=recovery "$dev")
+    item=$(printf %s "$key" | jq -Rs --arg title "$host $v LUKS recovery key" \
+        --arg note "systemd-cryptenroll recovery key for $dev on $host, enrolled $(date -I)." \
+        '{title: $title, category: "PASSWORD", fields: [
+            {id: "password", type: "CONCEALED", purpose: "PASSWORD", label: "password", value: .},
+            {id: "notesPlain", type: "STRING", purpose: "NOTES", label: "notesPlain", value: $note}]}' |
+        op item create --tags "luks,$host" --format json -)
+    ref=$(printf %s "$item" | jq -r '"op://\(.vault.id)/\(.id)/password"')
+    op read -n "$ref" | ssh "root@$host" cryptsetup open --test-passphrase --key-file=- "$dev"
+    echo "$v: stored as $ref and unlocks $dev"
+done

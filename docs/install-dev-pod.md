@@ -50,10 +50,11 @@ systemd-creds encrypt --with-key=null --name=ssh.authorized_keys.root ~/.ssh/id_
 4. **First boot:** remove the stick and boot. First boot builds the partitions and seals root and `/home` to the TPM.
    `ssh root@<address>` should work with the desktop key.
 5. **Recovery keys:** the TPM is otherwise the only key slot, and an AMD firmware TPM can be reset by a BIOS
-   update. Run this in a terminal of your own (not through an agent, whose output is logged) and store both keys
-   in 1Password. Swap keeps only its TPM slot; it can be recreated.
+   update. From the desktop, `scripts/store-recovery-keys <address>` enrolls a recovery key for root and `/home`
+   and pipes each straight into 1Password, so no key is shown or logged (safe to run through an agent), then
+   checks it unlocks. Rerunning replaces the old recovery slots. Swap keeps only its TPM slot; it can be recreated.
+   Then on the host:
    ```sh
-   for v in root home; do echo "== $v"; systemd-cryptenroll --unlock-tpm2-device=auto --recovery-key /dev/disk/by-designator/$v-luks; done
    rm /boot/loader/credentials/ssh.authorized_keys.root.cred
    ```
 6. **The facilitator's user:** Claude Code refuses its bypass-permissions mode as root, so the facilitator runs
