@@ -3,7 +3,7 @@
 These files were moved out of active mkosi discovery when Personal OS became a
 Fedora-only headless fork. They preserve upstream implementation context and
 licensing; they are not another plan, release channel or supported build recipe.
-The canonical decisions and handoff remain in `.clearhead/charters/mini-server.md`
+The canonical decisions and handoff remain in `.clearhead/archive/01a0fb15-b777-75a3-a048-7e0da5722a02.md`
 at the repository root.
 
 Retained material includes desktop/other-distro/OBS profiles, network ESP examples,

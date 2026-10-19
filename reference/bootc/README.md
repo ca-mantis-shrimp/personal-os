@@ -9,7 +9,7 @@ from this directory. Never add credentials, SSH private keys, Tailscale state,
 home-directory contents, or application data.
 
 Intentions, task state, operator planning, approvals, and the next-agent handoff
-live in [the project-local ClearHead charter](../../.clearhead/charters/mini-server.md).
+live in [the project-local ClearHead charter](../../.clearhead/archive/01a0fb15-b777-75a3-a048-7e0da5722a02.md).
 This document records technical build/reference information and test results.
 
 ## Base image

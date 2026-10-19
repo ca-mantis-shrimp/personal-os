@@ -240,5 +240,5 @@ remain unverified. No retain/exclude manifest, backup, or successful application
 restore is established by this scout.
 
 Intentions, remaining actions, operator checks, approvals, and handoff live in
-[the ClearHead charter](../../.clearhead/charters/mini-server.md) and its paired
+[the ClearHead charter](../../.clearhead/archive/01a0fb15-b777-75a3-a048-7e0da5722a02.md) and its paired
 actions. This document contains technical observations only.

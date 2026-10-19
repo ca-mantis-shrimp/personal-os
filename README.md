@@ -8,8 +8,9 @@ mkosi, signed UKI/verity and systemd-sysupdate foundations. Two independent mach
 | **Services** (`mini-server-arch`) | Deliberately managed homelab services and persistent operational data; conventional operator account, no root SSH. |
 | **Dev pod** (`dev-pod`) | Disposable product development/testing; agents may run as root, creating sandboxes only when useful. No operational services, personal data or durable secrets. |
 
-The architectural decision is in `~/Products/meta-analysis/DECISIONS.md`; OS
-implementation, approvals and evidence live in the [canonical charter](.clearhead/charters/mini-server.md).
+The architectural decision is in `~/Products/meta-analysis/DECISIONS.md`; the
+services machine's plan is the [services charter](.clearhead/charters/services.md), and the dev pod's install is
+[docs/install-dev-pod.md](docs/install-dev-pod.md).
 Profiles share OS foundations, not account/configuration/workload prerequisites.
 They cannot be combined. Chezmoi and personal dotfiles are optional.
 
@@ -159,7 +160,7 @@ the private recovery-harness draft stays parked.
 | `mkosi.profiles/dev-pod/` | Independent disposable root-agent role |
 | `mkosi.profiles/{chezmoi,personal-dotfiles}/`, `dotfiles/` | Optional user configuration composition |
 | `scripts/`, `tests/` | Build/staging helpers and offline regressions |
-| `.clearhead/charters/mini-server.*` | Sole plan, decisions, evidence and handoff |
+| `.clearhead/charters/` | Plans and decisions (`.clearhead/archive/` holds the closed mini-server charter) |
 | `reference/`, `docs/PARTICLEOS-UPSTREAM.md` | Preserved alternatives/upstream provenance |
 
 Use ClearHead from this root; `dotfiles/.clearhead/` is historical. ClearHead

@@ -3,14 +3,15 @@
 ## Read first
 
 1. `README.md` — current scope and entry points.
-2. `.clearhead/charters/mini-server.md` — canonical decisions, approvals, evidence
-   and **Next-agent handoff**. Read the latest direction before historical notes.
-3. `.clearhead/charters/mini-server.actions` and `.completed.actions`.
+2. `.clearhead/charters/` — `next.actions` for the OS and dev pod, `services.md` for
+   the N150 services machine. The mini-server charter closed on 2026-10-19 and is archived in
+   `.clearhead/archive/01a0fb15-b777-75a3-a048-7e0da5722a02.*`: history, and the decisions `services.md` carries forward.
+3. `docs/install-dev-pod.md` for the running devbox.
 4. `docs/PARTICLEOS-UPSTREAM.md`, relevant mkosi configuration and upstream docs
    before implementation changes.
 
-Use ClearHead from this repository root. Preserve the charter, paired actions
-and tool-managed `.mini-server.json` together. No additional PLAN/NEXT-STEPS or
+Use ClearHead from this repository root. Preserve each charter, its paired
+actions and tool-managed sidecar together. No additional PLAN/NEXT-STEPS or
 parallel handoff. Do not hand-edit UUIDs/provenance or invent completion dates.
 Inspect diffs after CLI mutations; historical I001 notices are informational.
 
