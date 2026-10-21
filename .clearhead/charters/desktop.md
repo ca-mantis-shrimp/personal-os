@@ -21,6 +21,8 @@ hand; sorting what it has is how we learn what the image needs.
   ("then we can wipe the original arch drive instead to make room in a more safe manner"). A portable OS would answer
   portability a second time, at the cost of Secure Boot keys or shim on other machines and one image for all hardware.
   Rescue stays a cheap USB stick (=devbox-rescue-stick).
+- 2026-10-21, Darrion: upgrades happen on demand, never on a timer. A rebuild, sysupdate and reboot happen when
+  Darrion chooses, so a problem shows up while they are watching ("rather than YOLOing and updating every week").
 
 ## Proposed, to confirm
 
