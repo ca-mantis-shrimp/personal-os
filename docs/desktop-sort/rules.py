@@ -17,7 +17,8 @@ RULES = [
   ('speech to text', 'drop', ['vocalinux', 'python-pywhispercpp-cuda', 'python-webrtcvad', 'ydotool'], 'none for now (Darrion, 2026-10-21); ydotool only typed the dictation'),
   ('mopidy', 'drop', ['mopidy', 'mopidy-iris', 'mopidy-mpd'], 'mpd moves to the services machine and replaces it'),
   ('DisplayLink and Wacom', 'drop', ['evdi-dkms', 'wacomtablet'], 'DisplayLink never worked; the Wacom GUI is not needed (Darrion, 2026-10-21)'),
-  ('AUR: scanner', 'hardware: desktop', ['brscan5', 'libsane-dsseries'], '? the Brother scanner is used (Darrion, 2026-10-21); plug it in to learn the model: dsseries is the DSmobile 620 (USB), brscan5 newer models'),
+  ('Brother DS-620 scanner', 'hardware: desktop', ['libsane-dsseries'], 'not from AUR: built from Brother\'s own driver package, like 1Password'),
+  ('other Brother driver', 'drop', ['brscan5'], 'for other Brother models; the scanner is a DS-620 (Darrion, 2026-10-21)'),
   # --- drop: duplicates, X11 leftovers, tools the image makes moot ---
   ('debug builds', 'drop', [r'.*-debug$'], 'paru built these by default'),
   ('containers', 'drop', ['docker', 'docker-compose', 'podman', 'fuse-overlayfs'], 'nothing uses containers (charter, 2026-10-20)'),

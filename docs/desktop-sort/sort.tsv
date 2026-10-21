@@ -237,8 +237,7 @@ libva-intel-driver	hardware: intel	Intel CPU and iGPU	repo	yes	7.84 MiB		VA-API 
 turbostat	hardware: intel	Intel CPU and iGPU	repo	no	712.14 KiB		Report processor frequency and idle statistics
 vulkan-intel	hardware: intel	Intel CPU and iGPU	repo	yes	44.00 MiB		Open-source Vulkan driver for Intel GPUs
 nvidia-open	hardware: nvidia	NVIDIA GPU	repo	yes	9.73 MiB		NVIDIA open kernel modules
-brscan5	hardware: desktop	AUR: scanner	aur	no	4.17 MiB	? the Brother scanner is used (Darrion, 2026-10-21); plug it in to learn the model: dsseries is the DSmobile 620 (USB), brscan5 newer models	SANE drivers from Brother for compatible models
-libsane-dsseries	hardware: desktop	AUR: scanner	aur	no	473.62 KiB	? the Brother scanner is used (Darrion, 2026-10-21); plug it in to learn the model: dsseries is the DSmobile 620 (USB), brscan5 newer models	Brother SANE drivers for DSmobile 620
+libsane-dsseries	hardware: desktop	Brother DS-620 scanner	aur	no	473.62 KiB	not from AUR: built from Brother's own driver package, like 1Password	Brother SANE drivers for DSmobile 620
 v4l2loopback-dkms	hardware: desktop	displays and devices	repo	yes	113.45 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	v4l2-loopback device – module sources
 antigravity	flatpak	AI apps	aur	no	494.30 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Google Antigravity 2.0 multi-agent orchestration platform
 claude-desktop	flatpak	AI apps	aur	no	588.01 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Official Claude AI desktop app from Anthropic — Chat, Cowork, and Claude Code
@@ -414,6 +413,7 @@ ttf-ubuntu-mono-nerd	drop	nerd font collection	repo	yes	28.37 MiB	only the fonts
 ttf-ubuntu-nerd	drop	nerd font collection	repo	yes	43.72 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Ubuntu from nerd fonts library
 ttf-victor-mono-nerd	drop	nerd font collection	repo	yes	153.71 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Victor Mono from nerd fonts library
 ttf-zed-mono-nerd	drop	nerd font collection	repo	yes	707.44 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Zed Mono from nerd fonts library
+brscan5	drop	other Brother driver	aur	no	4.17 MiB	for other Brother models; the scanner is a DS-620 (Darrion, 2026-10-21)	SANE drivers from Brother for compatible models
 chromium	drop	other browsers	repo	yes	427.64 MiB	three browsers are enough (Darrion, 2026-10-21)	A web browser built for speed, simplicity, and security
 firefoxpwa	drop	other browsers	repo	no	25.76 MiB	three browsers are enough (Darrion, 2026-10-21)	A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox (native component)
 helium-browser-bin	drop	other browsers	aur	no	385.37 MiB	three browsers are enough (Darrion, 2026-10-21)	Private, fast, and honest web browser based on Chromium (Latest/Stable)

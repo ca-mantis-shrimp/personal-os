@@ -48,8 +48,8 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 
 ## Still open (both can wait for the profile)
 
-- The Brother scanner is used: plug it in so its model shows which AUR driver it needs (dsseries is the DSmobile 620
-  over USB; brscan5 covers newer models).
+- The Brother DS-620 doesn't appear on USB at all (2026-10-21), which is below any driver: cable, port or power. Its
+  driver, libsane-dsseries, gets built from Brother's own package.
 - gamemode: whether Flatpak Steam uses the host's; check once Steam runs.
 
 ## Costs to know
