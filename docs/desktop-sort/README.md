@@ -14,50 +14,49 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 
 | Layer | Packages | From AUR |
 |---|---|---|
-| base | 144 | 17 |
+| base (KDE 69, toolchains 10, image building 15) | 206 | 8 |
 | hardware (intel 6, nvidia 3, desktop devices 5) | 14 | 5 |
-| add-on: dev | 56 | 4 |
-| add-on: kde | 69 | 1 |
-| add-on: image-builder | 15 | 0 |
-| add-on: gaming | 7 | 0 |
-| flatpak | 28 | 9 |
+| add-on: dev | 46 | 4 |
+| flatpak (Steam and Lutris included) | 30 | 9 |
 | chezmoi | 7 | 2 |
-| services (here 11, services machine 6) | 17 | 5 |
-| drop | 105 | 7 |
+| services (here 12, services machine 5) | 17 | 5 |
+| drop | 142 | 17 |
 
-Base is larger than it will end up, because the pruning calls below haven't been made yet.
+## Decided (Darrion, 2026-10-21)
 
-## Calls that shape the profile
+- **KDE is the desktop**, in base. Hyprland, GNOME, sway and nwg-shell go, and with them walker, elephant, the bars and
+  the launchers. KDE's own tools replace blueman, pavucontrol, the archivers and the screenshot helpers.
+- **Toolchains in base:** C (base-devel), Rust, Node with npm (chezmoi installs the editor's language servers with
+  it), Python (uv), cmake, meson, ninja. Other languages are still open, below.
+- **Image building stays on the desktop**, in base. Devbox may build too, "as long as we do it right": the signing
+  keys stay off it, since the dev pod holds no durable secrets.
+- **Steam from Flatpak first**, with Lutris; a sysext only if performance or compatibility needs it. wine,
+  winetricks and umu-launcher go, since Proton and Bottles ship their own.
+- **Services move to the services profile:** radicale, copyparty, netdata, samba, vsftpd. syncthing stays here as
+  the vault share's client (treated as how).
 
-1. **Toolchains** (56): one dev add-on, or in base because this is the dev machine?
-2. **Image building** (15: mkosi, ukify, sbctl, OVMF, swtpm and so on): stays on the desktop, or moves to devbox
-   (=carry mkosi in the dev-pod image)?
-3. **Gaming** (7): a sysext, whose 32-bit libraries must match the NVIDIA driver in base, or Flatpak Steam?
-4. **KDE Plasma** (69): keep the backup desktop as an add-on, or drop it?
-5. **GNOME, sway, nwg-shell**: the proposal drops them, since Hyprland is primary and KDE is already the backup.
-6. **Services machine**: radicale, copyparty, netdata, samba and vsftpd move to the N150 (services charter). Does
-   syncthing also stay here as a client?
+## Still open
 
-## Pruning calls ("still used?" or "pick one")
-
-- Launchers wofi or walker (walker plus elephant is 7 AUR packages); bars waybar or ashell; the nwg dock.
-- Shells zsh and nushell beside fish; terminals kitty and ghostty.
-- mercurial, glab; tcl/tk, vala, clisp, ruby.
-- pavucontrol or pwvucontrol; blueman beside bluetui.
-- Printing and scanning stack, Brother scanner drivers, Wacom tablet, DisplayLink dock.
+- **Other languages** (46 in the dev add-on): go, ruby, tcl/tk, vala, clisp, fennel, clojure, texlive; each into
+  base, the add-on, or dropped.
+- **Files:** Thunar and its plugins, or Dolphin (KDE's, not installed yet)?
+- zsh and nushell beside fish; kitty and ghostty both.
+- mercurial, glab; three systemd GUIs/TUIs.
+- Printing and scanning stack, Brother scanner drivers, Wacom tablet, DisplayLink dock: still used?
 - Nine browsers. qutebrowser has chezmoi-managed config and may stay a system package.
 - mpd or mopidy; two speech-to-text tools (hyprwhspr, vocalinux).
-- Four GUI archivers (the proposal drops all four; thunar-archive-plugin needs one); three more text browsers
-  beyond lynx; about 60 Nerd Fonts (keep the ones the terminals use); three systemd GUIs/TUIs.
+- About 60 Nerd Fonts (keep the ones the terminals use); three more text browsers beyond lynx.
+- gamemode: unverified whether Flatpak Steam uses the host's; check once Steam runs.
 
 ## Costs to know
 
-- **AUR in the image:** mkosi installs only from repositories, so every AUR package kept in base, hardware or an
-  add-on, or behind a service, needs a build step. Today that is 32 packages: 17 in base (7 of them walker and
-  elephant), 5 hardware, 5 add-ons and 5 services. Flatpak covers 9 more.
+- **AUR in the image:** mkosi installs only from repositories, so every AUR package kept outside Flatpak and chezmoi
+  needs an image build step. Choosing KDE cut that from 32 to 22: 8 in base (1password, 1password-cli,
+  libgnome-keyring, kgamma, nvimpager, buku, nerdfetch, sysd-manager), 5 hardware, 4 dev, 5 services.
 - **Duplicates:** tree-sitter-cli, markdownlint-cli2 and the JSON language server come both from pacman and from
   chezmoi; vdirsyncer comes from pacman and from uv.
 - **Out-of-tree modules:** evdi (DisplayLink) and v4l2loopback are built into the image instead of by dkms.
+- **chezmoi:** the Hyprland, waybar, wofi, mako and sway configs it manages become unused on the desktop.
 
 ## User level (not pacman)
 

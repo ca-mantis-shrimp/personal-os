@@ -16,7 +16,7 @@ RULES = [
   ('X11 leftovers', 'drop', ['dmenu', 'xclip', 'xsel', 'kwin-x11', 'kwayland5', 'python-pyqt5'], 'Wayland only; wl-clipboard covers the clipboard'),
   ('superseded', 'drop', ['youtube-dl', 'ntp', 'vim', 'most', 'cvs', 'wpa_supplicant_gui', 'iwqt', 'profile-sync-daemon', 'typobuster', 'catfish', 'libotr'],
      'covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala'),
-  ('archivers', 'drop', ['ark', 'engrampa', 'file-roller', 'xarchiver'], '? four GUI archivers; keep one (thunar-archive-plugin needs one) or none (7zip/unzip CLI)'),
+  ('archivers', 'drop', ['engrampa', 'file-roller', 'xarchiver'], 'KDE has Ark'),
   ('text browsers', 'drop', ['elinks', 'chawan', 'browsh'], '? lynx stays (on the phone too); three more text browsers'),
 
   # --- hardware ---
@@ -32,13 +32,17 @@ RULES = [
   ('editor', 'base', ['neovim', 'neovide', 'nvimpager', 'tree-sitter-cli', 'hunspell-en_us'], ''),
   ('version control', 'base', ['git', 'github-cli', 'glab', 'jujutsu', 'mercurial', 'chezmoi'], '? mercurial and glab: still used?'),
   ('networking', 'base', ['tailscale', 'iwd', 'impala', 'iw', 'openssh', 'rsync', 'wget', 'sshfs', 'mtr', 'tcpdump', 'iftop', 'speedtest-cli', 'cfssl'], ''),
-  ('bluetooth', 'base', ['bluez', 'bluetui', 'blueman'], '? blueman beside bluetui (and bluedevil in KDE)'),
-  ('audio', 'base', ['gst-plugin-pipewire', 'gst-plugins-good', 'gst-plugins-bad', 'gst-libav', 'pavucontrol', 'pwvucontrol'], '? pavucontrol and pwvucontrol both'),
-  ('Hyprland desktop', 'base', ['hyprland', 'hypridle', 'hyprlock', 'hyprpaper', 'hyprlauncher', 'hyprpolkitagent', 'uwsm', 'xdg-desktop-portal-hyprland', 'xdg-desktop-portal-gtk',
-     'waybar', 'wofi', 'mako', 'wl-clipboard', 'qt5-wayland', 'qt6-wayland', 'layer-shell-qt', 'nwg-look', 'nwg-dock-hyprland', 'dex', 'grimblast-git', 'shotman',
-     'walker', 'elephant', r'elephant-.*', 'ashell', 'wtype', 'ydotool', 'wayvnc', 'sddm', 'vulkan-mesa-layers', 'vulkan-validation-layers'],
-     '? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen'),
-  ('files', 'base', ['thunar', 'thunar-archive-plugin', 'thunar-media-tags-plugin', 'thunar-volman', 'tumbler', 'nautilus-python', '7zip', 'unrar', 'unzip'], 'nautilus-python without nautilus does nothing'),
+  ('bluetooth', 'base', ['bluez', 'bluetui'], ''),
+  ('replaced by KDE', 'drop', ['blueman', 'pavucontrol', 'pwvucontrol', 'nwg-look'], 'KDE has bluedevil, plasma-pa and its own GTK settings'),
+  ('audio', 'base', ['gst-plugin-pipewire', 'gst-plugins-good', 'gst-plugins-bad', 'gst-libav'], ''),
+  ('Wayland common', 'base', ['xdg-desktop-portal-gtk', 'wl-clipboard', 'qt5-wayland', 'qt6-wayland', 'layer-shell-qt', 'ydotool', 'sddm', 'vulkan-mesa-layers', 'vulkan-validation-layers'],
+     'what KDE and GTK apps on Wayland need; sddm is the login screen'),
+  ('Hyprland desktop', 'drop', ['hyprland', 'hypridle', 'hyprlock', 'hyprpaper', 'hyprlauncher', 'hyprpolkitagent', 'uwsm', 'xdg-desktop-portal-hyprland',
+     'waybar', 'wofi', 'mako', 'nwg-dock-hyprland', 'dex', 'grimblast-git', 'shotman', 'walker', 'elephant', r'elephant-.*', 'ashell', 'wtype', 'wayvnc'],
+     'KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors'),
+  ('files', 'base', ['ark', '7zip', 'unrar', 'unzip'], ''),
+  ('Thunar', 'drop', ['thunar', 'thunar-archive-plugin', 'thunar-media-tags-plugin', 'thunar-volman', 'tumbler', 'nautilus-python'],
+     '? KDE has Dolphin (not installed yet); keep Thunar instead? nautilus-python without nautilus does nothing'),
   ('secrets', 'base', ['1password', '1password-cli', 'pass', 'qtpass', 'libgnome-keyring'], '1Password as a system package for browser and polkit integration; AUR, so it needs an image build step'),
   ('printing and scanning', 'base', ['cups-browsed', 'foomatic-db', 'foomatic-db-engine', 'foomatic-db-nonfree', 'foomatic-db-nonfree-ppds', 'foomatic-db-ppds',
      'foomatic-db-gutenprint-ppds', 'gutenprint', 'ipp-usb', 'print-manager', 'sane', 'sane-airscan', 'skanlite'], '? a full printing stack; is there a printer or scanner in use?'),
@@ -48,17 +52,21 @@ RULES = [
      '? three systemd GUIs/TUIs'),
 
   # --- add-ons (sysext): optional /usr sets ---
-  ('image building', 'add-on: image-builder', ['mkosi', 'systemd-ukify', 'sbctl', 'sbsigntools', 'efitools', 'edk2-ovmf', 'edk2-shell', 'swtpm', 'erofs-utils', 'erofsfuse',
-     'squashfs-tools', 'cpio', 'mtools', 'dosfstools', 'xfsprogs'], '? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?'),
-  ('gaming', 'add-on: gaming', ['steam', 'lutris', 'wine', 'winetricks', 'umu-launcher', 'gamemode', 'lib32-vkd3d'], '? sysext (needs 32-bit libraries matching the NVIDIA driver in base) or Flatpak Steam'),
-  ('toolchains', 'add-on: dev', ['base-devel', 'rust', 'rust-analyzer', 'go', 'nodejs', 'npm', 'uv', 'ruby', 'ruby-docs', 'ruby-stdlib', 'fennel', 'fnlfmt', 'clisp', 'tcl', 'tk', 'vala',
-     'lua51', 'luarocks', 'lua-sec', 'lua-language-server', 'stylua', 'clojure', 'leiningen', 'jre25-openjdk', 'cmake', 'meson', 'ninja', 'ccache', 'python-ruff', 'ty', 'tombi', 'topiary',
+  ('image building', 'base', ['mkosi', 'systemd-ukify', 'sbctl', 'sbsigntools', 'efitools', 'edk2-ovmf', 'edk2-shell', 'swtpm', 'erofs-utils', 'erofsfuse',
+     'squashfs-tools', 'cpio', 'mtools', 'dosfstools', 'xfsprogs'], 'stays on the desktop (Darrion, 2026-10-21); devbox may build too, but the signing keys stay off it (dev pod: no durable secrets)'),
+  ('gaming', 'flatpak', ['steam', 'lutris'], 'Flatpak first (Darrion, 2026-10-21); a sysext later only if performance or compatibility needs it'),
+  ('Windows compatibility', 'drop', ['wine', 'winetricks', 'umu-launcher', 'lib32-vkd3d'], 'Steam ships Proton and Bottles (already a Flatpak) ships its own wine'),
+  ('game tuning', 'base', ['gamemode'], '? unverified: whether Flatpak Steam uses the host gamemode; check once Steam runs'),
+  ('toolchains', 'base', ['base-devel', 'rust', 'rust-analyzer', 'nodejs', 'npm', 'uv', 'cmake', 'meson', 'ninja', 'ccache'],
+     'C, Rust, Node and Python in base (Darrion, 2026-10-21); npm too, since chezmoi installs the editor language servers with it'),
+  ('other languages', 'add-on: dev', ['go', 'ruby', 'ruby-docs', 'ruby-stdlib', 'fennel', 'fnlfmt', 'clisp', 'tcl', 'tk', 'vala',
+     'lua51', 'luarocks', 'lua-sec', 'lua-language-server', 'stylua', 'clojure', 'leiningen', 'jre25-openjdk', 'python-ruff', 'ty', 'tombi', 'topiary',
      'mdbook', 'texinfo', 'texlive-bin', 'python-.*', 'pyside6', 'luajit-tiktoken-bin', 'tree-sitter-html', 'js-beautify', 'webkitgtk-6.0'],
-     '? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?'),
-  ('KDE Plasma', 'add-on: kde', [r'plasma.*', r'k[a-z].*', 'breeze', 'breeze-gtk', 'breeze-plymouth', 'aurorae', 'bluedevil', 'drkonqi', 'discover', 'flatpak-kcm', 'milou',
+     '? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?'),
+  ('KDE Plasma', 'base', [r'plasma.*', r'k[a-z].*', 'breeze', 'breeze-gtk', 'breeze-plymouth', 'aurorae', 'bluedevil', 'drkonqi', 'discover', 'flatpak-kcm', 'milou',
      'oxygen', 'oxygen-sounds', 'ocean-sound-theme', 'qqc2-breeze-style', 'polkit-kde-agent', 'powerdevil', 'systemsettings', 'spectacle', 'libkscreen', 'libksysguard',
-     'libplasma', 'sddm-kcm', 'plymouth-kcm', 'xdg-desktop-portal-kde', 'qt6-tools', 'libkeyfinder'], '? the backup desktop: an add-on, or dropped'),
-  ('other desktops', 'drop', ['gnome-shell', 'sway', 'sway-contrib', 'nwg-shell'], '? Hyprland is primary; GNOME, sway and nwg-shell are a third and fourth backup'),
+     'libplasma', 'sddm-kcm', 'plymouth-kcm', 'xdg-desktop-portal-kde', 'qt6-tools', 'libkeyfinder'], 'the desktop (Darrion, 2026-10-21)'),
+  ('other desktops', 'drop', ['gnome-shell', 'sway', 'sway-contrib', 'nwg-shell'], 'KDE only (Darrion, 2026-10-21)'),
 
   # --- Flatpak: GUI apps ---
   ('chat', 'flatpak', ['discord', 'signal-desktop', 'telegram-desktop'], ''),
@@ -73,10 +81,9 @@ RULES = [
      'markdownlint-cli2 and the JSON server are already in chezmoi\'s npm list; wrangler is per project (npx)'),
 
   # --- services ---
-  ('services machine', 'services: N150', ['radicale', 'copyparty', 'netdata', 'samba', 'vsftpd', 'syncthing'],
-     '? radicale and syncthing belong to the services machine (services charter); syncthing may also stay here as a client'),
-  ('desktop services', 'services', ['mpd', 'mopidy', 'mopidy-iris', 'mopidy-mpd', 'mympd', 'ollama', 'vdirsyncer', 'agent-sandbox-system', 'hyprwhspr', 'vocalinux', 'yt-dlp'],
-     '? mpd and mopidy both; two speech-to-text tools'),
+  ('services machine', 'services: N150', ['radicale', 'copyparty', 'netdata', 'samba', 'vsftpd'], 'the services profile (Darrion, 2026-10-21)'),
+  ('desktop services', 'services', ['syncthing', 'mpd', 'mopidy', 'mopidy-iris', 'mopidy-mpd', 'mympd', 'ollama', 'vdirsyncer', 'agent-sandbox-system', 'hyprwhspr', 'vocalinux', 'yt-dlp'],
+     '? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share\'s client'),
 ]
 
 def match(name):
@@ -98,7 +105,7 @@ for line in open(sys.argv[1]):
                      in_packages_yaml='yes' if name in listed else 'no', size=size, call=note, description=desc))
 if missing:
     print('UNCLASSIFIED:', ' '.join(missing), file=sys.stderr)
-order = ['base', 'hardware: intel', 'hardware: nvidia', 'hardware: desktop', 'add-on: dev', 'add-on: image-builder', 'add-on: gaming', 'add-on: kde',
+order = ['base', 'hardware: intel', 'hardware: nvidia', 'hardware: desktop', 'add-on: dev',
          'flatpak', 'chezmoi', 'services', 'services: N150', 'drop']
 rows.sort(key=lambda r: (order.index(r['layer']), r['group'], r['package']))
 w = csv.DictWriter(sys.stdout, fieldnames=list(rows[0]), delimiter='\t', lineterminator='\n')
