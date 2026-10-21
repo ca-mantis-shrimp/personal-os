@@ -6,9 +6,8 @@ state: Active
 ---
 # Desktop
 
-Darrion's daily machines on personal-os: first the desktop (i7-12700K, Intel UHD 770 and RTX 3060 Ti), then the same
-image booted from a USB-C NVMe so the whole machine travels. The Arch desktop today is configured by hand; sorting
-what it has is how we learn what the image needs.
+Darrion's desktop (i7-12700K, Intel UHD 770 and RTX 3060 Ti) on personal-os. The Arch desktop today is configured by
+hand; sorting what it has is how we learn what the image needs.
 
 ## Decided
 
@@ -17,6 +16,11 @@ what it has is how we learn what the image needs.
   operating system"). Each piece that travels has one owner: the image (OS), chezmoi (config), git (work),
   1Password (keys and secrets), Syncthing and the vault (bulk data).
 - 2026-10-20, Darrion: fewer tools are better unless that costs understandability.
+- 2026-10-21, Darrion: the freed 1 TB NVMe goes into the desktop's free M.2 slot, not a portable OS. personal-os is
+  installed there alongside Arch, so nothing changes at first; once it holds up, the Arch root disk is wiped instead
+  ("then we can wipe the original arch drive instead to make room in a more safe manner"). A portable OS would answer
+  portability a second time, at the cost of Secure Boot keys or shim on other machines and one image for all hardware.
+  Rescue stays a cheap USB stick (=devbox-rescue-stick).
 
 ## Proposed, to confirm
 
@@ -42,3 +46,8 @@ prefixes are owned by one user and Wine refuses a prefix owned by another.
 - Disks: nvme2n1 holds `/`, `/boot` and swap; nvme0n1 is `/home`; nvme1n1 is `/data` (group `data`, setgid, default
   ACLs); the 1 TB USB NVMe (sda) holds the homed `Darrion` home (28 GB used, last changed 2026-08-09).
 - Flatpaks: Logseq, Obsidian, Bottles.
+
+## Log
+
+- 2026-10-21T00:20+00:00 — =homed-inventory: 13G, nearly all caches, reinstallable tools, nvim plugins and Steam; the two non-plugin repos (chezmoi rework, platform) are on GitHub; two daily notes (2026-08-09, 08-11) existed only there and Darrion chose to let them go
+- 2026-10-21T00:20+00:00 — =portable-desktop cancelled: the drive goes inside the desktop instead (=desktop-install, then =wipe-arch)
