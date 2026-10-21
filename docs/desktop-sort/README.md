@@ -45,13 +45,16 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 - mpd or mopidy; two speech-to-text tools (hyprwhspr, vocalinux).
 - About 60 Nerd Fonts (keep the ones the terminals use); three more text browsers beyond lynx.
 - gamemode: unverified whether Flatpak Steam uses the host's; check once Steam runs.
+- AUR-only leftovers: tiktoken for nvim AI token counts, vocalinux, the mopidy plugins.
 
 ## Costs to know
 
-- **AUR in the image:** mkosi installs only from repositories, so every AUR package kept outside Flatpak and chezmoi
-  needs an image build step. Choosing KDE cut that from 32 to 22: 12 in base (1password, 1password-cli,
-  libgnome-keyring, kgamma, nvimpager, buku, nerdfetch, sysd-manager, js-beautify, luajit-tiktoken-bin, topiary,
-  tree-sitter-html), 5 hardware, 5 services.
+- **Leaving the AUR** (Darrion, 2026-10-21: security). Of 22 AUR packages that would have been built into the
+  image, 2 remain without question: agent-sandbox-system (Darrion's own package) and 1Password, built from 1Password's
+  own signed tarball and checked the way chezmoi checks op. 4 more are hardware that stays only if still used
+  (DisplayLink, Brother scanner, Wacom GUI). The rest are dropped as covered or moved to chezmoi (buku via uv,
+  js-beautify via npm, topiary as a release binary). Nine AUR apps go to Flatpak instead; whether each is on Flathub
+  is unchecked (claude-desktop and antigravity are the doubtful ones).
 - **Duplicates:** tree-sitter-cli, markdownlint-cli2 and the JSON language server come both from pacman and from
   chezmoi; vdirsyncer comes from pacman and from uv.
 - **Out-of-tree modules:** evdi (DisplayLink) and v4l2loopback are built into the image instead of by dkms.

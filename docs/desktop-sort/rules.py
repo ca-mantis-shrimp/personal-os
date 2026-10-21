@@ -7,6 +7,17 @@ import re, sys, csv
 
 Q = '?'
 RULES = [
+  # --- leaving the AUR (Darrion, 2026-10-21: security) ---
+  ('AUR: vendor build', 'base', ['1password'], 'not from AUR: 1Password\'s own signed tarball, checked like op (chezmoi external)'),
+  ('AUR: own package', 'base', ['agent-sandbox-system'], 'built from Darrion\'s agent-sandbox repo, not third-party'),
+  ('AUR: covered', 'drop', ['1password-cli', 'nvimpager', 'tree-sitter-html', 'libgnome-keyring', 'kgamma', 'nerdfetch', 'sysd-manager', 'hyprwhspr'],
+     'covered: op is a chezmoi external; MANPAGER="nvim +Man!"; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone'),
+  ('AUR: to chezmoi', 'chezmoi', ['buku', 'js-beautify', 'topiary', 'python-pywhispercpp-cuda'],
+     'PyPI (uv), npm, a release binary; pywhispercpp is already a uv tool'),
+  ('AUR: open', 'drop', ['luajit-tiktoken-bin', 'vocalinux', 'mopidy-iris', 'mopidy-mpd'],
+     '? AUR-only: tiktoken for nvim AI token counts, a second speech-to-text, mopidy plugins (PyPI if mopidy stays)'),
+  ('AUR: hardware', 'hardware: desktop', ['evdi-dkms', 'brscan5', 'libsane-dsseries', 'wacomtablet'],
+     '? AUR-only: DisplayLink, Brother scanner, Wacom GUI; still used? If so, vendor builds'),
   # --- drop: duplicates, X11 leftovers, tools the image makes moot ---
   ('debug builds', 'drop', [r'.*-debug$'], 'paru built these by default'),
   ('containers', 'drop', ['docker', 'docker-compose', 'podman', 'fuse-overlayfs'], 'nothing uses containers (charter, 2026-10-20)'),

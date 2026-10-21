@@ -1,4 +1,6 @@
 package	layer	group	source	in_packages_yaml	size	call	description
+agent-sandbox-system	base	AUR: own package	aur	no	4.71 KiB	built from Darrion's agent-sandbox repo, not third-party	systemd session unit, polkit rule, user and run directory for agent-sandbox
+1password	base	AUR: vendor build	aur	yes	576.46 MiB	not from AUR: 1Password's own signed tarball, checked like op (chezmoi external)	Password manager and secure wallet
 base	base	Arch base	repo	yes	0.00 B	mostly the personal-os base already	Minimal package set to define a basic Arch Linux installation
 linux	base	Arch base	repo	yes	161.62 MiB	mostly the personal-os base already	The Linux kernel and modules
 linux-firmware	base	Arch base	repo	yes	0.00 B	mostly the personal-os base already	Firmware files for Linux - Default set
@@ -22,7 +24,6 @@ kdeconnect	base	KDE Plasma	repo	yes	7.19 MiB	the desktop (Darrion, 2026-10-21)	A
 kdecoration	base	KDE Plasma	repo	yes	405.91 KiB	the desktop (Darrion, 2026-10-21)	Plugin based library to create window decorations
 kdeplasma-addons	base	KDE Plasma	repo	yes	19.40 MiB	the desktop (Darrion, 2026-10-21)	All kind of addons to improve your Plasma experience
 kdialog	base	KDE Plasma	repo	yes	778.64 KiB	the desktop (Darrion, 2026-10-21)	A utility for displaying dialog boxes from shell scripts
-kgamma	base	KDE Plasma	aur	yes	382.86 KiB	the desktop (Darrion, 2026-10-21)	Adjust your monitor gamma settings
 kglobalacceld	base	KDE Plasma	repo	yes	337.44 KiB	the desktop (Darrion, 2026-10-21)	Daemon providing Global Keyboard Shortcut (Accelerator) functionality
 kgraphviewer	base	KDE Plasma	repo	yes	3.09 MiB	the desktop (Darrion, 2026-10-21)	A Graphviz dot graph file viewer
 khal	base	KDE Plasma	repo	yes	1721.42 KiB	the desktop (Darrion, 2026-10-21)	CLI calendar application built around CalDAV
@@ -94,7 +95,6 @@ bluez	base	bluetooth	repo	yes	1770.23 KiB		Daemons for the bluetooth protocol st
 hunspell-en_us	base	editor	repo	yes	2.13 MiB		US English hunspell dictionaries
 neovide	base	editor	repo	yes	22.44 MiB		No Nonsense Neovim Client in Rust
 neovim	base	editor	repo	yes	30.53 MiB		Fork of Vim aiming to improve user experience, plugins, and GUIs
-nvimpager	base	editor	aur	yes	37.68 KiB		Use nvim as a pager to view manpages, diffs, etc with nvim's syntax highlighting
 tree-sitter-cli	base	editor	repo	yes	9.14 MiB		CLI tool for developing, testing, and using Tree-sitter parsers
 7zip	base	files	repo	yes	6.47 MiB		File archiver for extremely high compression
 ark	base	files	repo	yes	5.22 MiB		Archiving Tool
@@ -142,12 +142,10 @@ fennel	base	other languages	repo	yes	923.21 KiB	in base on the desktop (Darrion,
 fnlfmt	base	other languages	repo	yes	294.67 KiB	in base on the desktop (Darrion, 2026-10-21)	A formatter for Fennel code
 go	base	other languages	repo	yes	226.64 MiB	in base on the desktop (Darrion, 2026-10-21)	Core compiler tools for the Go programming language
 jre25-openjdk	base	other languages	repo	no	175.93 MiB	in base on the desktop (Darrion, 2026-10-21)	OpenJDK Java 25 full runtime environment
-js-beautify	base	other languages	aur	yes	9.85 MiB	in base on the desktop (Darrion, 2026-10-21)	CSS, HTML & JavaScript unobfuscator and beautifier
 leiningen	base	other languages	repo	no	16.34 MiB	in base on the desktop (Darrion, 2026-10-21)	Automate Clojure projects
 lua-language-server	base	other languages	repo	no	19.43 MiB	in base on the desktop (Darrion, 2026-10-21)	Lua Language Server coded by Lua
 lua-sec	base	other languages	repo	no	194.65 KiB	in base on the desktop (Darrion, 2026-10-21)	Lua bindings for OpenSSL library to provide TLS/SSL communication for Lua 5.5
 lua51	base	other languages	repo	yes	887.75 KiB	in base on the desktop (Darrion, 2026-10-21)	Powerful lightweight programming language designed for extending applications
-luajit-tiktoken-bin	base	other languages	aur	no	2.43 MiB	in base on the desktop (Darrion, 2026-10-21)	binding of rust tiktoken to lua
 luarocks	base	other languages	repo	yes	6.68 KiB	in base on the desktop (Darrion, 2026-10-21)	Deployment and management system for Lua modules
 mdbook	base	other languages	repo	yes	11.99 MiB	in base on the desktop (Darrion, 2026-10-21)	Create book from markdown files, like Gitbook but implemented in Rust
 pyside6	base	other languages	repo	no	52.06 MiB	in base on the desktop (Darrion, 2026-10-21)	Enables the use of Qt6 APIs in Python applications
@@ -177,8 +175,6 @@ texinfo	base	other languages	repo	yes	12.69 MiB	in base on the desktop (Darrion,
 texlive-bin	base	other languages	repo	yes	56.04 MiB	in base on the desktop (Darrion, 2026-10-21)	TeX Live binaries
 tk	base	other languages	repo	yes	12.27 MiB	in base on the desktop (Darrion, 2026-10-21)	A windowing toolkit for use with tcl
 tombi	base	other languages	repo	yes	23.36 MiB	in base on the desktop (Darrion, 2026-10-21)	TOML Formatter / Linter / Language Server
-topiary	base	other languages	aur	yes	13.64 MiB	in base on the desktop (Darrion, 2026-10-21)	The universal code formatter
-tree-sitter-html	base	other languages	aur	no	71.71 KiB	in base on the desktop (Darrion, 2026-10-21)	HTML grammar for tree-sitter
 ty	base	other languages	repo	no	30.65 MiB	in base on the desktop (Darrion, 2026-10-21)	Extremely fast Python type checker and language server, written in Rust
 vala	base	other languages	repo	yes	14.59 MiB	in base on the desktop (Darrion, 2026-10-21)	Compiler for the GObject type system
 webkitgtk-6.0	base	other languages	repo	no	138.59 MiB	in base on the desktop (Darrion, 2026-10-21)	Web content engine for GTK
@@ -195,9 +191,6 @@ print-manager	base	printing and scanning	repo	yes	2.98 MiB	? a full printing sta
 sane	base	printing and scanning	repo	no	18.74 MiB	? a full printing stack; is there a printer or scanner in use?	Scanner Access Now Easy
 sane-airscan	base	printing and scanning	repo	no	459.54 KiB	? a full printing stack; is there a printer or scanner in use?	SANE - SANE backend for AirScan (eSCL) and WSD document scanners
 skanlite	base	printing and scanning	repo	no	3.00 MiB	? a full printing stack; is there a printer or scanner in use?	Image Scanning Application
-1password	base	secrets	aur	yes	576.46 MiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	Password manager and secure wallet
-1password-cli	base	secrets	aur	no	41.46 MiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	1Password command line tool
-libgnome-keyring	base	secrets	aur	yes	1131.87 KiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	GNOME keyring client library (deprecated)
 pass	base	secrets	repo	yes	46.59 KiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	Stores, retrieves, generates, and synchronizes passwords securely
 qtpass	base	secrets	repo	no	2.95 MiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	A multi-platform GUI for pass
 btop	base	shell and terminal	repo	no	1737.27 KiB	? zsh and nushell beside fish; kitty and ghostty both	A monitor of system resources, bpytop ported to C++
@@ -217,20 +210,17 @@ tmux	base	shell and terminal	repo	yes	1474.68 KiB	? zsh and nushell beside fish;
 yazi	base	shell and terminal	repo	yes	34.14 MiB	? zsh and nushell beside fish; kitty and ghostty both	Blazing fast terminal file manager written in Rust, based on async I/O
 zoxide	base	shell and terminal	repo	yes	1149.92 KiB	? zsh and nushell beside fish; kitty and ghostty both	A smarter cd command for your terminal
 zsh	base	shell and terminal	repo	no	6.94 MiB	? zsh and nushell beside fish; kitty and ghostty both	A very advanced and programmable command interpreter (shell) for UNIX
-buku	base	system tools	aur	no	955.47 KiB	? three systemd GUIs/TUIs	Bookmark manager like a text-based mini-web
 calcurse	base	system tools	repo	no	874.53 KiB	? three systemd GUIs/TUIs	A text-based personal organizer
 fwupd	base	system tools	repo	yes	19.13 MiB	? three systemd GUIs/TUIs	Simple daemon to allow session software to update firmware
 geoclue	base	system tools	repo	no	1463.17 KiB	? three systemd GUIs/TUIs	Modular geoinformation service built on the D-Bus messaging system
 gptfdisk	base	system tools	repo	yes	734.64 KiB	? three systemd GUIs/TUIs	A text-mode partitioning tool that works on GUID Partition Table (GPT) disks
 lynx	base	system tools	repo	yes	5.20 MiB	? three systemd GUIs/TUIs	A text browser for the World Wide Web
-nerdfetch	base	system tools	aur	yes	13.68 KiB	? three systemd GUIs/TUIs	A POSIX fetch using NerdFonts
 newsboat	base	system tools	repo	no	13.61 MiB	? three systemd GUIs/TUIs	RSS/Atom feed reader for text terminals
 nvme-cli	base	system tools	repo	yes	6.05 MiB	? three systemd GUIs/TUIs	NVM-Express user space tooling for Linux
 pdfjs-legacy	base	system tools	repo	yes	21.15 MiB	? three systemd GUIs/TUIs	PDF reader in javascript - legacy distribution
 power-profiles-daemon	base	system tools	repo	no	141.95 KiB	? three systemd GUIs/TUIs	Makes power profiles handling available over D-Bus
 rclone	base	system tools	repo	no	110.10 MiB	? three systemd GUIs/TUIs	rsync for cloud storage
 resvg	base	system tools	repo	yes	14.53 MiB	? three systemd GUIs/TUIs	SVG rendering library and CLI
-sysd-manager	base	system tools	aur	yes	17.94 MiB	? three systemd GUIs/TUIs	A systemd GUI to manage service, timer, socket and other units.
 systemctl-tui	base	system tools	repo	no	7.88 MiB	? three systemd GUIs/TUIs	A fast, simple TUI for interacting with systemd services and their logs
 systemd-ui	base	system tools	repo	no	186.33 KiB	? three systemd GUIs/TUIs	Graphical front-end for systemd
 visidata	base	system tools	repo	no	38.16 MiB	? three systemd GUIs/TUIs	Terminal spreadsheet multitool for discovering and arranging data
@@ -259,12 +249,11 @@ turbostat	hardware: intel	Intel CPU and iGPU	repo	no	712.14 KiB		Report processo
 vulkan-intel	hardware: intel	Intel CPU and iGPU	repo	yes	44.00 MiB		Open-source Vulkan driver for Intel GPUs
 cuda	hardware: nvidia	NVIDIA GPU	repo	no	5.20 GiB	cuda and whisper-cuda are large; only for local speech and LLMs	NVIDIA's GPU programming toolkit
 nvidia-open	hardware: nvidia	NVIDIA GPU	repo	yes	9.73 MiB	cuda and whisper-cuda are large; only for local speech and LLMs	NVIDIA open kernel modules
-python-pywhispercpp-cuda	hardware: nvidia	NVIDIA GPU	aur	no	708.18 MiB	cuda and whisper-cuda are large; only for local speech and LLMs	Python bindings for whisper.cpp with CUDA support (NVIDIA GPU)
-brscan5	hardware: desktop	displays and devices	aur	no	4.17 MiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	SANE drivers from Brother for compatible models
-evdi-dkms	hardware: desktop	displays and devices	aur	yes	661.02 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	Kernel module to enable management of multiple screens
-libsane-dsseries	hardware: desktop	displays and devices	aur	no	473.62 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	Brother SANE drivers for DSmobile 620
+brscan5	hardware: desktop	AUR: hardware	aur	no	4.17 MiB	? AUR-only: DisplayLink, Brother scanner, Wacom GUI; still used? If so, vendor builds	SANE drivers from Brother for compatible models
+evdi-dkms	hardware: desktop	AUR: hardware	aur	yes	661.02 KiB	? AUR-only: DisplayLink, Brother scanner, Wacom GUI; still used? If so, vendor builds	Kernel module to enable management of multiple screens
+libsane-dsseries	hardware: desktop	AUR: hardware	aur	no	473.62 KiB	? AUR-only: DisplayLink, Brother scanner, Wacom GUI; still used? If so, vendor builds	Brother SANE drivers for DSmobile 620
+wacomtablet	hardware: desktop	AUR: hardware	aur	yes	2.65 MiB	? AUR-only: DisplayLink, Brother scanner, Wacom GUI; still used? If so, vendor builds	GUI for Wacom Linux drivers that supports different button/pen layout profiles
 v4l2loopback-dkms	hardware: desktop	displays and devices	repo	yes	113.45 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	v4l2-loopback device – module sources
-wacomtablet	hardware: desktop	displays and devices	aur	yes	2.65 MiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	GUI for Wacom Linux drivers that supports different button/pen layout profiles
 antigravity	flatpak	AI apps	aur	no	494.30 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Google Antigravity 2.0 multi-agent orchestration platform
 claude-desktop	flatpak	AI apps	aur	no	588.01 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Official Claude AI desktop app from Anthropic — Chat, Cowork, and Claude Code
 geekbench	flatpak	AI apps	aur	no	745.91 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	A cross-platform benchmark that measures processor and memory performance
@@ -295,6 +284,10 @@ protege	flatpak	office and media	repo	yes	37.60 MiB		Free, open source ontology 
 rclone-ui-bin	flatpak	office and media	aur	no	42.36 MiB		The cross-platform desktop GUI for rclone & S3.
 vlc	flatpak	office and media	repo	yes	42.16 MiB		Free and open source cross-platform multimedia player and framework
 vlc-plugins-all	flatpak	office and media	repo	yes	0.00 B		Free and open source cross-platform multimedia player and framework - all plugins
+buku	chezmoi	AUR: to chezmoi	aur	no	955.47 KiB	PyPI (uv), npm, a release binary; pywhispercpp is already a uv tool	Bookmark manager like a text-based mini-web
+js-beautify	chezmoi	AUR: to chezmoi	aur	yes	9.85 MiB	PyPI (uv), npm, a release binary; pywhispercpp is already a uv tool	CSS, HTML & JavaScript unobfuscator and beautifier
+python-pywhispercpp-cuda	chezmoi	AUR: to chezmoi	aur	no	708.18 MiB	PyPI (uv), npm, a release binary; pywhispercpp is already a uv tool	Python bindings for whisper.cpp with CUDA support (NVIDIA GPU)
+topiary	chezmoi	AUR: to chezmoi	aur	yes	13.64 MiB	PyPI (uv), npm, a release binary; pywhispercpp is already a uv tool	The universal code formatter
 claude-agent-acp	chezmoi	agent and LSP CLIs	aur	no	299.13 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	Use Claude Agent from any ACP client such as Zed!
 gemini-cli	chezmoi	agent and LSP CLIs	repo	no	62.32 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	Open-source AI agent that brings the power of Gemini directly into your terminal
 markdownlint-cli2	chezmoi	agent and LSP CLIs	repo	no	12.04 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	Fast, flexible, configuration-based command-line interface for linting Markdown/CommonMark files with the markdownlint library
@@ -302,17 +295,12 @@ nodejs-mcp-hub	chezmoi	agent and LSP CLIs	aur	no	2.00 MiB	markdownlint-cli2 and 
 opencode	chezmoi	agent and LSP CLIs	repo	no	210.76 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	The open source coding agent
 vscode-json-languageserver	chezmoi	agent and LSP CLIs	repo	no	2.50 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	JSON language server
 wrangler	chezmoi	agent and LSP CLIs	repo	no	65.06 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	The CLI for Cloudflare Workers
-agent-sandbox-system	services	desktop services	aur	no	4.71 KiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	systemd session unit, polkit rule, user and run directory for agent-sandbox
-hyprwhspr	services	desktop services	aur	no	2.47 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	System-wide speech-to-text for Linux desktops
 mopidy	services	desktop services	repo	yes	8.67 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	An extensible music server written in Python
-mopidy-iris	services	desktop services	aur	yes	21.71 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	A web-based frontend for Mopidy
-mopidy-mpd	services	desktop services	aur	yes	670.43 KiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	Mopidy extension for controlling playback from MPD clients
 mpd	services	desktop services	repo	yes	6.19 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	Flexible, powerful, server-side application for playing music
 mympd	services	desktop services	repo	yes	1595.06 KiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	A standalone and lightweight web-based MPD client
 ollama	services	desktop services	repo	no	61.25 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	Create, run and share large language models (LLMs)
 syncthing	services	desktop services	repo	no	24.37 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	Open Source Continuous Replication / Cluster Synchronization Thing
 vdirsyncer	services	desktop services	repo	yes	791.29 KiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	Synchronize CalDAV and CardDAV
-vocalinux	services	desktop services	aur	no	9.14 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	Free, offline voice dictation for Linux
 yt-dlp	services	desktop services	repo	yes	31.68 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	A youtube-dl fork with additional features and fixes
 copyparty	services: N150	services machine	repo	yes	7.63 MiB	the services profile (Darrion, 2026-10-21)	File server with accelerated resumable uploads, dedup, WebDAV, SFTP, FTP, FTPS, zeroconf, media indexer, thumbnails++
 netdata	services: N150	services machine	repo	yes	360.59 MiB	the services profile (Darrion, 2026-10-21)	Real-time performance monitoring, in the greatest possible detail, over the web
@@ -321,6 +309,18 @@ samba	services: N150	services machine	repo	yes	63.75 MiB	the services profile (D
 vsftpd	services: N150	services machine	repo	no	272.42 KiB	the services profile (Darrion, 2026-10-21)	Very Secure FTP daemon
 paru	drop	AUR helpers	aur	no	8.27 MiB	an image has no pacman at run time; AUR packages need an image build step instead	Feature packed AUR helper
 yay	drop	AUR helpers	aur	yes	11.34 MiB	an image has no pacman at run time; AUR packages need an image build step instead	Yet another yogurt. Pacman wrapper and AUR helper written in go.
+1password-cli	drop	AUR: covered	aur	no	41.46 MiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	1Password command line tool
+hyprwhspr	drop	AUR: covered	aur	no	2.47 MiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	System-wide speech-to-text for Linux desktops
+kgamma	drop	AUR: covered	aur	yes	382.86 KiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	Adjust your monitor gamma settings
+libgnome-keyring	drop	AUR: covered	aur	yes	1131.87 KiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	GNOME keyring client library (deprecated)
+nerdfetch	drop	AUR: covered	aur	yes	13.68 KiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	A POSIX fetch using NerdFonts
+nvimpager	drop	AUR: covered	aur	yes	37.68 KiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	Use nvim as a pager to view manpages, diffs, etc with nvim's syntax highlighting
+sysd-manager	drop	AUR: covered	aur	yes	17.94 MiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	A systemd GUI to manage service, timer, socket and other units.
+tree-sitter-html	drop	AUR: covered	aur	no	71.71 KiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	HTML grammar for tree-sitter
+luajit-tiktoken-bin	drop	AUR: open	aur	no	2.43 MiB	? AUR-only: tiktoken for nvim AI token counts, a second speech-to-text, mopidy plugins (PyPI if mopidy stays)	binding of rust tiktoken to lua
+mopidy-iris	drop	AUR: open	aur	yes	21.71 MiB	? AUR-only: tiktoken for nvim AI token counts, a second speech-to-text, mopidy plugins (PyPI if mopidy stays)	A web-based frontend for Mopidy
+mopidy-mpd	drop	AUR: open	aur	yes	670.43 KiB	? AUR-only: tiktoken for nvim AI token counts, a second speech-to-text, mopidy plugins (PyPI if mopidy stays)	Mopidy extension for controlling playback from MPD clients
+vocalinux	drop	AUR: open	aur	no	9.14 MiB	? AUR-only: tiktoken for nvim AI token counts, a second speech-to-text, mopidy plugins (PyPI if mopidy stays)	Free, offline voice dictation for Linux
 ashell	drop	Hyprland desktop	aur	yes	30.29 MiB	KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors	A ready to go Wayland status bar for Hyprland and Niri
 dex	drop	Hyprland desktop	repo	yes	41.05 KiB	KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors	Program to generate and execute DesktopEntry files of type Application
 elephant	drop	Hyprland desktop	aur	yes	22.40 MiB	KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors	general purpose datasource and executor
