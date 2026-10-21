@@ -59,10 +59,10 @@ RULES = [
   ('game tuning', 'base', ['gamemode'], '? unverified: whether Flatpak Steam uses the host gamemode; check once Steam runs'),
   ('toolchains', 'base', ['base-devel', 'rust', 'rust-analyzer', 'nodejs', 'npm', 'uv', 'cmake', 'meson', 'ninja', 'ccache'],
      'C, Rust, Node and Python in base (Darrion, 2026-10-21); npm too, since chezmoi installs the editor language servers with it'),
-  ('other languages', 'add-on: dev', ['go', 'ruby', 'ruby-docs', 'ruby-stdlib', 'fennel', 'fnlfmt', 'clisp', 'tcl', 'tk', 'vala',
+  ('other languages', 'base', ['go', 'ruby', 'ruby-docs', 'ruby-stdlib', 'fennel', 'fnlfmt', 'clisp', 'tcl', 'tk', 'vala',
      'lua51', 'luarocks', 'lua-sec', 'lua-language-server', 'stylua', 'clojure', 'leiningen', 'jre25-openjdk', 'python-ruff', 'ty', 'tombi', 'topiary',
      'mdbook', 'texinfo', 'texlive-bin', 'python-.*', 'pyside6', 'luajit-tiktoken-bin', 'tree-sitter-html', 'js-beautify', 'webkitgtk-6.0'],
-     '? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?'),
+     'in base on the desktop (Darrion, 2026-10-21)'),
   ('KDE Plasma', 'base', [r'plasma.*', r'k[a-z].*', 'breeze', 'breeze-gtk', 'breeze-plymouth', 'aurorae', 'bluedevil', 'drkonqi', 'discover', 'flatpak-kcm', 'milou',
      'oxygen', 'oxygen-sounds', 'ocean-sound-theme', 'qqc2-breeze-style', 'polkit-kde-agent', 'powerdevil', 'systemsettings', 'spectacle', 'libkscreen', 'libksysguard',
      'libplasma', 'sddm-kcm', 'plymouth-kcm', 'xdg-desktop-portal-kde', 'qt6-tools', 'libkeyfinder'], 'the desktop (Darrion, 2026-10-21)'),
@@ -105,7 +105,7 @@ for line in open(sys.argv[1]):
                      in_packages_yaml='yes' if name in listed else 'no', size=size, call=note, description=desc))
 if missing:
     print('UNCLASSIFIED:', ' '.join(missing), file=sys.stderr)
-order = ['base', 'hardware: intel', 'hardware: nvidia', 'hardware: desktop', 'add-on: dev',
+order = ['base', 'hardware: intel', 'hardware: nvidia', 'hardware: desktop',
          'flatpak', 'chezmoi', 'services', 'services: N150', 'drop']
 rows.sort(key=lambda r: (order.index(r['layer']), r['group'], r['package']))
 w = csv.DictWriter(sys.stdout, fieldnames=list(rows[0]), delimiter='\t', lineterminator='\n')

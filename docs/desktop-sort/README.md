@@ -14,9 +14,8 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 
 | Layer | Packages | From AUR |
 |---|---|---|
-| base (KDE 69, toolchains 10, image building 15) | 206 | 8 |
+| base (KDE 69, languages and toolchains 56, image building 15) | 252 | 12 |
 | hardware (intel 6, nvidia 3, desktop devices 5) | 14 | 5 |
-| add-on: dev | 46 | 4 |
 | flatpak (Steam and Lutris included) | 30 | 9 |
 | chezmoi | 7 | 2 |
 | services (here 12, services machine 5) | 17 | 5 |
@@ -26,8 +25,9 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 
 - **KDE is the desktop**, in base. Hyprland, GNOME, sway and nwg-shell go, and with them walker, elephant, the bars and
   the launchers. KDE's own tools replace blueman, pavucontrol, the archivers and the screenshot helpers.
-- **Toolchains in base:** C (base-devel), Rust, Node with npm (chezmoi installs the editor's language servers with
-  it), Python (uv), cmake, meson, ninja. Other languages are still open, below.
+- **Languages and toolchains in base:** C (base-devel), Rust, Node with npm (chezmoi installs the editor's language
+  servers with it), Python (uv), cmake, meson, ninja, and the other languages too (go, ruby, tcl/tk, vala, clisp,
+  fennel, clojure, texlive). So the desktop has no add-ons for now: the sysext layer stays empty unless Steam needs it.
 - **Image building stays on the desktop**, in base. Devbox may build too, "as long as we do it right": the signing
   keys stay off it, since the dev pod holds no durable secrets.
 - **Steam from Flatpak first**, with Lutris; a sysext only if performance or compatibility needs it. wine,
@@ -37,8 +37,6 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 
 ## Still open
 
-- **Other languages** (46 in the dev add-on): go, ruby, tcl/tk, vala, clisp, fennel, clojure, texlive; each into
-  base, the add-on, or dropped.
 - **Files:** Thunar and its plugins, or Dolphin (KDE's, not installed yet)?
 - zsh and nushell beside fish; kitty and ghostty both.
 - mercurial, glab; three systemd GUIs/TUIs.
@@ -51,8 +49,9 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 ## Costs to know
 
 - **AUR in the image:** mkosi installs only from repositories, so every AUR package kept outside Flatpak and chezmoi
-  needs an image build step. Choosing KDE cut that from 32 to 22: 8 in base (1password, 1password-cli,
-  libgnome-keyring, kgamma, nvimpager, buku, nerdfetch, sysd-manager), 5 hardware, 4 dev, 5 services.
+  needs an image build step. Choosing KDE cut that from 32 to 22: 12 in base (1password, 1password-cli,
+  libgnome-keyring, kgamma, nvimpager, buku, nerdfetch, sysd-manager, js-beautify, luajit-tiktoken-bin, topiary,
+  tree-sitter-html), 5 hardware, 5 services.
 - **Duplicates:** tree-sitter-cli, markdownlint-cli2 and the JSON language server come both from pacman and from
   chezmoi; vdirsyncer comes from pacman and from uv.
 - **Out-of-tree modules:** evdi (DisplayLink) and v4l2loopback are built into the image instead of by dkms.
@@ -63,7 +62,7 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 - **Flatpak:** Logseq, Obsidian, Bottles stay.
 - **cargo:** clearhead, clearhead-graphd and clearhead-lsp go into the image (=image-clearhead). bob is dropped,
   since nvim comes from the image. cargo-binstall, cargo-insta, cargo-install-update, cargo-watch, agent-workspace,
-  gen_man and nvim-mcp go with the dev call.
+  gen_man and nvim-mcp go to chezmoi (=locked-installers in chezmoi).
 - **uv tools:** vdirsyncer (duplicate), vectorcode, hns, pywhispercpp.
 - **/opt:** containerd (left by docker) goes; brother goes with the printing call; cuda is hardware: nvidia.
 - **~/.local/bin beyond chezmoi:** claude, gemini, robot, hns, the pwcpp tools, vectorcode.

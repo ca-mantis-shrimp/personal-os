@@ -136,6 +136,52 @@ sshfs	base	networking	repo	yes	90.09 KiB		FUSE client based on the SSH File Tran
 tailscale	base	networking	repo	yes	51.46 MiB		A mesh VPN that makes it easy to connect your devices, wherever they are.
 tcpdump	base	networking	repo	no	1139.29 KiB		Powerful command-line packet analyzer
 wget	base	networking	repo	yes	5.70 MiB		Network utility to retrieve files from the web
+clisp	base	other languages	repo	yes	17.64 MiB	in base on the desktop (Darrion, 2026-10-21)	ANSI Common Lisp interpreter, compiler and debugger
+clojure	base	other languages	repo	no	13.36 MiB	in base on the desktop (Darrion, 2026-10-21)	Lisp dialect for the JVM
+fennel	base	other languages	repo	yes	923.21 KiB	in base on the desktop (Darrion, 2026-10-21)	A Lua Lisp language
+fnlfmt	base	other languages	repo	yes	294.67 KiB	in base on the desktop (Darrion, 2026-10-21)	A formatter for Fennel code
+go	base	other languages	repo	yes	226.64 MiB	in base on the desktop (Darrion, 2026-10-21)	Core compiler tools for the Go programming language
+jre25-openjdk	base	other languages	repo	no	175.93 MiB	in base on the desktop (Darrion, 2026-10-21)	OpenJDK Java 25 full runtime environment
+js-beautify	base	other languages	aur	yes	9.85 MiB	in base on the desktop (Darrion, 2026-10-21)	CSS, HTML & JavaScript unobfuscator and beautifier
+leiningen	base	other languages	repo	no	16.34 MiB	in base on the desktop (Darrion, 2026-10-21)	Automate Clojure projects
+lua-language-server	base	other languages	repo	no	19.43 MiB	in base on the desktop (Darrion, 2026-10-21)	Lua Language Server coded by Lua
+lua-sec	base	other languages	repo	no	194.65 KiB	in base on the desktop (Darrion, 2026-10-21)	Lua bindings for OpenSSL library to provide TLS/SSL communication for Lua 5.5
+lua51	base	other languages	repo	yes	887.75 KiB	in base on the desktop (Darrion, 2026-10-21)	Powerful lightweight programming language designed for extending applications
+luajit-tiktoken-bin	base	other languages	aur	no	2.43 MiB	in base on the desktop (Darrion, 2026-10-21)	binding of rust tiktoken to lua
+luarocks	base	other languages	repo	yes	6.68 KiB	in base on the desktop (Darrion, 2026-10-21)	Deployment and management system for Lua modules
+mdbook	base	other languages	repo	yes	11.99 MiB	in base on the desktop (Darrion, 2026-10-21)	Create book from markdown files, like Gitbook but implemented in Rust
+pyside6	base	other languages	repo	no	52.06 MiB	in base on the desktop (Darrion, 2026-10-21)	Enables the use of Qt6 APIs in Python applications
+python-adblock	base	other languages	repo	yes	6.77 MiB	in base on the desktop (Darrion, 2026-10-21)	Brave's adblock library in Python
+python-aiohttp-oauthlib	base	other languages	repo	no	70.29 KiB	in base on the desktop (Darrion, 2026-10-21)	oauthlib for aiohttp clients
+python-argon2-cffi	base	other languages	repo	yes	112.02 KiB	in base on the desktop (Darrion, 2026-10-21)	Secure password hashing algorithm for Python
+python-blinker	base	other languages	repo	no	81.73 KiB	in base on the desktop (Darrion, 2026-10-21)	Fast, simple object-to-object and broadcast signaling
+python-httplib2	base	other languages	repo	no	286.30 KiB	in base on the desktop (Darrion, 2026-10-21)	Comprehensive HTTP client library, supporting many features
+python-ldap3	base	other languages	repo	no	6.45 MiB	in base on the desktop (Darrion, 2026-10-21)	A strictly RFC 4510 conforming LDAP V3 pure Python client library
+python-oauth2client	base	other languages	repo	no	1003.31 KiB	in base on the desktop (Darrion, 2026-10-21)	A client library for OAuth 2.0
+python-pam	base	other languages	repo	no	111.65 KiB	in base on the desktop (Darrion, 2026-10-21)	Pure Python interface to the Pluggable Authentication Modules system
+python-protobuf	base	other languages	repo	no	3.77 MiB	in base on the desktop (Darrion, 2026-10-21)	Python 3 bindings for Google Protocol Buffers
+python-pygments	base	other languages	repo	yes	15.59 MiB	in base on the desktop (Darrion, 2026-10-21)	Python syntax highlighter
+python-pyjwt	base	other languages	repo	no	412.52 KiB	in base on the desktop (Darrion, 2026-10-21)	JSON Web Token implementation in Python
+python-pyopenssl	base	other languages	repo	yes	738.03 KiB	in base on the desktop (Darrion, 2026-10-21)	Python wrapper around the OpenSSL library
+python-pyparsing	base	other languages	repo	no	1655.16 KiB	in base on the desktop (Darrion, 2026-10-21)	General parsing module for Python
+python-pyvips	base	other languages	repo	yes	726.03 KiB	in base on the desktop (Darrion, 2026-10-21)	Python binding for libvips using cffi
+python-pyzmq	base	other languages	repo	yes	1806.63 KiB	in base on the desktop (Darrion, 2026-10-21)	Python bindings for ZeroMQ
+python-ruff	base	other languages	repo	yes	497.18 KiB	in base on the desktop (Darrion, 2026-10-21)	An extremely fast Python linter, written in Rust
+python-webrtcvad	base	other languages	repo	no	64.90 KiB	in base on the desktop (Darrion, 2026-10-21)	Python interface to the Google WebRTC Voice Activity Detector
+ruby	base	other languages	repo	yes	16.96 MiB	in base on the desktop (Darrion, 2026-10-21)	An object-oriented language for quick and easy programming
+ruby-docs	base	other languages	repo	yes	846.66 MiB	in base on the desktop (Darrion, 2026-10-21)	Documentation files for Ruby
+ruby-stdlib	base	other languages	repo	yes	3.63 KiB	in base on the desktop (Darrion, 2026-10-21)	Full Ruby StdLib including default gems, bundled gems and tools
+stylua	base	other languages	repo	yes	7.32 MiB	in base on the desktop (Darrion, 2026-10-21)	Deterministic code formatter for Lua
+tcl	base	other languages	repo	yes	13.60 MiB	in base on the desktop (Darrion, 2026-10-21)	Powerful, easy-to-learn dynamic programming language
+texinfo	base	other languages	repo	yes	12.69 MiB	in base on the desktop (Darrion, 2026-10-21)	GNU documentation system for on-line information and printed output
+texlive-bin	base	other languages	repo	yes	56.04 MiB	in base on the desktop (Darrion, 2026-10-21)	TeX Live binaries
+tk	base	other languages	repo	yes	12.27 MiB	in base on the desktop (Darrion, 2026-10-21)	A windowing toolkit for use with tcl
+tombi	base	other languages	repo	yes	23.36 MiB	in base on the desktop (Darrion, 2026-10-21)	TOML Formatter / Linter / Language Server
+topiary	base	other languages	aur	yes	13.64 MiB	in base on the desktop (Darrion, 2026-10-21)	The universal code formatter
+tree-sitter-html	base	other languages	aur	no	71.71 KiB	in base on the desktop (Darrion, 2026-10-21)	HTML grammar for tree-sitter
+ty	base	other languages	repo	no	30.65 MiB	in base on the desktop (Darrion, 2026-10-21)	Extremely fast Python type checker and language server, written in Rust
+vala	base	other languages	repo	yes	14.59 MiB	in base on the desktop (Darrion, 2026-10-21)	Compiler for the GObject type system
+webkitgtk-6.0	base	other languages	repo	no	138.59 MiB	in base on the desktop (Darrion, 2026-10-21)	Web content engine for GTK
 cups-browsed	base	printing and scanning	repo	yes	565.64 KiB	? a full printing stack; is there a printer or scanner in use?	a helper daemon to browse the network for remote CUPS queues and IPP network printers
 foomatic-db	base	printing and scanning	repo	yes	9.48 MiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - The collected knowledge about printers, drivers, and driver options in XML files, used by foomatic-db-engine to generate PPD files.
 foomatic-db-engine	base	printing and scanning	repo	yes	817.77 KiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - Foomatic's database engine generates PPD files from the data in Foomatic's XML database. It also contains scripts to directly generate print queues and handle jobs.
@@ -219,52 +265,6 @@ evdi-dkms	hardware: desktop	displays and devices	aur	yes	661.02 KiB	DisplayLink 
 libsane-dsseries	hardware: desktop	displays and devices	aur	no	473.62 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	Brother SANE drivers for DSmobile 620
 v4l2loopback-dkms	hardware: desktop	displays and devices	repo	yes	113.45 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	v4l2-loopback device – module sources
 wacomtablet	hardware: desktop	displays and devices	aur	yes	2.65 MiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	GUI for Wacom Linux drivers that supports different button/pen layout profiles
-clisp	add-on: dev	other languages	repo	yes	17.64 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	ANSI Common Lisp interpreter, compiler and debugger
-clojure	add-on: dev	other languages	repo	no	13.36 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Lisp dialect for the JVM
-fennel	add-on: dev	other languages	repo	yes	923.21 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	A Lua Lisp language
-fnlfmt	add-on: dev	other languages	repo	yes	294.67 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	A formatter for Fennel code
-go	add-on: dev	other languages	repo	yes	226.64 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Core compiler tools for the Go programming language
-jre25-openjdk	add-on: dev	other languages	repo	no	175.93 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	OpenJDK Java 25 full runtime environment
-js-beautify	add-on: dev	other languages	aur	yes	9.85 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	CSS, HTML & JavaScript unobfuscator and beautifier
-leiningen	add-on: dev	other languages	repo	no	16.34 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Automate Clojure projects
-lua-language-server	add-on: dev	other languages	repo	no	19.43 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Lua Language Server coded by Lua
-lua-sec	add-on: dev	other languages	repo	no	194.65 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Lua bindings for OpenSSL library to provide TLS/SSL communication for Lua 5.5
-lua51	add-on: dev	other languages	repo	yes	887.75 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Powerful lightweight programming language designed for extending applications
-luajit-tiktoken-bin	add-on: dev	other languages	aur	no	2.43 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	binding of rust tiktoken to lua
-luarocks	add-on: dev	other languages	repo	yes	6.68 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Deployment and management system for Lua modules
-mdbook	add-on: dev	other languages	repo	yes	11.99 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Create book from markdown files, like Gitbook but implemented in Rust
-pyside6	add-on: dev	other languages	repo	no	52.06 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Enables the use of Qt6 APIs in Python applications
-python-adblock	add-on: dev	other languages	repo	yes	6.77 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Brave's adblock library in Python
-python-aiohttp-oauthlib	add-on: dev	other languages	repo	no	70.29 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	oauthlib for aiohttp clients
-python-argon2-cffi	add-on: dev	other languages	repo	yes	112.02 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Secure password hashing algorithm for Python
-python-blinker	add-on: dev	other languages	repo	no	81.73 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Fast, simple object-to-object and broadcast signaling
-python-httplib2	add-on: dev	other languages	repo	no	286.30 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Comprehensive HTTP client library, supporting many features
-python-ldap3	add-on: dev	other languages	repo	no	6.45 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	A strictly RFC 4510 conforming LDAP V3 pure Python client library
-python-oauth2client	add-on: dev	other languages	repo	no	1003.31 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	A client library for OAuth 2.0
-python-pam	add-on: dev	other languages	repo	no	111.65 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Pure Python interface to the Pluggable Authentication Modules system
-python-protobuf	add-on: dev	other languages	repo	no	3.77 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Python 3 bindings for Google Protocol Buffers
-python-pygments	add-on: dev	other languages	repo	yes	15.59 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Python syntax highlighter
-python-pyjwt	add-on: dev	other languages	repo	no	412.52 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	JSON Web Token implementation in Python
-python-pyopenssl	add-on: dev	other languages	repo	yes	738.03 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Python wrapper around the OpenSSL library
-python-pyparsing	add-on: dev	other languages	repo	no	1655.16 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	General parsing module for Python
-python-pyvips	add-on: dev	other languages	repo	yes	726.03 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Python binding for libvips using cffi
-python-pyzmq	add-on: dev	other languages	repo	yes	1806.63 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Python bindings for ZeroMQ
-python-ruff	add-on: dev	other languages	repo	yes	497.18 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	An extremely fast Python linter, written in Rust
-python-webrtcvad	add-on: dev	other languages	repo	no	64.90 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Python interface to the Google WebRTC Voice Activity Detector
-ruby	add-on: dev	other languages	repo	yes	16.96 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	An object-oriented language for quick and easy programming
-ruby-docs	add-on: dev	other languages	repo	yes	846.66 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Documentation files for Ruby
-ruby-stdlib	add-on: dev	other languages	repo	yes	3.63 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Full Ruby StdLib including default gems, bundled gems and tools
-stylua	add-on: dev	other languages	repo	yes	7.32 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Deterministic code formatter for Lua
-tcl	add-on: dev	other languages	repo	yes	13.60 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Powerful, easy-to-learn dynamic programming language
-texinfo	add-on: dev	other languages	repo	yes	12.69 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	GNU documentation system for on-line information and printed output
-texlive-bin	add-on: dev	other languages	repo	yes	56.04 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	TeX Live binaries
-tk	add-on: dev	other languages	repo	yes	12.27 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	A windowing toolkit for use with tcl
-tombi	add-on: dev	other languages	repo	yes	23.36 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	TOML Formatter / Linter / Language Server
-topiary	add-on: dev	other languages	aur	yes	13.64 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	The universal code formatter
-tree-sitter-html	add-on: dev	other languages	aur	no	71.71 KiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	HTML grammar for tree-sitter
-ty	add-on: dev	other languages	repo	no	30.65 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Extremely fast Python type checker and language server, written in Rust
-vala	add-on: dev	other languages	repo	yes	14.59 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Compiler for the GObject type system
-webkitgtk-6.0	add-on: dev	other languages	repo	no	138.59 MiB	? each into base, a dev add-on, or drop; go, ruby, tcl/tk, vala, clisp, fennel, texlive: still used?	Web content engine for GTK
 antigravity	flatpak	AI apps	aur	no	494.30 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Google Antigravity 2.0 multi-agent orchestration platform
 claude-desktop	flatpak	AI apps	aur	no	588.01 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Official Claude AI desktop app from Anthropic — Chat, Cowork, and Claude Code
 geekbench	flatpak	AI apps	aur	no	745.91 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	A cross-platform benchmark that measures processor and memory performance
