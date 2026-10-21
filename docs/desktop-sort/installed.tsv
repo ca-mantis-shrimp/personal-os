@@ -1,0 +1,462 @@
+1password	foreign	576.46 MiB	Thu Oct  8 09:02:12 2026	Password manager and secure wallet
+1password-cli	foreign	41.46 MiB	Sun Oct 18 20:28:19 2026	1Password command line tool
+7zip	repo	6.47 MiB	Thu Oct  8 09:00:56 2026	File archiver for extremely high compression
+adobe-source-code-pro-fonts	repo	1909.12 KiB	Mon Mar 30 00:01:07 2026	Monospaced font family for user interface and coding environments
+agent-sandbox-system	foreign	4.71 KiB	Fri Oct  9 19:41:51 2026	systemd session unit, polkit rule, user and run directory for agent-sandbox
+antigravity	foreign	494.30 MiB	Fri Oct 16 10:00:14 2026	Google Antigravity 2.0 multi-agent orchestration platform
+appimagelauncher	foreign	3.87 MiB	Wed Nov 19 22:53:18 2025	Helper for running and integrating AppImages
+apt	repo	9.03 MiB	Tue Oct 20 15:29:51 2026	Command-line package manager used on Debian-based systems
+arch-install-scripts	repo	39.16 KiB	Mon Aug 10 10:50:09 2026	Scripts to aid in installing Arch Linux
+ark	repo	5.22 MiB	Fri Oct  9 22:44:16 2026	Archiving Tool
+ashell	foreign	30.29 MiB	Fri Oct  2 10:12:36 2026	A ready to go Wayland status bar for Hyprland and Niri
+aurorae	repo	670.36 KiB	Fri Oct 16 09:58:48 2026	A themeable window decoration for KWin
+base	repo	0.00 B	Sat Feb  7 08:34:51 2026	Minimal package set to define a basic Arch Linux installation
+base-devel	repo	0.00 B	Fri Nov 14 01:11:46 2025	Basic tools to build Arch Linux packages
+bluedevil	repo	2.71 MiB	Fri Oct 16 09:58:48 2026	Integrate the Bluetooth technology within KDE workspace and applications
+blueman	repo	6.84 MiB	Sat Jan 10 11:28:20 2026	GTK+ Bluetooth Manager
+bluetui	repo	3.12 MiB	Tue Oct 20 15:29:52 2026	TUI for managing bluetooth devices
+bluez	repo	1770.23 KiB	Mon Jul  6 14:35:53 2026	Daemons for the bluetooth protocol stack
+brave-bin	foreign	471.58 MiB	Fri Oct 16 10:00:37 2026	Web browser that blocks ads and trackers by default (binary release)
+breeze	repo	38.79 MiB	Fri Oct 16 09:58:48 2026	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
+breeze-gtk	repo	1183.62 KiB	Fri Oct 16 09:58:48 2026	Breeze widget theme for GTK 2 and 3
+breeze-plymouth	repo	158.87 KiB	Fri Oct 16 09:58:48 2026	Plymouth theme for the Breeze visual style for the Plasma Desktop
+browsh	foreign	8.66 MiB	Sat Nov 15 21:42:02 2025	A fully-modern text-based browser, rendering to TTY and browsers
+brscan5	foreign	4.17 MiB	Tue Aug 18 10:40:40 2026	SANE drivers from Brother for compatible models
+btop	repo	1737.27 KiB	Fri May  1 16:16:04 2026	A monitor of system resources, bpytop ported to C++
+buku	foreign	955.47 KiB	Fri May 22 18:24:51 2026	Bookmark manager like a text-based mini-web
+calcurse	repo	874.53 KiB	Wed Jun 10 21:47:05 2026	A text-based personal organizer
+calibre	repo	136.40 MiB	Thu Oct  8 09:00:57 2026	Ebook management application
+catfish	repo	1661.71 KiB	Sat Jan 10 11:28:20 2026	Versatile file searching tool
+ccache	repo	2.16 MiB	Fri Oct 16 09:58:48 2026	Compiler cache that speeds up recompilation by caching previous compilations
+cfssl	repo	79.21 MiB	Mon Feb  2 10:17:47 2026	CloudFlare PKI and TLS toolkit
+chafa	repo	1913.91 KiB	Mon Sep 28 22:04:26 2026	Image-to-text converter supporting a wide range of symbols and palettes, transparency, animations, etc.
+chawan	repo	6.29 MiB	Tue Oct 20 15:29:52 2026	A text-mode web browser and pager for Unix-like systems
+chezmoi	repo	40.28 MiB	Tue Oct 20 15:29:53 2026	Manage your dotfiles across multiple machines
+chromium	repo	427.64 MiB	Mon Oct 12 10:04:25 2026	A web browser built for speed, simplicity, and security
+claude-agent-acp	foreign	299.13 MiB	Fri Oct 16 10:01:03 2026	Use Claude Agent from any ACP client such as Zed!
+claude-desktop	foreign	588.01 MiB	Fri Oct 16 10:01:25 2026	Official Claude AI desktop app from Anthropic — Chat, Cowork, and Claude Code
+clisp	repo	17.64 MiB	Sat Nov 15 18:19:56 2025	ANSI Common Lisp interpreter, compiler and debugger
+clojure	repo	13.36 MiB	Thu Sep 10 18:30:49 2026	Lisp dialect for the JVM
+cmake	repo	101.44 MiB	Fri Oct  2 15:50:58 2026	A cross-platform open-source make system
+copyparty	repo	7.63 MiB	Tue Oct 20 15:29:53 2026	File server with accelerated resumable uploads, dedup, WebDAV, SFTP, FTP, FTPS, zeroconf, media indexer, thumbnails++
+cpio	repo	1006.06 KiB	Wed Apr 15 16:39:42 2026	A tool to copy files into or out of a cpio or tar archive
+cpupower	repo	630.79 KiB	Tue Oct 20 15:29:53 2026	Linux kernel tool to examine and tune power saving related features of your processor
+cuda	repo	5.20 GiB	Fri Oct 16 09:58:53 2026	NVIDIA's GPU programming toolkit
+cups-browsed	repo	565.64 KiB	Mon Nov 17 19:13:34 2025	a helper daemon to browse the network for remote CUPS queues and IPP network printers
+cvs	repo	1098.44 KiB	Sat Nov 15 02:17:35 2025	Source control
+dex	repo	41.05 KiB	Sat Dec 13 10:43:50 2025	Program to generate and execute DesktopEntry files of type Application
+discord	repo	6.56 MiB	Tue Oct 20 15:29:53 2026	All-in-one voice and text chat for gamers
+discover	repo	7.56 MiB	Fri Oct 16 09:58:53 2026	KDE and Plasma resources management GUI
+distribution-gpg-keys	repo	1096.67 KiB	Sat Oct  3 14:15:56 2026	GPG keys used by various Linux distributions to sign packages
+dkms	repo	167.22 KiB	Thu Oct  8 09:00:58 2026	Dynamic Kernel Modules System
+dmenu	repo	51.70 KiB	Fri Apr 10 21:47:20 2026	Generic menu for X
+docker	repo	119.36 MiB	Fri Oct 16 09:58:53 2026	Pack, ship and run any application as a lightweight container
+docker-compose	repo	28.00 MiB	Fri Oct  2 15:50:58 2026	Fast, isolated development environments using Docker
+dosfstools	repo	409.22 KiB	Sat Oct  3 11:42:59 2026	DOS filesystem utilities
+drkonqi	repo	4.12 MiB	Fri Oct 16 09:58:53 2026	The KDE crash handler
+edk2-ovmf	repo	15.57 MiB	Mon Aug 31 10:22:04 2026	Firmware for Virtual Machines (x86_64, i686 on x86_64)
+edk2-shell	repo	6.19 MiB	Mon Aug 31 10:22:04 2026	EDK2 UEFI Shell
+efitools	repo	255.09 KiB	Wed Mar 18 11:02:39 2026	Tools for manipulating UEFI secure boot platforms
+elephant	foreign	22.40 MiB	Mon Sep 28 22:07:37 2026	general purpose datasource and executor
+elephant-archlinuxpkgs	foreign	23.81 MiB	Mon Sep 28 22:07:57 2026	archlinuxpkgs provider for elephant
+elephant-bluetooth	foreign	23.51 MiB	Mon Sep 28 22:08:07 2026	bluetooth provider for elephant
+elephant-clipboard	foreign	25.62 MiB	Mon Sep 28 22:08:19 2026	clipboard provider for elephant
+elephant-desktopapplications	foreign	24.06 MiB	Mon Sep 28 22:08:28 2026	desktopapplications provider for elephant
+elephant-files	foreign	25.45 MiB	Mon Sep 28 22:09:12 2026	files provider for elephant
+elinks	repo	4.10 MiB	Mon Jul 27 11:04:07 2026	Advanced feature-rich text-mode web browser
+engrampa	repo	13.10 MiB	Fri Oct 16 09:58:53 2026	A file archiver for MATE
+erofs-utils	repo	792.40 KiB	Fri Oct  9 11:42:53 2026	Userspace utilities for linux-erofs file system
+erofsfuse	repo	139.77 KiB	Fri Oct  9 11:43:02 2026	FUSE file system client for erofs file system
+evdi-dkms	foreign	661.02 KiB	Wed Sep 16 13:50:33 2026	Kernel module to enable management of multiple screens
+evince	repo	12.45 MiB	Thu Oct  8 09:00:58 2026	Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)
+external-editor-revived	foreign	885.24 KiB	Mon Mar  2 10:02:44 2026	External Editor Revived is a Thunderbird MailExtension which allows editing emails in programs such as Vim, Neovim, Emacs, etc.
+fd	repo	3.42 MiB	Wed Sep  2 18:01:22 2026	Simple, fast and user-friendly alternative to find
+fennel	repo	923.21 KiB	Tue Mar 24 07:58:57 2026	A Lua Lisp language
+file-roller	repo	4.24 MiB	Mon Jun 22 18:02:22 2026	Create and modify archives
+filezilla	repo	15.40 MiB	Mon Aug 31 10:22:04 2026	Fast and reliable FTP, FTPS and SFTP client
+firefox	repo	301.96 MiB	Tue Oct 20 15:29:54 2026	Fast, Private & Safe Web Browser
+firefoxpwa	repo	25.76 MiB	Sat Oct 10 09:13:31 2026	A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox (native component)
+fish	repo	18.24 MiB	Thu Sep 10 12:48:06 2026	Smart and user friendly shell intended mostly for interactive use
+flatpak-kcm	repo	799.17 KiB	Fri Oct 16 09:58:54 2026	Flatpak Permissions Management KCM
+fnlfmt	repo	294.67 KiB	Thu Oct  1 09:39:22 2026	A formatter for Fennel code
+foomatic-db	repo	9.48 MiB	Fri Sep  4 23:43:54 2026	Foomatic - The collected knowledge about printers, drivers, and driver options in XML files, used by foomatic-db-engine to generate PPD files.
+foomatic-db-engine	repo	817.77 KiB	Sun Nov 30 15:32:28 2025	Foomatic - Foomatic's database engine generates PPD files from the data in Foomatic's XML database. It also contains scripts to directly generate print queues and handle jobs.
+foomatic-db-gutenprint-ppds	repo	99.35 MiB	Mon Apr  6 19:07:10 2026	simplified prebuilt ppd files
+foomatic-db-nonfree	repo	211.87 KiB	Fri Sep  4 23:43:54 2026	Foomatic - database extension consisting of manufacturer-supplied PPD files released under non-free licenses
+foomatic-db-nonfree-ppds	repo	8.33 MiB	Fri Sep  4 23:43:54 2026	Foomatic - non-free PPDs from printer manufacturers
+foomatic-db-ppds	repo	82.47 MiB	Fri Sep  4 23:43:54 2026	Foomatic - PPDs from printer manufacturers
+fuse-overlayfs	repo	113.07 KiB	Wed Sep  2 18:01:22 2026	FUSE implementation of overlayfs
+fwupd	repo	19.13 MiB	Mon Sep 28 22:04:29 2026	Simple daemon to allow session software to update firmware
+fzf	repo	5.49 MiB	Mon Oct 12 10:04:25 2026	Command-line fuzzy finder
+gamemode	repo	284.34 KiB	Sat Jun 27 08:42:19 2026	A daemon/lib combo that allows games to request a set of optimisations be temporarily applied to the host OS
+geekbench	foreign	745.91 MiB	Mon Sep 21 09:55:22 2026	A cross-platform benchmark that measures processor and memory performance
+gemini-cli	repo	62.32 MiB	Fri Oct 16 09:58:54 2026	Open-source AI agent that brings the power of Gemini directly into your terminal
+geoclue	repo	1463.17 KiB	Tue Oct 20 15:29:54 2026	Modular geoinformation service built on the D-Bus messaging system
+ghostty	repo	29.43 MiB	Fri Apr 10 06:57:25 2026	Fast, native, feature-rich terminal emulator pushing modern features
+git	repo	33.54 MiB	Thu Oct  1 09:39:22 2026	the fast distributed version control system
+github-cli	repo	40.08 MiB	Wed Sep 30 09:23:21 2026	The GitHub CLI
+glab	repo	47.40 MiB	Tue Oct 20 15:29:54 2026	Cli tool to help work seamlessly with GitLab from the command line
+gnome-shell	repo	15.28 MiB	Fri Oct 16 09:58:54 2026	Next generation desktop shell
+go	repo	226.64 MiB	Tue Oct 20 15:29:55 2026	Core compiler tools for the Go programming language
+gptfdisk	repo	734.64 KiB	Wed Jan 21 10:11:40 2026	A text-mode partitioning tool that works on GUID Partition Table (GPT) disks
+grimblast-git	foreign	14.73 KiB	Fri Mar 13 23:19:53 2026	A helper for screenshots within Hyprland.
+gst-libav	repo	254.75 KiB	Fri Oct  9 22:44:17 2026	Multimedia graph framework - libav plugin
+gst-plugin-pipewire	repo	175.39 KiB	Mon Sep 28 22:04:29 2026	Multimedia graph framework - pipewire plugin
+gst-plugins-bad	repo	3.75 MiB	Fri Oct  9 22:44:17 2026	Multimedia graph framework - bad plugins
+gst-plugins-good	repo	7.43 MiB	Fri Oct  9 22:44:17 2026	Multimedia graph framework - good plugins
+gutenprint	repo	34.20 MiB	Mon Apr  6 19:06:51 2026	Top quality printer drivers for POSIX systems
+helium-browser-bin	foreign	385.37 MiB	Fri Oct 16 10:01:50 2026	Private, fast, and honest web browser based on Chromium (Latest/Stable)
+htop	repo	421.16 KiB	Sun Aug 16 17:38:19 2026	Interactive process viewer
+hunspell-en_us	repo	2.13 MiB	Mon Mar  2 10:02:08 2026	US English hunspell dictionaries
+hypridle	repo	278.65 KiB	Fri Sep  4 23:43:54 2026	hyprland’s idle daemon
+hyprland	repo	64.02 MiB	Sat Oct  3 09:12:18 2026	a highly customizable dynamic tiling Wayland compositor
+hyprlauncher	repo	447.76 KiB	Tue Oct 20 15:29:55 2026	A multipurpose and versatile launcher / picker for Hyprland
+hyprlock	repo	844.17 KiB	Fri Sep  4 23:43:54 2026	hyprland’s GPU-accelerated screen locking utility
+hyprpaper	repo	478.83 KiB	Mon Sep 28 22:04:29 2026	a blazing fast wayland wallpaper utility with IPC controls
+hyprpolkitagent	repo	300.19 KiB	Mon Sep 28 22:04:29 2026	Simple polkit authentication agent for Hyprland, written in QT/QML
+hyprwhspr	foreign	2.47 MiB	Fri Oct 16 10:02:03 2026	System-wide speech-to-text for Linux desktops
+iftop	repo	63.28 KiB	Tue Feb 24 19:59:45 2026	Display bandwidth usage on an interface
+impala	repo	5.14 MiB	Mon Aug 31 10:22:04 2026	TUI for managing wifi
+intel-media-driver	repo	41.45 MiB	Sat Oct  3 11:27:50 2026	Intel Media Driver for VAAPI — Broadwell+ iGPUs
+intel-ucode	repo	31.45 MiB	Mon Sep 28 22:04:29 2026	Microcode update files for Intel CPUs
+ipp-usb	repo	6.23 MiB	Fri Sep 11 09:53:17 2026	allows using the IPP protocol, normally designed for network printers, to be used with USB printers as well
+iw	repo	284.40 KiB	Mon Sep 21 09:55:45 2026	nl80211 based CLI configuration utility for wireless devices
+iwd	repo	2.21 MiB	Mon Sep 21 09:33:13 2026	Internet Wireless Daemon
+iwqt	foreign	409.63 KiB	Sun Jul 26 12:28:09 2026	An iwd network applet for linux systems
+jre25-openjdk	repo	175.93 MiB	Tue Oct 20 15:29:55 2026	OpenJDK Java 25 full runtime environment
+js-beautify	foreign	9.85 MiB	Sun Dec 28 01:07:04 2025	CSS, HTML & JavaScript unobfuscator and beautifier
+jujutsu	repo	27.75 MiB	Thu Oct  8 09:01:00 2026	Git-compatible VCS that is both simple and powerful
+kactivitymanagerd	repo	754.47 KiB	Fri Oct 16 09:58:54 2026	System service to manage user activities and track the usage patterns
+kde-cli-tools	repo	3.64 MiB	Fri Oct 16 09:58:54 2026	Tools based on KDE Frameworks to better interact with the system
+kde-gtk-config	repo	328.17 KiB	Fri Oct 16 09:58:54 2026	Syncs KDE settings to GTK applications
+kdeconnect	repo	7.19 MiB	Fri Oct  9 22:44:17 2026	Adds communication between KDE and your smartphone
+kdecoration	repo	405.91 KiB	Fri Oct 16 09:58:48 2026	Plugin based library to create window decorations
+kdeplasma-addons	repo	19.40 MiB	Fri Oct 16 09:58:55 2026	All kind of addons to improve your Plasma experience
+kdialog	repo	778.64 KiB	Fri Oct  9 22:44:17 2026	A utility for displaying dialog boxes from shell scripts
+kgamma	foreign	382.86 KiB	Thu Sep 10 12:48:07 2026	Adjust your monitor gamma settings
+kglobalacceld	repo	337.44 KiB	Fri Oct 16 09:58:54 2026	Daemon providing Global Keyboard Shortcut (Accelerator) functionality
+kgraphviewer	repo	3.09 MiB	Fri Oct  9 22:44:17 2026	A Graphviz dot graph file viewer
+khal	repo	1721.42 KiB	Sat Aug 22 18:27:03 2026	CLI calendar application built around CalDAV
+khard	repo	1355.20 KiB	Thu Oct  8 09:01:00 2026	Console address book manager
+kinfocenter	repo	3.30 MiB	Fri Oct 16 09:58:55 2026	A utility that provides information about a computer system
+kitty	repo	76.70 MiB	Thu Oct  1 09:39:23 2026	A modern, hackable, featureful, OpenGL-based terminal emulator
+kmenuedit	repo	1997.29 KiB	Fri Oct 16 09:58:55 2026	KDE menu editor
+knighttime	repo	194.29 KiB	Fri Oct 16 09:58:54 2026	Helpers for scheduling the dark-light cycle
+kpipewire	repo	618.44 KiB	Fri Oct 16 09:58:55 2026	Components relating to pipewire use in Plasma
+krdp	repo	978.45 KiB	Fri Oct 16 09:58:55 2026	Library and examples for creating an RDP server
+kscreen	repo	3.67 MiB	Fri Oct 16 09:58:55 2026	KDE screen management software
+kscreenlocker	repo	1187.49 KiB	Fri Oct 16 09:58:54 2026	Library and components for secure lock screen architecture
+ksshaskpass	repo	140.70 KiB	Fri Oct 16 09:58:55 2026	ssh-add helper that uses kwallet and kpassworddialog
+ksystemstats	repo	1909.58 KiB	Fri Oct 16 09:58:55 2026	A plugin based system monitoring daemon
+kwallet-pam	repo	27.92 KiB	Fri Oct 16 09:58:55 2026	KWallet PAM integration
+kwayland	repo	1254.27 KiB	Fri Oct 16 09:58:54 2026	Qt-style Client and Server library wrapper for the Wayland libraries
+kwayland5	repo	2.60 MiB	Fri Apr 10 21:47:20 2026	Qt-style Client and Server library wrapper for the Wayland libraries
+kwin	repo	31.64 MiB	Fri Oct 16 09:58:54 2026	An easy to use, but flexible, Wayland compositor
+kwin-x11	foreign	25.82 MiB	Thu Oct  8 09:01:00 2026	An easy to use, but flexible, X Window Manager
+kwrited	repo	44.14 KiB	Fri Oct 16 09:58:55 2026	KDE daemon listening for wall and write messages
+layer-shell-qt	repo	149.87 KiB	Fri Oct 16 09:58:54 2026	Qt component to allow applications to make use of the Wayland wl-layer-shell protocol
+lazygit	repo	20.37 MiB	Fri Oct 16 09:58:55 2026	Simple terminal UI for git commands
+leiningen	repo	16.34 MiB	Thu Sep 10 18:31:14 2026	Automate Clojure projects
+lib32-vkd3d	repo	2.01 MiB	Sun Mar  8 17:55:23 2026	Direct3D 12 to Vulkan translation library By WineHQ
+libgnome-keyring	foreign	1131.87 KiB	Sun Jan 11 08:14:05 2026	GNOME keyring client library (deprecated)
+libkeyfinder	repo	131.42 KiB	Fri Apr 10 06:57:26 2026	Musical key detection for digital audio
+libkscreen	repo	766.20 KiB	Fri Oct 16 09:58:54 2026	KDE screen management software
+libksysguard	repo	3.74 MiB	Fri Oct 16 09:58:55 2026	Library to retrieve information on the current status of computer hardware
+libotr	repo	281.02 KiB	Sun Nov 30 13:43:05 2025	Off-the-Record Messaging Library and Toolkit
+libplasma	repo	8.27 MiB	Fri Oct 16 09:58:48 2026	Plasma library and runtime components
+libreoffice-fresh	repo	423.01 MiB	Tue Oct 20 15:29:56 2026	LibreOffice branch which contains new features and program enhancements
+libsane-dsseries	foreign	473.62 KiB	Mon Apr  6 19:20:55 2026	Brother SANE drivers for DSmobile 620
+libva-intel-driver	repo	7.84 MiB	Mon Jun 22 18:02:22 2026	VA-API implementation for Intel G45 and HD Graphics family
+linux	repo	161.62 MiB	Tue Oct 20 15:29:57 2026	The Linux kernel and modules
+linux-firmware	repo	0.00 B	Mon Sep 21 09:33:14 2026	Firmware files for Linux - Default set
+linux-headers	repo	321.41 MiB	Tue Oct 20 15:29:58 2026	Headers and scripts for building modules for the Linux kernel
+logrotate	repo	100.65 KiB	Sat Nov 15 16:45:35 2025	Rotates system logs automatically
+lua-language-server	repo	19.43 MiB	Fri Oct 16 09:58:57 2026	Lua Language Server coded by Lua
+lua-sec	repo	194.65 KiB	Thu Apr  9 06:57:19 2026	Lua bindings for OpenSSL library to provide TLS/SSL communication for Lua 5.5
+lua51	repo	887.75 KiB	Sun Mar 29 22:08:10 2026	Powerful lightweight programming language designed for extending applications
+luajit-tiktoken-bin	foreign	2.43 MiB	Fri Apr 10 22:52:42 2026	binding of rust tiktoken to lua
+luarocks	repo	6.68 KiB	Sun Mar 29 13:50:52 2026	Deployment and management system for Lua modules
+lutris	repo	11.92 MiB	Thu Oct  8 09:01:04 2026	Open Gaming Platform
+lynx	repo	5.20 MiB	Fri May 29 08:46:22 2026	A text browser for the World Wide Web
+mako	repo	140.69 KiB	Sun Mar 29 13:50:52 2026	Lightweight notification daemon for Wayland
+man-db	repo	2.43 MiB	Sat Jul 18 09:32:56 2026	A utility for reading man pages
+man-pages	repo	5.67 MiB	Mon Aug 31 10:22:08 2026	Linux man pages
+markdownlint-cli2	repo	12.04 MiB	Fri Oct  9 22:44:18 2026	Fast, flexible, configuration-based command-line interface for linting Markdown/CommonMark files with the markdownlint library
+mdbook	repo	11.99 MiB	Mon Jul  6 14:35:54 2026	Create book from markdown files, like Gitbook but implemented in Rust
+mercurial	repo	36.49 MiB	Wed Aug 12 17:50:29 2026	A scalable distributed SCM tool
+meson	repo	16.88 MiB	Fri Oct  2 10:09:33 2026	High productivity build system
+milou	repo	518.04 KiB	Fri Oct 16 09:58:54 2026	A dedicated search application built on top of Baloo
+mkosi	repo	4.08 MiB	Wed Sep 30 09:23:22 2026	Build Legacy-Free OS Images
+mopidy	repo	8.67 MiB	Sat Jan 10 11:28:25 2026	An extensible music server written in Python
+mopidy-iris	foreign	21.71 MiB	Tue Nov 18 22:46:43 2025	A web-based frontend for Mopidy
+mopidy-mpd	foreign	670.43 KiB	Mon Sep  7 08:35:50 2026	Mopidy extension for controlling playback from MPD clients
+most	repo	126.01 KiB	Mon Nov 17 18:37:16 2025	A terminal pager similar to 'more' and 'less'
+mpd	repo	6.19 MiB	Tue Oct 20 15:29:58 2026	Flexible, powerful, server-side application for playing music
+mtools	repo	396.71 KiB	Wed Apr 15 16:39:42 2026	A collection of utilities to access MS-DOS disks
+mtr	repo	134.69 KiB	Wed Sep  2 18:15:56 2026	Combines the functionality of traceroute and ping into one tool (CLI version)
+mympd	repo	1595.06 KiB	Wed Sep  2 18:01:22 2026	A standalone and lightweight web-based MPD client
+nautilus-python	repo	217.40 KiB	Mon Sep 21 09:33:14 2026	Python bindings for the Nautilus Extension API
+neovide	repo	22.44 MiB	Tue Oct 20 15:29:58 2026	No Nonsense Neovim Client in Rust
+neovim	repo	30.53 MiB	Fri Oct  9 22:44:18 2026	Fork of Vim aiming to improve user experience, plugins, and GUIs
+nerdfetch	foreign	13.68 KiB	Thu Jul 16 19:01:50 2026	A POSIX fetch using NerdFonts
+netdata	repo	360.59 MiB	Fri Oct  9 22:44:19 2026	Real-time performance monitoring, in the greatest possible detail, over the web
+newsboat	repo	13.61 MiB	Thu Oct  8 09:01:04 2026	RSS/Atom feed reader for text terminals
+ninja	repo	423.10 KiB	Tue Feb 17 10:36:04 2026	Small build system with a focus on speed
+nodejs	repo	64.12 MiB	Tue Oct 20 15:29:58 2026	Evented I/O for V8 javascript ("Current" release)
+nodejs-mcp-hub	foreign	2.00 MiB	Fri Apr 10 20:39:02 2026	A centralized manager for Model Context Protocol (MCP) servers with dynamic server management and monitoring
+noto-fonts	repo	106.81 MiB	Thu Oct  1 09:39:25 2026	Google Noto TTF fonts
+noto-fonts-cjk	repo	298.79 MiB	Thu Nov 13 19:54:00 2025	Google Noto CJK fonts
+noto-fonts-emoji	repo	10.18 MiB	Thu Nov 13 19:54:09 2025	Google Noto Color Emoji font
+noto-fonts-extra	repo	331.26 MiB	Thu Oct  1 09:39:25 2026	Google Noto TTF fonts - additional variants
+npm	repo	9.46 MiB	Fri Oct 16 09:58:58 2026	JavaScript package manager
+ntp	repo	4.03 MiB	Mon Nov 17 19:23:29 2025	Network Time Protocol reference implementation
+nushell	repo	210.23 MiB	Thu Oct  8 09:01:04 2026	A new type of shell
+nvidia-open	repo	9.73 MiB	Tue Oct 20 15:29:58 2026	NVIDIA open kernel modules
+nvimpager	foreign	37.68 KiB	Sun Nov 16 10:38:34 2025	Use nvim as a pager to view manpages, diffs, etc with nvim's syntax highlighting
+nvme-cli	repo	6.05 MiB	Mon Sep 21 09:33:14 2026	NVM-Express user space tooling for Linux
+nwg-dock-hyprland	repo	13.31 MiB	Wed Jun 10 19:22:47 2026	GTK3-based dock for Hyprland Wayland compositor
+nwg-look	repo	5.30 MiB	Fri Oct 16 09:58:58 2026	GTK settings editor adapted to work on wlroots-based compositors
+nwg-shell	repo	2.28 MiB	Sun Apr  5 07:29:52 2026	Installer & meta-package for the nwg-shell project
+nyxt	repo	140.56 MiB	Sat Nov 15 18:17:46 2025	A keyboard-driven web browser designed for power users
+obs-studio	repo	24.71 MiB	Sun Aug 16 17:38:20 2026	Free, open source software for live streaming and recording
+ocean-sound-theme	repo	2.08 MiB	Fri Oct 16 09:58:55 2026	Ocean Sound Theme for Plasma
+ollama	repo	61.25 MiB	Tue Oct 20 15:29:58 2026	Create, run and share large language models (LLMs)
+openaudible-bin	foreign	216.49 MiB	Fri Oct 16 10:02:31 2026	a cross-platform audiobook manager designed for Audible users. Manage all your audiobooks with this easy-to-use desktop application
+opencode	repo	210.76 MiB	Tue Oct 20 15:29:58 2026	The open source coding agent
+otf-aurulent-nerd	repo	6.50 MiB	Sat Aug 22 18:27:07 2026	Patched font Aurulent Sans Mono from nerd fonts library
+otf-codenewroman-nerd	repo	61.89 MiB	Sat Aug 22 18:27:07 2026	Patched font Code New Roman from nerd fonts library
+otf-comicshanns-nerd	repo	13.79 MiB	Sat Aug 22 18:27:07 2026	Patched font Comic Sans (Comic Shanns) from nerd fonts library
+otf-commit-mono-nerd	repo	27.21 MiB	Sat Aug 22 18:27:07 2026	Patched font Commit Mono from nerd fonts library
+otf-droid-nerd	repo	7.13 MiB	Sat Aug 22 18:27:07 2026	Patched font Droid Sans Mono from nerd fonts library
+otf-firamono-nerd	repo	20.38 MiB	Sat Aug 22 18:27:07 2026	Patched font Fira (Fura) Mono from nerd fonts library
+otf-geist-mono-nerd	repo	121.57 MiB	Sat Aug 22 18:27:07 2026	Patched font Geist Mono from nerd fonts library
+otf-hasklig-nerd	repo	95.35 MiB	Sat Aug 22 18:27:07 2026	Patched font Hasklig (Hasklug) from nerd fonts library
+otf-hermit-nerd	repo	39.32 MiB	Sat Aug 22 18:27:07 2026	Patched font Hermit from nerd fonts library
+otf-monaspace-nerd	repo	392.81 MiB	Sat Aug 22 18:27:08 2026	Patched font Monaspace (Monaspice) from nerd fonts library
+otf-opendyslexic-nerd	repo	41.36 MiB	Sat Aug 22 18:27:08 2026	Patched font OpenDyslexic from nerd fonts library
+otf-overpass-nerd	repo	96.47 MiB	Sat Aug 22 18:27:08 2026	Patched font Overpass from nerd fonts library
+oxygen	repo	34.33 MiB	Fri Oct 16 09:58:58 2026	KDE Oxygen style
+oxygen-sounds	repo	2.07 MiB	Fri Oct 16 09:58:58 2026	The Oxygen Sound Theme
+parsec-bin	foreign	3.42 MiB	Fri Jul 10 19:45:26 2026	Remotely connect to a gaming pc for a low latency remote computing experience
+paru	foreign	8.27 MiB	Wed Dec 31 09:37:33 2025	Feature packed AUR helper
+pass	repo	46.59 KiB	Fri Apr 10 21:46:36 2026	Stores, retrieves, generates, and synchronizes passwords securely
+pavucontrol	repo	1069.77 KiB	Tue Oct 20 15:29:58 2026	PulseAudio Volume Control
+pdfjs-legacy	repo	21.15 MiB	Thu Oct  8 09:01:04 2026	PDF reader in javascript - legacy distribution
+pkgfile	repo	545.45 KiB	Sun Aug  9 12:17:42 2026	A tool to search for files in official repository packages
+pkgstats	repo	8.15 MiB	Sat Aug 22 18:27:08 2026	Submit a list of installed packages to the Arch Linux project
+plasma-activities	repo	444.32 KiB	Fri Oct 16 09:58:48 2026	Core components for KDE Activities
+plasma-activities-stats	repo	289.28 KiB	Fri Oct 16 09:58:55 2026	A library for accessing the usage data collected by the activities system
+plasma-browser-integration	repo	632.75 KiB	Fri Oct 16 09:58:58 2026	Components necessary to integrate browsers into the Plasma Desktop
+plasma-desktop	repo	41.84 MiB	Fri Oct 16 09:58:58 2026	KDE Plasma Desktop
+plasma-disks	repo	651.23 KiB	Fri Oct 16 09:58:58 2026	Monitors S.M.A.R.T. capable devices for imminent failure
+plasma-firewall	repo	1435.79 KiB	Fri Oct 16 09:58:58 2026	Control Panel for your system firewall
+plasma-integration	repo	418.55 KiB	Fri Oct 16 09:58:55 2026	Qt Platform Theme integration plugins for the Plasma workspaces
+plasma-keyboard	repo	1805.08 KiB	Fri Oct 16 09:58:58 2026	Virtual Keyboard for Qt based desktops
+plasma-login-manager	repo	1856.34 KiB	Fri Oct 16 09:58:58 2026	Plasma Login Manager
+plasma-nm	repo	14.09 MiB	Fri Oct 16 09:58:58 2026	Plasma applet written in QML for managing network connections
+plasma-pa	repo	2.50 MiB	Fri Oct 16 09:58:58 2026	Plasma applet for audio volume management using PulseAudio
+plasma-sdk	repo	3.59 MiB	Fri Oct 16 09:58:58 2026	Applications useful for Plasma development
+plasma-systemmonitor	repo	2.97 MiB	Fri Oct 16 09:58:58 2026	An interface for monitoring system sensors, process information and other system resources
+plasma-thunderbolt	repo	572.08 KiB	Fri Oct 16 09:58:58 2026	Plasma integration for controlling Thunderbolt devices
+plasma-vault	repo	1302.86 KiB	Fri Oct 16 09:58:58 2026	Plasma applet and services for creating encrypted vaults
+plasma-welcome	repo	4.03 MiB	Fri Oct 16 09:58:58 2026	A friendly onboarding wizard for Plasma
+plasma-workspace	repo	57.32 MiB	Fri Oct 16 09:58:55 2026	KDE Plasma Workspace
+plasma-workspace-wallpapers	repo	294.77 MiB	Fri Oct 16 09:58:59 2026	Additional wallpapers for the Plasma Workspace
+plasma5support	repo	9.19 MiB	Fri Oct 16 09:58:55 2026	Support components for porting from KF5/Qt5 to KF6/Qt6
+plymouth-kcm	repo	320.62 KiB	Fri Oct 16 09:58:59 2026	KCM to manage the Plymouth (Boot) theme
+podman	repo	82.66 MiB	Fri Oct 16 09:58:59 2026	A tool for managing OCI containers and pods.
+polkit-kde-agent	repo	254.62 KiB	Fri Oct 16 09:58:58 2026	Daemon providing a polkit authentication UI for KDE
+power-profiles-daemon	repo	141.95 KiB	Mon Sep  7 21:20:53 2026	Makes power profiles handling available over D-Bus
+powerdevil	repo	6.73 MiB	Fri Oct 16 09:58:58 2026	Manages the power consumption settings of a Plasma Shell
+print-manager	repo	2.98 MiB	Fri Oct 16 09:58:59 2026	A tool for managing print jobs and printers
+profile-sync-daemon	repo	49.60 KiB	Tue Jul 21 22:41:18 2026	Symlinks and syncs browser profile dirs to RAM
+protege	repo	37.60 MiB	Wed Aug 12 17:50:30 2026	Free, open source ontology editor and knowledge-base framework
+pyside6	repo	52.06 MiB	Fri Oct  9 22:44:20 2026	Enables the use of Qt6 APIs in Python applications
+python-adblock	repo	6.77 MiB	Sat Jan 10 11:28:26 2026	Brave's adblock library in Python
+python-aiohttp-oauthlib	repo	70.29 KiB	Fri May 22 18:55:11 2026	oauthlib for aiohttp clients
+python-argon2-cffi	repo	112.02 KiB	Sat Jan 10 11:28:26 2026	Secure password hashing algorithm for Python
+python-blinker	repo	81.73 KiB	Fri May 22 18:55:24 2026	Fast, simple object-to-object and broadcast signaling
+python-httplib2	repo	286.30 KiB	Thu Jul  2 22:39:56 2026	Comprehensive HTTP client library, supporting many features
+python-ldap3	repo	6.45 MiB	Sat Apr 25 22:32:09 2026	A strictly RFC 4510 conforming LDAP V3 pure Python client library
+python-oauth2client	repo	1003.31 KiB	Wed Jun 10 21:47:29 2026	A client library for OAuth 2.0
+python-pam	repo	111.65 KiB	Mon Sep 21 09:33:15 2026	Pure Python interface to the Pluggable Authentication Modules system
+python-protobuf	repo	3.77 MiB	Mon Sep  7 08:30:37 2026	Python 3 bindings for Google Protocol Buffers
+python-pygments	repo	15.59 MiB	Fri Sep  4 23:43:56 2026	Python syntax highlighter
+python-pyjwt	repo	412.52 KiB	Mon Sep 28 22:04:33 2026	JSON Web Token implementation in Python
+python-pyopenssl	repo	738.03 KiB	Sat Aug  8 12:25:45 2026	Python wrapper around the OpenSSL library
+python-pyparsing	repo	1655.16 KiB	Mon Sep 21 09:33:15 2026	General parsing module for Python
+python-pyqt5	repo	22.52 MiB	Sat Aug  8 12:08:55 2026	A set of Python bindings for the Qt5 toolkit
+python-pyvips	repo	726.03 KiB	Tue Feb  3 15:25:54 2026	Python binding for libvips using cffi
+python-pywhispercpp-cuda	foreign	708.18 MiB	Mon Aug 31 10:54:38 2026	Python bindings for whisper.cpp with CUDA support (NVIDIA GPU)
+python-pyzmq	repo	1806.63 KiB	Mon Aug 31 10:22:09 2026	Python bindings for ZeroMQ
+python-ruff	repo	497.18 KiB	Fri Oct 16 09:58:59 2026	An extremely fast Python linter, written in Rust
+python-webrtcvad	repo	64.90 KiB	Sat Aug  8 12:08:55 2026	Python interface to the Google WebRTC Voice Activity Detector
+qqc2-breeze-style	repo	3.74 MiB	Fri Oct 16 09:58:55 2026	Applications useful for Plasma development
+qt5-wayland	repo	6.09 MiB	Thu May 21 10:48:33 2026	Provides APIs for Wayland
+qt6-tools	repo	22.37 MiB	Thu Oct  8 09:01:00 2026	A cross-platform application and UI framework (Development Tools, QtHelp)
+qt6-wayland	repo	5.25 MiB	Thu Oct  8 09:01:05 2026	Provides APIs for Wayland
+qtpass	repo	2.95 MiB	Thu Oct  8 09:01:05 2026	A multi-platform GUI for pass
+qutebrowser	repo	11.40 MiB	Sat Apr  4 11:43:19 2026	A keyboard-driven, vim-like browser based on Python and Qt
+radicale	repo	3.31 MiB	Tue Oct 20 15:29:59 2026	Simple calendar (CalDAV) and contact (CardDAV) server
+rclone	repo	110.10 MiB	Fri Oct  9 22:44:20 2026	rsync for cloud storage
+rclone-ui-bin	foreign	42.36 MiB	Wed Sep 30 09:27:05 2026	The cross-platform desktop GUI for rclone & S3.
+resvg	repo	14.53 MiB	Thu Aug  6 15:50:00 2026	SVG rendering library and CLI
+ripgrep	repo	4.29 MiB	Thu Jul 16 17:58:01 2026	A search tool that combines the usability of ag with the raw speed of grep
+rlwrap	repo	274.11 KiB	Thu Sep 10 18:31:14 2026	Adds readline-style editing and history to programs
+rsync	repo	858.91 KiB	Fri Oct 16 09:58:59 2026	A fast and versatile file copying tool for remote and local files
+ruby	repo	16.96 MiB	Sat Jul 18 09:32:56 2026	An object-oriented language for quick and easy programming
+ruby-docs	repo	846.66 MiB	Sat Jul 18 09:32:57 2026	Documentation files for Ruby
+ruby-stdlib	repo	3.63 KiB	Sat Jul 18 09:32:57 2026	Full Ruby StdLib including default gems, bundled gems and tools
+rust	repo	309.14 MiB	Tue Oct 20 15:29:59 2026	Systems programming language focused on safety, speed and concurrency
+rust-analyzer	repo	29.77 MiB	Tue Sep  8 10:05:04 2026	Rust compiler front-end for IDEs
+samba	repo	63.75 MiB	Mon Sep 28 22:04:33 2026	SMB Fileserver and AD Domain server
+sane	repo	18.74 MiB	Mon Apr  6 19:11:30 2026	Scanner Access Now Easy
+sane-airscan	repo	459.54 KiB	Sun Aug  2 21:03:37 2026	SANE - SANE backend for AirScan (eSCL) and WSD document scanners
+sbctl	repo	10.31 MiB	Mon Aug 10 10:50:09 2026	Secure Boot key manager
+sbsigntools	repo	174.84 KiB	Wed Apr 15 16:39:42 2026	Tools to add signatures to EFI binaries and Drivers
+sddm	repo	5.34 MiB	Sun May 24 11:51:32 2026	QML based X11 and Wayland display manager
+sddm-kcm	repo	634.53 KiB	Fri Oct 16 09:59:00 2026	KDE Config Module for SDDM
+shotman	foreign	1727.97 KiB	Tue Jul  7 19:05:48 2026	Uncompromising screenshot GUI for Wayland
+signal-desktop	repo	365.06 MiB	Tue Oct 20 15:30:00 2026	Signal Private Messenger for Linux
+skanlite	repo	3.00 MiB	Fri Oct  9 22:44:20 2026	Image Scanning Application
+spectacle	repo	6.72 MiB	Fri Oct 16 09:59:01 2026	KDE screenshot capture utility
+speedtest-cli	repo	265.46 KiB	Tue Oct 20 15:30:00 2026	Command line interface for testing internet bandwidth using speedtest.net
+squashfs-tools	repo	939.28 KiB	Wed Apr 15 16:39:42 2026	Tools for squashfs, a highly compressed read-only filesystem for Linux
+sshfs	repo	90.09 KiB	Sat May 30 14:24:05 2026	FUSE client based on the SSH File Transfer Protocol
+starship	repo	11.75 MiB	Tue Oct 20 15:30:00 2026	The cross-shell prompt for astronauts
+steam	repo	19.53 MiB	Sat Aug 22 18:27:11 2026	Valve's digital software delivery system
+stylua	repo	7.32 MiB	Sat Oct 10 09:13:32 2026	Deterministic code formatter for Lua
+sudo	repo	7.85 MiB	Wed Jun 17 15:20:52 2026	Give certain users the ability to run some commands as root
+sway-contrib	repo	61.77 KiB	Wed Jun 24 21:01:57 2026	A collection of user-contributed scripts for sway
+swtpm	repo	1267.68 KiB	Thu Sep 10 12:48:11 2026	Libtpms-based TPM emulator with socket, character device, and Linux CUSE interface
+syncthing	repo	24.37 MiB	Thu Oct  8 09:01:05 2026	Open Source Continuous Replication / Cluster Synchronization Thing
+sysd-manager	foreign	17.94 MiB	Mon Oct 12 21:31:57 2026	A systemd GUI to manage service, timer, socket and other units.
+systemctl-tui	repo	7.88 MiB	Wed Jul 29 11:45:21 2026	A fast, simple TUI for interacting with systemd services and their logs
+systemd-ui	repo	186.33 KiB	Sat Aug 22 18:27:11 2026	Graphical front-end for systemd
+systemd-ukify	repo	115.00 KiB	Tue Oct 20 15:30:00 2026	Combine kernel and initrd into a signed Unified Kernel Image
+systemsettings	repo	1248.38 KiB	Fri Oct 16 09:58:55 2026	KDE system manager for hardware, software, and workspaces
+tailscale	repo	51.46 MiB	Tue Oct 20 15:30:00 2026	A mesh VPN that makes it easy to connect your devices, wherever they are.
+tcl	repo	13.60 MiB	Sat Nov 15 02:17:56 2025	Powerful, easy-to-learn dynamic programming language
+tcpdump	repo	1139.29 KiB	Mon Sep 28 22:04:34 2026	Powerful command-line packet analyzer
+telegram-desktop	repo	152.81 MiB	Fri Oct 16 09:59:01 2026	Official Telegram Desktop client
+texinfo	repo	12.69 MiB	Tue Oct 20 15:30:00 2026	GNU documentation system for on-line information and printed output
+texlive-bin	repo	56.04 MiB	Tue Oct 20 15:30:00 2026	TeX Live binaries
+thunar	repo	9.58 MiB	Sun Sep 13 18:12:07 2026	Modern, fast and easy-to-use file manager for Xfce
+thunar-archive-plugin	repo	175.55 KiB	Sat Nov 15 20:48:04 2025	Adds archive operations to the Thunar file context menus
+thunar-media-tags-plugin	repo	309.59 KiB	Sat Nov 15 20:48:04 2025	Adds special features for media files to the Thunar File Manager
+thunar-volman	repo	671.61 KiB	Sat Nov 15 20:48:04 2025	Automatic management of removable drives and media for Thunar
+thunderbird	repo	303.38 MiB	Fri Oct 16 09:59:01 2026	Standalone mail and news reader from mozilla.org
+tk	repo	12.27 MiB	Sat Nov 15 02:17:57 2025	A windowing toolkit for use with tcl
+tmux	repo	1474.68 KiB	Fri Oct  9 22:44:20 2026	Terminal multiplexer
+tombi	repo	23.36 MiB	Tue Oct 20 15:30:01 2026	TOML Formatter / Linter / Language Server
+topiary	foreign	13.64 MiB	Wed Feb 25 11:27:39 2026	The universal code formatter
+tree-sitter-cli	repo	9.14 MiB	Wed May 20 07:54:33 2026	CLI tool for developing, testing, and using Tree-sitter parsers
+tree-sitter-html	foreign	71.71 KiB	Mon Apr  6 22:44:26 2026	HTML grammar for tree-sitter
+ttf-0xproto-nerd	repo	21.70 MiB	Sat Aug 22 18:27:11 2026	Patched font 0xProto from nerd fonts library
+ttf-3270-nerd	repo	23.66 MiB	Sat Aug 22 18:27:11 2026	Patched font IBM 3270 from nerd fonts library
+ttf-agave-nerd	repo	15.27 MiB	Sat Aug 22 18:27:11 2026	Patched font Agave from nerd fonts library
+ttf-anonymouspro-nerd	repo	29.98 MiB	Sat Aug 22 18:27:11 2026	Patched font Anonymous Pro (Anonymice) from nerd fonts library
+ttf-arimo-nerd	repo	22.87 MiB	Sat Aug 22 18:27:11 2026	Patched font Arimo from nerd fonts library
+ttf-bigblueterminal-nerd	repo	13.68 MiB	Sat Aug 22 18:27:11 2026	Patched font Big Blue Terminal from nerd fonts library
+ttf-bitstream-vera-mono-nerd	repo	29.01 MiB	Sat Aug 22 18:27:11 2026	Patched font Bitstream Vera Mono from nerd fonts library
+ttf-cascadia-code-nerd	repo	98.97 MiB	Sat Aug 22 18:27:11 2026	Patched font Cascadia Code (Caskaydia) from nerd fonts library
+ttf-cascadia-mono-nerd	repo	98.09 MiB	Sat Aug 22 18:27:12 2026	Patched font Cascadia Mono (Caskaydia) from nerd fonts library
+ttf-cousine-nerd	repo	31.92 MiB	Sat Aug 22 18:27:12 2026	Patched font Cousine from nerd fonts library
+ttf-d2coding-nerd	repo	38.36 MiB	Sat Aug 22 18:27:12 2026	Patched font D2Coding from nerd fonts library
+ttf-daddytime-mono-nerd	repo	7.39 MiB	Sat Aug 22 18:27:12 2026	Patched font Daddy Time Mono from nerd fonts library
+ttf-dejavu-nerd	repo	31.75 MiB	Sat Aug 22 18:27:12 2026	Patched font Dejavu Sans Mono from nerd fonts library
+ttf-envycoder-nerd	repo	21.97 MiB	Sat Aug 22 18:27:12 2026	Patched font Envy Code R from nerd fonts library
+ttf-fantasque-nerd	repo	30.30 MiB	Sat Aug 22 18:27:12 2026	Patched font Fantasque Sans Mono from nerd fonts library
+ttf-firacode-nerd	repo	47.46 MiB	Sat Aug 22 18:27:12 2026	Patched font Fira (Fura) Code from nerd fonts library
+ttf-go-nerd	repo	30.45 MiB	Sat Aug 22 18:27:12 2026	Patched font Go Mono from nerd fonts library
+ttf-gohu-nerd	repo	29.50 MiB	Sat Aug 22 18:27:12 2026	Patched font Gohufont from nerd fonts library
+ttf-hack-nerd	repo	32.04 MiB	Sat Aug 22 18:27:12 2026	Patched font Hack from nerd fonts library
+ttf-heavydata-nerd	repo	4.73 MiB	Sat Aug 22 18:27:12 2026	Patched font Heavy Data from nerd fonts library
+ttf-iawriter-nerd	repo	63.95 MiB	Sat Aug 22 18:27:12 2026	Patched font iA Writer (iM Writing) from nerd fonts library
+ttf-ibmplex-mono-nerd	repo	112.55 MiB	Sat Aug 22 18:27:12 2026	Patched font IBM Plex Mono (Blex) from nerd fonts library
+ttf-inconsolata-go-nerd	repo	14.16 MiB	Sat Aug 22 18:27:12 2026	Patched font Inconsolata Go from nerd fonts library
+ttf-inconsolata-lgc-nerd	repo	29.56 MiB	Sat Aug 22 18:27:12 2026	Patched font Inconsolata LGC from nerd fonts library
+ttf-inconsolata-nerd	repo	13.79 MiB	Sat Aug 22 18:27:12 2026	Patched font Inconsolata from nerd fonts library
+ttf-intone-nerd	repo	56.03 MiB	Sat Aug 22 18:27:12 2026	Patched font Intone (Intel One) from nerd fonts library
+ttf-iosevka-nerd	repo	1141.51 MiB	Sat Aug 22 18:27:13 2026	Patched font Iosevka from nerd fonts library
+ttf-iosevkaterm-nerd	repo	1141.05 MiB	Sat Aug 22 18:27:14 2026	Patched font Iosevka Term from nerd fonts library
+ttf-iosevkatermslab-nerd	repo	640.67 MiB	Sat Aug 22 18:27:15 2026	Patched font Iosevka Term Slab from nerd fonts library
+ttf-jetbrains-mono-nerd	repo	231.92 MiB	Sat Aug 22 18:27:15 2026	Patched font JetBrains Mono from nerd fonts library
+ttf-lekton-nerd	repo	20.51 MiB	Sat Aug 22 18:27:15 2026	Patched font Lekton from nerd fonts library
+ttf-liberation-mono-nerd	repo	75.40 MiB	Sat Aug 22 18:27:15 2026	Patched font Liberation Mono from nerd fonts library
+ttf-lilex-nerd	repo	72.02 MiB	Sat Aug 22 18:27:15 2026	Patched font Lilex from nerd fonts library
+ttf-martian-mono-nerd	repo	41.85 MiB	Sat Aug 22 18:27:15 2026	Patched font Martian Mono from nerd fonts library
+ttf-meslo-nerd	repo	202.32 MiB	Sat Aug 22 18:27:16 2026	Patched font Meslo LG from nerd fonts library
+ttf-monofur-nerd	repo	22.93 MiB	Sat Aug 22 18:27:16 2026	Patched font Monofur from nerd fonts library
+ttf-monoid-nerd	repo	28.43 MiB	Sat Aug 22 18:27:16 2026	Patched font Monoid from nerd fonts library
+ttf-mononoki-nerd	repo	28.15 MiB	Sat Aug 22 18:27:16 2026	Patched font Mononoki from nerd fonts library
+ttf-mplus-nerd	repo	319.14 MiB	Sat Aug 22 18:27:16 2026	Patched font MPlus from nerd fonts library
+ttf-nerd-fonts-symbols	repo	2.42 MiB	Mon Aug 31 10:22:10 2026	High number of extra glyphs from popular 'iconic fonts'
+ttf-nerd-fonts-symbols-mono	repo	2.49 MiB	Mon Aug 31 10:22:10 2026	High number of extra glyphs from popular 'iconic fonts' (monospace)
+ttf-noto-nerd	repo	1085.44 MiB	Sat Aug 22 18:27:17 2026	Patched font Noto from nerd fonts library
+ttf-opensans	repo	2.88 MiB	Thu Nov 13 19:53:31 2025	Sans-serif typeface commissioned by Google
+ttf-profont-nerd	repo	13.62 MiB	Sat Aug 22 18:27:17 2026	Patched font ProFont from nerd fonts library
+ttf-proggyclean-nerd	repo	21.75 MiB	Sat Aug 22 18:27:17 2026	Patched font ProggyClean from nerd fonts library
+ttf-recursive-nerd	repo	124.50 MiB	Sat Aug 22 18:27:17 2026	Patched font Recursive Mono (Rec Mono) from nerd fonts library
+ttf-roboto-mono-nerd	repo	88.57 MiB	Sat Aug 22 18:27:17 2026	Patched font Roboto Mono from nerd fonts library
+ttf-sharetech-mono-nerd	repo	6.70 MiB	Sat Aug 22 18:27:17 2026	Patched font Share Tech Mono (Shure Tech Mono) from nerd fonts library
+ttf-sourcecodepro-nerd	repo	98.74 MiB	Sat Aug 22 18:27:17 2026	Patched font Source Code Pro from nerd fonts library
+ttf-space-mono-nerd	repo	27.59 MiB	Sat Aug 22 18:27:17 2026	Patched font Space Mono from nerd fonts library
+ttf-terminus-nerd	repo	31.74 MiB	Sat Aug 22 18:27:17 2026	Patched font Terminus (Terminess) from nerd fonts library
+ttf-tinos-nerd	repo	22.06 MiB	Sat Aug 22 18:27:17 2026	Patched font Tinos from nerd fonts library
+ttf-ubuntu-mono-nerd	repo	28.37 MiB	Sat Aug 22 18:27:17 2026	Patched font Ubuntu Mono from nerd fonts library
+ttf-ubuntu-nerd	repo	43.72 MiB	Sat Aug 22 18:27:17 2026	Patched font Ubuntu from nerd fonts library
+ttf-victor-mono-nerd	repo	153.71 MiB	Sat Aug 22 18:27:18 2026	Patched font Victor Mono from nerd fonts library
+ttf-zed-mono-nerd	repo	707.44 MiB	Sat Aug 22 18:27:18 2026	Patched font Zed Mono from nerd fonts library
+tumbler	repo	880.20 KiB	Mon Sep 21 09:33:15 2026	Thumbnail service implementing the thumbnail management D-Bus specification
+turbostat	repo	712.14 KiB	Tue Oct 20 15:30:01 2026	Report processor frequency and idle statistics
+ty	repo	30.65 MiB	Tue Oct 20 15:30:01 2026	Extremely fast Python type checker and language server, written in Rust
+typobuster	repo	586.36 KiB	Sat Jan 10 11:28:27 2026	Lightweight editor with text transformations and auto-correction
+umu-launcher	repo	1237.75 KiB	Sun Jul 26 12:05:52 2026	The Unified Launcher for Windows Games on Linux, to run Proton with fixes outside of Steam
+unrar	repo	421.22 KiB	Thu Sep 10 12:48:11 2026	The RAR uncompression program
+unzip	repo	308.07 KiB	Sat Nov 15 01:37:14 2025	For extracting and viewing files in .zip archives
+uv	repo	46.02 MiB	Tue Oct 20 15:30:01 2026	An extremely fast Python package installer and resolver written in Rust
+uwsm	repo	332.71 KiB	Fri Oct 16 09:59:01 2026	A standalone Wayland session manager
+v4l2loopback-dkms	repo	113.45 KiB	Mon Aug 10 10:50:09 2026	v4l2-loopback device – module sources
+vala	repo	14.59 MiB	Sun Aug 16 17:38:20 2026	Compiler for the GObject type system
+vdirsyncer	repo	791.29 KiB	Mon Sep  7 08:30:38 2026	Synchronize CalDAV and CardDAV
+vim	repo	5.40 MiB	Mon Oct 12 21:31:41 2026	Vi Improved, a highly configurable, improved version of the vi text editor
+visidata	repo	38.16 MiB	Tue Jul  7 19:04:26 2026	Terminal spreadsheet multitool for discovering and arranging data
+vivaldi	repo	453.77 MiB	Tue Oct 20 15:30:01 2026	An advanced browser made with the power user in mind.
+vivaldi-ffmpeg-codecs	repo	3.40 MiB	Wed Sep 30 09:23:23 2026	additional support for proprietary codecs for vivaldi
+vlc	repo	42.16 MiB	Mon Oct 12 10:04:26 2026	Free and open source cross-platform multimedia player and framework
+vlc-plugins-all	repo	0.00 B	Mon Oct 12 10:04:26 2026	Free and open source cross-platform multimedia player and framework - all plugins
+vocalinux	foreign	9.14 MiB	Wed Oct 14 17:10:48 2026	Free, offline voice dictation for Linux
+vscode-json-languageserver	repo	2.50 MiB	Wed Sep  2 18:01:24 2026	JSON language server
+vsftpd	repo	272.42 KiB	Wed Jun  3 14:29:52 2026	Very Secure FTP daemon
+vulkan-intel	repo	44.00 MiB	Tue Oct 20 15:30:01 2026	Open-source Vulkan driver for Intel GPUs
+vulkan-mesa-layers	repo	2.66 MiB	Tue Oct 20 15:30:01 2026	Mesa's explicit Vulkan layers
+vulkan-validation-layers	repo	34.03 MiB	Sat Oct  3 09:12:19 2026	Vulkan Validation Layers
+wacomtablet	foreign	2.65 MiB	Thu Sep 10 12:48:11 2026	GUI for Wacom Linux drivers that supports different button/pen layout profiles
+walker	foreign	6.79 MiB	Thu Oct  8 09:05:29 2026	wayland application runner
+waybar	repo	2.17 MiB	Wed Sep  2 18:01:24 2026	Highly customizable Wayland bar for Sway and Wlroots based compositors
+wayvnc	repo	209.51 KiB	Thu Oct  1 20:17:29 2026	VNC server for wlroots-based Wayland compositors
+webkitgtk-6.0	repo	138.59 MiB	Thu Oct  8 09:01:00 2026	Web content engine for GTK
+wget	repo	5.70 MiB	Wed Jul 15 10:57:36 2026	Network utility to retrieve files from the web
+wine	repo	591.15 MiB	Tue Oct 20 15:30:02 2026	A compatibility layer for running Windows programs
+winetricks	repo	875.11 KiB	Fri May 15 11:04:31 2026	Script to install various redistributable runtime libraries in Wine.
+wl-clipboard	repo	100.63 KiB	Tue Mar 24 07:58:59 2026	Command-line copy/paste utilities for Wayland
+wofi	repo	131.60 KiB	Sun Jan 11 07:56:42 2026	launcher for wlroots-based wayland compositors
+wpa_supplicant_gui	foreign	680.48 KiB	Sat Nov 29 23:20:53 2025	A Qt frontend for interacting with wpa_supplicant
+wrangler	repo	65.06 MiB	Mon Oct 12 10:04:27 2026	The CLI for Cloudflare Workers
+wtype	repo	23.95 KiB	Wed Apr 29 00:02:44 2026	xdotool type for wayland
+xarchiver	repo	1694.53 KiB	Tue Jun 30 10:48:36 2026	GTK frontend to various command line archivers
+xclip	repo	30.67 KiB	Sat Nov 15 21:18:51 2025	Command line interface to the X11 clipboard
+xdg-desktop-portal-gtk	repo	427.91 KiB	Tue Oct 20 15:29:58 2026	A backend implementation for xdg-desktop-portal using GTK
+xdg-desktop-portal-hyprland	repo	816.89 KiB	Fri Sep  4 23:44:02 2026	xdg-desktop-portal backend for hyprland
+xdg-desktop-portal-kde	repo	3.11 MiB	Fri Oct 16 09:58:55 2026	A backend implementation for xdg-desktop-portal using Qt/KF5
+xfsprogs	repo	4.62 MiB	Mon Sep 21 09:33:16 2026	XFS filesystem utilities
+xsel	repo	36.30 KiB	Sat Nov 15 21:18:51 2025	Command-line program for getting and setting the contents of the X selection
+yay	foreign	11.34 MiB	Sat Jun 20 10:44:43 2026	Yet another yogurt. Pacman wrapper and AUR helper written in go.
+yazi	repo	34.14 MiB	Fri Sep  4 23:44:02 2026	Blazing fast terminal file manager written in Rust, based on async I/O
+ydotool	repo	43.99 KiB	Wed Apr 29 00:03:07 2026	Generic command-line automation tool (no X!)
+yt-dlp	repo	31.68 MiB	Sat Aug 22 18:27:21 2026	A youtube-dl fork with additional features and fixes
+zk	repo	12.12 MiB	Tue Oct 20 15:30:02 2026	A command-line tool helping you to maintain a Zettelkasten or personal wiki
+zoxide	repo	1149.92 KiB	Mon Jul  6 14:35:55 2026	A smarter cd command for your terminal
+zram-generator	repo	767.73 KiB	Sat Oct  3 13:38:13 2026	Systemd unit generator for zram devices
+zsh	repo	6.94 MiB	Mon Jul 13 15:03:28 2026	A very advanced and programmable command interpreter (shell) for UNIX

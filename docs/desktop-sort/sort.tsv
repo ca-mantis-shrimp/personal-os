@@ -1,0 +1,463 @@
+package	layer	group	source	in_packages_yaml	size	call	description
+base	base	Arch base	repo	yes	0.00 B	mostly the personal-os base already	Minimal package set to define a basic Arch Linux installation
+linux	base	Arch base	repo	yes	161.62 MiB	mostly the personal-os base already	The Linux kernel and modules
+linux-firmware	base	Arch base	repo	yes	0.00 B	mostly the personal-os base already	Firmware files for Linux - Default set
+logrotate	base	Arch base	repo	yes	100.65 KiB	mostly the personal-os base already	Rotates system logs automatically
+man-db	base	Arch base	repo	yes	2.43 MiB	mostly the personal-os base already	A utility for reading man pages
+man-pages	base	Arch base	repo	yes	5.67 MiB	mostly the personal-os base already	Linux man pages
+sudo	base	Arch base	repo	yes	7.85 MiB	mostly the personal-os base already	Give certain users the ability to run some commands as root
+zram-generator	base	Arch base	repo	no	767.73 KiB	mostly the personal-os base already	Systemd unit generator for zram devices
+ashell	base	Hyprland desktop	aur	yes	30.29 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	A ready to go Wayland status bar for Hyprland and Niri
+dex	base	Hyprland desktop	repo	yes	41.05 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Program to generate and execute DesktopEntry files of type Application
+elephant	base	Hyprland desktop	aur	yes	22.40 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	general purpose datasource and executor
+elephant-archlinuxpkgs	base	Hyprland desktop	aur	yes	23.81 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	archlinuxpkgs provider for elephant
+elephant-bluetooth	base	Hyprland desktop	aur	yes	23.51 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	bluetooth provider for elephant
+elephant-clipboard	base	Hyprland desktop	aur	yes	25.62 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	clipboard provider for elephant
+elephant-desktopapplications	base	Hyprland desktop	aur	yes	24.06 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	desktopapplications provider for elephant
+elephant-files	base	Hyprland desktop	aur	yes	25.45 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	files provider for elephant
+grimblast-git	base	Hyprland desktop	aur	no	14.73 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	A helper for screenshots within Hyprland.
+hypridle	base	Hyprland desktop	repo	yes	278.65 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	hyprland’s idle daemon
+hyprland	base	Hyprland desktop	repo	yes	64.02 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	a highly customizable dynamic tiling Wayland compositor
+hyprlauncher	base	Hyprland desktop	repo	yes	447.76 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	A multipurpose and versatile launcher / picker for Hyprland
+hyprlock	base	Hyprland desktop	repo	yes	844.17 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	hyprland’s GPU-accelerated screen locking utility
+hyprpaper	base	Hyprland desktop	repo	yes	478.83 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	a blazing fast wayland wallpaper utility with IPC controls
+hyprpolkitagent	base	Hyprland desktop	repo	yes	300.19 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Simple polkit authentication agent for Hyprland, written in QT/QML
+layer-shell-qt	base	Hyprland desktop	repo	yes	149.87 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Qt component to allow applications to make use of the Wayland wl-layer-shell protocol
+mako	base	Hyprland desktop	repo	yes	140.69 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Lightweight notification daemon for Wayland
+nwg-dock-hyprland	base	Hyprland desktop	repo	yes	13.31 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	GTK3-based dock for Hyprland Wayland compositor
+nwg-look	base	Hyprland desktop	repo	yes	5.30 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	GTK settings editor adapted to work on wlroots-based compositors
+qt5-wayland	base	Hyprland desktop	repo	yes	6.09 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Provides APIs for Wayland
+qt6-wayland	base	Hyprland desktop	repo	yes	5.25 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Provides APIs for Wayland
+sddm	base	Hyprland desktop	repo	yes	5.34 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	QML based X11 and Wayland display manager
+shotman	base	Hyprland desktop	aur	no	1727.97 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Uncompromising screenshot GUI for Wayland
+uwsm	base	Hyprland desktop	repo	yes	332.71 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	A standalone Wayland session manager
+vulkan-mesa-layers	base	Hyprland desktop	repo	yes	2.66 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Mesa's explicit Vulkan layers
+vulkan-validation-layers	base	Hyprland desktop	repo	yes	34.03 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Vulkan Validation Layers
+walker	base	Hyprland desktop	aur	yes	6.79 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	wayland application runner
+waybar	base	Hyprland desktop	repo	yes	2.17 MiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Highly customizable Wayland bar for Sway and Wlroots based compositors
+wayvnc	base	Hyprland desktop	repo	yes	209.51 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	VNC server for wlroots-based Wayland compositors
+wl-clipboard	base	Hyprland desktop	repo	yes	100.63 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Command-line copy/paste utilities for Wayland
+wofi	base	Hyprland desktop	repo	yes	131.60 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	launcher for wlroots-based wayland compositors
+wtype	base	Hyprland desktop	repo	no	23.95 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	xdotool type for wayland
+xdg-desktop-portal-gtk	base	Hyprland desktop	repo	yes	427.91 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	A backend implementation for xdg-desktop-portal using GTK
+xdg-desktop-portal-hyprland	base	Hyprland desktop	repo	yes	816.89 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	xdg-desktop-portal backend for hyprland
+ydotool	base	Hyprland desktop	repo	no	43.99 KiB	? two launchers (wofi, walker+elephant), two bars (waybar, ashell), a dock; sddm is the login screen	Generic command-line automation tool (no X!)
+gst-libav	base	audio	repo	yes	254.75 KiB	? pavucontrol and pwvucontrol both	Multimedia graph framework - libav plugin
+gst-plugin-pipewire	base	audio	repo	yes	175.39 KiB	? pavucontrol and pwvucontrol both	Multimedia graph framework - pipewire plugin
+gst-plugins-bad	base	audio	repo	yes	3.75 MiB	? pavucontrol and pwvucontrol both	Multimedia graph framework - bad plugins
+gst-plugins-good	base	audio	repo	yes	7.43 MiB	? pavucontrol and pwvucontrol both	Multimedia graph framework - good plugins
+pavucontrol	base	audio	repo	yes	1069.77 KiB	? pavucontrol and pwvucontrol both	PulseAudio Volume Control
+blueman	base	bluetooth	repo	yes	6.84 MiB	? blueman beside bluetui (and bluedevil in KDE)	GTK+ Bluetooth Manager
+bluetui	base	bluetooth	repo	yes	3.12 MiB	? blueman beside bluetui (and bluedevil in KDE)	TUI for managing bluetooth devices
+bluez	base	bluetooth	repo	yes	1770.23 KiB	? blueman beside bluetui (and bluedevil in KDE)	Daemons for the bluetooth protocol stack
+hunspell-en_us	base	editor	repo	yes	2.13 MiB		US English hunspell dictionaries
+neovide	base	editor	repo	yes	22.44 MiB		No Nonsense Neovim Client in Rust
+neovim	base	editor	repo	yes	30.53 MiB		Fork of Vim aiming to improve user experience, plugins, and GUIs
+nvimpager	base	editor	aur	yes	37.68 KiB		Use nvim as a pager to view manpages, diffs, etc with nvim's syntax highlighting
+tree-sitter-cli	base	editor	repo	yes	9.14 MiB		CLI tool for developing, testing, and using Tree-sitter parsers
+7zip	base	files	repo	yes	6.47 MiB	nautilus-python without nautilus does nothing	File archiver for extremely high compression
+nautilus-python	base	files	repo	yes	217.40 KiB	nautilus-python without nautilus does nothing	Python bindings for the Nautilus Extension API
+thunar	base	files	repo	yes	9.58 MiB	nautilus-python without nautilus does nothing	Modern, fast and easy-to-use file manager for Xfce
+thunar-archive-plugin	base	files	repo	yes	175.55 KiB	nautilus-python without nautilus does nothing	Adds archive operations to the Thunar file context menus
+thunar-media-tags-plugin	base	files	repo	yes	309.59 KiB	nautilus-python without nautilus does nothing	Adds special features for media files to the Thunar File Manager
+thunar-volman	base	files	repo	yes	671.61 KiB	nautilus-python without nautilus does nothing	Automatic management of removable drives and media for Thunar
+tumbler	base	files	repo	yes	880.20 KiB	nautilus-python without nautilus does nothing	Thumbnail service implementing the thumbnail management D-Bus specification
+unrar	base	files	repo	yes	421.22 KiB	nautilus-python without nautilus does nothing	The RAR uncompression program
+unzip	base	files	repo	yes	308.07 KiB	nautilus-python without nautilus does nothing	For extracting and viewing files in .zip archives
+adobe-source-code-pro-fonts	base	fonts	repo	no	1909.12 KiB		Monospaced font family for user interface and coding environments
+noto-fonts	base	fonts	repo	yes	106.81 MiB		Google Noto TTF fonts
+noto-fonts-cjk	base	fonts	repo	yes	298.79 MiB		Google Noto CJK fonts
+noto-fonts-emoji	base	fonts	repo	yes	10.18 MiB		Google Noto Color Emoji font
+noto-fonts-extra	base	fonts	repo	yes	331.26 MiB		Google Noto TTF fonts - additional variants
+ttf-nerd-fonts-symbols	base	fonts	repo	yes	2.42 MiB		High number of extra glyphs from popular 'iconic fonts'
+ttf-nerd-fonts-symbols-mono	base	fonts	repo	yes	2.49 MiB		High number of extra glyphs from popular 'iconic fonts' (monospace)
+ttf-opensans	base	fonts	repo	yes	2.88 MiB		Sans-serif typeface commissioned by Google
+cfssl	base	networking	repo	yes	79.21 MiB		CloudFlare PKI and TLS toolkit
+iftop	base	networking	repo	yes	63.28 KiB		Display bandwidth usage on an interface
+impala	base	networking	repo	yes	5.14 MiB		TUI for managing wifi
+iw	base	networking	repo	no	284.40 KiB		nl80211 based CLI configuration utility for wireless devices
+iwd	base	networking	repo	yes	2.21 MiB		Internet Wireless Daemon
+mtr	base	networking	repo	no	134.69 KiB		Combines the functionality of traceroute and ping into one tool (CLI version)
+rsync	base	networking	repo	yes	858.91 KiB		A fast and versatile file copying tool for remote and local files
+speedtest-cli	base	networking	repo	yes	265.46 KiB		Command line interface for testing internet bandwidth using speedtest.net
+sshfs	base	networking	repo	yes	90.09 KiB		FUSE client based on the SSH File Transfer Protocol
+tailscale	base	networking	repo	yes	51.46 MiB		A mesh VPN that makes it easy to connect your devices, wherever they are.
+tcpdump	base	networking	repo	no	1139.29 KiB		Powerful command-line packet analyzer
+wget	base	networking	repo	yes	5.70 MiB		Network utility to retrieve files from the web
+cups-browsed	base	printing and scanning	repo	yes	565.64 KiB	? a full printing stack; is there a printer or scanner in use?	a helper daemon to browse the network for remote CUPS queues and IPP network printers
+foomatic-db	base	printing and scanning	repo	yes	9.48 MiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - The collected knowledge about printers, drivers, and driver options in XML files, used by foomatic-db-engine to generate PPD files.
+foomatic-db-engine	base	printing and scanning	repo	yes	817.77 KiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - Foomatic's database engine generates PPD files from the data in Foomatic's XML database. It also contains scripts to directly generate print queues and handle jobs.
+foomatic-db-gutenprint-ppds	base	printing and scanning	repo	no	99.35 MiB	? a full printing stack; is there a printer or scanner in use?	simplified prebuilt ppd files
+foomatic-db-nonfree	base	printing and scanning	repo	yes	211.87 KiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - database extension consisting of manufacturer-supplied PPD files released under non-free licenses
+foomatic-db-nonfree-ppds	base	printing and scanning	repo	yes	8.33 MiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - non-free PPDs from printer manufacturers
+foomatic-db-ppds	base	printing and scanning	repo	yes	82.47 MiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - PPDs from printer manufacturers
+gutenprint	base	printing and scanning	repo	no	34.20 MiB	? a full printing stack; is there a printer or scanner in use?	Top quality printer drivers for POSIX systems
+ipp-usb	base	printing and scanning	repo	yes	6.23 MiB	? a full printing stack; is there a printer or scanner in use?	allows using the IPP protocol, normally designed for network printers, to be used with USB printers as well
+print-manager	base	printing and scanning	repo	yes	2.98 MiB	? a full printing stack; is there a printer or scanner in use?	A tool for managing print jobs and printers
+sane	base	printing and scanning	repo	no	18.74 MiB	? a full printing stack; is there a printer or scanner in use?	Scanner Access Now Easy
+sane-airscan	base	printing and scanning	repo	no	459.54 KiB	? a full printing stack; is there a printer or scanner in use?	SANE - SANE backend for AirScan (eSCL) and WSD document scanners
+skanlite	base	printing and scanning	repo	no	3.00 MiB	? a full printing stack; is there a printer or scanner in use?	Image Scanning Application
+1password	base	secrets	aur	yes	576.46 MiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	Password manager and secure wallet
+1password-cli	base	secrets	aur	no	41.46 MiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	1Password command line tool
+libgnome-keyring	base	secrets	aur	yes	1131.87 KiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	GNOME keyring client library (deprecated)
+pass	base	secrets	repo	yes	46.59 KiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	Stores, retrieves, generates, and synchronizes passwords securely
+qtpass	base	secrets	repo	no	2.95 MiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	A multi-platform GUI for pass
+btop	base	shell and terminal	repo	no	1737.27 KiB	? zsh and nushell beside fish; kitty and ghostty both	A monitor of system resources, bpytop ported to C++
+chafa	base	shell and terminal	repo	yes	1913.91 KiB	? zsh and nushell beside fish; kitty and ghostty both	Image-to-text converter supporting a wide range of symbols and palettes, transparency, animations, etc.
+fd	base	shell and terminal	repo	yes	3.42 MiB	? zsh and nushell beside fish; kitty and ghostty both	Simple, fast and user-friendly alternative to find
+fish	base	shell and terminal	repo	yes	18.24 MiB	? zsh and nushell beside fish; kitty and ghostty both	Smart and user friendly shell intended mostly for interactive use
+fzf	base	shell and terminal	repo	yes	5.49 MiB	? zsh and nushell beside fish; kitty and ghostty both	Command-line fuzzy finder
+ghostty	base	shell and terminal	repo	no	29.43 MiB	? zsh and nushell beside fish; kitty and ghostty both	Fast, native, feature-rich terminal emulator pushing modern features
+htop	base	shell and terminal	repo	no	421.16 KiB	? zsh and nushell beside fish; kitty and ghostty both	Interactive process viewer
+kitty	base	shell and terminal	repo	yes	76.70 MiB	? zsh and nushell beside fish; kitty and ghostty both	A modern, hackable, featureful, OpenGL-based terminal emulator
+lazygit	base	shell and terminal	repo	yes	20.37 MiB	? zsh and nushell beside fish; kitty and ghostty both	Simple terminal UI for git commands
+nushell	base	shell and terminal	repo	no	210.23 MiB	? zsh and nushell beside fish; kitty and ghostty both	A new type of shell
+ripgrep	base	shell and terminal	repo	yes	4.29 MiB	? zsh and nushell beside fish; kitty and ghostty both	A search tool that combines the usability of ag with the raw speed of grep
+rlwrap	base	shell and terminal	repo	no	274.11 KiB	? zsh and nushell beside fish; kitty and ghostty both	Adds readline-style editing and history to programs
+starship	base	shell and terminal	repo	yes	11.75 MiB	? zsh and nushell beside fish; kitty and ghostty both	The cross-shell prompt for astronauts
+tmux	base	shell and terminal	repo	yes	1474.68 KiB	? zsh and nushell beside fish; kitty and ghostty both	Terminal multiplexer
+yazi	base	shell and terminal	repo	yes	34.14 MiB	? zsh and nushell beside fish; kitty and ghostty both	Blazing fast terminal file manager written in Rust, based on async I/O
+zoxide	base	shell and terminal	repo	yes	1149.92 KiB	? zsh and nushell beside fish; kitty and ghostty both	A smarter cd command for your terminal
+zsh	base	shell and terminal	repo	no	6.94 MiB	? zsh and nushell beside fish; kitty and ghostty both	A very advanced and programmable command interpreter (shell) for UNIX
+buku	base	system tools	aur	no	955.47 KiB	? three systemd GUIs/TUIs	Bookmark manager like a text-based mini-web
+calcurse	base	system tools	repo	no	874.53 KiB	? three systemd GUIs/TUIs	A text-based personal organizer
+fwupd	base	system tools	repo	yes	19.13 MiB	? three systemd GUIs/TUIs	Simple daemon to allow session software to update firmware
+geoclue	base	system tools	repo	no	1463.17 KiB	? three systemd GUIs/TUIs	Modular geoinformation service built on the D-Bus messaging system
+gptfdisk	base	system tools	repo	yes	734.64 KiB	? three systemd GUIs/TUIs	A text-mode partitioning tool that works on GUID Partition Table (GPT) disks
+lynx	base	system tools	repo	yes	5.20 MiB	? three systemd GUIs/TUIs	A text browser for the World Wide Web
+nerdfetch	base	system tools	aur	yes	13.68 KiB	? three systemd GUIs/TUIs	A POSIX fetch using NerdFonts
+newsboat	base	system tools	repo	no	13.61 MiB	? three systemd GUIs/TUIs	RSS/Atom feed reader for text terminals
+nvme-cli	base	system tools	repo	yes	6.05 MiB	? three systemd GUIs/TUIs	NVM-Express user space tooling for Linux
+pdfjs-legacy	base	system tools	repo	yes	21.15 MiB	? three systemd GUIs/TUIs	PDF reader in javascript - legacy distribution
+power-profiles-daemon	base	system tools	repo	no	141.95 KiB	? three systemd GUIs/TUIs	Makes power profiles handling available over D-Bus
+rclone	base	system tools	repo	no	110.10 MiB	? three systemd GUIs/TUIs	rsync for cloud storage
+resvg	base	system tools	repo	yes	14.53 MiB	? three systemd GUIs/TUIs	SVG rendering library and CLI
+sysd-manager	base	system tools	aur	yes	17.94 MiB	? three systemd GUIs/TUIs	A systemd GUI to manage service, timer, socket and other units.
+systemctl-tui	base	system tools	repo	no	7.88 MiB	? three systemd GUIs/TUIs	A fast, simple TUI for interacting with systemd services and their logs
+systemd-ui	base	system tools	repo	no	186.33 KiB	? three systemd GUIs/TUIs	Graphical front-end for systemd
+visidata	base	system tools	repo	no	38.16 MiB	? three systemd GUIs/TUIs	Terminal spreadsheet multitool for discovering and arranging data
+zk	base	system tools	repo	no	12.12 MiB	? three systemd GUIs/TUIs	A command-line tool helping you to maintain a Zettelkasten or personal wiki
+chezmoi	base	version control	repo	yes	40.28 MiB	? mercurial and glab: still used?	Manage your dotfiles across multiple machines
+git	base	version control	repo	yes	33.54 MiB	? mercurial and glab: still used?	the fast distributed version control system
+github-cli	base	version control	repo	yes	40.08 MiB	? mercurial and glab: still used?	The GitHub CLI
+glab	base	version control	repo	yes	47.40 MiB	? mercurial and glab: still used?	Cli tool to help work seamlessly with GitLab from the command line
+jujutsu	base	version control	repo	no	27.75 MiB	? mercurial and glab: still used?	Git-compatible VCS that is both simple and powerful
+mercurial	base	version control	repo	yes	36.49 MiB	? mercurial and glab: still used?	A scalable distributed SCM tool
+cpupower	hardware: intel	Intel CPU and iGPU	repo	no	630.79 KiB		Linux kernel tool to examine and tune power saving related features of your processor
+intel-media-driver	hardware: intel	Intel CPU and iGPU	repo	no	41.45 MiB		Intel Media Driver for VAAPI — Broadwell+ iGPUs
+intel-ucode	hardware: intel	Intel CPU and iGPU	repo	yes	31.45 MiB		Microcode update files for Intel CPUs
+libva-intel-driver	hardware: intel	Intel CPU and iGPU	repo	yes	7.84 MiB		VA-API implementation for Intel G45 and HD Graphics family
+turbostat	hardware: intel	Intel CPU and iGPU	repo	no	712.14 KiB		Report processor frequency and idle statistics
+vulkan-intel	hardware: intel	Intel CPU and iGPU	repo	yes	44.00 MiB		Open-source Vulkan driver for Intel GPUs
+cuda	hardware: nvidia	NVIDIA GPU	repo	no	5.20 GiB	cuda and whisper-cuda are large; only for local speech and LLMs	NVIDIA's GPU programming toolkit
+nvidia-open	hardware: nvidia	NVIDIA GPU	repo	yes	9.73 MiB	cuda and whisper-cuda are large; only for local speech and LLMs	NVIDIA open kernel modules
+python-pywhispercpp-cuda	hardware: nvidia	NVIDIA GPU	aur	no	708.18 MiB	cuda and whisper-cuda are large; only for local speech and LLMs	Python bindings for whisper.cpp with CUDA support (NVIDIA GPU)
+brscan5	hardware: desktop	displays and devices	aur	no	4.17 MiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	SANE drivers from Brother for compatible models
+evdi-dkms	hardware: desktop	displays and devices	aur	yes	661.02 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	Kernel module to enable management of multiple screens
+libsane-dsseries	hardware: desktop	displays and devices	aur	no	473.62 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	Brother SANE drivers for DSmobile 620
+v4l2loopback-dkms	hardware: desktop	displays and devices	repo	yes	113.45 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	v4l2-loopback device – module sources
+wacomtablet	hardware: desktop	displays and devices	aur	yes	2.65 MiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	GUI for Wacom Linux drivers that supports different button/pen layout profiles
+base-devel	add-on: dev	toolchains	repo	yes	0.00 B	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Basic tools to build Arch Linux packages
+ccache	add-on: dev	toolchains	repo	no	2.16 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Compiler cache that speeds up recompilation by caching previous compilations
+clisp	add-on: dev	toolchains	repo	yes	17.64 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	ANSI Common Lisp interpreter, compiler and debugger
+clojure	add-on: dev	toolchains	repo	no	13.36 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Lisp dialect for the JVM
+cmake	add-on: dev	toolchains	repo	yes	101.44 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	A cross-platform open-source make system
+fennel	add-on: dev	toolchains	repo	yes	923.21 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	A Lua Lisp language
+fnlfmt	add-on: dev	toolchains	repo	yes	294.67 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	A formatter for Fennel code
+go	add-on: dev	toolchains	repo	yes	226.64 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Core compiler tools for the Go programming language
+jre25-openjdk	add-on: dev	toolchains	repo	no	175.93 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	OpenJDK Java 25 full runtime environment
+js-beautify	add-on: dev	toolchains	aur	yes	9.85 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	CSS, HTML & JavaScript unobfuscator and beautifier
+leiningen	add-on: dev	toolchains	repo	no	16.34 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Automate Clojure projects
+lua-language-server	add-on: dev	toolchains	repo	no	19.43 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Lua Language Server coded by Lua
+lua-sec	add-on: dev	toolchains	repo	no	194.65 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Lua bindings for OpenSSL library to provide TLS/SSL communication for Lua 5.5
+lua51	add-on: dev	toolchains	repo	yes	887.75 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Powerful lightweight programming language designed for extending applications
+luajit-tiktoken-bin	add-on: dev	toolchains	aur	no	2.43 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	binding of rust tiktoken to lua
+luarocks	add-on: dev	toolchains	repo	yes	6.68 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Deployment and management system for Lua modules
+mdbook	add-on: dev	toolchains	repo	yes	11.99 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Create book from markdown files, like Gitbook but implemented in Rust
+meson	add-on: dev	toolchains	repo	yes	16.88 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	High productivity build system
+ninja	add-on: dev	toolchains	repo	yes	423.10 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Small build system with a focus on speed
+nodejs	add-on: dev	toolchains	repo	yes	64.12 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	"Evented I/O for V8 javascript (""Current"" release)"
+npm	add-on: dev	toolchains	repo	yes	9.46 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	JavaScript package manager
+pyside6	add-on: dev	toolchains	repo	no	52.06 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Enables the use of Qt6 APIs in Python applications
+python-adblock	add-on: dev	toolchains	repo	yes	6.77 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Brave's adblock library in Python
+python-aiohttp-oauthlib	add-on: dev	toolchains	repo	no	70.29 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	oauthlib for aiohttp clients
+python-argon2-cffi	add-on: dev	toolchains	repo	yes	112.02 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Secure password hashing algorithm for Python
+python-blinker	add-on: dev	toolchains	repo	no	81.73 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Fast, simple object-to-object and broadcast signaling
+python-httplib2	add-on: dev	toolchains	repo	no	286.30 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Comprehensive HTTP client library, supporting many features
+python-ldap3	add-on: dev	toolchains	repo	no	6.45 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	A strictly RFC 4510 conforming LDAP V3 pure Python client library
+python-oauth2client	add-on: dev	toolchains	repo	no	1003.31 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	A client library for OAuth 2.0
+python-pam	add-on: dev	toolchains	repo	no	111.65 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Pure Python interface to the Pluggable Authentication Modules system
+python-protobuf	add-on: dev	toolchains	repo	no	3.77 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Python 3 bindings for Google Protocol Buffers
+python-pygments	add-on: dev	toolchains	repo	yes	15.59 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Python syntax highlighter
+python-pyjwt	add-on: dev	toolchains	repo	no	412.52 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	JSON Web Token implementation in Python
+python-pyopenssl	add-on: dev	toolchains	repo	yes	738.03 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Python wrapper around the OpenSSL library
+python-pyparsing	add-on: dev	toolchains	repo	no	1655.16 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	General parsing module for Python
+python-pyvips	add-on: dev	toolchains	repo	yes	726.03 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Python binding for libvips using cffi
+python-pyzmq	add-on: dev	toolchains	repo	yes	1806.63 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Python bindings for ZeroMQ
+python-ruff	add-on: dev	toolchains	repo	yes	497.18 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	An extremely fast Python linter, written in Rust
+python-webrtcvad	add-on: dev	toolchains	repo	no	64.90 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Python interface to the Google WebRTC Voice Activity Detector
+ruby	add-on: dev	toolchains	repo	yes	16.96 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	An object-oriented language for quick and easy programming
+ruby-docs	add-on: dev	toolchains	repo	yes	846.66 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Documentation files for Ruby
+ruby-stdlib	add-on: dev	toolchains	repo	yes	3.63 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Full Ruby StdLib including default gems, bundled gems and tools
+rust	add-on: dev	toolchains	repo	yes	309.14 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Systems programming language focused on safety, speed and concurrency
+rust-analyzer	add-on: dev	toolchains	repo	yes	29.77 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Rust compiler front-end for IDEs
+stylua	add-on: dev	toolchains	repo	yes	7.32 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Deterministic code formatter for Lua
+tcl	add-on: dev	toolchains	repo	yes	13.60 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Powerful, easy-to-learn dynamic programming language
+texinfo	add-on: dev	toolchains	repo	yes	12.69 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	GNU documentation system for on-line information and printed output
+texlive-bin	add-on: dev	toolchains	repo	yes	56.04 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	TeX Live binaries
+tk	add-on: dev	toolchains	repo	yes	12.27 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	A windowing toolkit for use with tcl
+tombi	add-on: dev	toolchains	repo	yes	23.36 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	TOML Formatter / Linter / Language Server
+topiary	add-on: dev	toolchains	aur	yes	13.64 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	The universal code formatter
+tree-sitter-html	add-on: dev	toolchains	aur	no	71.71 KiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	HTML grammar for tree-sitter
+ty	add-on: dev	toolchains	repo	no	30.65 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Extremely fast Python type checker and language server, written in Rust
+uv	add-on: dev	toolchains	repo	yes	46.02 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	An extremely fast Python package installer and resolver written in Rust
+vala	add-on: dev	toolchains	repo	yes	14.59 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Compiler for the GObject type system
+webkitgtk-6.0	add-on: dev	toolchains	repo	no	138.59 MiB	? toolchains as one dev add-on, or in base since this is the dev machine; tcl/tk, vala, clisp, ruby: still used?	Web content engine for GTK
+cpio	add-on: image-builder	image building	repo	no	1006.06 KiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	A tool to copy files into or out of a cpio or tar archive
+dosfstools	add-on: image-builder	image building	repo	no	409.22 KiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	DOS filesystem utilities
+edk2-ovmf	add-on: image-builder	image building	repo	no	15.57 MiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	Firmware for Virtual Machines (x86_64, i686 on x86_64)
+edk2-shell	add-on: image-builder	image building	repo	yes	6.19 MiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	EDK2 UEFI Shell
+efitools	add-on: image-builder	image building	repo	yes	255.09 KiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	Tools for manipulating UEFI secure boot platforms
+erofs-utils	add-on: image-builder	image building	repo	no	792.40 KiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	Userspace utilities for linux-erofs file system
+erofsfuse	add-on: image-builder	image building	repo	no	139.77 KiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	FUSE file system client for erofs file system
+mkosi	add-on: image-builder	image building	repo	no	4.08 MiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	Build Legacy-Free OS Images
+mtools	add-on: image-builder	image building	repo	no	396.71 KiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	A collection of utilities to access MS-DOS disks
+sbctl	add-on: image-builder	image building	repo	yes	10.31 MiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	Secure Boot key manager
+sbsigntools	add-on: image-builder	image building	repo	no	174.84 KiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	Tools to add signatures to EFI binaries and Drivers
+squashfs-tools	add-on: image-builder	image building	repo	no	939.28 KiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	Tools for squashfs, a highly compressed read-only filesystem for Linux
+swtpm	add-on: image-builder	image building	repo	no	1267.68 KiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	Libtpms-based TPM emulator with socket, character device, and Linux CUSE interface
+systemd-ukify	add-on: image-builder	image building	repo	no	115.00 KiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	Combine kernel and initrd into a signed Unified Kernel Image
+xfsprogs	add-on: image-builder	image building	repo	no	4.62 MiB	? builds and signs personal-os; does that stay on the desktop or move to devbox (=carry mkosi in the dev-pod image)?	XFS filesystem utilities
+gamemode	add-on: gaming	gaming	repo	no	284.34 KiB	? sysext (needs 32-bit libraries matching the NVIDIA driver in base) or Flatpak Steam	A daemon/lib combo that allows games to request a set of optimisations be temporarily applied to the host OS
+lib32-vkd3d	add-on: gaming	gaming	repo	no	2.01 MiB	? sysext (needs 32-bit libraries matching the NVIDIA driver in base) or Flatpak Steam	Direct3D 12 to Vulkan translation library By WineHQ
+lutris	add-on: gaming	gaming	repo	no	11.92 MiB	? sysext (needs 32-bit libraries matching the NVIDIA driver in base) or Flatpak Steam	Open Gaming Platform
+steam	add-on: gaming	gaming	repo	yes	19.53 MiB	? sysext (needs 32-bit libraries matching the NVIDIA driver in base) or Flatpak Steam	Valve's digital software delivery system
+umu-launcher	add-on: gaming	gaming	repo	no	1237.75 KiB	? sysext (needs 32-bit libraries matching the NVIDIA driver in base) or Flatpak Steam	The Unified Launcher for Windows Games on Linux, to run Proton with fixes outside of Steam
+wine	add-on: gaming	gaming	repo	no	591.15 MiB	? sysext (needs 32-bit libraries matching the NVIDIA driver in base) or Flatpak Steam	A compatibility layer for running Windows programs
+winetricks	add-on: gaming	gaming	repo	no	875.11 KiB	? sysext (needs 32-bit libraries matching the NVIDIA driver in base) or Flatpak Steam	Script to install various redistributable runtime libraries in Wine.
+aurorae	add-on: kde	KDE Plasma	repo	yes	670.36 KiB	? the backup desktop: an add-on, or dropped	A themeable window decoration for KWin
+bluedevil	add-on: kde	KDE Plasma	repo	yes	2.71 MiB	? the backup desktop: an add-on, or dropped	Integrate the Bluetooth technology within KDE workspace and applications
+breeze	add-on: kde	KDE Plasma	repo	yes	38.79 MiB	? the backup desktop: an add-on, or dropped	Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
+breeze-gtk	add-on: kde	KDE Plasma	repo	yes	1183.62 KiB	? the backup desktop: an add-on, or dropped	Breeze widget theme for GTK 2 and 3
+breeze-plymouth	add-on: kde	KDE Plasma	repo	yes	158.87 KiB	? the backup desktop: an add-on, or dropped	Plymouth theme for the Breeze visual style for the Plasma Desktop
+discover	add-on: kde	KDE Plasma	repo	yes	7.56 MiB	? the backup desktop: an add-on, or dropped	KDE and Plasma resources management GUI
+drkonqi	add-on: kde	KDE Plasma	repo	yes	4.12 MiB	? the backup desktop: an add-on, or dropped	The KDE crash handler
+flatpak-kcm	add-on: kde	KDE Plasma	repo	yes	799.17 KiB	? the backup desktop: an add-on, or dropped	Flatpak Permissions Management KCM
+kactivitymanagerd	add-on: kde	KDE Plasma	repo	yes	754.47 KiB	? the backup desktop: an add-on, or dropped	System service to manage user activities and track the usage patterns
+kde-cli-tools	add-on: kde	KDE Plasma	repo	yes	3.64 MiB	? the backup desktop: an add-on, or dropped	Tools based on KDE Frameworks to better interact with the system
+kde-gtk-config	add-on: kde	KDE Plasma	repo	yes	328.17 KiB	? the backup desktop: an add-on, or dropped	Syncs KDE settings to GTK applications
+kdeconnect	add-on: kde	KDE Plasma	repo	yes	7.19 MiB	? the backup desktop: an add-on, or dropped	Adds communication between KDE and your smartphone
+kdecoration	add-on: kde	KDE Plasma	repo	yes	405.91 KiB	? the backup desktop: an add-on, or dropped	Plugin based library to create window decorations
+kdeplasma-addons	add-on: kde	KDE Plasma	repo	yes	19.40 MiB	? the backup desktop: an add-on, or dropped	All kind of addons to improve your Plasma experience
+kdialog	add-on: kde	KDE Plasma	repo	yes	778.64 KiB	? the backup desktop: an add-on, or dropped	A utility for displaying dialog boxes from shell scripts
+kgamma	add-on: kde	KDE Plasma	aur	yes	382.86 KiB	? the backup desktop: an add-on, or dropped	Adjust your monitor gamma settings
+kglobalacceld	add-on: kde	KDE Plasma	repo	yes	337.44 KiB	? the backup desktop: an add-on, or dropped	Daemon providing Global Keyboard Shortcut (Accelerator) functionality
+kgraphviewer	add-on: kde	KDE Plasma	repo	yes	3.09 MiB	? the backup desktop: an add-on, or dropped	A Graphviz dot graph file viewer
+khal	add-on: kde	KDE Plasma	repo	yes	1721.42 KiB	? the backup desktop: an add-on, or dropped	CLI calendar application built around CalDAV
+khard	add-on: kde	KDE Plasma	repo	no	1355.20 KiB	? the backup desktop: an add-on, or dropped	Console address book manager
+kinfocenter	add-on: kde	KDE Plasma	repo	yes	3.30 MiB	? the backup desktop: an add-on, or dropped	A utility that provides information about a computer system
+kmenuedit	add-on: kde	KDE Plasma	repo	yes	1997.29 KiB	? the backup desktop: an add-on, or dropped	KDE menu editor
+knighttime	add-on: kde	KDE Plasma	repo	yes	194.29 KiB	? the backup desktop: an add-on, or dropped	Helpers for scheduling the dark-light cycle
+kpipewire	add-on: kde	KDE Plasma	repo	yes	618.44 KiB	? the backup desktop: an add-on, or dropped	Components relating to pipewire use in Plasma
+krdp	add-on: kde	KDE Plasma	repo	yes	978.45 KiB	? the backup desktop: an add-on, or dropped	Library and examples for creating an RDP server
+kscreen	add-on: kde	KDE Plasma	repo	yes	3.67 MiB	? the backup desktop: an add-on, or dropped	KDE screen management software
+kscreenlocker	add-on: kde	KDE Plasma	repo	yes	1187.49 KiB	? the backup desktop: an add-on, or dropped	Library and components for secure lock screen architecture
+ksshaskpass	add-on: kde	KDE Plasma	repo	yes	140.70 KiB	? the backup desktop: an add-on, or dropped	ssh-add helper that uses kwallet and kpassworddialog
+ksystemstats	add-on: kde	KDE Plasma	repo	yes	1909.58 KiB	? the backup desktop: an add-on, or dropped	A plugin based system monitoring daemon
+kwallet-pam	add-on: kde	KDE Plasma	repo	yes	27.92 KiB	? the backup desktop: an add-on, or dropped	KWallet PAM integration
+kwayland	add-on: kde	KDE Plasma	repo	yes	1254.27 KiB	? the backup desktop: an add-on, or dropped	Qt-style Client and Server library wrapper for the Wayland libraries
+kwin	add-on: kde	KDE Plasma	repo	yes	31.64 MiB	? the backup desktop: an add-on, or dropped	An easy to use, but flexible, Wayland compositor
+kwrited	add-on: kde	KDE Plasma	repo	yes	44.14 KiB	? the backup desktop: an add-on, or dropped	KDE daemon listening for wall and write messages
+libkeyfinder	add-on: kde	KDE Plasma	repo	no	131.42 KiB	? the backup desktop: an add-on, or dropped	Musical key detection for digital audio
+libkscreen	add-on: kde	KDE Plasma	repo	yes	766.20 KiB	? the backup desktop: an add-on, or dropped	KDE screen management software
+libksysguard	add-on: kde	KDE Plasma	repo	yes	3.74 MiB	? the backup desktop: an add-on, or dropped	Library to retrieve information on the current status of computer hardware
+libplasma	add-on: kde	KDE Plasma	repo	yes	8.27 MiB	? the backup desktop: an add-on, or dropped	Plasma library and runtime components
+milou	add-on: kde	KDE Plasma	repo	yes	518.04 KiB	? the backup desktop: an add-on, or dropped	A dedicated search application built on top of Baloo
+ocean-sound-theme	add-on: kde	KDE Plasma	repo	yes	2.08 MiB	? the backup desktop: an add-on, or dropped	Ocean Sound Theme for Plasma
+oxygen	add-on: kde	KDE Plasma	repo	yes	34.33 MiB	? the backup desktop: an add-on, or dropped	KDE Oxygen style
+oxygen-sounds	add-on: kde	KDE Plasma	repo	yes	2.07 MiB	? the backup desktop: an add-on, or dropped	The Oxygen Sound Theme
+plasma-activities	add-on: kde	KDE Plasma	repo	yes	444.32 KiB	? the backup desktop: an add-on, or dropped	Core components for KDE Activities
+plasma-activities-stats	add-on: kde	KDE Plasma	repo	yes	289.28 KiB	? the backup desktop: an add-on, or dropped	A library for accessing the usage data collected by the activities system
+plasma-browser-integration	add-on: kde	KDE Plasma	repo	yes	632.75 KiB	? the backup desktop: an add-on, or dropped	Components necessary to integrate browsers into the Plasma Desktop
+plasma-desktop	add-on: kde	KDE Plasma	repo	yes	41.84 MiB	? the backup desktop: an add-on, or dropped	KDE Plasma Desktop
+plasma-disks	add-on: kde	KDE Plasma	repo	yes	651.23 KiB	? the backup desktop: an add-on, or dropped	Monitors S.M.A.R.T. capable devices for imminent failure
+plasma-firewall	add-on: kde	KDE Plasma	repo	yes	1435.79 KiB	? the backup desktop: an add-on, or dropped	Control Panel for your system firewall
+plasma-integration	add-on: kde	KDE Plasma	repo	yes	418.55 KiB	? the backup desktop: an add-on, or dropped	Qt Platform Theme integration plugins for the Plasma workspaces
+plasma-keyboard	add-on: kde	KDE Plasma	repo	yes	1805.08 KiB	? the backup desktop: an add-on, or dropped	Virtual Keyboard for Qt based desktops
+plasma-login-manager	add-on: kde	KDE Plasma	repo	yes	1856.34 KiB	? the backup desktop: an add-on, or dropped	Plasma Login Manager
+plasma-nm	add-on: kde	KDE Plasma	repo	yes	14.09 MiB	? the backup desktop: an add-on, or dropped	Plasma applet written in QML for managing network connections
+plasma-pa	add-on: kde	KDE Plasma	repo	yes	2.50 MiB	? the backup desktop: an add-on, or dropped	Plasma applet for audio volume management using PulseAudio
+plasma-sdk	add-on: kde	KDE Plasma	repo	yes	3.59 MiB	? the backup desktop: an add-on, or dropped	Applications useful for Plasma development
+plasma-systemmonitor	add-on: kde	KDE Plasma	repo	yes	2.97 MiB	? the backup desktop: an add-on, or dropped	An interface for monitoring system sensors, process information and other system resources
+plasma-thunderbolt	add-on: kde	KDE Plasma	repo	yes	572.08 KiB	? the backup desktop: an add-on, or dropped	Plasma integration for controlling Thunderbolt devices
+plasma-vault	add-on: kde	KDE Plasma	repo	yes	1302.86 KiB	? the backup desktop: an add-on, or dropped	Plasma applet and services for creating encrypted vaults
+plasma-welcome	add-on: kde	KDE Plasma	repo	yes	4.03 MiB	? the backup desktop: an add-on, or dropped	A friendly onboarding wizard for Plasma
+plasma-workspace	add-on: kde	KDE Plasma	repo	yes	57.32 MiB	? the backup desktop: an add-on, or dropped	KDE Plasma Workspace
+plasma-workspace-wallpapers	add-on: kde	KDE Plasma	repo	no	294.77 MiB	? the backup desktop: an add-on, or dropped	Additional wallpapers for the Plasma Workspace
+plasma5support	add-on: kde	KDE Plasma	repo	yes	9.19 MiB	? the backup desktop: an add-on, or dropped	Support components for porting from KF5/Qt5 to KF6/Qt6
+plymouth-kcm	add-on: kde	KDE Plasma	repo	no	320.62 KiB	? the backup desktop: an add-on, or dropped	KCM to manage the Plymouth (Boot) theme
+polkit-kde-agent	add-on: kde	KDE Plasma	repo	yes	254.62 KiB	? the backup desktop: an add-on, or dropped	Daemon providing a polkit authentication UI for KDE
+powerdevil	add-on: kde	KDE Plasma	repo	yes	6.73 MiB	? the backup desktop: an add-on, or dropped	Manages the power consumption settings of a Plasma Shell
+qqc2-breeze-style	add-on: kde	KDE Plasma	repo	yes	3.74 MiB	? the backup desktop: an add-on, or dropped	Applications useful for Plasma development
+qt6-tools	add-on: kde	KDE Plasma	repo	yes	22.37 MiB	? the backup desktop: an add-on, or dropped	A cross-platform application and UI framework (Development Tools, QtHelp)
+sddm-kcm	add-on: kde	KDE Plasma	repo	yes	634.53 KiB	? the backup desktop: an add-on, or dropped	KDE Config Module for SDDM
+spectacle	add-on: kde	KDE Plasma	repo	yes	6.72 MiB	? the backup desktop: an add-on, or dropped	KDE screenshot capture utility
+systemsettings	add-on: kde	KDE Plasma	repo	yes	1248.38 KiB	? the backup desktop: an add-on, or dropped	KDE system manager for hardware, software, and workspaces
+xdg-desktop-portal-kde	add-on: kde	KDE Plasma	repo	no	3.11 MiB	? the backup desktop: an add-on, or dropped	A backend implementation for xdg-desktop-portal using Qt/KF5
+antigravity	flatpak	AI apps	aur	no	494.30 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Google Antigravity 2.0 multi-agent orchestration platform
+claude-desktop	flatpak	AI apps	aur	no	588.01 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Official Claude AI desktop app from Anthropic — Chat, Cowork, and Claude Code
+geekbench	flatpak	AI apps	aur	no	745.91 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	A cross-platform benchmark that measures processor and memory performance
+parsec-bin	flatpak	AI apps	aur	no	3.42 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Remotely connect to a gaming pc for a low latency remote computing experience
+brave-bin	flatpak	browsers	aur	yes	471.58 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	Web browser that blocks ads and trackers by default (binary release)
+chromium	flatpak	browsers	repo	yes	427.64 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	A web browser built for speed, simplicity, and security
+firefox	flatpak	browsers	repo	yes	301.96 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	Fast, Private & Safe Web Browser
+firefoxpwa	flatpak	browsers	repo	no	25.76 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox (native component)
+helium-browser-bin	flatpak	browsers	aur	no	385.37 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	Private, fast, and honest web browser based on Chromium (Latest/Stable)
+nyxt	flatpak	browsers	repo	yes	140.56 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	A keyboard-driven web browser designed for power users
+qutebrowser	flatpak	browsers	repo	yes	11.40 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	A keyboard-driven, vim-like browser based on Python and Qt
+vivaldi	flatpak	browsers	repo	no	453.77 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	An advanced browser made with the power user in mind.
+vivaldi-ffmpeg-codecs	flatpak	browsers	repo	no	3.40 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	additional support for proprietary codecs for vivaldi
+discord	flatpak	chat	repo	yes	6.56 MiB		All-in-one voice and text chat for gamers
+signal-desktop	flatpak	chat	repo	yes	365.06 MiB		Signal Private Messenger for Linux
+telegram-desktop	flatpak	chat	repo	yes	152.81 MiB		Official Telegram Desktop client
+external-editor-revived	flatpak	mail	aur	yes	885.24 KiB	the editor add-on is a Thunderbird extension, installed inside Thunderbird	External Editor Revived is a Thunderbird MailExtension which allows editing emails in programs such as Vim, Neovim, Emacs, etc.
+thunderbird	flatpak	mail	repo	yes	303.38 MiB	the editor add-on is a Thunderbird extension, installed inside Thunderbird	Standalone mail and news reader from mozilla.org
+calibre	flatpak	office and media	repo	no	136.40 MiB		Ebook management application
+evince	flatpak	office and media	repo	yes	12.45 MiB		Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)
+filezilla	flatpak	office and media	repo	yes	15.40 MiB		Fast and reliable FTP, FTPS and SFTP client
+libreoffice-fresh	flatpak	office and media	repo	yes	423.01 MiB		LibreOffice branch which contains new features and program enhancements
+obs-studio	flatpak	office and media	repo	yes	24.71 MiB		Free, open source software for live streaming and recording
+openaudible-bin	flatpak	office and media	aur	no	216.49 MiB		a cross-platform audiobook manager designed for Audible users. Manage all your audiobooks with this easy-to-use desktop application
+protege	flatpak	office and media	repo	yes	37.60 MiB		Free, open source ontology editor and knowledge-base framework
+rclone-ui-bin	flatpak	office and media	aur	no	42.36 MiB		The cross-platform desktop GUI for rclone & S3.
+vlc	flatpak	office and media	repo	yes	42.16 MiB		Free and open source cross-platform multimedia player and framework
+vlc-plugins-all	flatpak	office and media	repo	yes	0.00 B		Free and open source cross-platform multimedia player and framework - all plugins
+claude-agent-acp	chezmoi	agent and LSP CLIs	aur	no	299.13 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	Use Claude Agent from any ACP client such as Zed!
+gemini-cli	chezmoi	agent and LSP CLIs	repo	no	62.32 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	Open-source AI agent that brings the power of Gemini directly into your terminal
+markdownlint-cli2	chezmoi	agent and LSP CLIs	repo	no	12.04 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	Fast, flexible, configuration-based command-line interface for linting Markdown/CommonMark files with the markdownlint library
+nodejs-mcp-hub	chezmoi	agent and LSP CLIs	aur	no	2.00 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	A centralized manager for Model Context Protocol (MCP) servers with dynamic server management and monitoring
+opencode	chezmoi	agent and LSP CLIs	repo	no	210.76 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	The open source coding agent
+vscode-json-languageserver	chezmoi	agent and LSP CLIs	repo	no	2.50 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	JSON language server
+wrangler	chezmoi	agent and LSP CLIs	repo	no	65.06 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	The CLI for Cloudflare Workers
+agent-sandbox-system	services	desktop services	aur	no	4.71 KiB	? mpd and mopidy both; two speech-to-text tools	systemd session unit, polkit rule, user and run directory for agent-sandbox
+hyprwhspr	services	desktop services	aur	no	2.47 MiB	? mpd and mopidy both; two speech-to-text tools	System-wide speech-to-text for Linux desktops
+mopidy	services	desktop services	repo	yes	8.67 MiB	? mpd and mopidy both; two speech-to-text tools	An extensible music server written in Python
+mopidy-iris	services	desktop services	aur	yes	21.71 MiB	? mpd and mopidy both; two speech-to-text tools	A web-based frontend for Mopidy
+mopidy-mpd	services	desktop services	aur	yes	670.43 KiB	? mpd and mopidy both; two speech-to-text tools	Mopidy extension for controlling playback from MPD clients
+mpd	services	desktop services	repo	yes	6.19 MiB	? mpd and mopidy both; two speech-to-text tools	Flexible, powerful, server-side application for playing music
+mympd	services	desktop services	repo	yes	1595.06 KiB	? mpd and mopidy both; two speech-to-text tools	A standalone and lightweight web-based MPD client
+ollama	services	desktop services	repo	no	61.25 MiB	? mpd and mopidy both; two speech-to-text tools	Create, run and share large language models (LLMs)
+vdirsyncer	services	desktop services	repo	yes	791.29 KiB	? mpd and mopidy both; two speech-to-text tools	Synchronize CalDAV and CardDAV
+vocalinux	services	desktop services	aur	no	9.14 MiB	? mpd and mopidy both; two speech-to-text tools	Free, offline voice dictation for Linux
+yt-dlp	services	desktop services	repo	yes	31.68 MiB	? mpd and mopidy both; two speech-to-text tools	A youtube-dl fork with additional features and fixes
+copyparty	services: N150	services machine	repo	yes	7.63 MiB	? radicale and syncthing belong to the services machine (services charter); syncthing may also stay here as a client	File server with accelerated resumable uploads, dedup, WebDAV, SFTP, FTP, FTPS, zeroconf, media indexer, thumbnails++
+netdata	services: N150	services machine	repo	yes	360.59 MiB	? radicale and syncthing belong to the services machine (services charter); syncthing may also stay here as a client	Real-time performance monitoring, in the greatest possible detail, over the web
+radicale	services: N150	services machine	repo	yes	3.31 MiB	? radicale and syncthing belong to the services machine (services charter); syncthing may also stay here as a client	Simple calendar (CalDAV) and contact (CardDAV) server
+samba	services: N150	services machine	repo	yes	63.75 MiB	? radicale and syncthing belong to the services machine (services charter); syncthing may also stay here as a client	SMB Fileserver and AD Domain server
+syncthing	services: N150	services machine	repo	no	24.37 MiB	? radicale and syncthing belong to the services machine (services charter); syncthing may also stay here as a client	Open Source Continuous Replication / Cluster Synchronization Thing
+vsftpd	services: N150	services machine	repo	no	272.42 KiB	? radicale and syncthing belong to the services machine (services charter); syncthing may also stay here as a client	Very Secure FTP daemon
+paru	drop	AUR helpers	aur	no	8.27 MiB	an image has no pacman at run time; AUR packages need an image build step instead	Feature packed AUR helper
+yay	drop	AUR helpers	aur	yes	11.34 MiB	an image has no pacman at run time; AUR packages need an image build step instead	Yet another yogurt. Pacman wrapper and AUR helper written in go.
+dmenu	drop	X11 leftovers	repo	no	51.70 KiB	Wayland only; wl-clipboard covers the clipboard	Generic menu for X
+kwayland5	drop	X11 leftovers	repo	no	2.60 MiB	Wayland only; wl-clipboard covers the clipboard	Qt-style Client and Server library wrapper for the Wayland libraries
+kwin-x11	drop	X11 leftovers	aur	yes	25.82 MiB	Wayland only; wl-clipboard covers the clipboard	An easy to use, but flexible, X Window Manager
+python-pyqt5	drop	X11 leftovers	repo	no	22.52 MiB	Wayland only; wl-clipboard covers the clipboard	A set of Python bindings for the Qt5 toolkit
+xclip	drop	X11 leftovers	repo	yes	30.67 KiB	Wayland only; wl-clipboard covers the clipboard	Command line interface to the X11 clipboard
+xsel	drop	X11 leftovers	repo	yes	36.30 KiB	Wayland only; wl-clipboard covers the clipboard	Command-line program for getting and setting the contents of the X selection
+ark	drop	archivers	repo	yes	5.22 MiB	? four GUI archivers; keep one (thunar-archive-plugin needs one) or none (7zip/unzip CLI)	Archiving Tool
+engrampa	drop	archivers	repo	yes	13.10 MiB	? four GUI archivers; keep one (thunar-archive-plugin needs one) or none (7zip/unzip CLI)	A file archiver for MATE
+file-roller	drop	archivers	repo	yes	4.24 MiB	? four GUI archivers; keep one (thunar-archive-plugin needs one) or none (7zip/unzip CLI)	Create and modify archives
+xarchiver	drop	archivers	repo	yes	1694.53 KiB	? four GUI archivers; keep one (thunar-archive-plugin needs one) or none (7zip/unzip CLI)	GTK frontend to various command line archivers
+docker	drop	containers	repo	no	119.36 MiB	nothing uses containers (charter, 2026-10-20)	Pack, ship and run any application as a lightweight container
+docker-compose	drop	containers	repo	no	28.00 MiB	nothing uses containers (charter, 2026-10-20)	Fast, isolated development environments using Docker
+fuse-overlayfs	drop	containers	repo	yes	113.07 KiB	nothing uses containers (charter, 2026-10-20)	FUSE implementation of overlayfs
+podman	drop	containers	repo	no	82.66 MiB	nothing uses containers (charter, 2026-10-20)	A tool for managing OCI containers and pods.
+dkms	drop	kernel module building	repo	yes	167.22 KiB	out-of-tree modules are built into the image, not on the machine	Dynamic Kernel Modules System
+linux-headers	drop	kernel module building	repo	yes	321.41 MiB	out-of-tree modules are built into the image, not on the machine	Headers and scripts for building modules for the Linux kernel
+otf-aurulent-nerd	drop	nerd font collection	repo	yes	6.50 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Aurulent Sans Mono from nerd fonts library
+otf-codenewroman-nerd	drop	nerd font collection	repo	yes	61.89 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Code New Roman from nerd fonts library
+otf-comicshanns-nerd	drop	nerd font collection	repo	yes	13.79 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Comic Sans (Comic Shanns) from nerd fonts library
+otf-commit-mono-nerd	drop	nerd font collection	repo	yes	27.21 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Commit Mono from nerd fonts library
+otf-droid-nerd	drop	nerd font collection	repo	yes	7.13 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Droid Sans Mono from nerd fonts library
+otf-firamono-nerd	drop	nerd font collection	repo	yes	20.38 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Fira (Fura) Mono from nerd fonts library
+otf-geist-mono-nerd	drop	nerd font collection	repo	yes	121.57 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Geist Mono from nerd fonts library
+otf-hasklig-nerd	drop	nerd font collection	repo	yes	95.35 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Hasklig (Hasklug) from nerd fonts library
+otf-hermit-nerd	drop	nerd font collection	repo	yes	39.32 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Hermit from nerd fonts library
+otf-monaspace-nerd	drop	nerd font collection	repo	yes	392.81 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Monaspace (Monaspice) from nerd fonts library
+otf-opendyslexic-nerd	drop	nerd font collection	repo	yes	41.36 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font OpenDyslexic from nerd fonts library
+otf-overpass-nerd	drop	nerd font collection	repo	yes	96.47 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Overpass from nerd fonts library
+ttf-0xproto-nerd	drop	nerd font collection	repo	yes	21.70 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font 0xProto from nerd fonts library
+ttf-3270-nerd	drop	nerd font collection	repo	yes	23.66 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font IBM 3270 from nerd fonts library
+ttf-agave-nerd	drop	nerd font collection	repo	yes	15.27 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Agave from nerd fonts library
+ttf-anonymouspro-nerd	drop	nerd font collection	repo	yes	29.98 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Anonymous Pro (Anonymice) from nerd fonts library
+ttf-arimo-nerd	drop	nerd font collection	repo	yes	22.87 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Arimo from nerd fonts library
+ttf-bigblueterminal-nerd	drop	nerd font collection	repo	yes	13.68 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Big Blue Terminal from nerd fonts library
+ttf-bitstream-vera-mono-nerd	drop	nerd font collection	repo	yes	29.01 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Bitstream Vera Mono from nerd fonts library
+ttf-cascadia-code-nerd	drop	nerd font collection	repo	yes	98.97 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Cascadia Code (Caskaydia) from nerd fonts library
+ttf-cascadia-mono-nerd	drop	nerd font collection	repo	yes	98.09 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Cascadia Mono (Caskaydia) from nerd fonts library
+ttf-cousine-nerd	drop	nerd font collection	repo	yes	31.92 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Cousine from nerd fonts library
+ttf-d2coding-nerd	drop	nerd font collection	repo	yes	38.36 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font D2Coding from nerd fonts library
+ttf-daddytime-mono-nerd	drop	nerd font collection	repo	yes	7.39 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Daddy Time Mono from nerd fonts library
+ttf-dejavu-nerd	drop	nerd font collection	repo	yes	31.75 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Dejavu Sans Mono from nerd fonts library
+ttf-envycoder-nerd	drop	nerd font collection	repo	yes	21.97 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Envy Code R from nerd fonts library
+ttf-fantasque-nerd	drop	nerd font collection	repo	yes	30.30 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Fantasque Sans Mono from nerd fonts library
+ttf-firacode-nerd	drop	nerd font collection	repo	yes	47.46 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Fira (Fura) Code from nerd fonts library
+ttf-go-nerd	drop	nerd font collection	repo	yes	30.45 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Go Mono from nerd fonts library
+ttf-gohu-nerd	drop	nerd font collection	repo	yes	29.50 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Gohufont from nerd fonts library
+ttf-hack-nerd	drop	nerd font collection	repo	yes	32.04 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Hack from nerd fonts library
+ttf-heavydata-nerd	drop	nerd font collection	repo	yes	4.73 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Heavy Data from nerd fonts library
+ttf-iawriter-nerd	drop	nerd font collection	repo	yes	63.95 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font iA Writer (iM Writing) from nerd fonts library
+ttf-ibmplex-mono-nerd	drop	nerd font collection	repo	yes	112.55 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font IBM Plex Mono (Blex) from nerd fonts library
+ttf-inconsolata-go-nerd	drop	nerd font collection	repo	yes	14.16 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Inconsolata Go from nerd fonts library
+ttf-inconsolata-lgc-nerd	drop	nerd font collection	repo	yes	29.56 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Inconsolata LGC from nerd fonts library
+ttf-inconsolata-nerd	drop	nerd font collection	repo	yes	13.79 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Inconsolata from nerd fonts library
+ttf-intone-nerd	drop	nerd font collection	repo	yes	56.03 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Intone (Intel One) from nerd fonts library
+ttf-iosevka-nerd	drop	nerd font collection	repo	yes	1141.51 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Iosevka from nerd fonts library
+ttf-iosevkaterm-nerd	drop	nerd font collection	repo	yes	1141.05 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Iosevka Term from nerd fonts library
+ttf-iosevkatermslab-nerd	drop	nerd font collection	repo	yes	640.67 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Iosevka Term Slab from nerd fonts library
+ttf-jetbrains-mono-nerd	drop	nerd font collection	repo	yes	231.92 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font JetBrains Mono from nerd fonts library
+ttf-lekton-nerd	drop	nerd font collection	repo	yes	20.51 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Lekton from nerd fonts library
+ttf-liberation-mono-nerd	drop	nerd font collection	repo	yes	75.40 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Liberation Mono from nerd fonts library
+ttf-lilex-nerd	drop	nerd font collection	repo	yes	72.02 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Lilex from nerd fonts library
+ttf-martian-mono-nerd	drop	nerd font collection	repo	yes	41.85 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Martian Mono from nerd fonts library
+ttf-meslo-nerd	drop	nerd font collection	repo	yes	202.32 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Meslo LG from nerd fonts library
+ttf-monofur-nerd	drop	nerd font collection	repo	yes	22.93 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Monofur from nerd fonts library
+ttf-monoid-nerd	drop	nerd font collection	repo	yes	28.43 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Monoid from nerd fonts library
+ttf-mononoki-nerd	drop	nerd font collection	repo	yes	28.15 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Mononoki from nerd fonts library
+ttf-mplus-nerd	drop	nerd font collection	repo	yes	319.14 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font MPlus from nerd fonts library
+ttf-noto-nerd	drop	nerd font collection	repo	yes	1085.44 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Noto from nerd fonts library
+ttf-profont-nerd	drop	nerd font collection	repo	yes	13.62 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font ProFont from nerd fonts library
+ttf-proggyclean-nerd	drop	nerd font collection	repo	yes	21.75 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font ProggyClean from nerd fonts library
+ttf-recursive-nerd	drop	nerd font collection	repo	yes	124.50 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Recursive Mono (Rec Mono) from nerd fonts library
+ttf-roboto-mono-nerd	drop	nerd font collection	repo	yes	88.57 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Roboto Mono from nerd fonts library
+ttf-sharetech-mono-nerd	drop	nerd font collection	repo	yes	6.70 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Share Tech Mono (Shure Tech Mono) from nerd fonts library
+ttf-sourcecodepro-nerd	drop	nerd font collection	repo	yes	98.74 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Source Code Pro from nerd fonts library
+ttf-space-mono-nerd	drop	nerd font collection	repo	yes	27.59 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Space Mono from nerd fonts library
+ttf-terminus-nerd	drop	nerd font collection	repo	yes	31.74 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Terminus (Terminess) from nerd fonts library
+ttf-tinos-nerd	drop	nerd font collection	repo	yes	22.06 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Tinos from nerd fonts library
+ttf-ubuntu-mono-nerd	drop	nerd font collection	repo	yes	28.37 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Ubuntu Mono from nerd fonts library
+ttf-ubuntu-nerd	drop	nerd font collection	repo	yes	43.72 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Ubuntu from nerd fonts library
+ttf-victor-mono-nerd	drop	nerd font collection	repo	yes	153.71 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Victor Mono from nerd fonts library
+ttf-zed-mono-nerd	drop	nerd font collection	repo	yes	707.44 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Zed Mono from nerd fonts library
+gnome-shell	drop	other desktops	repo	no	15.28 MiB	? Hyprland is primary; GNOME, sway and nwg-shell are a third and fourth backup	Next generation desktop shell
+nwg-shell	drop	other desktops	repo	yes	2.28 MiB	? Hyprland is primary; GNOME, sway and nwg-shell are a third and fourth backup	Installer & meta-package for the nwg-shell project
+sway-contrib	drop	other desktops	repo	yes	61.77 KiB	? Hyprland is primary; GNOME, sway and nwg-shell are a third and fourth backup	A collection of user-contributed scripts for sway
+appimagelauncher	drop	package tooling	aur	no	3.87 MiB	pacman-era or foreign-distro tools	Helper for running and integrating AppImages
+apt	drop	package tooling	repo	no	9.03 MiB	pacman-era or foreign-distro tools	Command-line package manager used on Debian-based systems
+arch-install-scripts	drop	package tooling	repo	yes	39.16 KiB	pacman-era or foreign-distro tools	Scripts to aid in installing Arch Linux
+distribution-gpg-keys	drop	package tooling	repo	no	1096.67 KiB	pacman-era or foreign-distro tools	GPG keys used by various Linux distributions to sign packages
+pkgfile	drop	package tooling	repo	yes	545.45 KiB	pacman-era or foreign-distro tools	A tool to search for files in official repository packages
+pkgstats	drop	package tooling	repo	yes	8.15 MiB	pacman-era or foreign-distro tools	Submit a list of installed packages to the Arch Linux project
+catfish	drop	superseded	repo	yes	1661.71 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Versatile file searching tool
+cvs	drop	superseded	repo	yes	1098.44 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Source control
+iwqt	drop	superseded	aur	yes	409.63 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	An iwd network applet for linux systems
+libotr	drop	superseded	repo	no	281.02 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Off-the-Record Messaging Library and Toolkit
+most	drop	superseded	repo	yes	126.01 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	A terminal pager similar to 'more' and 'less'
+ntp	drop	superseded	repo	yes	4.03 MiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Network Time Protocol reference implementation
+profile-sync-daemon	drop	superseded	repo	yes	49.60 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Symlinks and syncs browser profile dirs to RAM
+typobuster	drop	superseded	repo	no	586.36 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Lightweight editor with text transformations and auto-correction
+vim	drop	superseded	repo	yes	5.40 MiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Vi Improved, a highly configurable, improved version of the vi text editor
+wpa_supplicant_gui	drop	superseded	aur	yes	680.48 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	A Qt frontend for interacting with wpa_supplicant
+browsh	drop	text browsers	aur	yes	8.66 MiB	? lynx stays (on the phone too); three more text browsers	A fully-modern text-based browser, rendering to TTY and browsers
+chawan	drop	text browsers	repo	yes	6.29 MiB	? lynx stays (on the phone too); three more text browsers	A text-mode web browser and pager for Unix-like systems
+elinks	drop	text browsers	repo	yes	4.10 MiB	? lynx stays (on the phone too); three more text browsers	Advanced feature-rich text-mode web browser
