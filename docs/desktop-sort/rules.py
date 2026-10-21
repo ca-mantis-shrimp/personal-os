@@ -14,10 +14,11 @@ RULES = [
      'covered: op is a chezmoi external; MANPAGER="nvim +Man!"; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone'),
   ('AUR: to chezmoi', 'chezmoi', ['buku', 'js-beautify', 'topiary', 'python-pywhispercpp-cuda'],
      'PyPI (uv), npm, a release binary; pywhispercpp is already a uv tool'),
-  ('AUR: open', 'drop', ['luajit-tiktoken-bin', 'vocalinux', 'mopidy-iris', 'mopidy-mpd'],
-     '? AUR-only: tiktoken for nvim AI token counts, a second speech-to-text, mopidy plugins (PyPI if mopidy stays)'),
-  ('AUR: hardware', 'hardware: desktop', ['evdi-dkms', 'brscan5', 'libsane-dsseries', 'wacomtablet'],
-     '? AUR-only: DisplayLink, Brother scanner, Wacom GUI; still used? If so, vendor builds'),
+  ('speech to text', 'drop', ['vocalinux', 'python-pywhispercpp-cuda', 'python-webrtcvad', 'ydotool'], 'none for now (Darrion, 2026-10-21); ydotool only typed the dictation'),
+  ('AUR: open', 'drop', ['luajit-tiktoken-bin', 'mopidy-iris', 'mopidy-mpd'],
+     '? AUR-only: tiktoken for nvim AI token counts, mopidy plugins (PyPI if mopidy stays)'),
+  ('DisplayLink and Wacom', 'drop', ['evdi-dkms', 'wacomtablet'], 'DisplayLink never worked; the Wacom GUI is not needed (Darrion, 2026-10-21)'),
+  ('AUR: scanner', 'hardware: desktop', ['brscan5', 'libsane-dsseries'], '? AUR-only Brother scanner drivers; goes with the printing call'),
   # --- drop: duplicates, X11 leftovers, tools the image makes moot ---
   ('debug builds', 'drop', [r'.*-debug$'], 'paru built these by default'),
   ('containers', 'drop', ['docker', 'docker-compose', 'podman', 'fuse-overlayfs'], 'nothing uses containers (charter, 2026-10-20)'),
@@ -32,14 +33,14 @@ RULES = [
 
   # --- hardware ---
   ('Intel CPU and iGPU', 'hardware: intel', ['intel-ucode', 'intel-media-driver', 'libva-intel-driver', 'vulkan-intel', 'turbostat', 'cpupower'], ''),
-  ('NVIDIA GPU', 'hardware: nvidia', ['nvidia-open', 'cuda', 'python-pywhispercpp-cuda'], 'cuda and whisper-cuda are large; only for local speech and LLMs'),
+  ('NVIDIA GPU', 'hardware: nvidia', ['nvidia-open', 'cuda'], '? cuda is large and was for local speech and LLMs; ollama here is the CPU build, so is it still needed?'),
   ('displays and devices', 'hardware: desktop', ['displaylink', 'evdi-dkms', 'v4l2loopback-dkms', 'wacomtablet', 'brscan5', 'libsane-dsseries'],
      'DisplayLink and v4l2loopback are out-of-tree modules: built into the image'),
 
   # --- base: what every boot needs ---
   ('Arch base', 'base', ['base', 'sudo', 'linux', 'linux-firmware', 'man-db', 'man-pages', 'logrotate', 'zram-generator'], 'mostly the personal-os base already'),
   ('shell and terminal', 'base', ['fish', 'tmux', 'starship', 'fzf', 'zoxide', 'fd', 'ripgrep', 'yazi', 'lazygit', 'btop', 'htop', 'chafa', 'zsh', 'nushell', 'kitty', 'ghostty', 'rlwrap'],
-     '? zsh and nushell beside fish; kitty and ghostty both'),
+     'kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish'),
   ('editor', 'base', ['neovim', 'neovide', 'nvimpager', 'tree-sitter-cli', 'hunspell-en_us'], ''),
   ('version control', 'base', ['git', 'github-cli', 'glab', 'jujutsu', 'mercurial', 'chezmoi'], '? mercurial and glab: still used?'),
   ('networking', 'base', ['tailscale', 'iwd', 'impala', 'iw', 'openssh', 'rsync', 'wget', 'sshfs', 'mtr', 'tcpdump', 'iftop', 'speedtest-cli', 'cfssl'], ''),
@@ -53,12 +54,13 @@ RULES = [
      'KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors'),
   ('files', 'base', ['ark', '7zip', 'unrar', 'unzip'], ''),
   ('Thunar', 'drop', ['thunar', 'thunar-archive-plugin', 'thunar-media-tags-plugin', 'thunar-volman', 'tumbler', 'nautilus-python'],
-     '? KDE has Dolphin (not installed yet); keep Thunar instead? nautilus-python without nautilus does nothing'),
+     'no graphical file manager (Darrion, 2026-10-21); yazi covers files'),
   ('secrets', 'base', ['1password', '1password-cli', 'pass', 'qtpass', 'libgnome-keyring'], '1Password as a system package for browser and polkit integration; AUR, so it needs an image build step'),
   ('printing and scanning', 'base', ['cups-browsed', 'foomatic-db', 'foomatic-db-engine', 'foomatic-db-nonfree', 'foomatic-db-nonfree-ppds', 'foomatic-db-ppds',
      'foomatic-db-gutenprint-ppds', 'gutenprint', 'ipp-usb', 'print-manager', 'sane', 'sane-airscan', 'skanlite'], '? a full printing stack; is there a printer or scanner in use?'),
   ('fonts', 'base', ['noto-fonts', 'noto-fonts-cjk', 'noto-fonts-emoji', 'noto-fonts-extra', 'ttf-opensans', 'ttf-nerd-fonts-symbols', 'ttf-nerd-fonts-symbols-mono', 'adobe-source-code-pro-fonts'], ''),
-  ('nerd font collection', 'drop', [r'(ttf|otf)-.*-nerd'], '? about 60 patched fonts; keep the one or two the terminals use'),
+  ('terminal fonts', 'base', ['ttf-hack-nerd', 'ttf-d2coding-nerd'], 'Hack (Darrion, 2026-10-21); kitty.conf names D2CodingLigature, so it stays until kitty switches'),
+  ('nerd font collection', 'drop', [r'(ttf|otf)-.*-nerd'], 'only the fonts the configs name (Darrion, 2026-10-21)'),
   ('system tools', 'base', ['gptfdisk', 'nvme-cli', 'fwupd', 'lynx', 'rclone', 'power-profiles-daemon', 'geoclue', 'systemctl-tui', 'sysd-manager', 'systemd-ui', 'zk', 'calcurse', 'newsboat', 'visidata', 'buku', 'nerdfetch', 'resvg', 'pdfjs-legacy'],
      '? three systemd GUIs/TUIs'),
 
@@ -83,8 +85,9 @@ RULES = [
   ('chat', 'flatpak', ['discord', 'signal-desktop', 'telegram-desktop'], ''),
   ('mail', 'flatpak', ['thunderbird', 'external-editor-revived'], 'the editor add-on is a Thunderbird extension, installed inside Thunderbird'),
   ('office and media', 'flatpak', ['libreoffice-fresh', 'obs-studio', 'vlc', 'vlc-plugins-all', 'calibre', 'evince', 'filezilla', 'openaudible-bin', 'protege', 'rclone-ui-bin'], ''),
-  ('browsers', 'flatpak', ['firefox', 'firefoxpwa', 'chromium', 'brave-bin', 'vivaldi', 'vivaldi-ffmpeg-codecs', 'helium-browser-bin', 'nyxt', 'qutebrowser'],
-     '? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package'),
+  ('browsers', 'flatpak', ['firefox', 'brave-bin'], 'Firefox and Brave (Darrion, 2026-10-21); both publish official Flathub builds'),
+  ('vim browser', 'base', ['qutebrowser'], 'kept (Darrion, 2026-10-21); a system package because chezmoi manages its config'),
+  ('other browsers', 'drop', ['firefoxpwa', 'chromium', 'vivaldi', 'vivaldi-ffmpeg-codecs', 'helium-browser-bin', 'nyxt'], 'three browsers are enough (Darrion, 2026-10-21)'),
   ('AI apps', 'flatpak', ['claude-desktop', 'antigravity', 'geekbench', 'parsec-bin'], 'AUR today; Flathub has some (Parsec); otherwise an image build step or drop'),
 
   # --- ~/.local via chezmoi: pinned user tools ---
@@ -93,8 +96,8 @@ RULES = [
 
   # --- services ---
   ('services machine', 'services: N150', ['radicale', 'copyparty', 'netdata', 'samba', 'vsftpd'], 'the services profile (Darrion, 2026-10-21)'),
-  ('desktop services', 'services', ['syncthing', 'mpd', 'mopidy', 'mopidy-iris', 'mopidy-mpd', 'mympd', 'ollama', 'vdirsyncer', 'agent-sandbox-system', 'hyprwhspr', 'vocalinux', 'yt-dlp'],
-     '? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share\'s client'),
+  ('desktop services', 'services', ['syncthing', 'mpd', 'mopidy', 'mympd', 'ollama', 'vdirsyncer', 'yt-dlp'],
+     '? mpd and mopidy both. syncthing stays here as the vault share\'s client'),
 ]
 
 def match(name):

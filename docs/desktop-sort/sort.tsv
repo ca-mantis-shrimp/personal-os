@@ -85,7 +85,6 @@ vulkan-mesa-layers	base	Wayland common	repo	yes	2.66 MiB	what KDE and GTK apps o
 vulkan-validation-layers	base	Wayland common	repo	yes	34.03 MiB	what KDE and GTK apps on Wayland need; sddm is the login screen	Vulkan Validation Layers
 wl-clipboard	base	Wayland common	repo	yes	100.63 KiB	what KDE and GTK apps on Wayland need; sddm is the login screen	Command-line copy/paste utilities for Wayland
 xdg-desktop-portal-gtk	base	Wayland common	repo	yes	427.91 KiB	what KDE and GTK apps on Wayland need; sddm is the login screen	A backend implementation for xdg-desktop-portal using GTK
-ydotool	base	Wayland common	repo	no	43.99 KiB	what KDE and GTK apps on Wayland need; sddm is the login screen	Generic command-line automation tool (no X!)
 gst-libav	base	audio	repo	yes	254.75 KiB		Multimedia graph framework - libav plugin
 gst-plugin-pipewire	base	audio	repo	yes	175.39 KiB		Multimedia graph framework - pipewire plugin
 gst-plugins-bad	base	audio	repo	yes	3.75 MiB		Multimedia graph framework - bad plugins
@@ -165,7 +164,6 @@ python-pyparsing	base	other languages	repo	no	1655.16 KiB	in base on the desktop
 python-pyvips	base	other languages	repo	yes	726.03 KiB	in base on the desktop (Darrion, 2026-10-21)	Python binding for libvips using cffi
 python-pyzmq	base	other languages	repo	yes	1806.63 KiB	in base on the desktop (Darrion, 2026-10-21)	Python bindings for ZeroMQ
 python-ruff	base	other languages	repo	yes	497.18 KiB	in base on the desktop (Darrion, 2026-10-21)	An extremely fast Python linter, written in Rust
-python-webrtcvad	base	other languages	repo	no	64.90 KiB	in base on the desktop (Darrion, 2026-10-21)	Python interface to the Google WebRTC Voice Activity Detector
 ruby	base	other languages	repo	yes	16.96 MiB	in base on the desktop (Darrion, 2026-10-21)	An object-oriented language for quick and easy programming
 ruby-docs	base	other languages	repo	yes	846.66 MiB	in base on the desktop (Darrion, 2026-10-21)	Documentation files for Ruby
 ruby-stdlib	base	other languages	repo	yes	3.63 KiB	in base on the desktop (Darrion, 2026-10-21)	Full Ruby StdLib including default gems, bundled gems and tools
@@ -193,23 +191,23 @@ sane-airscan	base	printing and scanning	repo	no	459.54 KiB	? a full printing sta
 skanlite	base	printing and scanning	repo	no	3.00 MiB	? a full printing stack; is there a printer or scanner in use?	Image Scanning Application
 pass	base	secrets	repo	yes	46.59 KiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	Stores, retrieves, generates, and synchronizes passwords securely
 qtpass	base	secrets	repo	no	2.95 MiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	A multi-platform GUI for pass
-btop	base	shell and terminal	repo	no	1737.27 KiB	? zsh and nushell beside fish; kitty and ghostty both	A monitor of system resources, bpytop ported to C++
-chafa	base	shell and terminal	repo	yes	1913.91 KiB	? zsh and nushell beside fish; kitty and ghostty both	Image-to-text converter supporting a wide range of symbols and palettes, transparency, animations, etc.
-fd	base	shell and terminal	repo	yes	3.42 MiB	? zsh and nushell beside fish; kitty and ghostty both	Simple, fast and user-friendly alternative to find
-fish	base	shell and terminal	repo	yes	18.24 MiB	? zsh and nushell beside fish; kitty and ghostty both	Smart and user friendly shell intended mostly for interactive use
-fzf	base	shell and terminal	repo	yes	5.49 MiB	? zsh and nushell beside fish; kitty and ghostty both	Command-line fuzzy finder
-ghostty	base	shell and terminal	repo	no	29.43 MiB	? zsh and nushell beside fish; kitty and ghostty both	Fast, native, feature-rich terminal emulator pushing modern features
-htop	base	shell and terminal	repo	no	421.16 KiB	? zsh and nushell beside fish; kitty and ghostty both	Interactive process viewer
-kitty	base	shell and terminal	repo	yes	76.70 MiB	? zsh and nushell beside fish; kitty and ghostty both	A modern, hackable, featureful, OpenGL-based terminal emulator
-lazygit	base	shell and terminal	repo	yes	20.37 MiB	? zsh and nushell beside fish; kitty and ghostty both	Simple terminal UI for git commands
-nushell	base	shell and terminal	repo	no	210.23 MiB	? zsh and nushell beside fish; kitty and ghostty both	A new type of shell
-ripgrep	base	shell and terminal	repo	yes	4.29 MiB	? zsh and nushell beside fish; kitty and ghostty both	A search tool that combines the usability of ag with the raw speed of grep
-rlwrap	base	shell and terminal	repo	no	274.11 KiB	? zsh and nushell beside fish; kitty and ghostty both	Adds readline-style editing and history to programs
-starship	base	shell and terminal	repo	yes	11.75 MiB	? zsh and nushell beside fish; kitty and ghostty both	The cross-shell prompt for astronauts
-tmux	base	shell and terminal	repo	yes	1474.68 KiB	? zsh and nushell beside fish; kitty and ghostty both	Terminal multiplexer
-yazi	base	shell and terminal	repo	yes	34.14 MiB	? zsh and nushell beside fish; kitty and ghostty both	Blazing fast terminal file manager written in Rust, based on async I/O
-zoxide	base	shell and terminal	repo	yes	1149.92 KiB	? zsh and nushell beside fish; kitty and ghostty both	A smarter cd command for your terminal
-zsh	base	shell and terminal	repo	no	6.94 MiB	? zsh and nushell beside fish; kitty and ghostty both	A very advanced and programmable command interpreter (shell) for UNIX
+btop	base	shell and terminal	repo	no	1737.27 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A monitor of system resources, bpytop ported to C++
+chafa	base	shell and terminal	repo	yes	1913.91 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Image-to-text converter supporting a wide range of symbols and palettes, transparency, animations, etc.
+fd	base	shell and terminal	repo	yes	3.42 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Simple, fast and user-friendly alternative to find
+fish	base	shell and terminal	repo	yes	18.24 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Smart and user friendly shell intended mostly for interactive use
+fzf	base	shell and terminal	repo	yes	5.49 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Command-line fuzzy finder
+ghostty	base	shell and terminal	repo	no	29.43 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Fast, native, feature-rich terminal emulator pushing modern features
+htop	base	shell and terminal	repo	no	421.16 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Interactive process viewer
+kitty	base	shell and terminal	repo	yes	76.70 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A modern, hackable, featureful, OpenGL-based terminal emulator
+lazygit	base	shell and terminal	repo	yes	20.37 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Simple terminal UI for git commands
+nushell	base	shell and terminal	repo	no	210.23 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A new type of shell
+ripgrep	base	shell and terminal	repo	yes	4.29 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A search tool that combines the usability of ag with the raw speed of grep
+rlwrap	base	shell and terminal	repo	no	274.11 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Adds readline-style editing and history to programs
+starship	base	shell and terminal	repo	yes	11.75 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	The cross-shell prompt for astronauts
+tmux	base	shell and terminal	repo	yes	1474.68 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Terminal multiplexer
+yazi	base	shell and terminal	repo	yes	34.14 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Blazing fast terminal file manager written in Rust, based on async I/O
+zoxide	base	shell and terminal	repo	yes	1149.92 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A smarter cd command for your terminal
+zsh	base	shell and terminal	repo	no	6.94 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A very advanced and programmable command interpreter (shell) for UNIX
 calcurse	base	system tools	repo	no	874.53 KiB	? three systemd GUIs/TUIs	A text-based personal organizer
 fwupd	base	system tools	repo	yes	19.13 MiB	? three systemd GUIs/TUIs	Simple daemon to allow session software to update firmware
 geoclue	base	system tools	repo	no	1463.17 KiB	? three systemd GUIs/TUIs	Modular geoinformation service built on the D-Bus messaging system
@@ -225,6 +223,8 @@ systemctl-tui	base	system tools	repo	no	7.88 MiB	? three systemd GUIs/TUIs	A fas
 systemd-ui	base	system tools	repo	no	186.33 KiB	? three systemd GUIs/TUIs	Graphical front-end for systemd
 visidata	base	system tools	repo	no	38.16 MiB	? three systemd GUIs/TUIs	Terminal spreadsheet multitool for discovering and arranging data
 zk	base	system tools	repo	no	12.12 MiB	? three systemd GUIs/TUIs	A command-line tool helping you to maintain a Zettelkasten or personal wiki
+ttf-d2coding-nerd	base	terminal fonts	repo	yes	38.36 MiB	Hack (Darrion, 2026-10-21); kitty.conf names D2CodingLigature, so it stays until kitty switches	Patched font D2Coding from nerd fonts library
+ttf-hack-nerd	base	terminal fonts	repo	yes	32.04 MiB	Hack (Darrion, 2026-10-21); kitty.conf names D2CodingLigature, so it stays until kitty switches	Patched font Hack from nerd fonts library
 base-devel	base	toolchains	repo	yes	0.00 B	C, Rust, Node and Python in base (Darrion, 2026-10-21); npm too, since chezmoi installs the editor language servers with it	Basic tools to build Arch Linux packages
 ccache	base	toolchains	repo	no	2.16 MiB	C, Rust, Node and Python in base (Darrion, 2026-10-21); npm too, since chezmoi installs the editor language servers with it	Compiler cache that speeds up recompilation by caching previous compilations
 cmake	base	toolchains	repo	yes	101.44 MiB	C, Rust, Node and Python in base (Darrion, 2026-10-21); npm too, since chezmoi installs the editor language servers with it	A cross-platform open-source make system
@@ -241,32 +241,24 @@ github-cli	base	version control	repo	yes	40.08 MiB	? mercurial and glab: still u
 glab	base	version control	repo	yes	47.40 MiB	? mercurial and glab: still used?	Cli tool to help work seamlessly with GitLab from the command line
 jujutsu	base	version control	repo	no	27.75 MiB	? mercurial and glab: still used?	Git-compatible VCS that is both simple and powerful
 mercurial	base	version control	repo	yes	36.49 MiB	? mercurial and glab: still used?	A scalable distributed SCM tool
+qutebrowser	base	vim browser	repo	yes	11.40 MiB	kept (Darrion, 2026-10-21); a system package because chezmoi manages its config	A keyboard-driven, vim-like browser based on Python and Qt
 cpupower	hardware: intel	Intel CPU and iGPU	repo	no	630.79 KiB		Linux kernel tool to examine and tune power saving related features of your processor
 intel-media-driver	hardware: intel	Intel CPU and iGPU	repo	no	41.45 MiB		Intel Media Driver for VAAPI — Broadwell+ iGPUs
 intel-ucode	hardware: intel	Intel CPU and iGPU	repo	yes	31.45 MiB		Microcode update files for Intel CPUs
 libva-intel-driver	hardware: intel	Intel CPU and iGPU	repo	yes	7.84 MiB		VA-API implementation for Intel G45 and HD Graphics family
 turbostat	hardware: intel	Intel CPU and iGPU	repo	no	712.14 KiB		Report processor frequency and idle statistics
 vulkan-intel	hardware: intel	Intel CPU and iGPU	repo	yes	44.00 MiB		Open-source Vulkan driver for Intel GPUs
-cuda	hardware: nvidia	NVIDIA GPU	repo	no	5.20 GiB	cuda and whisper-cuda are large; only for local speech and LLMs	NVIDIA's GPU programming toolkit
-nvidia-open	hardware: nvidia	NVIDIA GPU	repo	yes	9.73 MiB	cuda and whisper-cuda are large; only for local speech and LLMs	NVIDIA open kernel modules
-brscan5	hardware: desktop	AUR: hardware	aur	no	4.17 MiB	? AUR-only: DisplayLink, Brother scanner, Wacom GUI; still used? If so, vendor builds	SANE drivers from Brother for compatible models
-evdi-dkms	hardware: desktop	AUR: hardware	aur	yes	661.02 KiB	? AUR-only: DisplayLink, Brother scanner, Wacom GUI; still used? If so, vendor builds	Kernel module to enable management of multiple screens
-libsane-dsseries	hardware: desktop	AUR: hardware	aur	no	473.62 KiB	? AUR-only: DisplayLink, Brother scanner, Wacom GUI; still used? If so, vendor builds	Brother SANE drivers for DSmobile 620
-wacomtablet	hardware: desktop	AUR: hardware	aur	yes	2.65 MiB	? AUR-only: DisplayLink, Brother scanner, Wacom GUI; still used? If so, vendor builds	GUI for Wacom Linux drivers that supports different button/pen layout profiles
+cuda	hardware: nvidia	NVIDIA GPU	repo	no	5.20 GiB	? cuda is large and was for local speech and LLMs; ollama here is the CPU build, so is it still needed?	NVIDIA's GPU programming toolkit
+nvidia-open	hardware: nvidia	NVIDIA GPU	repo	yes	9.73 MiB	? cuda is large and was for local speech and LLMs; ollama here is the CPU build, so is it still needed?	NVIDIA open kernel modules
+brscan5	hardware: desktop	AUR: scanner	aur	no	4.17 MiB	? AUR-only Brother scanner drivers; goes with the printing call	SANE drivers from Brother for compatible models
+libsane-dsseries	hardware: desktop	AUR: scanner	aur	no	473.62 KiB	? AUR-only Brother scanner drivers; goes with the printing call	Brother SANE drivers for DSmobile 620
 v4l2loopback-dkms	hardware: desktop	displays and devices	repo	yes	113.45 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	v4l2-loopback device – module sources
 antigravity	flatpak	AI apps	aur	no	494.30 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Google Antigravity 2.0 multi-agent orchestration platform
 claude-desktop	flatpak	AI apps	aur	no	588.01 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Official Claude AI desktop app from Anthropic — Chat, Cowork, and Claude Code
 geekbench	flatpak	AI apps	aur	no	745.91 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	A cross-platform benchmark that measures processor and memory performance
 parsec-bin	flatpak	AI apps	aur	no	3.42 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Remotely connect to a gaming pc for a low latency remote computing experience
-brave-bin	flatpak	browsers	aur	yes	471.58 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	Web browser that blocks ads and trackers by default (binary release)
-chromium	flatpak	browsers	repo	yes	427.64 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	A web browser built for speed, simplicity, and security
-firefox	flatpak	browsers	repo	yes	301.96 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	Fast, Private & Safe Web Browser
-firefoxpwa	flatpak	browsers	repo	no	25.76 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox (native component)
-helium-browser-bin	flatpak	browsers	aur	no	385.37 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	Private, fast, and honest web browser based on Chromium (Latest/Stable)
-nyxt	flatpak	browsers	repo	yes	140.56 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	A keyboard-driven web browser designed for power users
-qutebrowser	flatpak	browsers	repo	yes	11.40 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	A keyboard-driven, vim-like browser based on Python and Qt
-vivaldi	flatpak	browsers	repo	no	453.77 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	An advanced browser made with the power user in mind.
-vivaldi-ffmpeg-codecs	flatpak	browsers	repo	no	3.40 MiB	? nine browsers; qutebrowser has managed config (chezmoi) and may stay a system package	additional support for proprietary codecs for vivaldi
+brave-bin	flatpak	browsers	aur	yes	471.58 MiB	Firefox and Brave (Darrion, 2026-10-21); both publish official Flathub builds	Web browser that blocks ads and trackers by default (binary release)
+firefox	flatpak	browsers	repo	yes	301.96 MiB	Firefox and Brave (Darrion, 2026-10-21); both publish official Flathub builds	Fast, Private & Safe Web Browser
 discord	flatpak	chat	repo	yes	6.56 MiB		All-in-one voice and text chat for gamers
 signal-desktop	flatpak	chat	repo	yes	365.06 MiB		Signal Private Messenger for Linux
 telegram-desktop	flatpak	chat	repo	yes	152.81 MiB		Official Telegram Desktop client
@@ -295,13 +287,13 @@ nodejs-mcp-hub	chezmoi	agent and LSP CLIs	aur	no	2.00 MiB	markdownlint-cli2 and 
 opencode	chezmoi	agent and LSP CLIs	repo	no	210.76 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	The open source coding agent
 vscode-json-languageserver	chezmoi	agent and LSP CLIs	repo	no	2.50 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	JSON language server
 wrangler	chezmoi	agent and LSP CLIs	repo	no	65.06 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	The CLI for Cloudflare Workers
-mopidy	services	desktop services	repo	yes	8.67 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	An extensible music server written in Python
-mpd	services	desktop services	repo	yes	6.19 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	Flexible, powerful, server-side application for playing music
-mympd	services	desktop services	repo	yes	1595.06 KiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	A standalone and lightweight web-based MPD client
-ollama	services	desktop services	repo	no	61.25 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	Create, run and share large language models (LLMs)
-syncthing	services	desktop services	repo	no	24.37 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	Open Source Continuous Replication / Cluster Synchronization Thing
-vdirsyncer	services	desktop services	repo	yes	791.29 KiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	Synchronize CalDAV and CardDAV
-yt-dlp	services	desktop services	repo	yes	31.68 MiB	? mpd and mopidy both; two speech-to-text tools. syncthing stays here as the vault share's client	A youtube-dl fork with additional features and fixes
+mopidy	services	desktop services	repo	yes	8.67 MiB	? mpd and mopidy both. syncthing stays here as the vault share's client	An extensible music server written in Python
+mpd	services	desktop services	repo	yes	6.19 MiB	? mpd and mopidy both. syncthing stays here as the vault share's client	Flexible, powerful, server-side application for playing music
+mympd	services	desktop services	repo	yes	1595.06 KiB	? mpd and mopidy both. syncthing stays here as the vault share's client	A standalone and lightweight web-based MPD client
+ollama	services	desktop services	repo	no	61.25 MiB	? mpd and mopidy both. syncthing stays here as the vault share's client	Create, run and share large language models (LLMs)
+syncthing	services	desktop services	repo	no	24.37 MiB	? mpd and mopidy both. syncthing stays here as the vault share's client	Open Source Continuous Replication / Cluster Synchronization Thing
+vdirsyncer	services	desktop services	repo	yes	791.29 KiB	? mpd and mopidy both. syncthing stays here as the vault share's client	Synchronize CalDAV and CardDAV
+yt-dlp	services	desktop services	repo	yes	31.68 MiB	? mpd and mopidy both. syncthing stays here as the vault share's client	A youtube-dl fork with additional features and fixes
 copyparty	services: N150	services machine	repo	yes	7.63 MiB	the services profile (Darrion, 2026-10-21)	File server with accelerated resumable uploads, dedup, WebDAV, SFTP, FTP, FTPS, zeroconf, media indexer, thumbnails++
 netdata	services: N150	services machine	repo	yes	360.59 MiB	the services profile (Darrion, 2026-10-21)	Real-time performance monitoring, in the greatest possible detail, over the web
 radicale	services: N150	services machine	repo	yes	3.31 MiB	the services profile (Darrion, 2026-10-21)	Simple calendar (CalDAV) and contact (CardDAV) server
@@ -317,10 +309,11 @@ nerdfetch	drop	AUR: covered	aur	yes	13.68 KiB	"covered: op is a chezmoi external
 nvimpager	drop	AUR: covered	aur	yes	37.68 KiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	Use nvim as a pager to view manpages, diffs, etc with nvim's syntax highlighting
 sysd-manager	drop	AUR: covered	aur	yes	17.94 MiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	A systemd GUI to manage service, timer, socket and other units.
 tree-sitter-html	drop	AUR: covered	aur	no	71.71 KiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	HTML grammar for tree-sitter
-luajit-tiktoken-bin	drop	AUR: open	aur	no	2.43 MiB	? AUR-only: tiktoken for nvim AI token counts, a second speech-to-text, mopidy plugins (PyPI if mopidy stays)	binding of rust tiktoken to lua
-mopidy-iris	drop	AUR: open	aur	yes	21.71 MiB	? AUR-only: tiktoken for nvim AI token counts, a second speech-to-text, mopidy plugins (PyPI if mopidy stays)	A web-based frontend for Mopidy
-mopidy-mpd	drop	AUR: open	aur	yes	670.43 KiB	? AUR-only: tiktoken for nvim AI token counts, a second speech-to-text, mopidy plugins (PyPI if mopidy stays)	Mopidy extension for controlling playback from MPD clients
-vocalinux	drop	AUR: open	aur	no	9.14 MiB	? AUR-only: tiktoken for nvim AI token counts, a second speech-to-text, mopidy plugins (PyPI if mopidy stays)	Free, offline voice dictation for Linux
+luajit-tiktoken-bin	drop	AUR: open	aur	no	2.43 MiB	? AUR-only: tiktoken for nvim AI token counts, mopidy plugins (PyPI if mopidy stays)	binding of rust tiktoken to lua
+mopidy-iris	drop	AUR: open	aur	yes	21.71 MiB	? AUR-only: tiktoken for nvim AI token counts, mopidy plugins (PyPI if mopidy stays)	A web-based frontend for Mopidy
+mopidy-mpd	drop	AUR: open	aur	yes	670.43 KiB	? AUR-only: tiktoken for nvim AI token counts, mopidy plugins (PyPI if mopidy stays)	Mopidy extension for controlling playback from MPD clients
+evdi-dkms	drop	DisplayLink and Wacom	aur	yes	661.02 KiB	DisplayLink never worked; the Wacom GUI is not needed (Darrion, 2026-10-21)	Kernel module to enable management of multiple screens
+wacomtablet	drop	DisplayLink and Wacom	aur	yes	2.65 MiB	DisplayLink never worked; the Wacom GUI is not needed (Darrion, 2026-10-21)	GUI for Wacom Linux drivers that supports different button/pen layout profiles
 ashell	drop	Hyprland desktop	aur	yes	30.29 MiB	KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors	A ready to go Wayland status bar for Hyprland and Niri
 dex	drop	Hyprland desktop	repo	yes	41.05 KiB	KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors	Program to generate and execute DesktopEntry files of type Application
 elephant	drop	Hyprland desktop	aur	yes	22.40 MiB	KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors	general purpose datasource and executor
@@ -346,12 +339,12 @@ wayvnc	drop	Hyprland desktop	repo	yes	209.51 KiB	KDE is the desktop (Darrion, 20
 wofi	drop	Hyprland desktop	repo	yes	131.60 KiB	KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors	launcher for wlroots-based wayland compositors
 wtype	drop	Hyprland desktop	repo	no	23.95 KiB	KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors	xdotool type for wayland
 xdg-desktop-portal-hyprland	drop	Hyprland desktop	repo	yes	816.89 KiB	KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors	xdg-desktop-portal backend for hyprland
-nautilus-python	drop	Thunar	repo	yes	217.40 KiB	? KDE has Dolphin (not installed yet); keep Thunar instead? nautilus-python without nautilus does nothing	Python bindings for the Nautilus Extension API
-thunar	drop	Thunar	repo	yes	9.58 MiB	? KDE has Dolphin (not installed yet); keep Thunar instead? nautilus-python without nautilus does nothing	Modern, fast and easy-to-use file manager for Xfce
-thunar-archive-plugin	drop	Thunar	repo	yes	175.55 KiB	? KDE has Dolphin (not installed yet); keep Thunar instead? nautilus-python without nautilus does nothing	Adds archive operations to the Thunar file context menus
-thunar-media-tags-plugin	drop	Thunar	repo	yes	309.59 KiB	? KDE has Dolphin (not installed yet); keep Thunar instead? nautilus-python without nautilus does nothing	Adds special features for media files to the Thunar File Manager
-thunar-volman	drop	Thunar	repo	yes	671.61 KiB	? KDE has Dolphin (not installed yet); keep Thunar instead? nautilus-python without nautilus does nothing	Automatic management of removable drives and media for Thunar
-tumbler	drop	Thunar	repo	yes	880.20 KiB	? KDE has Dolphin (not installed yet); keep Thunar instead? nautilus-python without nautilus does nothing	Thumbnail service implementing the thumbnail management D-Bus specification
+nautilus-python	drop	Thunar	repo	yes	217.40 KiB	no graphical file manager (Darrion, 2026-10-21); yazi covers files	Python bindings for the Nautilus Extension API
+thunar	drop	Thunar	repo	yes	9.58 MiB	no graphical file manager (Darrion, 2026-10-21); yazi covers files	Modern, fast and easy-to-use file manager for Xfce
+thunar-archive-plugin	drop	Thunar	repo	yes	175.55 KiB	no graphical file manager (Darrion, 2026-10-21); yazi covers files	Adds archive operations to the Thunar file context menus
+thunar-media-tags-plugin	drop	Thunar	repo	yes	309.59 KiB	no graphical file manager (Darrion, 2026-10-21); yazi covers files	Adds special features for media files to the Thunar File Manager
+thunar-volman	drop	Thunar	repo	yes	671.61 KiB	no graphical file manager (Darrion, 2026-10-21); yazi covers files	Automatic management of removable drives and media for Thunar
+tumbler	drop	Thunar	repo	yes	880.20 KiB	no graphical file manager (Darrion, 2026-10-21); yazi covers files	Thumbnail service implementing the thumbnail management D-Bus specification
 lib32-vkd3d	drop	Windows compatibility	repo	no	2.01 MiB	Steam ships Proton and Bottles (already a Flatpak) ships its own wine	Direct3D 12 to Vulkan translation library By WineHQ
 umu-launcher	drop	Windows compatibility	repo	no	1237.75 KiB	Steam ships Proton and Bottles (already a Flatpak) ships its own wine	The Unified Launcher for Windows Games on Linux, to run Proton with fixes outside of Steam
 wine	drop	Windows compatibility	repo	no	591.15 MiB	Steam ships Proton and Bottles (already a Flatpak) ships its own wine	A compatibility layer for running Windows programs
@@ -371,71 +364,75 @@ fuse-overlayfs	drop	containers	repo	yes	113.07 KiB	nothing uses containers (char
 podman	drop	containers	repo	no	82.66 MiB	nothing uses containers (charter, 2026-10-20)	A tool for managing OCI containers and pods.
 dkms	drop	kernel module building	repo	yes	167.22 KiB	out-of-tree modules are built into the image, not on the machine	Dynamic Kernel Modules System
 linux-headers	drop	kernel module building	repo	yes	321.41 MiB	out-of-tree modules are built into the image, not on the machine	Headers and scripts for building modules for the Linux kernel
-otf-aurulent-nerd	drop	nerd font collection	repo	yes	6.50 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Aurulent Sans Mono from nerd fonts library
-otf-codenewroman-nerd	drop	nerd font collection	repo	yes	61.89 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Code New Roman from nerd fonts library
-otf-comicshanns-nerd	drop	nerd font collection	repo	yes	13.79 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Comic Sans (Comic Shanns) from nerd fonts library
-otf-commit-mono-nerd	drop	nerd font collection	repo	yes	27.21 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Commit Mono from nerd fonts library
-otf-droid-nerd	drop	nerd font collection	repo	yes	7.13 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Droid Sans Mono from nerd fonts library
-otf-firamono-nerd	drop	nerd font collection	repo	yes	20.38 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Fira (Fura) Mono from nerd fonts library
-otf-geist-mono-nerd	drop	nerd font collection	repo	yes	121.57 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Geist Mono from nerd fonts library
-otf-hasklig-nerd	drop	nerd font collection	repo	yes	95.35 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Hasklig (Hasklug) from nerd fonts library
-otf-hermit-nerd	drop	nerd font collection	repo	yes	39.32 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Hermit from nerd fonts library
-otf-monaspace-nerd	drop	nerd font collection	repo	yes	392.81 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Monaspace (Monaspice) from nerd fonts library
-otf-opendyslexic-nerd	drop	nerd font collection	repo	yes	41.36 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font OpenDyslexic from nerd fonts library
-otf-overpass-nerd	drop	nerd font collection	repo	yes	96.47 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Overpass from nerd fonts library
-ttf-0xproto-nerd	drop	nerd font collection	repo	yes	21.70 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font 0xProto from nerd fonts library
-ttf-3270-nerd	drop	nerd font collection	repo	yes	23.66 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font IBM 3270 from nerd fonts library
-ttf-agave-nerd	drop	nerd font collection	repo	yes	15.27 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Agave from nerd fonts library
-ttf-anonymouspro-nerd	drop	nerd font collection	repo	yes	29.98 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Anonymous Pro (Anonymice) from nerd fonts library
-ttf-arimo-nerd	drop	nerd font collection	repo	yes	22.87 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Arimo from nerd fonts library
-ttf-bigblueterminal-nerd	drop	nerd font collection	repo	yes	13.68 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Big Blue Terminal from nerd fonts library
-ttf-bitstream-vera-mono-nerd	drop	nerd font collection	repo	yes	29.01 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Bitstream Vera Mono from nerd fonts library
-ttf-cascadia-code-nerd	drop	nerd font collection	repo	yes	98.97 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Cascadia Code (Caskaydia) from nerd fonts library
-ttf-cascadia-mono-nerd	drop	nerd font collection	repo	yes	98.09 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Cascadia Mono (Caskaydia) from nerd fonts library
-ttf-cousine-nerd	drop	nerd font collection	repo	yes	31.92 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Cousine from nerd fonts library
-ttf-d2coding-nerd	drop	nerd font collection	repo	yes	38.36 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font D2Coding from nerd fonts library
-ttf-daddytime-mono-nerd	drop	nerd font collection	repo	yes	7.39 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Daddy Time Mono from nerd fonts library
-ttf-dejavu-nerd	drop	nerd font collection	repo	yes	31.75 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Dejavu Sans Mono from nerd fonts library
-ttf-envycoder-nerd	drop	nerd font collection	repo	yes	21.97 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Envy Code R from nerd fonts library
-ttf-fantasque-nerd	drop	nerd font collection	repo	yes	30.30 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Fantasque Sans Mono from nerd fonts library
-ttf-firacode-nerd	drop	nerd font collection	repo	yes	47.46 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Fira (Fura) Code from nerd fonts library
-ttf-go-nerd	drop	nerd font collection	repo	yes	30.45 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Go Mono from nerd fonts library
-ttf-gohu-nerd	drop	nerd font collection	repo	yes	29.50 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Gohufont from nerd fonts library
-ttf-hack-nerd	drop	nerd font collection	repo	yes	32.04 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Hack from nerd fonts library
-ttf-heavydata-nerd	drop	nerd font collection	repo	yes	4.73 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Heavy Data from nerd fonts library
-ttf-iawriter-nerd	drop	nerd font collection	repo	yes	63.95 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font iA Writer (iM Writing) from nerd fonts library
-ttf-ibmplex-mono-nerd	drop	nerd font collection	repo	yes	112.55 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font IBM Plex Mono (Blex) from nerd fonts library
-ttf-inconsolata-go-nerd	drop	nerd font collection	repo	yes	14.16 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Inconsolata Go from nerd fonts library
-ttf-inconsolata-lgc-nerd	drop	nerd font collection	repo	yes	29.56 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Inconsolata LGC from nerd fonts library
-ttf-inconsolata-nerd	drop	nerd font collection	repo	yes	13.79 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Inconsolata from nerd fonts library
-ttf-intone-nerd	drop	nerd font collection	repo	yes	56.03 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Intone (Intel One) from nerd fonts library
-ttf-iosevka-nerd	drop	nerd font collection	repo	yes	1141.51 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Iosevka from nerd fonts library
-ttf-iosevkaterm-nerd	drop	nerd font collection	repo	yes	1141.05 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Iosevka Term from nerd fonts library
-ttf-iosevkatermslab-nerd	drop	nerd font collection	repo	yes	640.67 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Iosevka Term Slab from nerd fonts library
-ttf-jetbrains-mono-nerd	drop	nerd font collection	repo	yes	231.92 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font JetBrains Mono from nerd fonts library
-ttf-lekton-nerd	drop	nerd font collection	repo	yes	20.51 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Lekton from nerd fonts library
-ttf-liberation-mono-nerd	drop	nerd font collection	repo	yes	75.40 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Liberation Mono from nerd fonts library
-ttf-lilex-nerd	drop	nerd font collection	repo	yes	72.02 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Lilex from nerd fonts library
-ttf-martian-mono-nerd	drop	nerd font collection	repo	yes	41.85 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Martian Mono from nerd fonts library
-ttf-meslo-nerd	drop	nerd font collection	repo	yes	202.32 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Meslo LG from nerd fonts library
-ttf-monofur-nerd	drop	nerd font collection	repo	yes	22.93 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Monofur from nerd fonts library
-ttf-monoid-nerd	drop	nerd font collection	repo	yes	28.43 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Monoid from nerd fonts library
-ttf-mononoki-nerd	drop	nerd font collection	repo	yes	28.15 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Mononoki from nerd fonts library
-ttf-mplus-nerd	drop	nerd font collection	repo	yes	319.14 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font MPlus from nerd fonts library
-ttf-noto-nerd	drop	nerd font collection	repo	yes	1085.44 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Noto from nerd fonts library
-ttf-profont-nerd	drop	nerd font collection	repo	yes	13.62 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font ProFont from nerd fonts library
-ttf-proggyclean-nerd	drop	nerd font collection	repo	yes	21.75 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font ProggyClean from nerd fonts library
-ttf-recursive-nerd	drop	nerd font collection	repo	yes	124.50 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Recursive Mono (Rec Mono) from nerd fonts library
-ttf-roboto-mono-nerd	drop	nerd font collection	repo	yes	88.57 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Roboto Mono from nerd fonts library
-ttf-sharetech-mono-nerd	drop	nerd font collection	repo	yes	6.70 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Share Tech Mono (Shure Tech Mono) from nerd fonts library
-ttf-sourcecodepro-nerd	drop	nerd font collection	repo	yes	98.74 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Source Code Pro from nerd fonts library
-ttf-space-mono-nerd	drop	nerd font collection	repo	yes	27.59 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Space Mono from nerd fonts library
-ttf-terminus-nerd	drop	nerd font collection	repo	yes	31.74 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Terminus (Terminess) from nerd fonts library
-ttf-tinos-nerd	drop	nerd font collection	repo	yes	22.06 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Tinos from nerd fonts library
-ttf-ubuntu-mono-nerd	drop	nerd font collection	repo	yes	28.37 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Ubuntu Mono from nerd fonts library
-ttf-ubuntu-nerd	drop	nerd font collection	repo	yes	43.72 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Ubuntu from nerd fonts library
-ttf-victor-mono-nerd	drop	nerd font collection	repo	yes	153.71 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Victor Mono from nerd fonts library
-ttf-zed-mono-nerd	drop	nerd font collection	repo	yes	707.44 MiB	? about 60 patched fonts; keep the one or two the terminals use	Patched font Zed Mono from nerd fonts library
+otf-aurulent-nerd	drop	nerd font collection	repo	yes	6.50 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Aurulent Sans Mono from nerd fonts library
+otf-codenewroman-nerd	drop	nerd font collection	repo	yes	61.89 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Code New Roman from nerd fonts library
+otf-comicshanns-nerd	drop	nerd font collection	repo	yes	13.79 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Comic Sans (Comic Shanns) from nerd fonts library
+otf-commit-mono-nerd	drop	nerd font collection	repo	yes	27.21 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Commit Mono from nerd fonts library
+otf-droid-nerd	drop	nerd font collection	repo	yes	7.13 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Droid Sans Mono from nerd fonts library
+otf-firamono-nerd	drop	nerd font collection	repo	yes	20.38 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Fira (Fura) Mono from nerd fonts library
+otf-geist-mono-nerd	drop	nerd font collection	repo	yes	121.57 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Geist Mono from nerd fonts library
+otf-hasklig-nerd	drop	nerd font collection	repo	yes	95.35 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Hasklig (Hasklug) from nerd fonts library
+otf-hermit-nerd	drop	nerd font collection	repo	yes	39.32 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Hermit from nerd fonts library
+otf-monaspace-nerd	drop	nerd font collection	repo	yes	392.81 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Monaspace (Monaspice) from nerd fonts library
+otf-opendyslexic-nerd	drop	nerd font collection	repo	yes	41.36 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font OpenDyslexic from nerd fonts library
+otf-overpass-nerd	drop	nerd font collection	repo	yes	96.47 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Overpass from nerd fonts library
+ttf-0xproto-nerd	drop	nerd font collection	repo	yes	21.70 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font 0xProto from nerd fonts library
+ttf-3270-nerd	drop	nerd font collection	repo	yes	23.66 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font IBM 3270 from nerd fonts library
+ttf-agave-nerd	drop	nerd font collection	repo	yes	15.27 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Agave from nerd fonts library
+ttf-anonymouspro-nerd	drop	nerd font collection	repo	yes	29.98 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Anonymous Pro (Anonymice) from nerd fonts library
+ttf-arimo-nerd	drop	nerd font collection	repo	yes	22.87 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Arimo from nerd fonts library
+ttf-bigblueterminal-nerd	drop	nerd font collection	repo	yes	13.68 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Big Blue Terminal from nerd fonts library
+ttf-bitstream-vera-mono-nerd	drop	nerd font collection	repo	yes	29.01 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Bitstream Vera Mono from nerd fonts library
+ttf-cascadia-code-nerd	drop	nerd font collection	repo	yes	98.97 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Cascadia Code (Caskaydia) from nerd fonts library
+ttf-cascadia-mono-nerd	drop	nerd font collection	repo	yes	98.09 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Cascadia Mono (Caskaydia) from nerd fonts library
+ttf-cousine-nerd	drop	nerd font collection	repo	yes	31.92 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Cousine from nerd fonts library
+ttf-daddytime-mono-nerd	drop	nerd font collection	repo	yes	7.39 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Daddy Time Mono from nerd fonts library
+ttf-dejavu-nerd	drop	nerd font collection	repo	yes	31.75 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Dejavu Sans Mono from nerd fonts library
+ttf-envycoder-nerd	drop	nerd font collection	repo	yes	21.97 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Envy Code R from nerd fonts library
+ttf-fantasque-nerd	drop	nerd font collection	repo	yes	30.30 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Fantasque Sans Mono from nerd fonts library
+ttf-firacode-nerd	drop	nerd font collection	repo	yes	47.46 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Fira (Fura) Code from nerd fonts library
+ttf-go-nerd	drop	nerd font collection	repo	yes	30.45 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Go Mono from nerd fonts library
+ttf-gohu-nerd	drop	nerd font collection	repo	yes	29.50 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Gohufont from nerd fonts library
+ttf-heavydata-nerd	drop	nerd font collection	repo	yes	4.73 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Heavy Data from nerd fonts library
+ttf-iawriter-nerd	drop	nerd font collection	repo	yes	63.95 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font iA Writer (iM Writing) from nerd fonts library
+ttf-ibmplex-mono-nerd	drop	nerd font collection	repo	yes	112.55 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font IBM Plex Mono (Blex) from nerd fonts library
+ttf-inconsolata-go-nerd	drop	nerd font collection	repo	yes	14.16 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Inconsolata Go from nerd fonts library
+ttf-inconsolata-lgc-nerd	drop	nerd font collection	repo	yes	29.56 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Inconsolata LGC from nerd fonts library
+ttf-inconsolata-nerd	drop	nerd font collection	repo	yes	13.79 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Inconsolata from nerd fonts library
+ttf-intone-nerd	drop	nerd font collection	repo	yes	56.03 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Intone (Intel One) from nerd fonts library
+ttf-iosevka-nerd	drop	nerd font collection	repo	yes	1141.51 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Iosevka from nerd fonts library
+ttf-iosevkaterm-nerd	drop	nerd font collection	repo	yes	1141.05 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Iosevka Term from nerd fonts library
+ttf-iosevkatermslab-nerd	drop	nerd font collection	repo	yes	640.67 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Iosevka Term Slab from nerd fonts library
+ttf-jetbrains-mono-nerd	drop	nerd font collection	repo	yes	231.92 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font JetBrains Mono from nerd fonts library
+ttf-lekton-nerd	drop	nerd font collection	repo	yes	20.51 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Lekton from nerd fonts library
+ttf-liberation-mono-nerd	drop	nerd font collection	repo	yes	75.40 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Liberation Mono from nerd fonts library
+ttf-lilex-nerd	drop	nerd font collection	repo	yes	72.02 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Lilex from nerd fonts library
+ttf-martian-mono-nerd	drop	nerd font collection	repo	yes	41.85 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Martian Mono from nerd fonts library
+ttf-meslo-nerd	drop	nerd font collection	repo	yes	202.32 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Meslo LG from nerd fonts library
+ttf-monofur-nerd	drop	nerd font collection	repo	yes	22.93 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Monofur from nerd fonts library
+ttf-monoid-nerd	drop	nerd font collection	repo	yes	28.43 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Monoid from nerd fonts library
+ttf-mononoki-nerd	drop	nerd font collection	repo	yes	28.15 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Mononoki from nerd fonts library
+ttf-mplus-nerd	drop	nerd font collection	repo	yes	319.14 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font MPlus from nerd fonts library
+ttf-noto-nerd	drop	nerd font collection	repo	yes	1085.44 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Noto from nerd fonts library
+ttf-profont-nerd	drop	nerd font collection	repo	yes	13.62 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font ProFont from nerd fonts library
+ttf-proggyclean-nerd	drop	nerd font collection	repo	yes	21.75 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font ProggyClean from nerd fonts library
+ttf-recursive-nerd	drop	nerd font collection	repo	yes	124.50 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Recursive Mono (Rec Mono) from nerd fonts library
+ttf-roboto-mono-nerd	drop	nerd font collection	repo	yes	88.57 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Roboto Mono from nerd fonts library
+ttf-sharetech-mono-nerd	drop	nerd font collection	repo	yes	6.70 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Share Tech Mono (Shure Tech Mono) from nerd fonts library
+ttf-sourcecodepro-nerd	drop	nerd font collection	repo	yes	98.74 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Source Code Pro from nerd fonts library
+ttf-space-mono-nerd	drop	nerd font collection	repo	yes	27.59 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Space Mono from nerd fonts library
+ttf-terminus-nerd	drop	nerd font collection	repo	yes	31.74 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Terminus (Terminess) from nerd fonts library
+ttf-tinos-nerd	drop	nerd font collection	repo	yes	22.06 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Tinos from nerd fonts library
+ttf-ubuntu-mono-nerd	drop	nerd font collection	repo	yes	28.37 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Ubuntu Mono from nerd fonts library
+ttf-ubuntu-nerd	drop	nerd font collection	repo	yes	43.72 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Ubuntu from nerd fonts library
+ttf-victor-mono-nerd	drop	nerd font collection	repo	yes	153.71 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Victor Mono from nerd fonts library
+ttf-zed-mono-nerd	drop	nerd font collection	repo	yes	707.44 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Zed Mono from nerd fonts library
+chromium	drop	other browsers	repo	yes	427.64 MiB	three browsers are enough (Darrion, 2026-10-21)	A web browser built for speed, simplicity, and security
+firefoxpwa	drop	other browsers	repo	no	25.76 MiB	three browsers are enough (Darrion, 2026-10-21)	A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox (native component)
+helium-browser-bin	drop	other browsers	aur	no	385.37 MiB	three browsers are enough (Darrion, 2026-10-21)	Private, fast, and honest web browser based on Chromium (Latest/Stable)
+nyxt	drop	other browsers	repo	yes	140.56 MiB	three browsers are enough (Darrion, 2026-10-21)	A keyboard-driven web browser designed for power users
+vivaldi	drop	other browsers	repo	no	453.77 MiB	three browsers are enough (Darrion, 2026-10-21)	An advanced browser made with the power user in mind.
+vivaldi-ffmpeg-codecs	drop	other browsers	repo	no	3.40 MiB	three browsers are enough (Darrion, 2026-10-21)	additional support for proprietary codecs for vivaldi
 gnome-shell	drop	other desktops	repo	no	15.28 MiB	KDE only (Darrion, 2026-10-21)	Next generation desktop shell
 nwg-shell	drop	other desktops	repo	yes	2.28 MiB	KDE only (Darrion, 2026-10-21)	Installer & meta-package for the nwg-shell project
 sway-contrib	drop	other desktops	repo	yes	61.77 KiB	KDE only (Darrion, 2026-10-21)	A collection of user-contributed scripts for sway
@@ -448,6 +445,9 @@ pkgstats	drop	package tooling	repo	yes	8.15 MiB	pacman-era or foreign-distro too
 blueman	drop	replaced by KDE	repo	yes	6.84 MiB	KDE has bluedevil, plasma-pa and its own GTK settings	GTK+ Bluetooth Manager
 nwg-look	drop	replaced by KDE	repo	yes	5.30 MiB	KDE has bluedevil, plasma-pa and its own GTK settings	GTK settings editor adapted to work on wlroots-based compositors
 pavucontrol	drop	replaced by KDE	repo	yes	1069.77 KiB	KDE has bluedevil, plasma-pa and its own GTK settings	PulseAudio Volume Control
+python-webrtcvad	drop	speech to text	repo	no	64.90 KiB	none for now (Darrion, 2026-10-21); ydotool only typed the dictation	Python interface to the Google WebRTC Voice Activity Detector
+vocalinux	drop	speech to text	aur	no	9.14 MiB	none for now (Darrion, 2026-10-21); ydotool only typed the dictation	Free, offline voice dictation for Linux
+ydotool	drop	speech to text	repo	no	43.99 KiB	none for now (Darrion, 2026-10-21); ydotool only typed the dictation	Generic command-line automation tool (no X!)
 catfish	drop	superseded	repo	yes	1661.71 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Versatile file searching tool
 cvs	drop	superseded	repo	yes	1098.44 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Source control
 iwqt	drop	superseded	aur	yes	409.63 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	An iwd network applet for linux systems

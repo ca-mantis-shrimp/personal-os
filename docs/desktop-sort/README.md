@@ -14,12 +14,15 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 
 | Layer | Packages | From AUR |
 |---|---|---|
-| base (KDE 69, languages and toolchains 56, image building 15) | 252 | 12 |
-| hardware (intel 6, nvidia 3, desktop devices 5) | 14 | 5 |
-| flatpak (Steam and Lutris included) | 30 | 9 |
-| chezmoi | 7 | 2 |
-| services (here 12, services machine 5) | 17 | 5 |
-| drop | 142 | 17 |
+| base | 243 | 2 |
+| hardware: intel | 6 | 0 |
+| hardware: nvidia | 2 | 0 |
+| hardware: desktop | 3 | 2 |
+| flatpak | 23 | 8 |
+| chezmoi | 11 | 6 |
+| services | 7 | 0 |
+| services: N150 | 5 | 0 |
+| drop | 162 | 32 |
 
 ## Decided (Darrion, 2026-10-21)
 
@@ -32,27 +35,28 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
   keys stay off it, since the dev pod holds no durable secrets.
 - **Steam from Flatpak first**, with Lutris; a sysext only if performance or compatibility needs it. wine,
   winetricks and umu-launcher go, since Proton and Bottles ship their own.
+- **Pruning, second round:** DisplayLink (never worked) and the Wacom GUI go; no graphical file manager (Thunar and
+  Dolphin go; yazi covers files); kitty and ghostty both stay; browsers are Firefox and Brave (Flatpak) and
+  qutebrowser (a system package, for its chezmoi config); no speech to text; fonts are the ones the configs name,
+  Hack and kitty's D2CodingLigature.
 - **Services move to the services profile:** radicale, copyparty, netdata, samba, vsftpd. syncthing stays here as
   the vault share's client (treated as how).
 
 ## Still open
 
-- **Files:** Thunar and its plugins, or Dolphin (KDE's, not installed yet)?
-- zsh and nushell beside fish; kitty and ghostty both.
-- mercurial, glab; three systemd GUIs/TUIs.
-- Printing and scanning stack, Brother scanner drivers, Wacom tablet, DisplayLink dock: still used?
-- Nine browsers. qutebrowser has chezmoi-managed config and may stay a system package.
-- mpd or mopidy; two speech-to-text tools (hyprwhspr, vocalinux).
-- About 60 Nerd Fonts (keep the ones the terminals use); three more text browsers beyond lynx.
+- Printing and scanning: the whole stack, including the two AUR Brother scanner drivers. Is a printer or scanner in use?
+- cuda: large, and it served local speech and LLMs; ollama here is the CPU build. Still needed?
+- zsh and nushell beside fish; mercurial and glab; three systemd GUIs/TUIs.
+- mpd or mopidy (the mopidy plugins are AUR-only; PyPI if mopidy stays).
+- tiktoken for nvim's AI token counts (AUR-only); three text browsers beyond lynx.
 - gamemode: unverified whether Flatpak Steam uses the host's; check once Steam runs.
-- AUR-only leftovers: tiktoken for nvim AI token counts, vocalinux, the mopidy plugins.
 
 ## Costs to know
 
 - **Leaving the AUR** (Darrion, 2026-10-21: security). Of 22 AUR packages that would have been built into the
   image, 2 remain without question: agent-sandbox-system (Darrion's own package) and 1Password, built from 1Password's
-  own signed tarball and checked the way chezmoi checks op. 4 more are hardware that stays only if still used
-  (DisplayLink, Brother scanner, Wacom GUI). The rest are dropped as covered or moved to chezmoi (buku via uv,
+  own signed tarball and checked the way chezmoi checks op. The 2 Brother scanner drivers stay only if the scanner
+  is still used. The rest are dropped as covered or moved to chezmoi (buku via uv,
   js-beautify via npm, topiary as a release binary). Nine AUR apps go to Flatpak instead; whether each is on Flathub
   is unchecked (claude-desktop and antigravity are the doubtful ones).
 - **Duplicates:** tree-sitter-cli, markdownlint-cli2 and the JSON language server come both from pacman and from
