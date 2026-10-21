@@ -1,0 +1,8 @@
+# Before the headless base preset (10-), which disables the display manager.
+# Networking stays the base's networkd and resolved, with iwd for wifi, as on Arch today.
+enable sddm.service
+enable bluetooth.service
+enable iwd.service
+enable power-profiles-daemon.service
+enable cups.service
+enable tailscaled.service
