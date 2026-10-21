@@ -23,6 +23,9 @@ hand; sorting what it has is how we learn what the image needs.
   Rescue stays a cheap USB stick (=devbox-rescue-stick).
 - 2026-10-21, Darrion: upgrades happen on demand, never on a timer. A rebuild, sysupdate and reboot happen when
   Darrion chooses, so a problem shows up while they are watching ("rather than YOLOing and updating every week").
+- 2026-10-21, Darrion: packages from the distribution (pacman, and AUR through an image build step) go in the image;
+  pinned release binaries and locked installers (npm, uv, cargo) stay in chezmoi at the user level. chezmoi's pacman
+  and AUR lists were removed (chezmoi 2d627bf; the copy is docs/desktop-sort/chezmoi-listed.txt).
 
 ## Proposed, to confirm
 
