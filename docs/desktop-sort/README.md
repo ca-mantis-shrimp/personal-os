@@ -14,15 +14,15 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 
 | Layer | Packages | From AUR |
 |---|---|---|
-| base | 243 | 2 |
+| base | 231 | 2 |
 | hardware: intel | 6 | 0 |
-| hardware: nvidia | 2 | 0 |
+| hardware: nvidia | 1 | 0 |
 | hardware: desktop | 3 | 2 |
 | flatpak | 23 | 8 |
 | chezmoi | 11 | 6 |
-| services | 7 | 0 |
-| services: N150 | 5 | 0 |
-| drop | 162 | 32 |
+| services | 4 | 0 |
+| services: N150 | 7 | 0 |
+| drop | 176 | 32 |
 
 ## Decided (Darrion, 2026-10-21)
 
@@ -39,17 +39,18 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
   Dolphin go; yazi covers files); kitty and ghostty both stay; browsers are Firefox and Brave (Flatpak) and
   qutebrowser (a system package, for its chezmoi config); no speech to text; fonts are the ones the configs name,
   Hack and kitty's D2CodingLigature.
-- **Services move to the services profile:** radicale, copyparty, netdata, samba, vsftpd. syncthing stays here as
+- **Third round:** printing and scanning are driverless (the Epson WF-7720 scans over eSCL and prints over AirPrint,
+  and CUPS had no printers), so the driver databases go; cuda goes; nushell stays while Darrion experiments, zsh,
+  mercurial, glab, systemd-ui, tiktoken and the extra text browsers go; mpd moves to the services machine and
+  replaces mopidy.
+- **Services move to the services profile:** radicale, copyparty, netdata, samba, vsftpd, mpd and mympd. syncthing stays here as
   the vault share's client (treated as how).
 
-## Still open
+## Still open (both can wait for the profile)
 
-- Printing and scanning: the whole stack, including the two AUR Brother scanner drivers. Is a printer or scanner in use?
-- cuda: large, and it served local speech and LLMs; ollama here is the CPU build. Still needed?
-- zsh and nushell beside fish; mercurial and glab; three systemd GUIs/TUIs.
-- mpd or mopidy (the mopidy plugins are AUR-only; PyPI if mopidy stays).
-- tiktoken for nvim's AI token counts (AUR-only); three text browsers beyond lynx.
-- gamemode: unverified whether Flatpak Steam uses the host's; check once Steam runs.
+- The Brother scanner is used: plug it in so its model shows which AUR driver it needs (dsseries is the DSmobile 620
+  over USB; brscan5 covers newer models).
+- gamemode: whether Flatpak Steam uses the host's; check once Steam runs.
 
 ## Costs to know
 

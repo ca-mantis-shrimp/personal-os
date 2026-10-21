@@ -176,53 +176,43 @@ tombi	base	other languages	repo	yes	23.36 MiB	in base on the desktop (Darrion, 2
 ty	base	other languages	repo	no	30.65 MiB	in base on the desktop (Darrion, 2026-10-21)	Extremely fast Python type checker and language server, written in Rust
 vala	base	other languages	repo	yes	14.59 MiB	in base on the desktop (Darrion, 2026-10-21)	Compiler for the GObject type system
 webkitgtk-6.0	base	other languages	repo	no	138.59 MiB	in base on the desktop (Darrion, 2026-10-21)	Web content engine for GTK
-cups-browsed	base	printing and scanning	repo	yes	565.64 KiB	? a full printing stack; is there a printer or scanner in use?	a helper daemon to browse the network for remote CUPS queues and IPP network printers
-foomatic-db	base	printing and scanning	repo	yes	9.48 MiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - The collected knowledge about printers, drivers, and driver options in XML files, used by foomatic-db-engine to generate PPD files.
-foomatic-db-engine	base	printing and scanning	repo	yes	817.77 KiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - Foomatic's database engine generates PPD files from the data in Foomatic's XML database. It also contains scripts to directly generate print queues and handle jobs.
-foomatic-db-gutenprint-ppds	base	printing and scanning	repo	no	99.35 MiB	? a full printing stack; is there a printer or scanner in use?	simplified prebuilt ppd files
-foomatic-db-nonfree	base	printing and scanning	repo	yes	211.87 KiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - database extension consisting of manufacturer-supplied PPD files released under non-free licenses
-foomatic-db-nonfree-ppds	base	printing and scanning	repo	yes	8.33 MiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - non-free PPDs from printer manufacturers
-foomatic-db-ppds	base	printing and scanning	repo	yes	82.47 MiB	? a full printing stack; is there a printer or scanner in use?	Foomatic - PPDs from printer manufacturers
-gutenprint	base	printing and scanning	repo	no	34.20 MiB	? a full printing stack; is there a printer or scanner in use?	Top quality printer drivers for POSIX systems
-ipp-usb	base	printing and scanning	repo	yes	6.23 MiB	? a full printing stack; is there a printer or scanner in use?	allows using the IPP protocol, normally designed for network printers, to be used with USB printers as well
-print-manager	base	printing and scanning	repo	yes	2.98 MiB	? a full printing stack; is there a printer or scanner in use?	A tool for managing print jobs and printers
-sane	base	printing and scanning	repo	no	18.74 MiB	? a full printing stack; is there a printer or scanner in use?	Scanner Access Now Easy
-sane-airscan	base	printing and scanning	repo	no	459.54 KiB	? a full printing stack; is there a printer or scanner in use?	SANE - SANE backend for AirScan (eSCL) and WSD document scanners
-skanlite	base	printing and scanning	repo	no	3.00 MiB	? a full printing stack; is there a printer or scanner in use?	Image Scanning Application
+cups-browsed	base	printing and scanning	repo	yes	565.64 KiB	driverless: the Epson WF-7720 on the network scans over eSCL (sane-airscan) and prints over AirPrint	a helper daemon to browse the network for remote CUPS queues and IPP network printers
+print-manager	base	printing and scanning	repo	yes	2.98 MiB	driverless: the Epson WF-7720 on the network scans over eSCL (sane-airscan) and prints over AirPrint	A tool for managing print jobs and printers
+sane	base	printing and scanning	repo	no	18.74 MiB	driverless: the Epson WF-7720 on the network scans over eSCL (sane-airscan) and prints over AirPrint	Scanner Access Now Easy
+sane-airscan	base	printing and scanning	repo	no	459.54 KiB	driverless: the Epson WF-7720 on the network scans over eSCL (sane-airscan) and prints over AirPrint	SANE - SANE backend for AirScan (eSCL) and WSD document scanners
+skanlite	base	printing and scanning	repo	no	3.00 MiB	driverless: the Epson WF-7720 on the network scans over eSCL (sane-airscan) and prints over AirPrint	Image Scanning Application
 pass	base	secrets	repo	yes	46.59 KiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	Stores, retrieves, generates, and synchronizes passwords securely
 qtpass	base	secrets	repo	no	2.95 MiB	1Password as a system package for browser and polkit integration; AUR, so it needs an image build step	A multi-platform GUI for pass
-btop	base	shell and terminal	repo	no	1737.27 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A monitor of system resources, bpytop ported to C++
-chafa	base	shell and terminal	repo	yes	1913.91 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Image-to-text converter supporting a wide range of symbols and palettes, transparency, animations, etc.
-fd	base	shell and terminal	repo	yes	3.42 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Simple, fast and user-friendly alternative to find
-fish	base	shell and terminal	repo	yes	18.24 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Smart and user friendly shell intended mostly for interactive use
-fzf	base	shell and terminal	repo	yes	5.49 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Command-line fuzzy finder
-ghostty	base	shell and terminal	repo	no	29.43 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Fast, native, feature-rich terminal emulator pushing modern features
-htop	base	shell and terminal	repo	no	421.16 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Interactive process viewer
-kitty	base	shell and terminal	repo	yes	76.70 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A modern, hackable, featureful, OpenGL-based terminal emulator
-lazygit	base	shell and terminal	repo	yes	20.37 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Simple terminal UI for git commands
-nushell	base	shell and terminal	repo	no	210.23 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A new type of shell
-ripgrep	base	shell and terminal	repo	yes	4.29 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A search tool that combines the usability of ag with the raw speed of grep
-rlwrap	base	shell and terminal	repo	no	274.11 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Adds readline-style editing and history to programs
-starship	base	shell and terminal	repo	yes	11.75 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	The cross-shell prompt for astronauts
-tmux	base	shell and terminal	repo	yes	1474.68 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Terminal multiplexer
-yazi	base	shell and terminal	repo	yes	34.14 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	Blazing fast terminal file manager written in Rust, based on async I/O
-zoxide	base	shell and terminal	repo	yes	1149.92 KiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A smarter cd command for your terminal
-zsh	base	shell and terminal	repo	no	6.94 MiB	kitty and ghostty both (Darrion, 2026-10-21); ? zsh and nushell beside fish	A very advanced and programmable command interpreter (shell) for UNIX
-calcurse	base	system tools	repo	no	874.53 KiB	? three systemd GUIs/TUIs	A text-based personal organizer
-fwupd	base	system tools	repo	yes	19.13 MiB	? three systemd GUIs/TUIs	Simple daemon to allow session software to update firmware
-geoclue	base	system tools	repo	no	1463.17 KiB	? three systemd GUIs/TUIs	Modular geoinformation service built on the D-Bus messaging system
-gptfdisk	base	system tools	repo	yes	734.64 KiB	? three systemd GUIs/TUIs	A text-mode partitioning tool that works on GUID Partition Table (GPT) disks
-lynx	base	system tools	repo	yes	5.20 MiB	? three systemd GUIs/TUIs	A text browser for the World Wide Web
-newsboat	base	system tools	repo	no	13.61 MiB	? three systemd GUIs/TUIs	RSS/Atom feed reader for text terminals
-nvme-cli	base	system tools	repo	yes	6.05 MiB	? three systemd GUIs/TUIs	NVM-Express user space tooling for Linux
-pdfjs-legacy	base	system tools	repo	yes	21.15 MiB	? three systemd GUIs/TUIs	PDF reader in javascript - legacy distribution
-power-profiles-daemon	base	system tools	repo	no	141.95 KiB	? three systemd GUIs/TUIs	Makes power profiles handling available over D-Bus
-rclone	base	system tools	repo	no	110.10 MiB	? three systemd GUIs/TUIs	rsync for cloud storage
-resvg	base	system tools	repo	yes	14.53 MiB	? three systemd GUIs/TUIs	SVG rendering library and CLI
-systemctl-tui	base	system tools	repo	no	7.88 MiB	? three systemd GUIs/TUIs	A fast, simple TUI for interacting with systemd services and their logs
-systemd-ui	base	system tools	repo	no	186.33 KiB	? three systemd GUIs/TUIs	Graphical front-end for systemd
-visidata	base	system tools	repo	no	38.16 MiB	? three systemd GUIs/TUIs	Terminal spreadsheet multitool for discovering and arranging data
-zk	base	system tools	repo	no	12.12 MiB	? three systemd GUIs/TUIs	A command-line tool helping you to maintain a Zettelkasten or personal wiki
+btop	base	shell and terminal	repo	no	1737.27 KiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	A monitor of system resources, bpytop ported to C++
+chafa	base	shell and terminal	repo	yes	1913.91 KiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	Image-to-text converter supporting a wide range of symbols and palettes, transparency, animations, etc.
+fd	base	shell and terminal	repo	yes	3.42 MiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	Simple, fast and user-friendly alternative to find
+fish	base	shell and terminal	repo	yes	18.24 MiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	Smart and user friendly shell intended mostly for interactive use
+fzf	base	shell and terminal	repo	yes	5.49 MiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	Command-line fuzzy finder
+ghostty	base	shell and terminal	repo	no	29.43 MiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	Fast, native, feature-rich terminal emulator pushing modern features
+htop	base	shell and terminal	repo	no	421.16 KiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	Interactive process viewer
+kitty	base	shell and terminal	repo	yes	76.70 MiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	A modern, hackable, featureful, OpenGL-based terminal emulator
+lazygit	base	shell and terminal	repo	yes	20.37 MiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	Simple terminal UI for git commands
+nushell	base	shell and terminal	repo	no	210.23 MiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	A new type of shell
+ripgrep	base	shell and terminal	repo	yes	4.29 MiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	A search tool that combines the usability of ag with the raw speed of grep
+rlwrap	base	shell and terminal	repo	no	274.11 KiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	Adds readline-style editing and history to programs
+starship	base	shell and terminal	repo	yes	11.75 MiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	The cross-shell prompt for astronauts
+tmux	base	shell and terminal	repo	yes	1474.68 KiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	Terminal multiplexer
+yazi	base	shell and terminal	repo	yes	34.14 MiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	Blazing fast terminal file manager written in Rust, based on async I/O
+zoxide	base	shell and terminal	repo	yes	1149.92 KiB	nushell while Darrion experiments; kitty and ghostty both (Darrion, 2026-10-21)	A smarter cd command for your terminal
+calcurse	base	system tools	repo	no	874.53 KiB		A text-based personal organizer
+fwupd	base	system tools	repo	yes	19.13 MiB		Simple daemon to allow session software to update firmware
+geoclue	base	system tools	repo	no	1463.17 KiB		Modular geoinformation service built on the D-Bus messaging system
+gptfdisk	base	system tools	repo	yes	734.64 KiB		A text-mode partitioning tool that works on GUID Partition Table (GPT) disks
+lynx	base	system tools	repo	yes	5.20 MiB		A text browser for the World Wide Web
+newsboat	base	system tools	repo	no	13.61 MiB		RSS/Atom feed reader for text terminals
+nvme-cli	base	system tools	repo	yes	6.05 MiB		NVM-Express user space tooling for Linux
+pdfjs-legacy	base	system tools	repo	yes	21.15 MiB		PDF reader in javascript - legacy distribution
+power-profiles-daemon	base	system tools	repo	no	141.95 KiB		Makes power profiles handling available over D-Bus
+rclone	base	system tools	repo	no	110.10 MiB		rsync for cloud storage
+resvg	base	system tools	repo	yes	14.53 MiB		SVG rendering library and CLI
+systemctl-tui	base	system tools	repo	no	7.88 MiB		A fast, simple TUI for interacting with systemd services and their logs
+visidata	base	system tools	repo	no	38.16 MiB		Terminal spreadsheet multitool for discovering and arranging data
+zk	base	system tools	repo	no	12.12 MiB		A command-line tool helping you to maintain a Zettelkasten or personal wiki
 ttf-d2coding-nerd	base	terminal fonts	repo	yes	38.36 MiB	Hack (Darrion, 2026-10-21); kitty.conf names D2CodingLigature, so it stays until kitty switches	Patched font D2Coding from nerd fonts library
 ttf-hack-nerd	base	terminal fonts	repo	yes	32.04 MiB	Hack (Darrion, 2026-10-21); kitty.conf names D2CodingLigature, so it stays until kitty switches	Patched font Hack from nerd fonts library
 base-devel	base	toolchains	repo	yes	0.00 B	C, Rust, Node and Python in base (Darrion, 2026-10-21); npm too, since chezmoi installs the editor language servers with it	Basic tools to build Arch Linux packages
@@ -235,12 +225,10 @@ npm	base	toolchains	repo	yes	9.46 MiB	C, Rust, Node and Python in base (Darrion,
 rust	base	toolchains	repo	yes	309.14 MiB	C, Rust, Node and Python in base (Darrion, 2026-10-21); npm too, since chezmoi installs the editor language servers with it	Systems programming language focused on safety, speed and concurrency
 rust-analyzer	base	toolchains	repo	yes	29.77 MiB	C, Rust, Node and Python in base (Darrion, 2026-10-21); npm too, since chezmoi installs the editor language servers with it	Rust compiler front-end for IDEs
 uv	base	toolchains	repo	yes	46.02 MiB	C, Rust, Node and Python in base (Darrion, 2026-10-21); npm too, since chezmoi installs the editor language servers with it	An extremely fast Python package installer and resolver written in Rust
-chezmoi	base	version control	repo	yes	40.28 MiB	? mercurial and glab: still used?	Manage your dotfiles across multiple machines
-git	base	version control	repo	yes	33.54 MiB	? mercurial and glab: still used?	the fast distributed version control system
-github-cli	base	version control	repo	yes	40.08 MiB	? mercurial and glab: still used?	The GitHub CLI
-glab	base	version control	repo	yes	47.40 MiB	? mercurial and glab: still used?	Cli tool to help work seamlessly with GitLab from the command line
-jujutsu	base	version control	repo	no	27.75 MiB	? mercurial and glab: still used?	Git-compatible VCS that is both simple and powerful
-mercurial	base	version control	repo	yes	36.49 MiB	? mercurial and glab: still used?	A scalable distributed SCM tool
+chezmoi	base	version control	repo	yes	40.28 MiB		Manage your dotfiles across multiple machines
+git	base	version control	repo	yes	33.54 MiB		the fast distributed version control system
+github-cli	base	version control	repo	yes	40.08 MiB		The GitHub CLI
+jujutsu	base	version control	repo	no	27.75 MiB		Git-compatible VCS that is both simple and powerful
 qutebrowser	base	vim browser	repo	yes	11.40 MiB	kept (Darrion, 2026-10-21); a system package because chezmoi manages its config	A keyboard-driven, vim-like browser based on Python and Qt
 cpupower	hardware: intel	Intel CPU and iGPU	repo	no	630.79 KiB		Linux kernel tool to examine and tune power saving related features of your processor
 intel-media-driver	hardware: intel	Intel CPU and iGPU	repo	no	41.45 MiB		Intel Media Driver for VAAPI — Broadwell+ iGPUs
@@ -248,10 +236,9 @@ intel-ucode	hardware: intel	Intel CPU and iGPU	repo	yes	31.45 MiB		Microcode upd
 libva-intel-driver	hardware: intel	Intel CPU and iGPU	repo	yes	7.84 MiB		VA-API implementation for Intel G45 and HD Graphics family
 turbostat	hardware: intel	Intel CPU and iGPU	repo	no	712.14 KiB		Report processor frequency and idle statistics
 vulkan-intel	hardware: intel	Intel CPU and iGPU	repo	yes	44.00 MiB		Open-source Vulkan driver for Intel GPUs
-cuda	hardware: nvidia	NVIDIA GPU	repo	no	5.20 GiB	? cuda is large and was for local speech and LLMs; ollama here is the CPU build, so is it still needed?	NVIDIA's GPU programming toolkit
-nvidia-open	hardware: nvidia	NVIDIA GPU	repo	yes	9.73 MiB	? cuda is large and was for local speech and LLMs; ollama here is the CPU build, so is it still needed?	NVIDIA open kernel modules
-brscan5	hardware: desktop	AUR: scanner	aur	no	4.17 MiB	? AUR-only Brother scanner drivers; goes with the printing call	SANE drivers from Brother for compatible models
-libsane-dsseries	hardware: desktop	AUR: scanner	aur	no	473.62 KiB	? AUR-only Brother scanner drivers; goes with the printing call	Brother SANE drivers for DSmobile 620
+nvidia-open	hardware: nvidia	NVIDIA GPU	repo	yes	9.73 MiB		NVIDIA open kernel modules
+brscan5	hardware: desktop	AUR: scanner	aur	no	4.17 MiB	? the Brother scanner is used (Darrion, 2026-10-21); plug it in to learn the model: dsseries is the DSmobile 620 (USB), brscan5 newer models	SANE drivers from Brother for compatible models
+libsane-dsseries	hardware: desktop	AUR: scanner	aur	no	473.62 KiB	? the Brother scanner is used (Darrion, 2026-10-21); plug it in to learn the model: dsseries is the DSmobile 620 (USB), brscan5 newer models	Brother SANE drivers for DSmobile 620
 v4l2loopback-dkms	hardware: desktop	displays and devices	repo	yes	113.45 KiB	DisplayLink and v4l2loopback are out-of-tree modules: built into the image	v4l2-loopback device – module sources
 antigravity	flatpak	AI apps	aur	no	494.30 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Google Antigravity 2.0 multi-agent orchestration platform
 claude-desktop	flatpak	AI apps	aur	no	588.01 MiB	AUR today; Flathub has some (Parsec); otherwise an image build step or drop	Official Claude AI desktop app from Anthropic — Chat, Cowork, and Claude Code
@@ -287,18 +274,17 @@ nodejs-mcp-hub	chezmoi	agent and LSP CLIs	aur	no	2.00 MiB	markdownlint-cli2 and 
 opencode	chezmoi	agent and LSP CLIs	repo	no	210.76 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	The open source coding agent
 vscode-json-languageserver	chezmoi	agent and LSP CLIs	repo	no	2.50 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	JSON language server
 wrangler	chezmoi	agent and LSP CLIs	repo	no	65.06 MiB	markdownlint-cli2 and the JSON server are already in chezmoi's npm list; wrangler is per project (npx)	The CLI for Cloudflare Workers
-mopidy	services	desktop services	repo	yes	8.67 MiB	? mpd and mopidy both. syncthing stays here as the vault share's client	An extensible music server written in Python
-mpd	services	desktop services	repo	yes	6.19 MiB	? mpd and mopidy both. syncthing stays here as the vault share's client	Flexible, powerful, server-side application for playing music
-mympd	services	desktop services	repo	yes	1595.06 KiB	? mpd and mopidy both. syncthing stays here as the vault share's client	A standalone and lightweight web-based MPD client
-ollama	services	desktop services	repo	no	61.25 MiB	? mpd and mopidy both. syncthing stays here as the vault share's client	Create, run and share large language models (LLMs)
-syncthing	services	desktop services	repo	no	24.37 MiB	? mpd and mopidy both. syncthing stays here as the vault share's client	Open Source Continuous Replication / Cluster Synchronization Thing
-vdirsyncer	services	desktop services	repo	yes	791.29 KiB	? mpd and mopidy both. syncthing stays here as the vault share's client	Synchronize CalDAV and CardDAV
-yt-dlp	services	desktop services	repo	yes	31.68 MiB	? mpd and mopidy both. syncthing stays here as the vault share's client	A youtube-dl fork with additional features and fixes
-copyparty	services: N150	services machine	repo	yes	7.63 MiB	the services profile (Darrion, 2026-10-21)	File server with accelerated resumable uploads, dedup, WebDAV, SFTP, FTP, FTPS, zeroconf, media indexer, thumbnails++
-netdata	services: N150	services machine	repo	yes	360.59 MiB	the services profile (Darrion, 2026-10-21)	Real-time performance monitoring, in the greatest possible detail, over the web
-radicale	services: N150	services machine	repo	yes	3.31 MiB	the services profile (Darrion, 2026-10-21)	Simple calendar (CalDAV) and contact (CardDAV) server
-samba	services: N150	services machine	repo	yes	63.75 MiB	the services profile (Darrion, 2026-10-21)	SMB Fileserver and AD Domain server
-vsftpd	services: N150	services machine	repo	no	272.42 KiB	the services profile (Darrion, 2026-10-21)	Very Secure FTP daemon
+ollama	services	desktop services	repo	no	61.25 MiB	syncthing stays here as the vault share's client	Create, run and share large language models (LLMs)
+syncthing	services	desktop services	repo	no	24.37 MiB	syncthing stays here as the vault share's client	Open Source Continuous Replication / Cluster Synchronization Thing
+vdirsyncer	services	desktop services	repo	yes	791.29 KiB	syncthing stays here as the vault share's client	Synchronize CalDAV and CardDAV
+yt-dlp	services	desktop services	repo	yes	31.68 MiB	syncthing stays here as the vault share's client	A youtube-dl fork with additional features and fixes
+copyparty	services: N150	services machine	repo	yes	7.63 MiB	the services profile (Darrion, 2026-10-21); mympd is mpd's web client	File server with accelerated resumable uploads, dedup, WebDAV, SFTP, FTP, FTPS, zeroconf, media indexer, thumbnails++
+mpd	services: N150	services machine	repo	yes	6.19 MiB	the services profile (Darrion, 2026-10-21); mympd is mpd's web client	Flexible, powerful, server-side application for playing music
+mympd	services: N150	services machine	repo	yes	1595.06 KiB	the services profile (Darrion, 2026-10-21); mympd is mpd's web client	A standalone and lightweight web-based MPD client
+netdata	services: N150	services machine	repo	yes	360.59 MiB	the services profile (Darrion, 2026-10-21); mympd is mpd's web client	Real-time performance monitoring, in the greatest possible detail, over the web
+radicale	services: N150	services machine	repo	yes	3.31 MiB	the services profile (Darrion, 2026-10-21); mympd is mpd's web client	Simple calendar (CalDAV) and contact (CardDAV) server
+samba	services: N150	services machine	repo	yes	63.75 MiB	the services profile (Darrion, 2026-10-21); mympd is mpd's web client	SMB Fileserver and AD Domain server
+vsftpd	services: N150	services machine	repo	no	272.42 KiB	the services profile (Darrion, 2026-10-21); mympd is mpd's web client	Very Secure FTP daemon
 paru	drop	AUR helpers	aur	no	8.27 MiB	an image has no pacman at run time; AUR packages need an image build step instead	Feature packed AUR helper
 yay	drop	AUR helpers	aur	yes	11.34 MiB	an image has no pacman at run time; AUR packages need an image build step instead	Yet another yogurt. Pacman wrapper and AUR helper written in go.
 1password-cli	drop	AUR: covered	aur	no	41.46 MiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	1Password command line tool
@@ -309,9 +295,7 @@ nerdfetch	drop	AUR: covered	aur	yes	13.68 KiB	"covered: op is a chezmoi external
 nvimpager	drop	AUR: covered	aur	yes	37.68 KiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	Use nvim as a pager to view manpages, diffs, etc with nvim's syntax highlighting
 sysd-manager	drop	AUR: covered	aur	yes	17.94 MiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	A systemd GUI to manage service, timer, socket and other units.
 tree-sitter-html	drop	AUR: covered	aur	no	71.71 KiB	"covered: op is a chezmoi external; MANPAGER=""nvim +Man!""; nvim-treesitter builds parsers; deprecated; systemctl-tui; Hyprland is gone"	HTML grammar for tree-sitter
-luajit-tiktoken-bin	drop	AUR: open	aur	no	2.43 MiB	? AUR-only: tiktoken for nvim AI token counts, mopidy plugins (PyPI if mopidy stays)	binding of rust tiktoken to lua
-mopidy-iris	drop	AUR: open	aur	yes	21.71 MiB	? AUR-only: tiktoken for nvim AI token counts, mopidy plugins (PyPI if mopidy stays)	A web-based frontend for Mopidy
-mopidy-mpd	drop	AUR: open	aur	yes	670.43 KiB	? AUR-only: tiktoken for nvim AI token counts, mopidy plugins (PyPI if mopidy stays)	Mopidy extension for controlling playback from MPD clients
+cuda	drop	CUDA	repo	no	5.20 GiB	not needed for now (Darrion, 2026-10-21)	NVIDIA's GPU programming toolkit
 evdi-dkms	drop	DisplayLink and Wacom	aur	yes	661.02 KiB	DisplayLink never worked; the Wacom GUI is not needed (Darrion, 2026-10-21)	Kernel module to enable management of multiple screens
 wacomtablet	drop	DisplayLink and Wacom	aur	yes	2.65 MiB	DisplayLink never worked; the Wacom GUI is not needed (Darrion, 2026-10-21)	GUI for Wacom Linux drivers that supports different button/pen layout profiles
 ashell	drop	Hyprland desktop	aur	yes	30.29 MiB	KDE is the desktop (Darrion, 2026-10-21); wtype and wayvnc only work on wlroots compositors	A ready to go Wayland status bar for Hyprland and Niri
@@ -364,6 +348,9 @@ fuse-overlayfs	drop	containers	repo	yes	113.07 KiB	nothing uses containers (char
 podman	drop	containers	repo	no	82.66 MiB	nothing uses containers (charter, 2026-10-20)	A tool for managing OCI containers and pods.
 dkms	drop	kernel module building	repo	yes	167.22 KiB	out-of-tree modules are built into the image, not on the machine	Dynamic Kernel Modules System
 linux-headers	drop	kernel module building	repo	yes	321.41 MiB	out-of-tree modules are built into the image, not on the machine	Headers and scripts for building modules for the Linux kernel
+mopidy	drop	mopidy	repo	yes	8.67 MiB	mpd moves to the services machine and replaces it	An extensible music server written in Python
+mopidy-iris	drop	mopidy	aur	yes	21.71 MiB	mpd moves to the services machine and replaces it	A web-based frontend for Mopidy
+mopidy-mpd	drop	mopidy	aur	yes	670.43 KiB	mpd moves to the services machine and replaces it	Mopidy extension for controlling playback from MPD clients
 otf-aurulent-nerd	drop	nerd font collection	repo	yes	6.50 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Aurulent Sans Mono from nerd fonts library
 otf-codenewroman-nerd	drop	nerd font collection	repo	yes	61.89 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Code New Roman from nerd fonts library
 otf-comicshanns-nerd	drop	nerd font collection	repo	yes	13.79 MiB	only the fonts the configs name (Darrion, 2026-10-21)	Patched font Comic Sans (Comic Shanns) from nerd fonts library
@@ -442,6 +429,14 @@ arch-install-scripts	drop	package tooling	repo	yes	39.16 KiB	pacman-era or forei
 distribution-gpg-keys	drop	package tooling	repo	no	1096.67 KiB	pacman-era or foreign-distro tools	GPG keys used by various Linux distributions to sign packages
 pkgfile	drop	package tooling	repo	yes	545.45 KiB	pacman-era or foreign-distro tools	A tool to search for files in official repository packages
 pkgstats	drop	package tooling	repo	yes	8.15 MiB	pacman-era or foreign-distro tools	Submit a list of installed packages to the Arch Linux project
+foomatic-db	drop	printer drivers	repo	yes	9.48 MiB	CUPS has no printers configured, and the Epson needs no driver; ipp-usb is for USB printers	Foomatic - The collected knowledge about printers, drivers, and driver options in XML files, used by foomatic-db-engine to generate PPD files.
+foomatic-db-engine	drop	printer drivers	repo	yes	817.77 KiB	CUPS has no printers configured, and the Epson needs no driver; ipp-usb is for USB printers	Foomatic - Foomatic's database engine generates PPD files from the data in Foomatic's XML database. It also contains scripts to directly generate print queues and handle jobs.
+foomatic-db-gutenprint-ppds	drop	printer drivers	repo	no	99.35 MiB	CUPS has no printers configured, and the Epson needs no driver; ipp-usb is for USB printers	simplified prebuilt ppd files
+foomatic-db-nonfree	drop	printer drivers	repo	yes	211.87 KiB	CUPS has no printers configured, and the Epson needs no driver; ipp-usb is for USB printers	Foomatic - database extension consisting of manufacturer-supplied PPD files released under non-free licenses
+foomatic-db-nonfree-ppds	drop	printer drivers	repo	yes	8.33 MiB	CUPS has no printers configured, and the Epson needs no driver; ipp-usb is for USB printers	Foomatic - non-free PPDs from printer manufacturers
+foomatic-db-ppds	drop	printer drivers	repo	yes	82.47 MiB	CUPS has no printers configured, and the Epson needs no driver; ipp-usb is for USB printers	Foomatic - PPDs from printer manufacturers
+gutenprint	drop	printer drivers	repo	no	34.20 MiB	CUPS has no printers configured, and the Epson needs no driver; ipp-usb is for USB printers	Top quality printer drivers for POSIX systems
+ipp-usb	drop	printer drivers	repo	yes	6.23 MiB	CUPS has no printers configured, and the Epson needs no driver; ipp-usb is for USB printers	allows using the IPP protocol, normally designed for network printers, to be used with USB printers as well
 blueman	drop	replaced by KDE	repo	yes	6.84 MiB	KDE has bluedevil, plasma-pa and its own GTK settings	GTK+ Bluetooth Manager
 nwg-look	drop	replaced by KDE	repo	yes	5.30 MiB	KDE has bluedevil, plasma-pa and its own GTK settings	GTK settings editor adapted to work on wlroots-based compositors
 pavucontrol	drop	replaced by KDE	repo	yes	1069.77 KiB	KDE has bluedevil, plasma-pa and its own GTK settings	PulseAudio Volume Control
@@ -458,6 +453,11 @@ profile-sync-daemon	drop	superseded	repo	yes	49.60 KiB	covered by something kept
 typobuster	drop	superseded	repo	no	586.36 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Lightweight editor with text transformations and auto-correction
 vim	drop	superseded	repo	yes	5.40 MiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	Vi Improved, a highly configurable, improved version of the vi text editor
 wpa_supplicant_gui	drop	superseded	aur	yes	680.48 KiB	covered by something kept: yt-dlp, timesyncd, neovim, nvimpager, iwd+impala	A Qt frontend for interacting with wpa_supplicant
-browsh	drop	text browsers	aur	yes	8.66 MiB	? lynx stays (on the phone too); three more text browsers	A fully-modern text-based browser, rendering to TTY and browsers
-chawan	drop	text browsers	repo	yes	6.29 MiB	? lynx stays (on the phone too); three more text browsers	A text-mode web browser and pager for Unix-like systems
-elinks	drop	text browsers	repo	yes	4.10 MiB	? lynx stays (on the phone too); three more text browsers	Advanced feature-rich text-mode web browser
+browsh	drop	text browsers	aur	yes	8.66 MiB	lynx is enough (Darrion, 2026-10-21)	A fully-modern text-based browser, rendering to TTY and browsers
+chawan	drop	text browsers	repo	yes	6.29 MiB	lynx is enough (Darrion, 2026-10-21)	A text-mode web browser and pager for Unix-like systems
+elinks	drop	text browsers	repo	yes	4.10 MiB	lynx is enough (Darrion, 2026-10-21)	Advanced feature-rich text-mode web browser
+glab	drop	unused	repo	yes	47.40 MiB	not needed (Darrion, 2026-10-21); systemd-ui is an old GTK unit browser, systemctl-tui stays	Cli tool to help work seamlessly with GitLab from the command line
+luajit-tiktoken-bin	drop	unused	aur	no	2.43 MiB	not needed (Darrion, 2026-10-21); systemd-ui is an old GTK unit browser, systemctl-tui stays	binding of rust tiktoken to lua
+mercurial	drop	unused	repo	yes	36.49 MiB	not needed (Darrion, 2026-10-21); systemd-ui is an old GTK unit browser, systemctl-tui stays	A scalable distributed SCM tool
+systemd-ui	drop	unused	repo	no	186.33 KiB	not needed (Darrion, 2026-10-21); systemd-ui is an old GTK unit browser, systemctl-tui stays	Graphical front-end for systemd
+zsh	drop	unused	repo	no	6.94 MiB	not needed (Darrion, 2026-10-21); systemd-ui is an old GTK unit browser, systemctl-tui stays	A very advanced and programmable command interpreter (shell) for UNIX
