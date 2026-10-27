@@ -26,6 +26,8 @@ hand; sorting what it has is how we learn what the image needs.
 - 2026-10-21, Darrion: packages from the distribution (pacman, and AUR through an image build step) go in the image;
   pinned release binaries and locked installers (npm, uv, cargo) stay in chezmoi at the user level. chezmoi's pacman
   and AUR lists were removed (chezmoi 2d627bf; the copy is docs/desktop-sort/chezmoi-listed.txt).
+- 2026-10-27, Darrion: hardware drivers stay in the image for now, even one only this desktop uses (the DS-620's
+  libsane-dsseries), rather than becoming a sysext add-on.
 
 ## Proposed, to confirm
 
