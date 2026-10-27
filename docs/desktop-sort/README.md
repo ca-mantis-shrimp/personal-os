@@ -49,8 +49,8 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 ## Still open (both can wait for the profile)
 
 - The Brother DS-620 didn't appear on USB at all (2026-10-21); it was the cable, and Darrion has it connected on the
-  desktop (2026-10-27). Left: confirm it scans once the profile's driver, libsane-dsseries (built from Brother's own
-  package), is in.
+  desktop (2026-10-27) and scans in Skanlite on the current install. Left: confirm it still scans once the profile's
+  driver, libsane-dsseries (built from Brother's own package), is in.
 - gamemode: whether Flatpak Steam uses the host's; check once Steam runs.
 
 ## Costs to know
