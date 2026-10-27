@@ -49,8 +49,10 @@ To change a call, edit its rule and regenerate `sort.tsv`; don't hand-edit `sort
 ## Still open (both can wait for the profile)
 
 - The Brother DS-620 didn't appear on USB at all (2026-10-21); it was the cable, and Darrion has it connected on the
-  desktop (2026-10-27) and scans in Skanlite on the current install. Left: confirm it still scans once the profile's
-  driver, libsane-dsseries (built from Brother's own package), is in.
+  desktop (2026-10-27) and scans in Skanlite on the current install, through the `dsseries` backend (`scanimage -L`),
+  which is the driver the profile keeps. Seen in the same listing: the Epson appears twice, through sane's built-in
+  `escl` backend and through sane-airscan, and the command printed the Epson's HTML home page. A guess, untested: the
+  `escl` backend printed it, and disabling `escl` in `/etc/sane.d/dll.conf` would leave sane-airscan as the only route.
 - gamemode: whether Flatpak Steam uses the host's; check once Steam runs.
 
 ## Costs to know
