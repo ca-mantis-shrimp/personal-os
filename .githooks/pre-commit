@@ -1,0 +1,13 @@
+#!/bin/sh
+# Run ClearHead's own check when .clearhead/ changes, so a hand edit can't land a broken .actions file.
+# Without clearhead installed it warns and lets the commit through: the repo doesn't depend on it.
+# Enable once per clone: git config core.hooksPath .githooks
+set -eu
+git diff --cached --name-only | grep -q '^\.clearhead/' || exit 0
+if ! command -v clearhead >/dev/null 2>&1; then
+    echo 'pre-commit: clearhead not installed; skipping the .clearhead check' >&2
+    exit 0
+fi
+status=0; report=$(cd "$(git rev-parse --show-toplevel)" && clearhead doctor 2>&1) || status=$?
+[ "$status" -lt 2 ] ||
+    { printf 'pre-commit: clearhead doctor found violations:\n%s\n' "$report" >&2; exit 1; }
