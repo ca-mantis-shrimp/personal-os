@@ -87,6 +87,8 @@ agent-sandbox's host integration and mkosi are not in the image yet, so they liv
 3. `~/.config/environment.d/50-agent-sandbox.conf`: `PATH`, `AGENT_BASE`, `AGENT_LAYERS`, `XDG_CACHE_HOME` (agent-layer's
    mkosi otherwise picks `/var/cache`) and `AGENT_REPART_DEFINITIONS` (mkosi isn't an installed module).
    `~/.bashrc` sources it; `~/.bash_profile` sources `~/.bashrc`.
+   Lua test rocks for clearhead.nvim's pre-push gate (the image carries `lua51` and `luarocks` since 2026-11-05):
+   `luarocks --lua-version=5.1 install --local busted 2.3.0-1` and `... nlua 0.3.2-1`, as in its README.
 4. Base: `scripts/mkosi-arch sandbox-worker build` in a personal-os clone (73 s). Harness layer: `agent-layer`.
 5. Credentials, each by Darrion from their own terminal: the sandbox Claude token sealed with
    `run0 systemd-creds encrypt --name=agent.claude_token - /etc/credstore.encrypted/agent.claude_token` (TPM and
