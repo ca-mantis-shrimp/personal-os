@@ -2,7 +2,7 @@
 id: 01a15273-e4ee-79d3-8c4b-5a34bb365308
 alias: services
 parent: personal-os
-state: New
+state: Active
 ---
 # Services machine
 
