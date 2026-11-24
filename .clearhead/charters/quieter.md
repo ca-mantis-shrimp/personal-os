@@ -19,9 +19,12 @@ this one the Quieter. Windows comes off it on arrival.
 - 2026-11-24, Darrion: no seamless power-off. A dropped cable cuts the Quieter; that is a battery limitation, not
   the machine's, and the tradeoff is accepted. No unplug test.
 - 2026-11-24, Darrion: 128 GB is enough for full KDE.
+- 2026-11-24, Darrion: a shared `kde` profile for the desktop and the Quieter ("try the shared profile and see
+  where things break"). `scripts/mkosi-arch desktop|quieter` adds it; the desktop resolves to the same 283 packages as
+  before the split.
 
 ## Open
 
-- How it shares the KDE layer with the desktop profile (=quieter-kde-layer).
+- Which hardware rows the machine needs beyond the listing (=quieter-inventory).
 
 ## Log

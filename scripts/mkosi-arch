@@ -8,7 +8,11 @@ umask 022
 # Pick one role; later --profile options can add optional tooling/dotfiles.
 profile=mini-server-arch
 case "${1:-}" in
-    mini-server-arch|dev-pod|desktop|sandbox-worker) profile=$1; shift ;;
+    mini-server-arch|dev-pod|desktop|quieter|sandbox-worker) profile=$1; shift ;;
+esac
+# Graphical roles share the KDE layer in mkosi.profiles/kde.
+case "$profile" in
+    desktop|quieter) profile="$profile,kde" ;;
 esac
 exec mkosi --distribution=arch --release=rolling --profile="$profile" \
     --tools-tree-distribution=arch --tools-tree-release=rolling "$@"

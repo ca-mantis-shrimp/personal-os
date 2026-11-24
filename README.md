@@ -19,6 +19,8 @@ They cannot be combined. Chezmoi and personal dotfiles are optional.
 ```sh
 scripts/mkosi-arch summary                           # Arch services role
 scripts/mkosi-arch dev-pod summary                   # Disposable root-agent role
+scripts/mkosi-arch desktop summary                   # Desktop, with the shared kde layer
+scripts/mkosi-arch quieter summary                   # The Quieter client, with the shared kde layer
 scripts/mkosi-arch dev-pod --profile=chezmoi summary  # Optional BYO dotfiles tool
 scripts/mkosi-arch --profile=personal-dotfiles summary # Optional pinned snapshot
 mkosi summary                                      # Retained Fedora 44 recipe
@@ -159,6 +161,8 @@ the private recovery-harness draft stays parked.
 | `mkosi.*`, `mkosi.extra/`, `mkosi.conf.d/` | OS foundations, distro packages, partition/update policy |
 | `mkosi.profiles/mini-server{,-arch}/` | Services role and retained Fedora prototypes |
 | `mkosi.profiles/dev-pod/` | Independent disposable root-agent role |
+| `mkosi.profiles/{desktop,quieter}/` | Graphical roles: the desktop and the Quieter client |
+| `mkosi.profiles/kde/` | Shared KDE Plasma layer; `scripts/mkosi-arch` adds it to the graphical roles |
 | `mkosi.profiles/{chezmoi,personal-dotfiles}/`, `dotfiles/` | Optional user configuration composition |
 | `scripts/`, `tests/` | Build/staging helpers and offline regressions |
 | `.clearhead/charters/` | Plans and decisions (`.clearhead/archive/` holds the closed mini-server charter) |

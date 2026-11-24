@@ -1,0 +1,4 @@
+# Before the headless base preset (10-), which disables the display manager.
+# The graphical session's services, shared by every kde machine.
+enable sddm.service
+enable bluetooth.service

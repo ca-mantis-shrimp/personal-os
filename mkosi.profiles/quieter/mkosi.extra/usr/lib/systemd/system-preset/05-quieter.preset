@@ -1,0 +1,5 @@
+# Before the headless base preset (10-). sddm and bluetooth come from the kde profile.
+# Networking is the base's networkd and resolved, with iwd for wifi, as on the desktop.
+enable iwd.service
+enable power-profiles-daemon.service
+enable tailscaled.service
