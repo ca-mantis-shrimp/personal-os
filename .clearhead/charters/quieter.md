@@ -16,10 +16,12 @@ this one the Quieter. Windows comes off it on arrival.
 - 2026-11-24, Darrion: its own personal-os profile, graphical, with KDE Plasma ("my current default rn"). It is
   the first graphical personal-os machine on real hardware; the [desktop](desktop.md) still runs hand-configured
   Arch.
+- 2026-11-24, Darrion: no seamless power-off. A dropped cable cuts the Quieter; that is a battery limitation, not
+  the machine's, and the tradeoff is accepted. No unplug test.
+- 2026-11-24, Darrion: 128 GB is enough for full KDE.
 
 ## Open
 
 - How it shares the KDE layer with the desktop profile (=quieter-kde-layer).
-- Whether a battery keeps it up through a power drop, the failure that ruled out devbox (=quieter-power-test).
 
 ## Log
