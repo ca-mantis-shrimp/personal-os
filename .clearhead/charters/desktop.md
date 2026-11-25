@@ -53,12 +53,3 @@ prefixes are owned by one user and Wine refuses a prefix owned by another.
 - Disks: nvme2n1 holds `/`, `/boot` and swap; nvme0n1 is `/home`; nvme1n1 is `/data` (group `data`, setgid, default
   ACLs); the 1 TB USB NVMe (sda) holds the homed `Darrion` home (28 GB used, last changed 2026-08-09).
 - Flatpaks: Logseq, Obsidian, Bottles.
-
-## Log
-
-- 2026-10-21T00:20+00:00 — =homed-inventory: 13G, nearly all caches, reinstallable tools, nvim plugins and Steam; the two non-plugin repos (chezmoi rework, platform) are on GitHub; two daily notes (2026-08-09, 08-11) existed only there and Darrion chose to let them go
-- 2026-10-21T00:20+00:00 — =portable-desktop cancelled: the drive goes inside the desktop instead (=desktop-install, then =wipe-arch)
-- 2026-10-21T00:24+00:00 — =retire-homed: erased 2026-10-21 (homectl remove, wipefs); verified no home areas, no Darrion user, and sda has no partitions or signatures. Left: the stale Darrion entry in group data, the physical move, the GitHub key and Signal link
-- 2026-10-21T00:58+00:00 — =desktop-sort calls (Darrion, 2026-10-21): KDE is the desktop (Hyprland, GNOME, sway dropped); C, Rust, Node/npm, Python toolchains in base; image building stays on the desktop, devbox may build without the keys; Steam from Flatpak first; services move to the services profile
-- 2026-10-21T01:55+00:00 — =desktop-sort done 2026-10-21 (docs/desktop-sort): 3 pruning rounds with Darrion; the image's AUR is down to agent-sandbox-system, 1Password from its vendor tarball, and one Brother scanner driver
-- 2026-10-21T05:26+00:00 — =desktop-profile: first build passed on the desktop (a83a8b6, image 20261021051806, 8.2 GB raw, mkosi.output/desktop). Only error: lua-luarocks' install script calls luarocks-admin before luarocks is installed (ordering, harmless). plasma-nm pulls in NetworkManager, which the base preset keeps disabled. VM boot to the sddm greeter is next

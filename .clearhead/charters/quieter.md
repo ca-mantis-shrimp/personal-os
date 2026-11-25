@@ -26,5 +26,3 @@ this one the Quieter. Windows comes off it on arrival.
 ## Open
 
 - Which hardware rows the machine needs beyond the listing (=quieter-inventory).
-
-## Log

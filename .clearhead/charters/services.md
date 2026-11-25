@@ -29,5 +29,3 @@ these with Darrion; the records are archived in `.clearhead/archive/01a0fb15-b77
 ## Decided here
 
 - 2026-10-19, Darrion: the agent telemetry hub runs here (chezmoi's agent-logs charter owns the pipeline).
-
-## Log

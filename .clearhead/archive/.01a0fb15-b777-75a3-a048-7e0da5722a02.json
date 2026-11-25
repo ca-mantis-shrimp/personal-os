@@ -1,185 +1,265 @@
 {
-  "$schema": "https://raw.githubusercontent.com/ClearHeadToDo-Devs/specifications/v0.1.0/schemas/charter_metadata.schema.json",
+  "$schema": "https://clearhead.dev/schemas/v0.8.0/charter_metadata.schema.json",
   "charter": {
     "id": "01a0fb15-b777-75a3-a048-7e0da5722a02"
   },
   "actions": {
     "01a0fb16-92c1-73a4-8b72-e617f4fa635e": {
-      "created": "2026-10-01T22:29:15.713-07:00"
+      "created": "2026-10-02T05:29:15.713Z"
     },
     "01a0fb16-92cf-71ff-9ce7-368cf7f8d073": {
-      "created": "2026-10-01T22:29:15.727-07:00"
+      "created": "2026-10-02T05:29:15.727Z"
     },
     "01a0fb16-92dd-7696-9f3e-fa0203af58fb": {
-      "created": "2026-10-01T22:29:15.741-07:00"
+      "created": "2026-10-02T05:29:15.741Z"
     },
     "01a0fb16-92eb-7624-8410-946a754e077a": {
-      "created": "2026-10-01T22:29:15.755-07:00"
+      "created": "2026-10-02T05:29:15.755Z"
     },
     "01a0fb16-92f8-73b0-a83e-5ed269574dec": {
-      "created": "2026-10-01T22:29:15.768-07:00"
+      "created": "2026-10-02T05:29:15.768Z"
     },
     "01a0fb16-9305-73b7-8b55-c084bb29259d": {
-      "created": "2026-10-01T22:29:15.781-07:00"
+      "created": "2026-10-02T05:29:15.781Z"
     },
     "01a0fb16-9313-73ce-a862-9d5cb265a95a": {
-      "created": "2026-10-01T22:29:15.795-07:00"
+      "created": "2026-10-02T05:29:15.795Z"
     },
     "01a0fb16-9321-7263-b4d6-89abf86543a9": {
-      "created": "2026-10-01T22:29:15.809-07:00"
+      "created": "2026-10-02T05:29:15.809Z"
     },
     "01a0fb16-932f-7657-aecc-c2f09de3963d": {
-      "created": "2026-10-01T22:29:15.823-07:00"
+      "created": "2026-10-02T05:29:15.823Z"
     },
     "01a0fb16-933d-75d1-91d3-91a77bf48664": {
-      "created": "2026-10-01T22:29:15.837-07:00"
+      "created": "2026-10-02T05:29:15.837Z"
     },
     "01a0fb16-9349-7484-b988-c98ae31fad06": {
-      "created": "2026-10-01T22:29:15.849-07:00"
+      "created": "2026-10-02T05:29:15.849Z"
     },
     "01a0fb16-9357-74b4-b97f-90a0f9496e7a": {
-      "created": "2026-10-01T22:29:15.863-07:00"
+      "created": "2026-10-02T05:29:15.863Z"
     },
     "01a0fb16-9365-7090-aea7-0a8dc95674ed": {
-      "created": "2026-10-01T22:29:15.877-07:00"
+      "created": "2026-10-02T05:29:15.877Z"
     },
     "01a0fb16-9372-7312-a59e-772e6a7b31b3": {
-      "created": "2026-10-01T22:29:15.890-07:00"
+      "created": "2026-10-02T05:29:15.890Z"
     },
     "01a0fb16-937f-7585-9ada-567c743cd505": {
-      "created": "2026-10-01T22:29:15.903-07:00"
+      "created": "2026-10-02T05:29:15.903Z"
     },
     "01a0fb16-938d-75c2-b754-299da33c1601": {
-      "created": "2026-10-01T22:29:15.917-07:00"
+      "created": "2026-10-02T05:29:15.917Z"
     },
     "01a0fb16-939a-76c6-88d7-39895a34796a": {
-      "created": "2026-10-01T22:29:15.930-07:00"
+      "created": "2026-10-02T05:29:15.930Z"
     },
     "01a0fb16-93a8-70f6-b886-a9a285d74450": {
-      "created": "2026-10-01T22:29:15.944-07:00"
+      "created": "2026-10-02T05:29:15.944Z"
     },
     "01a0fb16-93b6-7402-b458-6858119f98e2": {
-      "created": "2026-10-01T22:29:15.958-07:00"
+      "created": "2026-10-02T05:29:15.958Z"
     },
     "01a0fb16-93c5-745b-9b53-c2e104819365": {
-      "created": "2026-10-01T22:29:15.973-07:00"
+      "created": "2026-10-02T05:29:15.973Z"
     },
     "01a0fb16-93d4-7536-999d-162c3d3541e4": {
-      "created": "2026-10-01T22:29:15.988-07:00"
+      "created": "2026-10-02T05:29:15.988Z"
     },
     "01a0fb16-93e2-712d-b6bc-f2c04adeda01": {
-      "created": "2026-10-01T22:29:16.002-07:00"
+      "created": "2026-10-02T05:29:16.002Z"
     },
     "01a0fb16-93f1-74df-adb4-ff037d8f9a6a": {
-      "created": "2026-10-01T22:29:16.017-07:00"
+      "created": "2026-10-02T05:29:16.017Z"
     },
     "01a0fb16-93ff-7693-ba7b-0f63c6a238a8": {
-      "created": "2026-10-01T22:29:16.031-07:00"
+      "created": "2026-10-02T05:29:16.031Z"
     },
     "01a0fb16-940d-72c0-a9cf-2b07bbfc2f45": {
-      "created": "2026-10-01T22:29:16.045-07:00"
+      "created": "2026-10-02T05:29:16.045Z"
     },
     "01a0fb16-941c-7095-b6b4-75121022daf8": {
-      "created": "2026-10-01T22:29:16.060-07:00"
+      "created": "2026-10-02T05:29:16.060Z"
     },
     "01a0fb16-942a-73d4-b0bc-25b8d51af674": {
-      "created": "2026-10-01T22:29:16.074-07:00"
+      "created": "2026-10-02T05:29:16.074Z"
     },
     "01a0fb16-9438-7213-8271-34cad524eb7b": {
-      "created": "2026-10-01T22:29:16.088-07:00"
+      "created": "2026-10-02T05:29:16.088Z"
     },
     "01a0fb16-9446-709e-8f17-3bd3889620d0": {
-      "created": "2026-10-01T22:29:16.102-07:00"
+      "created": "2026-10-02T05:29:16.102Z"
     },
     "01a0fb16-9454-7641-8bfa-ef9f875991d9": {
-      "created": "2026-10-01T22:29:16.116-07:00"
+      "created": "2026-10-02T05:29:16.116Z"
     },
     "01a0fb16-9463-7291-8600-851e3d36c74a": {
-      "created": "2026-10-01T22:29:16.131-07:00"
+      "created": "2026-10-02T05:29:16.131Z"
     },
     "01a0fb16-9474-7603-a7a4-74b15256b2bc": {
-      "created": "2026-10-01T22:29:16.148-07:00"
+      "created": "2026-10-02T05:29:16.148Z"
     },
     "01a0fb16-9484-71e8-bb6d-5bdef9be5d0d": {
-      "created": "2026-10-01T22:29:16.164-07:00"
+      "created": "2026-10-02T05:29:16.164Z"
     },
     "01a0fb16-9492-75db-99c3-edc2cb44042c": {
-      "created": "2026-10-01T22:29:16.178-07:00"
+      "created": "2026-10-02T05:29:16.178Z"
     },
     "01a0fb16-94a0-7189-b3ed-db12d57355ce": {
-      "created": "2026-10-01T22:29:16.192-07:00"
+      "created": "2026-10-02T05:29:16.192Z"
     },
     "01a0fb16-94ae-720b-aefc-89c1d4a8163a": {
-      "created": "2026-10-01T22:29:16.206-07:00"
+      "created": "2026-10-02T05:29:16.206Z"
     },
     "01a0fb16-94bd-733d-b052-59d1d7f5ea02": {
-      "created": "2026-10-01T22:29:16.221-07:00"
+      "created": "2026-10-02T05:29:16.221Z"
     },
     "01a0fb16-94ca-77c2-b70e-64a1bbce0f11": {
-      "created": "2026-10-01T22:29:16.234-07:00"
+      "created": "2026-10-02T05:29:16.234Z"
     },
     "01a0fb16-94d9-748a-bf0a-c6bb40493e9e": {
-      "created": "2026-10-01T22:29:16.249-07:00"
+      "created": "2026-10-02T05:29:16.249Z"
     },
     "01a0fb16-94e7-773f-9d90-df1c455e8005": {
-      "created": "2026-10-01T22:29:16.263-07:00"
+      "created": "2026-10-02T05:29:16.263Z"
     },
     "01a0fb16-94f8-74fa-95ad-b65419a40a29": {
-      "created": "2026-10-01T22:29:16.280-07:00"
+      "created": "2026-10-02T05:29:16.280Z"
     },
     "01a0fb16-9508-73d7-89cc-41fa701e46ae": {
-      "created": "2026-10-01T22:29:16.296-07:00"
+      "created": "2026-10-02T05:29:16.296Z"
     },
     "01a0fb16-9517-7470-8674-58c36c93da2e": {
-      "created": "2026-10-01T22:29:16.311-07:00"
+      "created": "2026-10-02T05:29:16.311Z"
     },
     "01a0fb16-9546-742f-905b-71bb131e3044": {
-      "created": "2026-10-01T22:29:16.358-07:00"
+      "created": "2026-10-02T05:29:16.358Z"
     },
     "01a0fb16-9560-7165-9b35-21af0b7769b5": {
-      "created": "2026-10-01T22:29:16.384-07:00"
+      "created": "2026-10-02T05:29:16.384Z"
     },
     "01a0fb16-957d-7519-8a84-c6b1c70377bf": {
-      "created": "2026-10-01T22:29:16.413-07:00"
+      "created": "2026-10-02T05:29:16.413Z"
     },
     "01a0fb16-9598-70db-8982-9442cc856849": {
-      "created": "2026-10-01T22:29:16.440-07:00"
+      "created": "2026-10-02T05:29:16.440Z"
     },
     "01a0fb16-95b3-77b7-be53-6d24faf2c2d8": {
-      "created": "2026-10-01T22:29:16.467-07:00"
+      "created": "2026-10-02T05:29:16.467Z"
     },
     "01a0fb16-95cd-74fc-817f-51fb5f72eee1": {
-      "created": "2026-10-01T22:29:16.493-07:00"
+      "created": "2026-10-02T05:29:16.493Z"
     },
     "01a0fb16-95ea-7005-81c8-0a07f2f23b88": {
-      "created": "2026-10-01T22:29:16.522-07:00"
+      "created": "2026-10-02T05:29:16.522Z"
     },
     "01a0fb16-9609-777c-8aea-951b9a85820b": {
-      "created": "2026-10-01T22:29:16.553-07:00"
+      "created": "2026-10-02T05:29:16.553Z"
     },
     "01a0fb16-9622-7339-af03-345c8fd6a234": {
-      "created": "2026-10-01T22:29:16.578-07:00"
+      "created": "2026-10-02T05:29:16.578Z"
     },
     "01a0fb27-26a6-7019-b927-690d73e85cef": {
-      "created": "2026-10-01T22:47:22.150-07:00"
+      "created": "2026-10-02T05:47:22.150Z"
     },
     "01a0fb27-26b4-77ff-b51a-a23ba256f2a5": {
-      "created": "2026-10-01T22:47:22.164-07:00"
+      "created": "2026-10-02T05:47:22.164Z"
     },
     "01a0fb27-26c4-71b2-9be4-8e7169820166": {
-      "created": "2026-10-01T22:47:22.180-07:00"
+      "created": "2026-10-02T05:47:22.180Z"
     },
     "01a0fb66-8c4f-7175-ab5b-61b129f02775": {
-      "created": "2026-10-01T23:56:36.943-07:00"
+      "created": "2026-10-02T06:56:36.943Z"
     },
     "01a0fdb7-ae75-75b5-8429-a7a1d448f133": {
-      "created": "2026-10-02T10:44:28.533-07:00"
+      "created": "2026-10-02T17:44:28.533Z"
     },
     "01a0fdb7-ae86-71d1-b5ab-d3f833ac0d80": {
-      "created": "2026-10-02T10:44:28.550-07:00"
+      "created": "2026-10-02T17:44:28.550Z"
     },
     "01a0fdb7-ae95-73bd-a2de-36ce11a84d62": {
-      "created": "2026-10-02T10:44:28.565-07:00"
+      "created": "2026-10-02T17:44:28.565Z"
     }
+  },
+  "notes": {
+    "01a0fb15-b777-75a3-a048-7e0da5722a02": [
+      {
+        "at": "2026-10-01T22:29:00-07:00",
+        "text": "Local VM passed UEFI boot, SSH, sudo, SELinux,\nbootc switch/reboot/rollback and persistence. USB SMART reads need sudo.\nNo mini-server disks, mounts or configuration have been changed."
+      },
+      {
+        "at": "2026-10-01T22:47:00-07:00",
+        "text": "Read-only scout: home is about 556 GiB with\nnamespace-aware reads; 87 readable Git roots include local work and five\nchezmoi stashes. Rootless volumes persist despite no containers. Technical\nfindings are in os/mini-server/INVENTORY.md; privileged reads need sudo."
+      },
+      {
+        "at": "2026-10-01T23:56:00-07:00",
+        "text": "Operator checklist prepared; now consolidated above."
+      },
+      {
+        "at": "2026-10-02T00:20:00-07:00",
+        "text": "SMART counters clean; extended tests pending."
+      },
+      {
+        "at": "2026-10-02T00:24:00-07:00",
+        "text": "Owner opts out of extended SMART tests."
+      },
+      {
+        "at": "2026-10-02T00:26:00-07:00",
+        "text": "Planning only; implementation awaits go-ahead."
+      },
+      {
+        "at": "2026-10-02T00:45:00-07:00",
+        "text": "Plan/handoff now live in this charter."
+      },
+      {
+        "at": "2026-10-02T14:59:00-07:00",
+        "text": "Owner separately approved targeted read-only SSH review of ~/arch_desktop only. Small mkosi Arch experiment with local source changes; generated artifacts dominate space. Findings in os/mini-server/INVENTORY.md. No credentials read, image mounts, backups, deletion or server changes; broader SSH/privileged inventory remains gated."
+      },
+      {
+        "at": "2026-10-02T15:45:00-07:00",
+        "text": "Owner authorizes focused inventory and limited cleanup, with chezmoi authoritative and small gaps acceptable. Selected live configs match source; rclone disabled, old weekly backup timer still enabled; sudo requires operator. Removed only retired /home/dab/arch_desktop with path/mount checks. No other data/services/disks changed; no build/backup/install approval."
+      },
+      {
+        "at": "2026-10-02T15:47:00-07:00",
+        "text": "Verified operator retirement of old system-backup timer: inactive/disabled, service inactive. /mnt/fat32 is a real root-owned directory with no mounts at/beneath; operator deletion still pending. No further files deleted."
+      },
+      {
+        "at": "2026-10-02T15:49:00-07:00",
+        "text": "Verified owner removed retired /mnt/fat32; both it and /home/dab/arch_desktop are absent, and old backup timer remains inactive/disabled. Agreed two-target cleanup complete; other server data untouched."
+      },
+      {
+        "at": "2026-10-02T16:31:00-07:00",
+        "text": "Owner approved local image/service builds and isolated VM validation. Expanded Fedora44 image passes bootc lint and nine synthetic container tests; native Radicale/Collector, restic/RAID tooling and access-policy drop-ins added. VM disk build blocked by desktop kernel/module mismatch; in-VM fallback stalled/stopped. All scratch credentials/artifacts removed; local tags retained. No production disk/build deployment/backup/reboot changes."
+      },
+      {
+        "at": "2026-10-02T18:36:00-07:00",
+        "text": "Owner chooses a trimmed ParticleOS fork with pinned chezmoi submodule, staged at build and automatically applied on the real target after build. Initialized local `~/Products/personal-os` with upstream provenance, committed dotfiles pin, README/AGENTS, server overlay, canonical charter/history and bootc reference. Three offline configuration tests pass; default Fedora44 target/initrd selection verified, including protection against host-Arch fragments; ClearHead doctor has no findings. No new image/VM, personal remote/push, production signing keys, storage writes, backups, install or server changes. Target-side first-boot integration and trimmed storage/account/security defaults remain implementation work for the next session here."
+      },
+      {
+        "at": "2026-10-06T21:31:00-07:00",
+        "text": "Owner requested an experimental artifact task. Arch Island generated and deterministically reproduced inside fresh bounded Arch VM arch-art-97ga86v3, served via rootless nginx, retrieved and checksum-verified at ~/Downloads/arch-island-arch-art-97ga86v3/index.html. Native shutdown and independent owned cleanup passed; no VM active. No rebuild, publication, production identity or nested-agent claim; detailed receipts and next direction in handoff."
+      },
+      {
+        "at": "2026-10-06T21:37:00-07:00",
+        "text": "Owner feedback after artifact experiment: cut the ceremony down; this has been too much. Default to boot, useful work, retrieve result, native shutdown and owned cleanup. Preserve short resource/concurrency, integrity and credential safeguards; broad suites only for relevant changes or observed failures. Narrowly simplify existing wrappers when next used, not another harness/orchestration/refactoring project."
+      },
+      {
+        "at": "2026-10-06T21:46:00-07:00",
+        "text": "Shorter-loop arch-work-63phfdf7 reused unchanged successful image/controller/helper regression evidence without suite reruns. Inside Arch, synthetic authenticated Radicale CalDAV/CardDAV artifacts survived container restart byte/ETag-identically; retrieved and verified at ~/Downloads/dav-workshop-arch-work-63phfdf7/index.html. Native shutdown/independent cleanup passed; no VM active. Existing sandbox UID1000/login snapshot mismatch left untouched; no nested-agent claim. Details in handoff."
+      },
+      {
+        "at": "2026-10-08T00:08:00-07:00",
+        "text": "Owner-approved independent services/dev roles and optional BYO dotfiles implemented source-only. Dev root access uses stock systemd public-key provisioning without services/account/configuration dependencies; removed 700-line automatic chezmoi lifecycle/controller and obsolete tests/policy. Full offline suite 116 passed; no image build/boot, credentials borrowed, host/production changes or publication. Next useful dev VM task; old baselines intact and recovery parked."
+      },
+      {
+        "at": "2026-10-15T19:04:00Z",
+        "text": "2026-10-15: Darrion confirmed Google holds all Radicale contacts/tasks, so =mini-server-retain-manifest is complete; root-owned container volumes stay under =mini-server-admin-checks. Cancelled the standing 'approval before disk writes' action at Darrion's choice; the rule stays in Boundaries and safety gates"
+      },
+      {
+        "at": "2026-10-19T04:40:00Z",
+        "text": "Closed: the 2026-10-11 devbox install wiped mini-travel-server. Settled decisions carry to the services charter; =image-clearhead moved to next.actions; the signing-key backup and rescue stick are next.actions. Open work cancelled leaf by leaf. Phases 1-3 and =mini-server-storage stay open only because cancelling a parent rewrites its completed children as cancelled (clearhead bug, filed in platform)."
+      }
+    ]
   }
 }
