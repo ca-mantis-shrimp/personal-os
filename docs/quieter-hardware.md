@@ -24,5 +24,5 @@ Flatpaks plus Plasma). 8 GB is tight for a browser-heavy session.
 ## What Fedora needed by hand
 
 From `dnf history list` and `flatpak list`, beyond the stock Fedora KDE install: ghostty, tailscale, chezmoi,
-gh, neovim (dnf); rust and cargo (dnf, for a cargo-binstall of Neovide); Google Chrome and 1Password (Flathub).
+gh, neovim (dnf); rust and cargo (dnf, for a cargo-binstall of Neovide); Google Chrome, 1Password and Neovide (Flathub; Neovide from Discover after the cargo build failed).
 This is the requirements list for the quieter profile: system packages go in the image, apps stay Flatpaks.
