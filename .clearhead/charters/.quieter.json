@@ -1,6 +1,27 @@
 {
-  "$schema": "https://clearhead.dev/schemas/v0.5.0/charter_metadata.schema.json",
+  "$schema": "https://clearhead.dev/schemas/v0.8.0/charter_metadata.schema.json",
   "charter": {
     "id": "01a20c58-7420-7bb3-9881-4c40efb6326c"
+  },
+  "notes": {
+    "01a20c58-d05e-76c3-8e88-271907db82eb": [
+      {
+        "at": "2026-11-25T01:05:09Z",
+        "by": "agent-facilitator",
+        "text": "2026-11-25 Darrion: Fedora KDE is installed on the Quieter and works as an SSH client; Windows is gone, so the live-USB step is moot. The inventory can run from the installed Fedora, by the facilitator over SSH once Darrion okays it (tailnet shows a new active node, travel-client, unconfirmed as the Quieter)."
+      }
+    ],
+    "01a20c69-56ea-78d1-865c-9151387f0a4d": [
+      {
+        "at": "2026-11-25T01:05:09Z",
+        "by": "agent-facilitator",
+        "text": "2026-11-25: the Quieter runs Fedora KDE for now, not this image. Paused until Darrion says whether Fedora is a stopgap or the answer."
+      },
+      {
+        "at": "2026-11-25T01:05:57Z",
+        "by": "agent-facilitator",
+        "text": "2026-11-25 Darrion: 'not a big deal now that things are setup'; the setup showed how much needs setting up properly. Read as: Fedora stays for now, the image is the eventual proper setup, no rush. Next useful input: the list of what Darrion did by hand on Fedora (dnf history userinstalled, changed config), as the quieter profile's requirements."
+      }
+    ]
   }
 }
