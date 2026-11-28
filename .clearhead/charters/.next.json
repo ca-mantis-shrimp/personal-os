@@ -1,6 +1,15 @@
 {
-  "$schema": "https://raw.githubusercontent.com/ClearHeadToDo-Devs/specifications/v0.1.0/schemas/charter_metadata.schema.json",
+  "$schema": "https://clearhead.dev/schemas/v0.8.0/charter_metadata.schema.json",
   "charter": {
     "id": "01a0ff54-85a4-726e-89fe-87b159978cdb"
+  },
+  "notes": {
+    "01a1e018-b8a9-7192-8f6f-a1758a34ee67": [
+      {
+        "at": "2026-11-28T01:28:47Z",
+        "by": "agent:claude",
+        "text": "2026-11-28: scripts/devpod-update written (uncommitted) and running for the fourth update: graphviz, imagemagick and everything since 20261115164407. Builds on the desktop as a transient user unit, copies and checksums the four files, runs sysupdate; never reboots."
+      }
+    ]
   }
 }
