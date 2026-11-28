@@ -4,11 +4,70 @@
     "id": "01a0ff54-85a4-726e-89fe-87b159978cdb"
   },
   "notes": {
+    "01a1a9fb-d743-7db0-9ec2-8dbe9d3b2cb0": [
+      {
+        "at": "2026-11-28T01:37:18Z",
+        "by": "agent:claude",
+        "text": "Done 2026-11-28 on 20261128012843: removed ~/.local/bin/luarocks and ~/.local/opt/lua-tools. LUA_INCDIR is /usr/include/lua5.1. ~/.luarocks/bin/busted still pointed at the old lua5.1; reinstalled busted 2.3.0-1 --force (only stale wrapper). clearhead.nvim pre-push: 101 successes, all checks passed."
+      }
+    ],
+    "01a1bec8-0a63-7ec1-bede-64a93a92fb7e": [
+      {
+        "at": "2026-11-28T01:37:18Z",
+        "by": "agent:claude",
+        "text": "Done 2026-11-28: removed ~/.local/bin/rust-analyzer and ~/.local/opt/rust-tools. /usr/bin/rust-analyzer diagnostics on platform/clearhead-core with RUST_SRC_PATH unset: 0 errors."
+      }
+    ],
+    "01a1d8f3-23f2-7350-8e78-990059d18059": [
+      {
+        "at": "2026-11-28T01:37:18Z",
+        "by": "agent:claude",
+        "text": "Done 2026-11-28: cargo uninstall. Note /usr/bin/stylua is 2.5.2, older than the interim 2.6.0."
+      }
+    ],
     "01a1e018-b8a9-7192-8f6f-a1758a34ee67": [
       {
         "at": "2026-11-28T01:28:47Z",
         "by": "agent:claude",
         "text": "2026-11-28: scripts/devpod-update written (uncommitted) and running for the fourth update: graphviz, imagemagick and everything since 20261115164407. Builds on the desktop as a transient user unit, copies and checksums the four files, runs sysupdate; never reboots."
+      },
+      {
+        "at": "2026-11-28T01:31:59Z",
+        "by": "agent:claude",
+        "text": "2026-11-28T01:32Z: Darrion chose to reboot now into 20261128012843 (committed 9b91ce0, not pushed). After boot: check IMAGE_VERSION, which dot magick lua-language-server stylua lazygit evcxr make luarocks resolve to /usr/bin, then work the drop-interim actions and complete this one."
+      },
+      {
+        "at": "2026-11-28T01:37:19Z",
+        "by": "agent:claude",
+        "text": "Done 2026-11-28: first scripted update booted as 20261128012843 (bootctl current entry), no failed units, shpool and srr-demo active, tailscale serve up. Interim tools dropped."
+      }
+    ],
+    "01a1e661-1b37-74e1-8d3b-22fd188182e3": [
+      {
+        "at": "2026-11-28T01:37:19Z",
+        "by": "agent:claude",
+        "text": "Done 2026-11-28: removed. Note /usr/bin/lazygit is 0.65.1, older than the interim 0.66.3."
+      }
+    ],
+    "01a1f7b9-e9f7-7162-97a6-38896af7e04a": [
+      {
+        "at": "2026-11-28T01:37:19Z",
+        "by": "agent:claude",
+        "text": "Done 2026-11-28: cargo uninstall evcxr_repl; evcxr resolves to /usr/bin."
+      }
+    ],
+    "01a20c4a-6645-7530-b009-b0cb9d4d7100": [
+      {
+        "at": "2026-11-28T01:37:19Z",
+        "by": "agent:claude",
+        "text": "Done 2026-11-28: removed wrapper and ~/.local/opt/make. tree-sitter-actions npm run test:all: 46 pass, 0 fail."
+      }
+    ],
+    "01a21f9f-cae8-71e1-9b11-c30f5cd92ff6": [
+      {
+        "at": "2026-11-28T01:37:19Z",
+        "by": "agent:claude",
+        "text": "Done 2026-11-28: removed wrappers, ~/.local/opt/c4tools, podman image. The image lacked /etc/fonts so dot drew labels as dingbats; added L? /etc/fonts to mkosi.extra tmpfiles etc.conf and created the same link on devbox with systemd-tmpfiles; Person renders."
       }
     ]
   }
