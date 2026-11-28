@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# Build a signed dev-pod image on the desktop and stage it on this pod with systemd-sysupdate.
+# Run on devbox as the facilitator. It does not reboot: pick the moment, then reboot into the new slot.
+# Steps and gotchas: docs/install-dev-pod.md, Updating. Usage: scripts/devpod-update [desktop-host]
+set -euo pipefail
+
+desktop=${1:-desktop}
+repo=$(cd "$(dirname "$0")/.." && pwd)
+version=$(date -u +%Y%m%d%H%M%S)
+stage=/var/tmp/pos-update-$version
+remote_repo='~/Products/personal-os'
+out=mkosi.output/dev-pod
+
+echo "== build $version on $desktop"
+# The desktop's login shell is fish, so the script goes to sh. The build runs as a transient user unit,
+# so it survives a dropped ssh connection; --wait --pipe streams it here.
+ssh "$desktop" sh -s -- "$version" <<'EOF'
+set -eu
+version=$1
+cd ~/Products/personal-os
+git fetch -q origin
+git merge --ff-only -q origin/personal-os
+git log --oneline -1
+k=~/.local/share/personal-os/keys
+systemd-run --user --wait --pipe --collect --quiet --unit="devpod-build-$version" \
+  -p WorkingDirectory="$PWD" \
+  bash scripts/mkosi-arch dev-pod --image-version="$version" \
+    --secure-boot-key=$k/mkosi.key --secure-boot-certificate=$k/mkosi.crt \
+    --verity-key=$k/mkosi.key --verity-certificate=$k/mkosi.crt \
+    --sign-expected-pcr-key=$k/mkosi.key --sign-expected-pcr-certificate=$k/mkosi.crt --force build
+EOF
+
+echo "== copy to $stage"
+mkdir -p "$stage"
+files=$(ssh "$desktop" sh -s -- "$version" <<'EOF'
+cd ~/Products/personal-os/mkosi.output/dev-pod
+ls PersonalOS_"$1"_x86-64.efi PersonalOS_"$1"_x86-64.usr-*.raw
+EOF
+)
+[ "$(echo "$files" | wc -l)" = 4 ] || { echo "expected 4 files, got: $files" >&2; exit 1; }
+for f in $files; do scp -q "$desktop:$remote_repo/$out/$f" "$stage/"; done
+
+echo "== checksum"
+remote=$(ssh "$desktop" sh -s -- "$version" <<'EOF'
+cd ~/Products/personal-os/mkosi.output/dev-pod && sha256sum PersonalOS_"$1"_x86-64.efi PersonalOS_"$1"_x86-64.usr-*.raw
+EOF
+)
+local_sums=$(cd "$stage" && sha256sum $files)
+[ "$remote" = "$local_sums" ] || { echo "checksum mismatch" >&2; diff <(echo "$remote") <(echo "$local_sums") >&2; exit 1; }
+
+echo "== sysupdate"
+run0 /usr/lib/systemd/systemd-sysupdate --definitions="$repo/mkosi.sysupdate" --transfer-source="$stage" update
+
+echo "== staged $version; reboot when ready (the old slot stays as fallback, TriesLeft=3)"

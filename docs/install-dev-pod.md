@@ -128,6 +128,10 @@ tailscale serve intact, and clearhead-core's `scripts/gate.sh` now passes on the
 - An update only replaces `/usr`. Presets run on first boot only, so a newly added service needs
   `systemctl preset <unit>` once, and a package's files in `/etc` never arrive (tailscale's `/etc/default`).
 
+Since 2026-11-28, `scripts/devpod-update` does all of this from the pod except the reboot: it builds on the desktop
+as a transient user unit, copies the four files to `/var/tmp/pos-update-<version>`, compares checksums and runs
+sysupdate. First run: image `20261128012843`, about two and a half minutes with a warm cache.
+
 Rollback, rehearsed 2026-10-14 from `20261013184421` (mkosi) to `20261013173422` and back: `run0 bootctl
 set-oneshot PersonalOS_<old>_x86-64.efi`, reboot, check `IMAGE_VERSION` in `/etc/os-release`; a plain reboot
 then returns to the default (newest) entry. The old slot lacks anything added since, so don't run tools that
